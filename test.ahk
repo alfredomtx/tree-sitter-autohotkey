@@ -39,3 +39,46 @@ if (x = 1) {
         break
     }
 }
+
+; === Operators ===
+; Assignment
+a := 1
+b += 2
+c -= 3
+d *= 4
+e /= 5
+f .= "text"
+
+; Comparison
+equal := a == b
+notEqual := a != b
+alsoNotEqual := a <> b
+greater := a > b
+less := a < b
+greaterEq := a >= b
+lessEq := a <= b
+
+; Arithmetic
+sum := 1 + 2
+diff := 5 - 3
+prod := 4 * 2
+quot := 10 / 2
+intDiv := 10 // 3
+power := 2 ** 8
+modulo := 10 % 3
+
+; Logical
+both := a && b
+either := a || b
+negated := !a
+
+; Bitwise
+bitAnd := a & b
+bitOr := a | b
+bitXor := a ^ b
+bitNot := ~a
+shiftR := a >> 2
+shiftL := a << 2
+
+; Ternary (? is operator, : is not - conflicts with labels)
+result := condition ? "yes" : "no"

@@ -15,6 +15,9 @@
 ; Keywords
 (keyword) @keyword
 
+; Operators
+(operator) @operator
+
 ; Hotkeys
 (hotkey) @keyword
 

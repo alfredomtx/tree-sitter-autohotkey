@@ -26,6 +26,7 @@ module.exports = grammar({
       $.string,
       $.number,
       $.keyword,
+      $.operator,
       $.identifier,
       $._punctuation,
     ),
@@ -126,9 +127,24 @@ module.exports = grammar({
       'and', 'or', 'not',
     ),
 
+    operator: $ => choice(
+      // Assignment
+      ':=', '+=', '-=', '*=', '/=', '.=',
+      // Comparison
+      '==', '!=', '<>', '>=', '<=', '>', '<',
+      // Arithmetic
+      '//', '**', '+', '-', '*', '/', '%',
+      // Logical
+      '&&', '||', '!',
+      // Bitwise
+      '>>', '<<', '&', '|', '^', '~',
+      // Ternary (only ?, colon conflicts with labels)
+      '?',
+    ),
+
     identifier: $ => /[a-zA-Z_][a-zA-Z0-9_]*/,
 
-    // Punctuation and operators - NO braces, NO ^, NO :
-    _punctuation: $ => /[:=(){}\[\]]+|[+\-*\/%<>=!&|~.,@$?\\]+/,
+    // Remaining punctuation (braces, brackets, parens, dots, commas)
+    _punctuation: $ => /[(){}\[\].,@$\\]+/,
   }
 });
