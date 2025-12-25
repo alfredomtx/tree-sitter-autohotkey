@@ -182,53 +182,56 @@ module.exports = grammar({
 
     identifier: $ => /[a-zA-Z_][a-zA-Z0-9_]*/,
 
-    builtin_variable: $ => token(choice(
+    // Split into multiple token() groups to avoid regex length limit in tree-sitter-wasm
+    builtin_variable: $ => choice(
       // Non-A_ builtins
-      'Clipboard', 'ClipboardAll', 'ErrorLevel',
+      token(/Clipboard|ClipboardAll|ErrorLevel/),
 
       // Script info
-      'A_ScriptDir', 'A_ScriptFullPath', 'A_ScriptName', 'A_ScriptHwnd',
-      'A_LineNumber', 'A_LineFile', 'A_AhkVersion', 'A_AhkPath',
-      'A_IsCompiled', 'A_IsUnicode', 'A_PtrSize',
+      token(/A_ScriptDir|A_ScriptFullPath|A_ScriptName|A_ScriptHwnd/),
+      token(/A_LineNumber|A_LineFile|A_AhkVersion|A_AhkPath/),
+      token(/A_IsCompiled|A_IsUnicode|A_PtrSize/),
 
       // Date/Time
-      'A_Now', 'A_NowUTC', 'A_TickCount',
-      'A_Year', 'A_Mon', 'A_DD', 'A_MDay', 'A_WDay', 'A_YDay', 'A_YWeek',
-      'A_Hour', 'A_Min', 'A_Sec', 'A_MSec',
+      token(/A_Now|A_NowUTC|A_TickCount/),
+      token(/A_Year|A_Mon|A_DD|A_MDay|A_WDay|A_YDay|A_YWeek/),
+      token(/A_Hour|A_Min|A_Sec|A_MSec/),
 
       // Paths
-      'A_WorkingDir', 'A_Desktop', 'A_DesktopCommon', 'A_MyDocuments',
-      'A_AppData', 'A_AppDataCommon', 'A_Temp',
-      'A_StartMenu', 'A_Programs', 'A_Startup',
-      'A_WinDir', 'A_ProgramFiles', 'A_ComSpec',
+      token(/A_WorkingDir|A_Desktop|A_DesktopCommon|A_MyDocuments/),
+      token(/A_AppData|A_AppDataCommon|A_Temp/),
+      token(/A_StartMenu|A_Programs|A_Startup/),
+      token(/A_WinDir|A_ProgramFiles|A_ComSpec/),
 
       // Screen/Display
-      'A_ScreenWidth', 'A_ScreenHeight', 'A_ScreenDPI',
+      token(/A_ScreenWidth|A_ScreenHeight|A_ScreenDPI/),
 
       // Keyboard/Mouse
-      'A_Cursor', 'A_CaretX', 'A_CaretY', 'A_TimeIdle', 'A_TimeIdlePhysical',
+      token(/A_Cursor|A_CaretX|A_CaretY|A_TimeIdle|A_TimeIdlePhysical/),
 
       // Hotkey
-      'A_ThisHotkey', 'A_PriorHotkey', 'A_TimeSinceThisHotkey', 'A_TimeSincePriorHotkey', 'A_EndChar',
+      token(/A_ThisHotkey|A_PriorHotkey|A_EndChar/),
+      token(/A_TimeSinceThisHotkey|A_TimeSincePriorHotkey/),
 
       // Loop
-      'A_Index', 'A_LoopField',
-      'A_LoopFileName', 'A_LoopFileFullPath', 'A_LoopFilePath', 'A_LoopFileDir', 'A_LoopFileExt',
-      'A_LoopFileTimeCreated', 'A_LoopFileTimeModified', 'A_LoopFileTimeAccessed', 'A_LoopFileSize',
-      'A_LoopRegName', 'A_LoopRegKey', 'A_LoopReadLine',
+      token(/A_Index|A_LoopField|A_LoopReadLine/),
+      token(/A_LoopFileName|A_LoopFileFullPath|A_LoopFilePath|A_LoopFileDir|A_LoopFileExt/),
+      token(/A_LoopFileTimeCreated|A_LoopFileTimeModified|A_LoopFileTimeAccessed|A_LoopFileSize/),
+      token(/A_LoopRegName|A_LoopRegKey/),
 
       // GUI
-      'A_Gui', 'A_GuiControl', 'A_GuiEvent', 'A_GuiWidth', 'A_GuiHeight', 'A_GuiX', 'A_GuiY', 'A_EventInfo',
+      token(/A_Gui|A_GuiControl|A_GuiEvent|A_EventInfo/),
+      token(/A_GuiWidth|A_GuiHeight|A_GuiX|A_GuiY/),
 
       // Other
-      'A_Space', 'A_Tab',
-      'A_UserName', 'A_ComputerName',
-      'A_IPAddress1', 'A_IPAddress2', 'A_IPAddress3', 'A_IPAddress4',
-      'A_IsAdmin', 'A_OSType', 'A_OSVersion', 'A_Language',
-      'A_IsSuspended', 'A_IsPaused', 'A_IsCritical',
-      'A_BatchLines', 'A_TitleMatchMode', 'A_DetectHiddenWindows', 'A_DetectHiddenText',
-      'A_LastError',
-    )),
+      token(/A_Space|A_Tab/),
+      token(/A_UserName|A_ComputerName/),
+      token(/A_IPAddress1|A_IPAddress2|A_IPAddress3|A_IPAddress4/),
+      token(/A_IsAdmin|A_OSType|A_OSVersion|A_Language/),
+      token(/A_IsSuspended|A_IsPaused|A_IsCritical/),
+      token(/A_BatchLines|A_TitleMatchMode|A_DetectHiddenWindows|A_DetectHiddenText/),
+      token(/A_LastError/),
+    ),
 
     // Remaining punctuation (braces, brackets, parens, dots, commas)
     _punctuation: $ => /[(){}\[\].,@$\\]+/,
