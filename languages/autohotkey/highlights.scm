@@ -17,10 +17,11 @@
 ; Hotkeys
 (hotkey) @keyword
 
-; Directives
-(directive) @preproc
+; Directives - use @attribute instead of @preproc
+(directive) @attribute
+(directive . (identifier) @attribute)
 
-; Functions - specific patterns LAST to override fallback
+; Functions
 (function_definition . (identifier) @function)
 (function_call . (identifier) @function)
 
