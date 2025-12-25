@@ -94,9 +94,9 @@ module.exports = grammar({
       ))
     )),
 
-    // Use token() to bypass keyword extraction issues
+    // Use token() to bypass keyword extraction issues - testing with fewer commands
     command_name: $ => token(prec(3,
-      /MsgBox|InputBox|ToolTip|TrayTip|Send|SendInput|SendRaw|SendEvent|SendPlay|Sleep|SetTimer|Run|RunWait|WinActivate|WinWait|WinClose|WinMinimize|WinMaximize|FileRead|FileAppend|FileDelete|FileCopy|FileMove|RegRead|RegWrite|RegDelete|SetWorkingDir|CoordMode|SetFormat|SetBatchLines|SetDefaultMouseSpeed|SetWinDelay|SetControlDelay|IniRead|IniWrite|Gui|GuiControl|Reload|ExitApp|Suspend|Pause/
+      /MsgBox|Sleep|Send|Run|Gui|Reload|ExitApp/
     )),
 
     command_arguments: $ => prec.left(repeat1(choice(

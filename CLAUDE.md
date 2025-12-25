@@ -55,3 +55,34 @@ After modifying `grammar.js`:
 - Put fallback patterns first (e.g., `(identifier) @variable`), specific patterns last to override
 - Use anchored child syntax with `.` for first child: `(function_definition . (identifier) @function)`
 - Zed uses `@attribute` for preprocessor-style directives (not `@preproc`)
+
+## Tree-sitter Grammar Pitfalls
+
+### DO NOT use `word` rule with token-based command matching
+
+**Problem:** The `word: $ => $.identifier` rule enables tree-sitter's keyword extraction, which interferes with `token()` rules. When enabled, only SOME alternatives in a regex pattern will match - the rest silently fail to highlight.
+
+**Solution:** This grammar intentionally OMITS the `word` rule. Commands use `token(prec(3, /regex/))` instead of `choice()` of string literals.
+
+```javascript
+// WRONG - keyword extraction breaks this
+word: $ => $.identifier,
+command_name: $ => choice('MsgBox', 'Sleep', 'Run'),
+
+// CORRECT - no word rule, use token with regex
+// (no word rule)
+command_name: $ => token(prec(3, /MsgBox|Sleep|Run/)),
+```
+
+### Use `token(prec())` for command names, not `choice()`
+
+**Problem:** Using `choice('MsgBox', 'Sleep', ...)` relies on keyword extraction which has subtle bugs in tree-sitter-wasm/Zed integration.
+
+**Solution:** Use a single regex token with precedence:
+```javascript
+command_name: $ => token(prec(3, /MsgBox|Sleep|Run|.../)),
+```
+
+### The `[$.command]` conflict is required
+
+The grammar needs `[$.command]` in the conflicts array to resolve ambiguity between `command` with and without arguments. Don't remove it.
