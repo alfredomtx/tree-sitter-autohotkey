@@ -66,6 +66,10 @@
         },
         {
           "type": "SYMBOL",
+          "name": "builtin_variable"
+        },
+        {
+          "type": "SYMBOL",
           "name": "identifier"
         },
         {
@@ -504,8 +508,17 @@
           "value": "%"
         },
         {
-          "type": "SYMBOL",
-          "name": "identifier"
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "builtin_variable"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "identifier"
+            }
+          ]
         },
         {
           "type": "STRING",
@@ -603,6 +616,10 @@
         {
           "type": "SYMBOL",
           "name": "number"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "builtin_variable"
         },
         {
           "type": "SYMBOL",
@@ -903,6 +920,398 @@
     "identifier": {
       "type": "PATTERN",
       "value": "[a-zA-Z_][a-zA-Z0-9_]*"
+    },
+    "builtin_variable": {
+      "type": "TOKEN",
+      "content": {
+        "type": "CHOICE",
+        "members": [
+          {
+            "type": "STRING",
+            "value": "Clipboard"
+          },
+          {
+            "type": "STRING",
+            "value": "ClipboardAll"
+          },
+          {
+            "type": "STRING",
+            "value": "ErrorLevel"
+          },
+          {
+            "type": "STRING",
+            "value": "A_ScriptDir"
+          },
+          {
+            "type": "STRING",
+            "value": "A_ScriptFullPath"
+          },
+          {
+            "type": "STRING",
+            "value": "A_ScriptName"
+          },
+          {
+            "type": "STRING",
+            "value": "A_ScriptHwnd"
+          },
+          {
+            "type": "STRING",
+            "value": "A_LineNumber"
+          },
+          {
+            "type": "STRING",
+            "value": "A_LineFile"
+          },
+          {
+            "type": "STRING",
+            "value": "A_AhkVersion"
+          },
+          {
+            "type": "STRING",
+            "value": "A_AhkPath"
+          },
+          {
+            "type": "STRING",
+            "value": "A_IsCompiled"
+          },
+          {
+            "type": "STRING",
+            "value": "A_IsUnicode"
+          },
+          {
+            "type": "STRING",
+            "value": "A_PtrSize"
+          },
+          {
+            "type": "STRING",
+            "value": "A_Now"
+          },
+          {
+            "type": "STRING",
+            "value": "A_NowUTC"
+          },
+          {
+            "type": "STRING",
+            "value": "A_TickCount"
+          },
+          {
+            "type": "STRING",
+            "value": "A_Year"
+          },
+          {
+            "type": "STRING",
+            "value": "A_Mon"
+          },
+          {
+            "type": "STRING",
+            "value": "A_DD"
+          },
+          {
+            "type": "STRING",
+            "value": "A_MDay"
+          },
+          {
+            "type": "STRING",
+            "value": "A_WDay"
+          },
+          {
+            "type": "STRING",
+            "value": "A_YDay"
+          },
+          {
+            "type": "STRING",
+            "value": "A_YWeek"
+          },
+          {
+            "type": "STRING",
+            "value": "A_Hour"
+          },
+          {
+            "type": "STRING",
+            "value": "A_Min"
+          },
+          {
+            "type": "STRING",
+            "value": "A_Sec"
+          },
+          {
+            "type": "STRING",
+            "value": "A_MSec"
+          },
+          {
+            "type": "STRING",
+            "value": "A_WorkingDir"
+          },
+          {
+            "type": "STRING",
+            "value": "A_Desktop"
+          },
+          {
+            "type": "STRING",
+            "value": "A_DesktopCommon"
+          },
+          {
+            "type": "STRING",
+            "value": "A_MyDocuments"
+          },
+          {
+            "type": "STRING",
+            "value": "A_AppData"
+          },
+          {
+            "type": "STRING",
+            "value": "A_AppDataCommon"
+          },
+          {
+            "type": "STRING",
+            "value": "A_Temp"
+          },
+          {
+            "type": "STRING",
+            "value": "A_StartMenu"
+          },
+          {
+            "type": "STRING",
+            "value": "A_Programs"
+          },
+          {
+            "type": "STRING",
+            "value": "A_Startup"
+          },
+          {
+            "type": "STRING",
+            "value": "A_WinDir"
+          },
+          {
+            "type": "STRING",
+            "value": "A_ProgramFiles"
+          },
+          {
+            "type": "STRING",
+            "value": "A_ComSpec"
+          },
+          {
+            "type": "STRING",
+            "value": "A_ScreenWidth"
+          },
+          {
+            "type": "STRING",
+            "value": "A_ScreenHeight"
+          },
+          {
+            "type": "STRING",
+            "value": "A_ScreenDPI"
+          },
+          {
+            "type": "STRING",
+            "value": "A_Cursor"
+          },
+          {
+            "type": "STRING",
+            "value": "A_CaretX"
+          },
+          {
+            "type": "STRING",
+            "value": "A_CaretY"
+          },
+          {
+            "type": "STRING",
+            "value": "A_TimeIdle"
+          },
+          {
+            "type": "STRING",
+            "value": "A_TimeIdlePhysical"
+          },
+          {
+            "type": "STRING",
+            "value": "A_ThisHotkey"
+          },
+          {
+            "type": "STRING",
+            "value": "A_PriorHotkey"
+          },
+          {
+            "type": "STRING",
+            "value": "A_TimeSinceThisHotkey"
+          },
+          {
+            "type": "STRING",
+            "value": "A_TimeSincePriorHotkey"
+          },
+          {
+            "type": "STRING",
+            "value": "A_EndChar"
+          },
+          {
+            "type": "STRING",
+            "value": "A_Index"
+          },
+          {
+            "type": "STRING",
+            "value": "A_LoopField"
+          },
+          {
+            "type": "STRING",
+            "value": "A_LoopFileName"
+          },
+          {
+            "type": "STRING",
+            "value": "A_LoopFileFullPath"
+          },
+          {
+            "type": "STRING",
+            "value": "A_LoopFilePath"
+          },
+          {
+            "type": "STRING",
+            "value": "A_LoopFileDir"
+          },
+          {
+            "type": "STRING",
+            "value": "A_LoopFileExt"
+          },
+          {
+            "type": "STRING",
+            "value": "A_LoopFileTimeCreated"
+          },
+          {
+            "type": "STRING",
+            "value": "A_LoopFileTimeModified"
+          },
+          {
+            "type": "STRING",
+            "value": "A_LoopFileTimeAccessed"
+          },
+          {
+            "type": "STRING",
+            "value": "A_LoopFileSize"
+          },
+          {
+            "type": "STRING",
+            "value": "A_LoopRegName"
+          },
+          {
+            "type": "STRING",
+            "value": "A_LoopRegKey"
+          },
+          {
+            "type": "STRING",
+            "value": "A_LoopReadLine"
+          },
+          {
+            "type": "STRING",
+            "value": "A_Gui"
+          },
+          {
+            "type": "STRING",
+            "value": "A_GuiControl"
+          },
+          {
+            "type": "STRING",
+            "value": "A_GuiEvent"
+          },
+          {
+            "type": "STRING",
+            "value": "A_GuiWidth"
+          },
+          {
+            "type": "STRING",
+            "value": "A_GuiHeight"
+          },
+          {
+            "type": "STRING",
+            "value": "A_GuiX"
+          },
+          {
+            "type": "STRING",
+            "value": "A_GuiY"
+          },
+          {
+            "type": "STRING",
+            "value": "A_EventInfo"
+          },
+          {
+            "type": "STRING",
+            "value": "A_Space"
+          },
+          {
+            "type": "STRING",
+            "value": "A_Tab"
+          },
+          {
+            "type": "STRING",
+            "value": "A_UserName"
+          },
+          {
+            "type": "STRING",
+            "value": "A_ComputerName"
+          },
+          {
+            "type": "STRING",
+            "value": "A_IPAddress1"
+          },
+          {
+            "type": "STRING",
+            "value": "A_IPAddress2"
+          },
+          {
+            "type": "STRING",
+            "value": "A_IPAddress3"
+          },
+          {
+            "type": "STRING",
+            "value": "A_IPAddress4"
+          },
+          {
+            "type": "STRING",
+            "value": "A_IsAdmin"
+          },
+          {
+            "type": "STRING",
+            "value": "A_OSType"
+          },
+          {
+            "type": "STRING",
+            "value": "A_OSVersion"
+          },
+          {
+            "type": "STRING",
+            "value": "A_Language"
+          },
+          {
+            "type": "STRING",
+            "value": "A_IsSuspended"
+          },
+          {
+            "type": "STRING",
+            "value": "A_IsPaused"
+          },
+          {
+            "type": "STRING",
+            "value": "A_IsCritical"
+          },
+          {
+            "type": "STRING",
+            "value": "A_BatchLines"
+          },
+          {
+            "type": "STRING",
+            "value": "A_TitleMatchMode"
+          },
+          {
+            "type": "STRING",
+            "value": "A_DetectHiddenWindows"
+          },
+          {
+            "type": "STRING",
+            "value": "A_DetectHiddenText"
+          },
+          {
+            "type": "STRING",
+            "value": "A_LastError"
+          }
+        ]
+      }
     },
     "_punctuation": {
       "type": "PATTERN",

@@ -29,6 +29,7 @@ module.exports = grammar({
       $.number,
       $.keyword,
       $.operator,
+      $.builtin_variable,
       $.identifier,
       $._punctuation,
     ),
@@ -118,7 +119,7 @@ module.exports = grammar({
       /[^\s,\n%"']+/,
     ))),
 
-    variable_ref: $ => seq('%', $.identifier, '%'),
+    variable_ref: $ => seq('%', choice($.builtin_variable, $.identifier), '%'),
 
     parameter_list: $ => seq(
       $.parameter,
@@ -138,6 +139,7 @@ module.exports = grammar({
     _expression: $ => choice(
       $.string,
       $.number,
+      $.builtin_variable,
       $.identifier,
       $.function_call,
     ),
@@ -179,6 +181,54 @@ module.exports = grammar({
     ),
 
     identifier: $ => /[a-zA-Z_][a-zA-Z0-9_]*/,
+
+    builtin_variable: $ => token(choice(
+      // Non-A_ builtins
+      'Clipboard', 'ClipboardAll', 'ErrorLevel',
+
+      // Script info
+      'A_ScriptDir', 'A_ScriptFullPath', 'A_ScriptName', 'A_ScriptHwnd',
+      'A_LineNumber', 'A_LineFile', 'A_AhkVersion', 'A_AhkPath',
+      'A_IsCompiled', 'A_IsUnicode', 'A_PtrSize',
+
+      // Date/Time
+      'A_Now', 'A_NowUTC', 'A_TickCount',
+      'A_Year', 'A_Mon', 'A_DD', 'A_MDay', 'A_WDay', 'A_YDay', 'A_YWeek',
+      'A_Hour', 'A_Min', 'A_Sec', 'A_MSec',
+
+      // Paths
+      'A_WorkingDir', 'A_Desktop', 'A_DesktopCommon', 'A_MyDocuments',
+      'A_AppData', 'A_AppDataCommon', 'A_Temp',
+      'A_StartMenu', 'A_Programs', 'A_Startup',
+      'A_WinDir', 'A_ProgramFiles', 'A_ComSpec',
+
+      // Screen/Display
+      'A_ScreenWidth', 'A_ScreenHeight', 'A_ScreenDPI',
+
+      // Keyboard/Mouse
+      'A_Cursor', 'A_CaretX', 'A_CaretY', 'A_TimeIdle', 'A_TimeIdlePhysical',
+
+      // Hotkey
+      'A_ThisHotkey', 'A_PriorHotkey', 'A_TimeSinceThisHotkey', 'A_TimeSincePriorHotkey', 'A_EndChar',
+
+      // Loop
+      'A_Index', 'A_LoopField',
+      'A_LoopFileName', 'A_LoopFileFullPath', 'A_LoopFilePath', 'A_LoopFileDir', 'A_LoopFileExt',
+      'A_LoopFileTimeCreated', 'A_LoopFileTimeModified', 'A_LoopFileTimeAccessed', 'A_LoopFileSize',
+      'A_LoopRegName', 'A_LoopRegKey', 'A_LoopReadLine',
+
+      // GUI
+      'A_Gui', 'A_GuiControl', 'A_GuiEvent', 'A_GuiWidth', 'A_GuiHeight', 'A_GuiX', 'A_GuiY', 'A_EventInfo',
+
+      // Other
+      'A_Space', 'A_Tab',
+      'A_UserName', 'A_ComputerName',
+      'A_IPAddress1', 'A_IPAddress2', 'A_IPAddress3', 'A_IPAddress4',
+      'A_IsAdmin', 'A_OSType', 'A_OSVersion', 'A_Language',
+      'A_IsSuspended', 'A_IsPaused', 'A_IsCritical',
+      'A_BatchLines', 'A_TitleMatchMode', 'A_DetectHiddenWindows', 'A_DetectHiddenText',
+      'A_LastError',
+    )),
 
     // Remaining punctuation (braces, brackets, parens, dots, commas)
     _punctuation: $ => /[(){}\[\].,@$\\]+/,

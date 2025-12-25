@@ -8,6 +8,10 @@
       "required": true,
       "types": [
         {
+          "type": "builtin_variable",
+          "named": true
+        },
+        {
           "type": "function_call",
           "named": true
         },
@@ -160,6 +164,10 @@
           "named": true
         },
         {
+          "type": "builtin_variable",
+          "named": true
+        },
+        {
           "type": "command",
           "named": true
         },
@@ -258,6 +266,10 @@
       "required": true,
       "types": [
         {
+          "type": "builtin_variable",
+          "named": true
+        },
+        {
           "type": "function_call",
           "named": true
         },
@@ -302,6 +314,10 @@
       "types": [
         {
           "type": "block_comment",
+          "named": true
+        },
+        {
+          "type": "builtin_variable",
           "named": true
         },
         {
@@ -372,6 +388,10 @@
       "multiple": false,
       "required": true,
       "types": [
+        {
+          "type": "builtin_variable",
+          "named": true
+        },
         {
           "type": "identifier",
           "named": true
@@ -534,6 +554,10 @@
   {
     "type": "break",
     "named": false
+  },
+  {
+    "type": "builtin_variable",
+    "named": true
   },
   {
     "type": "catch",

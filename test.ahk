@@ -92,3 +92,23 @@ CoordMode, Mouse, Screen
 SetFormat, Float, 0.0
 IniRead, value, %filepath%, section, key
 Gui, MyGui:Add, Text,, Hello
+
+; === Built-in Variables ===
+; Direct usage in expressions
+path := A_ScriptDir
+time := A_Now
+idle := A_TimeIdle
+version := A_AhkVersion
+
+; Inside variable references
+MsgBox, %A_TickCount%
+Run, %A_ComSpec%
+
+; Non-A_ builtins
+text := Clipboard
+if (ErrorLevel)
+    return
+
+; Should NOT match as builtins (regular identifiers)
+A_CustomVar := 1
+myA_Var := 2
