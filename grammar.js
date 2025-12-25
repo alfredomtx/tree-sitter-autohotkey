@@ -86,13 +86,13 @@ module.exports = grammar({
       ')'
     ),
 
-    command: $ => seq(
+    command: $ => prec(2, seq(
       field('name', $.command_name),
       optional(seq(
         ',',
         optional($.command_arguments)
       ))
-    ),
+    )),
 
     command_name: $ => choice(
       // Display
