@@ -94,10 +94,21 @@ module.exports = grammar({
       ))
     )),
 
-    // Use token() to bypass keyword extraction issues - testing with fewer commands
-    command_name: $ => token(prec(3,
-      /MsgBox|Sleep|Send|Run|Gui|Reload|ExitApp/
-    )),
+    // Split into multiple token() groups to avoid regex length limit in tree-sitter-wasm
+    command_name: $ => choice(
+      token(prec(3, /MsgBox|InputBox|ToolTip|TrayTip/)),
+      token(prec(3, /Send|SendInput|SendRaw|SendEvent|SendPlay/)),
+      token(prec(3, /Sleep|SetTimer|Pause|Suspend/)),
+      token(prec(3, /Run|RunWait|Reload|ExitApp/)),
+      token(prec(3, /WinActivate|WinWait|WinClose|WinMinimize|WinMaximize/)),
+      token(prec(3, /FileRead|FileAppend|FileDelete|FileCopy|FileMove/)),
+      token(prec(3, /RegRead|RegWrite|RegDelete/)),
+      token(prec(3, /IniRead|IniWrite/)),
+      token(prec(3, /Gui|GuiControl/)),
+      token(prec(3, /SetWorkingDir|CoordMode|SetFormat|SetBatchLines/)),
+      token(prec(3, /SetDefaultMouseSpeed|SetWinDelay|SetControlDelay/)),
+      token(prec(3, /Gosub|Goto/)),
+    ),
 
     command_arguments: $ => prec.left(repeat1(choice(
       $.variable_ref,
