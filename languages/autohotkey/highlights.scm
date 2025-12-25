@@ -11,21 +11,21 @@
 ; Keywords
 (keyword) @keyword
 
-; Functions
+; Functions - must come before generic identifier
 (function_definition name: (identifier) @function)
-(function_call name: (identifier) @function.call)
+(function_call name: (identifier) @function)
 
 ; Parameters
-(parameter (identifier) @variable.parameter)
+(parameter (identifier) @variable)
 
 ; Labels
 (label name: (identifier) @label)
 
 ; Hotkeys
-(hotkey) @keyword.special
+(hotkey) @keyword
 
 ; Directives
-(directive) @keyword.directive
+(directive) @preproc
 
-; Identifiers (fallback)
+; Identifiers (fallback - must be last)
 (identifier) @variable
