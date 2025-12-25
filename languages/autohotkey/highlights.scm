@@ -4,6 +4,7 @@
 ; Comments
 (comment) @comment
 (block_comment) @comment
+(doc_comment) @comment
 
 ; Strings
 (string) @string

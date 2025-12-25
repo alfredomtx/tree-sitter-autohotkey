@@ -27,3 +27,6 @@ node_modules/
 # Tree-sitter generated files
 build/
 *.wasm
+
+# AI tools
+/.claude

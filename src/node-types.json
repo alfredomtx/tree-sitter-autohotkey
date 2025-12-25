@@ -52,6 +52,11 @@
     }
   },
   {
+    "type": "doc_comment",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "function_call",
     "named": true,
     "fields": {
@@ -106,6 +111,10 @@
         },
         {
           "type": "directive",
+          "named": true
+        },
+        {
+          "type": "doc_comment",
           "named": true
         },
         {
@@ -237,6 +246,10 @@
           "named": true
         },
         {
+          "type": "doc_comment",
+          "named": true
+        },
+        {
           "type": "function_call",
           "named": true
         },
@@ -306,6 +319,10 @@
   },
   {
     "type": "/*",
+    "named": false
+  },
+  {
+    "type": "/**",
     "named": false
   },
   {

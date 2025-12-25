@@ -16,6 +16,7 @@ module.exports = grammar({
 
     _statement: $ => choice(
       $.comment,
+      $.doc_comment,
       $.block_comment,
       $.directive,
       $.hotkey,
@@ -36,6 +37,12 @@ module.exports = grammar({
 
     block_comment: $ => seq(
       '/*',
+      /[^*]*\*+([^/*][^*]*\*+)*/,
+      '/'
+    ),
+
+    doc_comment: $ => seq(
+      '/**',
       /[^*]*\*+([^/*][^*]*\*+)*/,
       '/'
     ),

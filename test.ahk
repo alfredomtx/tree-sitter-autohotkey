@@ -5,6 +5,12 @@
 /* Block
 comment */
 
+/**
+ * This is a doc comment
+ * @param param1 The first parameter
+ * @param param2 The second parameter
+ * @return The sum of both parameters
+ */
 MyFunc(param1, param2) {
     return param1 + param2
 }
