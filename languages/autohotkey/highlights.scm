@@ -1,3 +1,6 @@
+; Identifiers (fallback - FIRST so others override)
+(identifier) @variable
+
 ; Comments
 (comment) @comment
 (block_comment) @comment
@@ -11,19 +14,15 @@
 ; Keywords
 (keyword) @keyword
 
-; Functions - try anchored first child with .
-(function_definition . (identifier) @function)
-(function_call . (identifier) @function)
-
-; Labels - try anchored first child
-(label . (identifier) @label)
-
 ; Hotkeys
 (hotkey) @keyword
 
-; Directives - identifier is a child
-(directive (identifier) @preproc)
+; Directives
 (directive) @preproc
 
-; Identifiers (fallback)
-(identifier) @variable
+; Functions - specific patterns LAST to override fallback
+(function_definition . (identifier) @function)
+(function_call . (identifier) @function)
+
+; Labels
+(label . (identifier) @label)
