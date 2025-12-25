@@ -1,0 +1,366 @@
+{
+  "master": {
+    "tasks": [
+      {
+        "id": "1",
+        "title": "Initialize Node.js project and install tree-sitter-cli",
+        "description": "Create the foundational Node.js project structure with package.json and install tree-sitter-cli as a dev dependency.",
+        "details": "1. Run `npm init -y` to create package.json\n2. Run `npm install --save-dev tree-sitter-cli`\n3. Add build scripts to package.json:\n   ```json\n   \"scripts\": {\n     \"generate\": \"tree-sitter generate\",\n     \"build\": \"tree-sitter generate\",\n     \"test\": \"tree-sitter test\",\n     \"parse\": \"tree-sitter parse\"\n   }\n   ```\n4. Update .gitignore to include:\n   - `build/`\n   - `src/` (generated C files)\n   - `*.wasm`\n\nNote: tree-sitter-cli requires Node.js. The CLI will be used to generate the parser from grammar.js.",
+        "testStrategy": "Verify package.json exists with correct dependencies. Run `npx tree-sitter --version` to confirm CLI is accessible. Run `npm run generate` after grammar.js exists to confirm build pipeline works.",
+        "priority": "high",
+        "dependencies": [],
+        "status": "done",
+        "subtasks": [],
+        "updatedAt": "2025-12-25T20:01:52.115Z"
+      },
+      {
+        "id": "2",
+        "title": "Create minimal tree-sitter grammar for comments",
+        "description": "Create grammar.js with the minimum viable parser that handles AHK line comments (;) and block comments (/* */).",
+        "details": "Create `grammar.js` at project root:\n```javascript\nmodule.exports = grammar({\n  name: 'autohotkey',\n\n  extras: $ => [\n    /\\s/,\n  ],\n\n  rules: {\n    source_file: $ => repeat($._statement),\n\n    _statement: $ => choice(\n      $.comment,\n      $.block_comment,\n      $._text,\n    ),\n\n    comment: $ => seq(\n      ';',\n      /.*/\n    ),\n\n    block_comment: $ => seq(\n      '/*',\n      /[^*]*\\*+([^/*][^*]*\\*+)*/,\n      '/'\n    ),\n\n    // Catch-all for non-comment text (temporary for MVP)\n    _text: $ => /[^;\\s\\/][^\\n]*/,\n  }\n});\n```\n\nThis minimal grammar:\n- Parses `;` as start of line comment, captures rest of line\n- Parses `/* ... */` block comments\n- Uses `_text` as catch-all for other content (prefixed with _ so it's hidden)\n- `extras` handles whitespace automatically",
+        "testStrategy": "1. Run `npm run generate` - should complete without errors\n2. Create test file `test.ahk`:\n   ```ahk\n   ; This is a comment\n   /* Block\n   comment */\n   some code here\n   ```\n3. Run `npx tree-sitter parse test.ahk` - verify comments are recognized as `comment` and `block_comment` nodes\n4. Check generated `src/` directory contains parser.c",
+        "priority": "high",
+        "dependencies": [
+          "1"
+        ],
+        "status": "done",
+        "subtasks": [],
+        "updatedAt": "2025-12-25T20:03:36.799Z"
+      },
+      {
+        "id": "3",
+        "title": "Create Zed extension manifest (extension.toml)",
+        "description": "Create the extension.toml file that registers this as a Zed extension and declares the AutoHotkey language grammar.",
+        "details": "Create `extension.toml` at project root:\n```toml\nid = \"autohotkey\"\nname = \"AutoHotkey\"\nversion = \"0.1.0\"\nschema_version = 1\nauthors = [\"Alfredo\"]\ndescription = \"AutoHotkey v1 language support for Zed\"\nrepository = \"https://github.com/Alfredo/tree-sitter-autohotkey\"\n\n[grammars.autohotkey]\nrepository = \".\"\npath = \".\"\n```\n\nThe `grammars.autohotkey` section tells Zed:\n- Grammar name is `autohotkey`\n- Source is in the current directory (local development)\n- Zed will look for `grammar.js` and run tree-sitter generate",
+        "testStrategy": "Validate TOML syntax with an online validator or `npx toml-lint extension.toml`. Verify all required fields are present per Zed extension documentation.",
+        "priority": "high",
+        "dependencies": [
+          "1"
+        ],
+        "status": "done",
+        "subtasks": [],
+        "updatedAt": "2025-12-25T20:04:17.613Z"
+      },
+      {
+        "id": "4",
+        "title": "Create language configuration (config.toml)",
+        "description": "Create the language config file that defines file associations, comment syntax, and other language-specific settings for Zed.",
+        "details": "Create directory structure and file:\n1. `mkdir -p languages/autohotkey`\n2. Create `languages/autohotkey/config.toml`:\n```toml\nname = \"AutoHotkey\"\ngrammar = \"autohotkey\"\npath_suffixes = [\"ahk\"]\nline_comments = [\";\"]\nblock_comment = [\"/*\", \"*/\"]\nauto_indent_using_last_non_empty_line = true\n```\n\nKey settings:\n- `path_suffixes`: Associates `.ahk` files with this language\n- `line_comments`: Enables `;` for `gcc`/`Ctrl+/` comment toggling\n- `block_comment`: Enables `/* */` for block comment operations\n- Links to the `autohotkey` grammar from extension.toml",
+        "testStrategy": "Validate TOML syntax. Verify file path is correct: `languages/autohotkey/config.toml`. Check that `line_comments` array uses the correct syntax for Zed.",
+        "priority": "high",
+        "dependencies": [
+          "3"
+        ],
+        "status": "done",
+        "subtasks": [],
+        "updatedAt": "2025-12-25T20:05:11.091Z"
+      },
+      {
+        "id": "5",
+        "title": "Create syntax highlighting queries (highlights.scm)",
+        "description": "Create the Tree-sitter query file that maps parsed syntax nodes to Zed theme highlight groups for comments.",
+        "details": "Create `languages/autohotkey/highlights.scm`:\n```scheme\n; Comments\n(comment) @comment\n(block_comment) @comment\n```\n\nThis minimal query:\n- Maps `comment` nodes (line comments) to the `@comment` highlight group\n- Maps `block_comment` nodes to the same `@comment` group\n- Zed themes define colors for `@comment` (typically gray/italic)\n\nNote: The node names must exactly match what grammar.js defines (case-sensitive).",
+        "testStrategy": "1. Run `npx tree-sitter highlight test.ahk` to verify queries work\n2. Check that both `;` line comments and `/* */` block comments are highlighted\n3. Verify no query errors are reported",
+        "priority": "high",
+        "dependencies": [
+          "2",
+          "4"
+        ],
+        "status": "done",
+        "subtasks": [],
+        "updatedAt": "2025-12-25T20:05:59.144Z"
+      },
+      {
+        "id": "6",
+        "title": "Build grammar and install as Zed dev extension",
+        "description": "Generate the parser, then install the extension locally in Zed to verify the MVP comment functionality works.",
+        "details": "1. Generate parser: `npm run generate`\n   - Creates `src/parser.c`, `src/tree_sitter/parser.h`\n   - May create binding files\n\n2. Install as dev extension in Zed:\n   - Open Zed\n   - Open Command Palette (Cmd+Shift+P or Ctrl+Shift+P)\n   - Type \"Extensions: Install Dev Extension\"\n   - Navigate to `C:\\Users\\Alfredo\\Documents\\GitHub\\tree-sitter-autohotkey`\n   - Select the folder\n\n3. Reload Zed if necessary\n\n4. Open any `.ahk` file - should now have:\n   - Language detected as \"AutoHotkey\"\n   - Comments highlighted\n   - `gcc` (vim mode) toggles `;` comments\n   - `Ctrl+/` toggles `;` comments",
+        "testStrategy": "1. Create `test.ahk` file with mixed content and comments\n2. Open in Zed, verify language shows as 'AutoHotkey' in status bar\n3. Test `gcc` in vim mode - should add/remove `;` prefix\n4. Test `Ctrl+/` - should toggle line comment\n5. Verify comment text appears in comment color (gray/green depending on theme)\n6. Check Zed logs via `zed --foreground` if issues occur",
+        "priority": "high",
+        "dependencies": [
+          "5"
+        ],
+        "status": "done",
+        "subtasks": [],
+        "updatedAt": "2025-12-25T21:08:20.627Z"
+      },
+      {
+        "id": "7",
+        "title": "Add string and number parsing to grammar",
+        "description": "Extend grammar.js to parse string literals (double and single quoted) and numbers (integers, hex, floats).",
+        "details": "Update `grammar.js` to add string and number rules:\n```javascript\nmodule.exports = grammar({\n  name: 'autohotkey',\n\n  extras: $ => [/\\s/],\n\n  rules: {\n    source_file: $ => repeat($._statement),\n\n    _statement: $ => choice(\n      $.comment,\n      $.block_comment,\n      $.string,\n      $.number,\n      $._text,\n    ),\n\n    comment: $ => seq(';', /.*/),\n\n    block_comment: $ => seq(\n      '/*',\n      /[^*]*\\*+([^/*][^*]*\\*+)*/,\n      '/'\n    ),\n\n    string: $ => choice(\n      seq('\"', /[^\"]*/, '\"'),   // Double-quoted\n      seq(\"'\", /[^']*/, \"'\")    // Single-quoted\n    ),\n\n    number: $ => choice(\n      /0[xX][0-9a-fA-F]+/,       // Hex: 0xFF\n      /\\d+\\.\\d+/,                // Float: 3.14\n      /\\d+/                       // Integer: 123\n    ),\n\n    _text: $ => /[^;\\s\\/\"'0-9][^\\n]*/,\n  }\n});\n```\n\nUpdate `languages/autohotkey/highlights.scm`:\n```scheme\n(comment) @comment\n(block_comment) @comment\n(string) @string\n(number) @number\n```",
+        "testStrategy": "1. Run `npm run generate`\n2. Create test file:\n   ```ahk\n   x := \"hello world\"\n   y := 'single quoted'\n   num := 123\n   hex := 0xFF\n   pi := 3.14\n   ```\n3. Run `npx tree-sitter parse test.ahk` - verify strings/numbers are correctly identified\n4. Reload Zed extension and verify syntax highlighting for strings (usually green) and numbers (usually cyan/orange)",
+        "priority": "medium",
+        "dependencies": [
+          "6"
+        ],
+        "status": "done",
+        "subtasks": [],
+        "updatedAt": "2025-12-25T21:17:45.732Z"
+      },
+      {
+        "id": "8",
+        "title": "Add keyword recognition to grammar",
+        "description": "Extend grammar.js to recognize AHK v1 keywords like if, else, while, loop, return, class, global, local, break, continue.",
+        "details": "Update `grammar.js` to add keyword rules:\n```javascript\nmodule.exports = grammar({\n  name: 'autohotkey',\n\n  extras: $ => [/\\s/],\n  \n  word: $ => $.identifier,\n\n  rules: {\n    source_file: $ => repeat($._statement),\n\n    _statement: $ => choice(\n      $.comment,\n      $.block_comment,\n      $.string,\n      $.number,\n      $.keyword,\n      $.identifier,\n      $._text,\n    ),\n\n    // ... existing rules ...\n\n    keyword: $ => choice(\n      'if', 'else', 'while', 'loop', 'for',\n      'return', 'break', 'continue',\n      'class', 'extends',\n      'global', 'local', 'static',\n      'try', 'catch', 'finally', 'throw',\n      'new', 'true', 'false'\n    ),\n\n    identifier: $ => /[a-zA-Z_][a-zA-Z0-9_]*/,\n    \n    _text: $ => /[^;\\s\\/\"'a-zA-Z0-9_][^\\n]*/,\n  }\n});\n```\n\nUpdate `languages/autohotkey/highlights.scm`:\n```scheme\n(comment) @comment\n(block_comment) @comment\n(string) @string\n(number) @number\n(keyword) @keyword\n(identifier) @variable\n```",
+        "testStrategy": "1. Run `npm run generate`\n2. Create test file:\n   ```ahk\n   if (x = 1) {\n       return true\n   } else {\n       global myVar\n       loop 10 {\n           break\n       }\n   }\n   ```\n3. Parse and verify keywords are recognized separately from identifiers\n4. Reload Zed - keywords should appear in keyword color (usually purple/blue)",
+        "priority": "medium",
+        "dependencies": [
+          "7"
+        ],
+        "status": "done",
+        "subtasks": [],
+        "updatedAt": "2025-12-25T21:20:54.035Z"
+      },
+      {
+        "id": "9",
+        "title": "Add function and label parsing to grammar",
+        "description": "Extend grammar.js to parse function definitions, function calls, labels, and hotkeys.",
+        "details": "Update `grammar.js` with function/label rules:\n```javascript\nrules: {\n  // ... existing rules ...\n\n  _statement: $ => choice(\n    $.comment,\n    $.block_comment,\n    $.function_definition,\n    $.function_call,\n    $.label,\n    $.hotkey,\n    $.directive,\n    $.string,\n    $.number,\n    $.keyword,\n    $.identifier,\n    $._text,\n  ),\n\n  function_definition: $ => seq(\n    field('name', $.identifier),\n    '(',\n    optional($.parameter_list),\n    ')',\n    '{',\n    repeat($._statement),\n    '}'\n  ),\n\n  function_call: $ => seq(\n    field('name', $.identifier),\n    '(',\n    optional($.argument_list),\n    ')'\n  ),\n\n  parameter_list: $ => seq(\n    $.identifier,\n    repeat(seq(',', $.identifier))\n  ),\n\n  argument_list: $ => seq(\n    $._expression,\n    repeat(seq(',', $._expression))\n  ),\n\n  _expression: $ => choice(\n    $.string,\n    $.number,\n    $.identifier\n  ),\n\n  label: $ => seq(\n    field('name', $.identifier),\n    ':',\n    /\\n/\n  ),\n\n  hotkey: $ => seq(\n    /[#!^+<>*~$]+/,\n    /[a-zA-Z0-9]+/,\n    '::'\n  ),\n\n  directive: $ => seq(\n    '#',\n    choice('Include', 'NoEnv', 'SingleInstance', 'Persistent')\n  ),\n}\n```\n\nUpdate `highlights.scm`:\n```scheme\n(function_definition name: (identifier) @function)\n(function_call name: (identifier) @function.call)\n(label name: (identifier) @label)\n(hotkey) @keyword.special\n(directive) @keyword.directive\n```",
+        "testStrategy": "1. Run `npm run generate`\n2. Create comprehensive test file:\n   ```ahk\n   #NoEnv\n   #SingleInstance Force\n   \n   MyFunc(param1, param2) {\n       return param1 + param2\n   }\n   \n   result := MyFunc(1, 2)\n   \n   MyLabel:\n       MsgBox, Hello\n   return\n   \n   ^a::\n       Send, test\n   return\n   ```\n3. Parse and verify all constructs are correctly identified\n4. Reload Zed and verify highlighting",
+        "priority": "medium",
+        "dependencies": [
+          "8"
+        ],
+        "status": "done",
+        "subtasks": [],
+        "updatedAt": "2025-12-25T21:25:06.029Z"
+      },
+      {
+        "id": "12",
+        "title": "Add doc-style block comments to grammar",
+        "description": "Add support for documentation-style block comments (/** ... */) that are commonly used for function/class documentation.",
+        "details": "Update `grammar.js` to add doc_comment rule:\n\n```javascript\ndoc_comment: $ => seq(\n  '/**',\n  /[^*]*\\*+([^/*][^*]*\\*+)*/,\n  '/'\n),\n```\n\nAdd to `_statement` choice before `block_comment`.\n\nUpdate `highlights.scm`:\n```scheme\n(doc_comment) @comment.documentation\n```\n\nNote: `@comment.documentation` may render differently in some themes (often bold or different color).",
+        "testStrategy": "1. Run `npm run generate`\n2. Test with:\n   ```ahk\n   /**\n    * This is a doc comment\n    * @param x The x value\n    */\n   MyFunc(x) {\n   }\n   ```\n3. Verify doc comments parse as `doc_comment` nodes\n4. Verify highlighting in Zed",
+        "priority": "medium",
+        "dependencies": [
+          "9"
+        ],
+        "status": "done",
+        "subtasks": [],
+        "updatedAt": "2025-12-25T22:30:00.000Z"
+      },
+      {
+        "id": "13",
+        "title": "Add operators to grammar with highlighting",
+        "description": "Parse operators as distinct tokens instead of generic punctuation. Includes assignment (:=), comparison (==, !=, <, >), arithmetic (+, -, *, /), and logical (&&, ||, !).",
+        "details": "Update `grammar.js`:\n\n```javascript\noperator: $ => choice(\n  // Assignment\n  ':=', '+=', '-=', '*=', '/=', '.=',\n  // Comparison\n  '==', '!=', '<>', '>', '<', '>=', '<=',\n  // Arithmetic\n  '+', '-', '*', '/', '//', '**',\n  // Logical\n  '&&', '||', '!',\n  // Bitwise\n  '&', '|', '^', '~', '>>', '<<',\n  // Other\n  '.', '?', ':',\n),\n```\n\nRemove operators from `_punctuation` rule.\n\nUpdate `highlights.scm`:\n```scheme\n(operator) @operator\n```",
+        "testStrategy": "1. Run `npm run generate`\n2. Test with:\n   ```ahk\n   x := 1 + 2\n   y := x == 3 ? \"yes\" : \"no\"\n   z := a && b || !c\n   ```\n3. Verify operators are highlighted distinctly from variables",
+        "priority": "medium",
+        "dependencies": [
+          "9"
+        ],
+        "status": "done",
+        "subtasks": [],
+        "updatedAt": "2025-12-25T23:00:00.000Z"
+      },
+      {
+        "id": "14",
+        "title": "Add built-in commands to grammar",
+        "description": "Recognize AHK v1 built-in commands like MsgBox, Send, Sleep, Run, WinActivate, etc. with proper highlighting.",
+        "details": "Update `grammar.js` with command rule:\n\n```javascript\ncommand: $ => seq(\n  field('name', $.command_name),\n  optional(seq(',', $.command_args))\n),\n\ncommand_name: $ => choice(\n  'MsgBox', 'Send', 'SendInput', 'SendRaw',\n  'Sleep', 'Run', 'RunWait',\n  'WinActivate', 'WinWait', 'WinClose', 'WinExist',\n  'SetTimer', 'Gosub', 'Goto',\n  'FileRead', 'FileAppend', 'FileDelete',\n  'RegRead', 'RegWrite',\n  'InputBox', 'ToolTip', 'TrayTip',\n  'Reload', 'ExitApp', 'Suspend', 'Pause',\n  // Add more as needed\n),\n\ncommand_args: $ => /[^\\n]*/,\n```\n\nUpdate `highlights.scm`:\n```scheme\n(command_name) @function.builtin\n```",
+        "testStrategy": "1. Run `npm run generate`\n2. Test with:\n   ```ahk\n   MsgBox, Hello World\n   Sleep, 1000\n   Send, {Enter}\n   Run, notepad.exe\n   ```\n3. Verify commands highlight as built-in functions",
+        "priority": "medium",
+        "dependencies": [
+          "9"
+        ],
+        "status": "in-progress",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Test command parsing with tree-sitter CLI directly",
+            "description": "Verify parser behavior outside of Zed by testing command parsing with tree-sitter CLI to isolate whether the issue is in the grammar or Zed integration",
+            "dependencies": [],
+            "details": "Create a test.ahk file with multiple commands (MsgBox, Sleep, Send, Run, WinActivate) and parse it using `npx tree-sitter parse test.ahk`. Compare which commands produce `command_name` nodes vs `identifier` nodes. If all commands parse correctly as `command_name` in CLI but not in Zed, the issue is Zed-side. If only MsgBox/Gui parse correctly in CLI too, the issue is in the grammar/parser itself.",
+            "status": "in-progress",
+            "testStrategy": "Run `npx tree-sitter parse test.ahk` with commands: MsgBox, Sleep, Send, Run. Verify each command shows (command (command_name)) structure, not (identifier).",
+            "updatedAt": "2025-12-25T22:56:12.998Z",
+            "parentId": "undefined"
+          },
+          {
+            "id": 2,
+            "title": "Compare grammars/autohotkey vs main src directories",
+            "description": "Verify that Zed is using the correct parser.c by comparing the grammars/autohotkey checkout with the main src directory",
+            "dependencies": [
+              1
+            ],
+            "details": "The grammars/autohotkey directory contains a git checkout at commit bc2f634 but extension.toml rev points to the same commit. Verify the src/parser.c in both locations are identical using diff or checksum comparison. Check if grammars/autohotkey/src/grammar.json matches main src/grammar.json. Look for any discrepancies that could explain why only some commands work.",
+            "status": "pending",
+            "testStrategy": "Run diff between grammars/autohotkey/src/parser.c and main src/parser.c. Hash comparison: `Get-FileHash src\\parser.c` vs `Get-FileHash grammars\\autohotkey\\src\\parser.c`",
+            "parentId": "undefined"
+          },
+          {
+            "id": 3,
+            "title": "Clear Zed extension cache and reinstall",
+            "description": "Perform a full cache clear and extension reinstall to eliminate caching as the cause of partial command highlighting",
+            "dependencies": [
+              2
+            ],
+            "details": "Delete the grammars/autohotkey directory entirely, uninstall the dev extension from Zed, clear Zed's extension cache (typically in AppData or similar), then reinstall the dev extension fresh. Zed may be caching an older version of the parser that only recognized MsgBox and Gui. After reinstall, test all commands (MsgBox, Sleep, Send, Run, etc.) for proper highlighting.",
+            "status": "pending",
+            "testStrategy": "After cache clear and reinstall: open test.ahk with all commands, verify Sleep/Send/Run highlight as @function.builtin same as MsgBox",
+            "parentId": "undefined"
+          },
+          {
+            "id": 4,
+            "title": "Test grammar in alternative tree-sitter editors",
+            "description": "Test the grammar in Neovim or Helix to verify if the issue is Zed-specific or a tree-sitter grammar issue",
+            "dependencies": [
+              1
+            ],
+            "details": "Install tree-sitter-autohotkey in Neovim (using nvim-treesitter) or Helix editor. Both use tree-sitter for syntax highlighting. Create a test file with all command types and verify highlighting. If commands highlight correctly in other editors but not Zed, the issue is Zed-specific. This helps narrow down whether to focus on grammar changes or Zed extension configuration.",
+            "status": "pending",
+            "testStrategy": "Open same test.ahk in Neovim/Helix with tree-sitter highlighting enabled. Document which commands highlight correctly vs incorrectly.",
+            "parentId": "undefined"
+          },
+          {
+            "id": 5,
+            "title": "Investigate keyword extraction mechanism for command_name conflicts",
+            "description": "Deep dive into how tree-sitter's keyword extraction interacts with command_name to understand why some commands work and others don't",
+            "dependencies": [
+              1,
+              2
+            ],
+            "details": "The grammar uses `word: $ => $.identifier` for keyword extraction. When the lexer sees 'Sleep', it first returns sym_identifier, then ts_lex_keywords checks if it's a command_name. Investigate if there's a conflict between command_name entries and other rules. Check parser.c ts_lex_keywords function to see state transitions for each command. Test hypothesis: perhaps MsgBox/Gui work because they're alphabetically first or have special precedence handling. Try reordering commands in grammar.js to test if order matters.",
+            "status": "pending",
+            "testStrategy": "Modify grammar.js to reorder commands (put Sleep first), regenerate parser, test if Sleep now works while MsgBox breaks. This tests the ordering hypothesis.",
+            "parentId": "undefined"
+          }
+        ],
+        "updatedAt": "2025-12-25T22:56:12.998Z"
+      },
+      {
+        "id": "15",
+        "title": "Add built-in variables to grammar",
+        "description": "Recognize AHK built-in variables (A_ScriptDir, A_Now, A_TickCount, etc.) with distinct highlighting.",
+        "details": "Update `grammar.js`:\n\n```javascript\nbuiltin_variable: $ => token(seq(\n  'A_',\n  choice(\n    'ScriptDir', 'ScriptFullPath', 'ScriptName',\n    'WorkingDir', 'Desktop', 'MyDocuments', 'AppData',\n    'Now', 'NowUTC', 'TickCount', 'TimeIdle',\n    'Cursor', 'CaretX', 'CaretY',\n    'ScreenWidth', 'ScreenHeight',\n    'ThisHotkey', 'PriorHotkey', 'TimeSinceThisHotkey',\n    'LoopField', 'LoopFileName', 'LoopFileFullPath', 'Index',\n    'Clipboard', 'ErrorLevel', 'LastError',\n    // Add more as needed\n  )\n)),\n```\n\nUpdate `highlights.scm`:\n```scheme\n(builtin_variable) @variable.builtin\n```",
+        "testStrategy": "1. Run `npm run generate`\n2. Test with:\n   ```ahk\n   path := A_ScriptDir\n   time := A_Now\n   MsgBox, %A_TickCount%\n   ```\n3. Verify A_ variables highlight differently from regular variables",
+        "priority": "medium",
+        "dependencies": [
+          "9"
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": "16",
+        "title": "Add object/method syntax to grammar",
+        "description": "Parse object property access (obj.property) and method calls (obj.method()) with appropriate highlighting.",
+        "details": "Update `grammar.js`:\n\n```javascript\nmember_expression: $ => seq(\n  field('object', choice($.identifier, $.member_expression)),\n  '.',\n  field('property', $.identifier)\n),\n\nmethod_call: $ => seq(\n  field('object', choice($.identifier, $.member_expression)),\n  '.',\n  field('method', $.identifier),\n  token.immediate('('),\n  optional($.argument_list),\n  ')'\n),\n```\n\nAdd to `_expression` choice.\n\nUpdate `highlights.scm`:\n```scheme\n(member_expression property: (identifier) @property)\n(method_call method: (identifier) @function.method)\n```",
+        "testStrategy": "1. Run `npm run generate`\n2. Test with:\n   ```ahk\n   obj := {}\n   obj.name := \"test\"\n   obj.nested.value := 1\n   result := obj.GetValue()\n   ```\n3. Verify properties and methods highlight appropriately",
+        "priority": "medium",
+        "dependencies": [
+          "9"
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": "17",
+        "title": "Add array syntax to grammar",
+        "description": "Parse array literals ([1, 2, 3]) and array access (arr[index]) with highlighting.",
+        "details": "Update `grammar.js`:\n\n```javascript\narray_literal: $ => seq(\n  '[',\n  optional(seq(\n    $._expression,\n    repeat(seq(',', $._expression))\n  )),\n  ']'\n),\n\nindex_expression: $ => seq(\n  field('object', choice($.identifier, $.member_expression, $.index_expression)),\n  '[',\n  field('index', $._expression),\n  ']'\n),\n```\n\nAdd to `_expression` choice.\n\nUpdate `highlights.scm`:\n```scheme\n(array_literal \"[\" @punctuation.bracket)\n(array_literal \"]\" @punctuation.bracket)\n(index_expression \"[\" @punctuation.bracket)\n(index_expression \"]\" @punctuation.bracket)\n```",
+        "testStrategy": "1. Run `npm run generate`\n2. Test with:\n   ```ahk\n   arr := [1, 2, 3]\n   first := arr[1]\n   nested := arr[1][2]\n   ```\n3. Verify arrays parse correctly and brackets highlight",
+        "priority": "medium",
+        "dependencies": [
+          "9"
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": "18",
+        "title": "Add escape sequences in strings to grammar",
+        "description": "Parse AHK escape sequences (`n, `t, `r, ``, etc.) within strings with distinct highlighting.",
+        "details": "Update `grammar.js` string rule to capture escape sequences:\n\n```javascript\nstring: $ => choice(\n  seq('\"', repeat(choice($.escape_sequence, /[^\"``]+/)), '\"'),\n  seq(\"'\", repeat(choice($.escape_sequence, /[^'``]+/)), \"'\"),\n),\n\nescape_sequence: $ => token(seq(\n  '`',\n  choice(\n    'n',   // newline\n    't',   // tab\n    'r',   // carriage return\n    'b',   // backspace\n    'v',   // vertical tab\n    'a',   // bell\n    'f',   // form feed\n    '`',   // literal backtick\n    ';',   // literal semicolon\n    ':',   // literal colon\n    's',   // space\n    '\"',   // literal quote\n    \"'\",   // literal single quote\n  )\n)),\n```\n\nUpdate `highlights.scm`:\n```scheme\n(escape_sequence) @string.escape\n```",
+        "testStrategy": "1. Run `npm run generate`\n2. Test with:\n   ```ahk\n   msg := \"Hello`nWorld\"\n   path := \"C:``temp``file.txt\"\n   tab := \"col1`tcol2\"\n   ```\n3. Verify escape sequences highlight within strings",
+        "priority": "medium",
+        "dependencies": [
+          "9"
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": "10",
+        "title": "Add tree-sitter test suite and finalize grammar",
+        "description": "Create proper tree-sitter test cases to validate grammar correctness and ensure future modifications don't break parsing.",
+        "details": "Create `test/corpus/` directory with test files:\n\n1. `test/corpus/comments.txt`:\n```\n==================\nLine comment\n==================\n; This is a comment\n---\n(source_file\n  (comment))\n\n==================\nBlock comment\n==================\n/* Multi\nline */\n---\n(source_file\n  (block_comment))\n```\n\n2. `test/corpus/literals.txt`:\n```\n==================\nString literals\n==================\n\"double quoted\"\n'single quoted'\n---\n(source_file\n  (string)\n  (string))\n\n==================\nNumbers\n==================\n123\n0xFF\n3.14\n---\n(source_file\n  (number)\n  (number)\n  (number))\n```\n\n3. `test/corpus/functions.txt`:\n```\n==================\nFunction definition\n==================\nMyFunc() {\n}\n---\n(source_file\n  (function_definition\n    name: (identifier)))\n```\n\nRun tests with `npm test` or `npx tree-sitter test`.",
+        "testStrategy": "1. Run `npx tree-sitter test` - all tests should pass\n2. Add edge cases: empty files, nested comments, special characters\n3. Document any known limitations in README.md\n4. Verify grammar still works in Zed after all changes",
+        "priority": "medium",
+        "dependencies": [
+          "12",
+          "13",
+          "14",
+          "15",
+          "16",
+          "17",
+          "18"
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": "11",
+        "title": "Fix Windows dev extension installation for Zed",
+        "description": "Troubleshoot and resolve the Zed dev extension installation issue on Windows, ensuring the AutoHotkey extension can be successfully installed and recognized by Zed.",
+        "status": "done",
+        "dependencies": [
+          "6"
+        ],
+        "priority": "high",
+        "details": "## Root Cause Identified\n\nThe error **\"Failed to install dev extension: failed to compile grammar 'autohotkey'\"** occurs because `extension.toml` is missing the `[grammars.autohotkey]` section that tells Zed where to find the grammar source.\n\n## Current State\n\n**Files that exist and are correct:**\n- `grammar.js` - Tree-sitter grammar with comment parsing\n- `src/parser.c` - Generated parser (from `npm run generate`)\n- `grammars/autohotkey.wasm` - Pre-built WASM (2776 bytes)\n- `languages/autohotkey/config.toml` - Language configuration\n- `languages/autohotkey/highlights.scm` - Syntax highlighting queries\n\n**The problem:** `extension.toml` lacks grammar source configuration:\n```toml\n# Current (BROKEN)\nid = \"autohotkey\"\nname = \"AutoHotkey\"\nversion = \"0.1.0\"\nschema_version = 1\nauthors = [\"Alfredo\"]\ndescription = \"AutoHotkey v1 language support for Zed\"\nrepository = \"https://github.com/Alfredo/tree-sitter-autohotkey\"\n# MISSING: [grammars.autohotkey] section!\n```\n\n## Fix Required\n\nAdd the `[grammars.autohotkey]` section to `extension.toml`:\n```toml\nid = \"autohotkey\"\nname = \"AutoHotkey\"\nversion = \"0.1.0\"\nschema_version = 1\nauthors = [\"Alfredo\"]\ndescription = \"AutoHotkey v1 language support for Zed\"\nrepository = \"https://github.com/Alfredo/tree-sitter-autohotkey\"\n\n[grammars.autohotkey]\nrepository = \"https://github.com/Alfredo/tree-sitter-autohotkey\"\npath = \".\"\n```\n\n**Note:** For local dev extensions, Zed uses the `path` field. The `repository` field is for published extensions but including it doesn't hurt.\n\n## After Fixing extension.toml\n\n1. **Reinstall dev extension in Zed:**\n   - Open Command Palette (`Ctrl+Shift+P`)\n   - Run \"Extensions: Install Dev Extension\"\n   - Select `C:\\Users\\Alfredo\\Documents\\GitHub\\tree-sitter-autohotkey`\n\n2. **Verify installation:**\n   - Open `test.ahk` file\n   - Status bar should show \"AutoHotkey\"\n   - Comments (`;` and `/* */`) should be syntax highlighted\n\n## Directory Structure Reference\n\n```\ntree-sitter-autohotkey/\n├── extension.toml           # Extension manifest (NEEDS [grammars] section)\n├── grammar.js               # Tree-sitter grammar source\n├── package.json             # Node.js project config\n├── src/\n│   ├── parser.c             # Generated parser\n│   ├── grammar.json         # Generated grammar JSON\n│   └── tree_sitter/\n│       └── parser.h\n├── grammars/\n│   └── autohotkey.wasm      # Pre-built WASM grammar (2776 bytes)\n└── languages/\n    └── autohotkey/\n        ├── config.toml      # Language config (line_comments, etc.)\n        └── highlights.scm   # Highlight queries\n```",
+        "testStrategy": "1. **Apply the fix:**\n   - Edit `extension.toml` to add the `[grammars.autohotkey]` section\n\n2. **Test installation:**\n   - Open Zed\n   - Run \"Extensions: Install Dev Extension\" from Command Palette\n   - Select the `tree-sitter-autohotkey` directory\n   - Verify NO error popup appears\n\n3. **Verify functionality:**\n   - Open `test.ahk` (contains: `; This is a comment`, block comment, and code)\n   - Status bar should show \"AutoHotkey\" as the language\n   - Line comment (`;`) should be highlighted in comment color\n   - Block comment (`/* */`) should be highlighted in comment color\n   - Non-comment text should NOT be comment-colored\n\n4. **Test comment toggling:**\n   - Place cursor on a line\n   - Press `Ctrl+/` to toggle line comment\n   - Should add/remove `;` prefix\n\n5. **If issues persist:**\n   - Run `zed --foreground` to see logs\n   - Check `%LOCALAPPDATA%\\Zed\\logs\\Zed.log` for detailed errors",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Add [grammars.autohotkey] section to extension.toml",
+            "description": "Fix the root cause by adding the missing grammar configuration section to extension.toml",
+            "dependencies": [],
+            "details": "Edit `extension.toml` to add:\n```toml\n[grammars.autohotkey]\nrepository = \"https://github.com/Alfredo/tree-sitter-autohotkey\"\npath = \".\"\n```\n\nThis tells Zed where to find the grammar source files (`grammar.js` and generated `src/` files) when compiling the extension.",
+            "status": "done",
+            "testStrategy": null,
+            "parentId": "undefined",
+            "updatedAt": "2025-12-25T21:08:36.958Z"
+          },
+          {
+            "id": 2,
+            "title": "Reinstall dev extension in Zed",
+            "description": "After fixing extension.toml, reinstall the dev extension to verify the fix works",
+            "dependencies": [
+              1
+            ],
+            "details": "1. Open Zed\n2. Press `Ctrl+Shift+P` to open Command Palette\n3. Run \"Extensions: Install Dev Extension\"\n4. Navigate to `C:\\Users\\Alfredo\\Documents\\GitHub\\tree-sitter-autohotkey`\n5. Select the folder\n6. Verify no error popup appears (previously showed: \"Failed to install dev extension: failed to compile grammar 'autohotkey'\")",
+            "status": "done",
+            "testStrategy": null,
+            "parentId": "undefined",
+            "updatedAt": "2025-12-25T21:08:45.022Z"
+          },
+          {
+            "id": 3,
+            "title": "Verify syntax highlighting works on test.ahk",
+            "description": "Confirm the extension is working by checking syntax highlighting on the test file",
+            "dependencies": [
+              2
+            ],
+            "details": "1. Open `test.ahk` which contains:\n   - Line comment: `; This is a comment`\n   - Block comment: `/* Block\\ncomment */`\n   - Plain code: `some code here`\n2. Verify status bar shows \"AutoHotkey\"\n3. Verify comments are highlighted differently from code\n4. Test `Ctrl+/` toggles line comment",
+            "status": "done",
+            "testStrategy": null,
+            "parentId": "undefined",
+            "updatedAt": "2025-12-25T21:08:53.075Z"
+          }
+        ],
+        "updatedAt": "2025-12-25T21:08:53.075Z"
+      }
+    ],
+    "metadata": {
+      "version": "1.0.0",
+      "lastModified": "2025-12-25T22:56:12.999Z",
+      "taskCount": 18,
+      "completedCount": 12,
+      "tags": [
+        "master"
+      ]
+    }
+  }
+}
