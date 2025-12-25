@@ -38,7 +38,7 @@ module.exports = grammar({
       /\d+/,
     ),
 
-    // Catch-all for non-comment text (temporary)
-    _text: $ => /[^;\s\/"'0-9][^\n]*/,
+    // Identifiers and operators (catch-all tokens)
+    _text: $ => /[a-zA-Z_][a-zA-Z0-9_]*|:=|[+\-*\/%<>=!&|^~.,:#@$?\\(){}\[\]]+/,
   }
 });
