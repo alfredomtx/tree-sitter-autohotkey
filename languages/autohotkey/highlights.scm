@@ -11,18 +11,19 @@
 ; Keywords
 (keyword) @keyword
 
-; Functions - use structural query (identifier as child)
-(function_definition (identifier) @function)
-(function_call (identifier) @function)
+; Functions - try anchored first child with .
+(function_definition . (identifier) @function)
+(function_call . (identifier) @function)
 
-; Labels - identifier as child
-(label (identifier) @label)
+; Labels - try anchored first child
+(label . (identifier) @label)
 
 ; Hotkeys
 (hotkey) @keyword
 
-; Directives
+; Directives - identifier is a child
+(directive (identifier) @preproc)
 (directive) @preproc
 
-; Identifiers (fallback - must be last)
+; Identifiers (fallback)
 (identifier) @variable
