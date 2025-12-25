@@ -5,6 +5,8 @@ module.exports = grammar({
     /\s/,
   ],
 
+  word: $ => $.identifier,
+
   rules: {
     source_file: $ => repeat($._statement),
 
@@ -13,7 +15,9 @@ module.exports = grammar({
       $.block_comment,
       $.string,
       $.number,
-      $._text,
+      $.keyword,
+      $.identifier,
+      $._operator,
     ),
 
     comment: $ => seq(
@@ -38,7 +42,19 @@ module.exports = grammar({
       /\d+/,
     ),
 
-    // Identifiers and operators (catch-all tokens)
-    _text: $ => /[a-zA-Z_][a-zA-Z0-9_]*|:=|[+\-*\/%<>=!&|^~.,:#@$?\\(){}\[\]]+/,
+    keyword: $ => choice(
+      'if', 'else', 'while', 'loop', 'for',
+      'return', 'break', 'continue', 'goto', 'gosub',
+      'class', 'extends',
+      'global', 'local', 'static',
+      'try', 'catch', 'finally', 'throw',
+      'new', 'true', 'false',
+      'and', 'or', 'not',
+    ),
+
+    identifier: $ => /[a-zA-Z_][a-zA-Z0-9_]*/,
+
+    // Operators and punctuation
+    _operator: $ => /:=|[+\-*\/%<>=!&|^~.,:#@$?\\(){}\[\]]+/,
   }
 });

@@ -7,3 +7,9 @@
 
 ; Numbers
 (number) @number
+
+; Keywords
+(keyword) @keyword
+
+; Identifiers
+(identifier) @variable
