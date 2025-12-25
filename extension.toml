@@ -4,8 +4,8 @@ version = "0.1.0"
 schema_version = 1
 authors = ["Alfredo"]
 description = "AutoHotkey v1 language support for Zed"
-repository = "https://github.com/Alfredo/tree-sitter-autohotkey"
+repository = "https://github.com/alfredomtx/tree-sitter-autohotkey"
 
 [grammars.autohotkey]
-repository = "file://C:/Users/Alfredo/Documents/GitHub/tree-sitter-autohotkey"
-rev = "HEAD"
+repository = "https://github.com/alfredomtx/tree-sitter-autohotkey"
+rev = "34b65fda9281b937e5013c76b3898cc23d02c1e2"
