@@ -81,11 +81,6 @@
     }
   },
   {
-    "type": "command_name",
-    "named": true,
-    "fields": {}
-  },
-  {
     "type": "comment",
     "named": true,
     "fields": {}
@@ -524,170 +519,6 @@
     "named": false
   },
   {
-    "type": "CoordMode",
-    "named": false
-  },
-  {
-    "type": "ExitApp",
-    "named": false
-  },
-  {
-    "type": "FileAppend",
-    "named": false
-  },
-  {
-    "type": "FileCopy",
-    "named": false
-  },
-  {
-    "type": "FileDelete",
-    "named": false
-  },
-  {
-    "type": "FileMove",
-    "named": false
-  },
-  {
-    "type": "FileRead",
-    "named": false
-  },
-  {
-    "type": "Gui",
-    "named": false
-  },
-  {
-    "type": "GuiControl",
-    "named": false
-  },
-  {
-    "type": "IniRead",
-    "named": false
-  },
-  {
-    "type": "IniWrite",
-    "named": false
-  },
-  {
-    "type": "InputBox",
-    "named": false
-  },
-  {
-    "type": "MsgBox",
-    "named": false
-  },
-  {
-    "type": "Pause",
-    "named": false
-  },
-  {
-    "type": "RegDelete",
-    "named": false
-  },
-  {
-    "type": "RegRead",
-    "named": false
-  },
-  {
-    "type": "RegWrite",
-    "named": false
-  },
-  {
-    "type": "Reload",
-    "named": false
-  },
-  {
-    "type": "Run",
-    "named": false
-  },
-  {
-    "type": "RunWait",
-    "named": false
-  },
-  {
-    "type": "Send",
-    "named": false
-  },
-  {
-    "type": "SendEvent",
-    "named": false
-  },
-  {
-    "type": "SendInput",
-    "named": false
-  },
-  {
-    "type": "SendPlay",
-    "named": false
-  },
-  {
-    "type": "SendRaw",
-    "named": false
-  },
-  {
-    "type": "SetBatchLines",
-    "named": false
-  },
-  {
-    "type": "SetControlDelay",
-    "named": false
-  },
-  {
-    "type": "SetDefaultMouseSpeed",
-    "named": false
-  },
-  {
-    "type": "SetFormat",
-    "named": false
-  },
-  {
-    "type": "SetTimer",
-    "named": false
-  },
-  {
-    "type": "SetWinDelay",
-    "named": false
-  },
-  {
-    "type": "SetWorkingDir",
-    "named": false
-  },
-  {
-    "type": "Sleep",
-    "named": false
-  },
-  {
-    "type": "Suspend",
-    "named": false
-  },
-  {
-    "type": "ToolTip",
-    "named": false
-  },
-  {
-    "type": "TrayTip",
-    "named": false
-  },
-  {
-    "type": "WinActivate",
-    "named": false
-  },
-  {
-    "type": "WinClose",
-    "named": false
-  },
-  {
-    "type": "WinMaximize",
-    "named": false
-  },
-  {
-    "type": "WinMinimize",
-    "named": false
-  },
-  {
-    "type": "WinWait",
-    "named": false
-  },
-  {
     "type": "^",
     "named": false
   },
@@ -706,6 +537,10 @@
   {
     "type": "class",
     "named": false
+  },
+  {
+    "type": "command_name",
+    "named": true
   },
   {
     "type": "continue",

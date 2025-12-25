@@ -94,7 +94,7 @@ module.exports = grammar({
       ))
     )),
 
-    command_name: $ => choice(
+    command_name: $ => token(prec(3, choice(
       // Display
       'MsgBox', 'InputBox', 'ToolTip', 'TrayTip',
       // Send/Input
@@ -118,7 +118,7 @@ module.exports = grammar({
       'Gui', 'GuiControl',
       // App control
       'Reload', 'ExitApp', 'Suspend', 'Pause',
-    ),
+    ))),
 
     command_arguments: $ => prec.left(repeat1(choice(
       $.variable_ref,
