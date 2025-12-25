@@ -1,5 +1,5 @@
 #NoEnv
-#SingleInstance Force
+#SingleInstance, Force
 
 ; This is a comment
 /* Block
@@ -7,9 +7,9 @@ comment */
 
 /**
  * This is a doc comment
- * @param param1 The first parameter
- * @param param2 The second parameter
- * @return The sum of both parameters
+ * @param {Integer|Float} param1 The first parameter
+ * @param {Integer|Float} param2 The second parameter
+ * @return {Integer|Float} The sum of both parameters
  */
 MyFunc(param1, param2) {
     return param1 + param2
@@ -82,3 +82,13 @@ shiftL := a << 2
 
 ; Ternary (? is operator, : is not - conflicts with labels)
 result := condition ? "yes" : "no"
+
+; === Commands ===
+MsgBox, Hello World
+Sleep, 1000
+Send, {Enter}
+Run, notepad.exe
+CoordMode, Mouse, Screen
+SetFormat, Float, 0.0
+IniRead, value, %filepath%, section, key
+Gui, MyGui:Add, Text,, Hello

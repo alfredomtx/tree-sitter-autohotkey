@@ -47,6 +47,10 @@
         },
         {
           "type": "SYMBOL",
+          "name": "command"
+        },
+        {
+          "type": "SYMBOL",
           "name": "string"
         },
         {
@@ -275,6 +279,266 @@
         {
           "type": "STRING",
           "value": ")"
+        }
+      ]
+    },
+    "command": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "FIELD",
+          "name": "name",
+          "content": {
+            "type": "SYMBOL",
+            "name": "command_name"
+          }
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "STRING",
+                  "value": ","
+                },
+                {
+                  "type": "CHOICE",
+                  "members": [
+                    {
+                      "type": "SYMBOL",
+                      "name": "command_arguments"
+                    },
+                    {
+                      "type": "BLANK"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        }
+      ]
+    },
+    "command_name": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "MsgBox"
+        },
+        {
+          "type": "STRING",
+          "value": "InputBox"
+        },
+        {
+          "type": "STRING",
+          "value": "ToolTip"
+        },
+        {
+          "type": "STRING",
+          "value": "TrayTip"
+        },
+        {
+          "type": "STRING",
+          "value": "Send"
+        },
+        {
+          "type": "STRING",
+          "value": "SendInput"
+        },
+        {
+          "type": "STRING",
+          "value": "SendRaw"
+        },
+        {
+          "type": "STRING",
+          "value": "SendEvent"
+        },
+        {
+          "type": "STRING",
+          "value": "SendPlay"
+        },
+        {
+          "type": "STRING",
+          "value": "Sleep"
+        },
+        {
+          "type": "STRING",
+          "value": "SetTimer"
+        },
+        {
+          "type": "STRING",
+          "value": "Run"
+        },
+        {
+          "type": "STRING",
+          "value": "RunWait"
+        },
+        {
+          "type": "STRING",
+          "value": "WinActivate"
+        },
+        {
+          "type": "STRING",
+          "value": "WinWait"
+        },
+        {
+          "type": "STRING",
+          "value": "WinClose"
+        },
+        {
+          "type": "STRING",
+          "value": "WinMinimize"
+        },
+        {
+          "type": "STRING",
+          "value": "WinMaximize"
+        },
+        {
+          "type": "STRING",
+          "value": "FileRead"
+        },
+        {
+          "type": "STRING",
+          "value": "FileAppend"
+        },
+        {
+          "type": "STRING",
+          "value": "FileDelete"
+        },
+        {
+          "type": "STRING",
+          "value": "FileCopy"
+        },
+        {
+          "type": "STRING",
+          "value": "FileMove"
+        },
+        {
+          "type": "STRING",
+          "value": "RegRead"
+        },
+        {
+          "type": "STRING",
+          "value": "RegWrite"
+        },
+        {
+          "type": "STRING",
+          "value": "RegDelete"
+        },
+        {
+          "type": "STRING",
+          "value": "SetWorkingDir"
+        },
+        {
+          "type": "STRING",
+          "value": "CoordMode"
+        },
+        {
+          "type": "STRING",
+          "value": "SetFormat"
+        },
+        {
+          "type": "STRING",
+          "value": "SetBatchLines"
+        },
+        {
+          "type": "STRING",
+          "value": "SetDefaultMouseSpeed"
+        },
+        {
+          "type": "STRING",
+          "value": "SetWinDelay"
+        },
+        {
+          "type": "STRING",
+          "value": "SetControlDelay"
+        },
+        {
+          "type": "STRING",
+          "value": "IniRead"
+        },
+        {
+          "type": "STRING",
+          "value": "IniWrite"
+        },
+        {
+          "type": "STRING",
+          "value": "Gui"
+        },
+        {
+          "type": "STRING",
+          "value": "GuiControl"
+        },
+        {
+          "type": "STRING",
+          "value": "Reload"
+        },
+        {
+          "type": "STRING",
+          "value": "ExitApp"
+        },
+        {
+          "type": "STRING",
+          "value": "Suspend"
+        },
+        {
+          "type": "STRING",
+          "value": "Pause"
+        }
+      ]
+    },
+    "command_arguments": {
+      "type": "PREC_LEFT",
+      "value": 0,
+      "content": {
+        "type": "REPEAT1",
+        "content": {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "variable_ref"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "string"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "number"
+            },
+            {
+              "type": "STRING",
+              "value": ","
+            },
+            {
+              "type": "PATTERN",
+              "value": "[^\\s,\\n%\"']+"
+            }
+          ]
+        }
+      }
+    },
+    "variable_ref": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "%"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "identifier"
+        },
+        {
+          "type": "STRING",
+          "value": "%"
         }
       ]
     },
@@ -684,6 +948,9 @@
     [
       "parameter",
       "_expression"
+    ],
+    [
+      "command"
     ]
   ],
   "precedences": [],

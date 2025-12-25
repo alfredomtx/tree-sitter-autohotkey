@@ -9,6 +9,7 @@ module.exports = grammar({
 
   conflicts: $ => [
     [$.parameter, $._expression],
+    [$.command],
   ],
 
   rules: {
@@ -23,6 +24,7 @@ module.exports = grammar({
       $.label,
       $.function_definition,
       $.function_call,
+      $.command,
       $.string,
       $.number,
       $.keyword,
@@ -83,6 +85,50 @@ module.exports = grammar({
       optional($.argument_list),
       ')'
     ),
+
+    command: $ => seq(
+      field('name', $.command_name),
+      optional(seq(
+        ',',
+        optional($.command_arguments)
+      ))
+    ),
+
+    command_name: $ => choice(
+      // Display
+      'MsgBox', 'InputBox', 'ToolTip', 'TrayTip',
+      // Send/Input
+      'Send', 'SendInput', 'SendRaw', 'SendEvent', 'SendPlay',
+      // Timing
+      'Sleep', 'SetTimer',
+      // Process/Run
+      'Run', 'RunWait',
+      // Window
+      'WinActivate', 'WinWait', 'WinClose', 'WinMinimize', 'WinMaximize',
+      // File
+      'FileRead', 'FileAppend', 'FileDelete', 'FileCopy', 'FileMove',
+      // Registry
+      'RegRead', 'RegWrite', 'RegDelete',
+      // Settings
+      'SetWorkingDir', 'CoordMode', 'SetFormat', 'SetBatchLines',
+      'SetDefaultMouseSpeed', 'SetWinDelay', 'SetControlDelay',
+      // Ini
+      'IniRead', 'IniWrite',
+      // GUI
+      'Gui', 'GuiControl',
+      // App control
+      'Reload', 'ExitApp', 'Suspend', 'Pause',
+    ),
+
+    command_arguments: $ => prec.left(repeat1(choice(
+      $.variable_ref,
+      $.string,
+      $.number,
+      ',',
+      /[^\s,\n%"']+/,
+    ))),
+
+    variable_ref: $ => seq('%', $.identifier, '%'),
 
     parameter_list: $ => seq(
       $.parameter,

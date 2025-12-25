@@ -29,5 +29,12 @@
 (function_definition . (identifier) @function)
 (function_call . (identifier) @function)
 
+; Built-in commands
+(command_name) @function.builtin
+
+; Variable references in commands
+(variable_ref (identifier) @variable)
+(variable_ref "%" @punctuation.special)
+
 ; Labels
 (label . (identifier) @label)
