@@ -1,31 +1,19 @@
-; Comments
+; DEBUG: Test if nodes are being produced at all
+; Using distinct colors to see what matches
+
+; These should work (they did before)
 (comment) @comment
 (block_comment) @comment
-
-; Strings
 (string) @string
-
-; Numbers
 (number) @number
-
-; Keywords
 (keyword) @keyword
 
-; Functions - must come before generic identifier
-(function_definition name: (identifier) @function)
-(function_call name: (identifier) @function)
+; Test if these nodes exist - using obvious colors
+(function_definition) @type
+(function_call) @type
+(label) @tag
+(directive) @attribute
+(hotkey) @constant
 
-; Parameters
-(parameter (identifier) @variable)
-
-; Labels
-(label name: (identifier) @label)
-
-; Hotkeys
-(hotkey) @keyword
-
-; Directives
-(directive) @preproc
-
-; Identifiers (fallback - must be last)
+; Fallback
 (identifier) @variable
