@@ -11,5 +11,21 @@
 ; Keywords
 (keyword) @keyword
 
-; Identifiers
+; Functions
+(function_definition name: (identifier) @function)
+(function_call name: (identifier) @function.call)
+
+; Parameters
+(parameter (identifier) @variable.parameter)
+
+; Labels
+(label name: (identifier) @label)
+
+; Hotkeys
+(hotkey) @keyword.special
+
+; Directives
+(directive) @keyword.directive
+
+; Identifiers (fallback)
 (identifier) @variable

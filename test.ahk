@@ -1,7 +1,24 @@
+#NoEnv
+#SingleInstance Force
+
 ; This is a comment
 /* Block
 comment */
-some code here
+
+MyFunc(param1, param2) {
+    return param1 + param2
+}
+
+result := MyFunc(1, 2)
+
+MyLabel:
+    MsgBox("Hello")
+return
+
+^a::
+    Send("test")
+return
+
 x := "hello world"
 y := 'single quoted'
 num := 123
