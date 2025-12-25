@@ -94,8 +94,8 @@ module.exports = grammar({
       ))
     )),
 
-    // TEST: Replace MsgBox with XyzCmd to test if MsgBox has special handling
-    command_name: $ => token(prec(3, /Sleep|XyzCmd|Run/)),
+    // TEST: Simple patterns to find the rule
+    command_name: $ => token(prec(3, /AAA|BBB|CCC/)),
 
     command_arguments: $ => prec.left(repeat1(choice(
       $.variable_ref,
