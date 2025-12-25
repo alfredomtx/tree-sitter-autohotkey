@@ -94,31 +94,8 @@ module.exports = grammar({
       ))
     )),
 
-    command_name: $ => token(prec(3, choice(
-      // Display
-      'MsgBox', 'InputBox', 'ToolTip', 'TrayTip',
-      // Send/Input
-      'Send', 'SendInput', 'SendRaw', 'SendEvent', 'SendPlay',
-      // Timing
-      'Sleep', 'SetTimer',
-      // Process/Run
-      'Run', 'RunWait',
-      // Window
-      'WinActivate', 'WinWait', 'WinClose', 'WinMinimize', 'WinMaximize',
-      // File
-      'FileRead', 'FileAppend', 'FileDelete', 'FileCopy', 'FileMove',
-      // Registry
-      'RegRead', 'RegWrite', 'RegDelete',
-      // Settings
-      'SetWorkingDir', 'CoordMode', 'SetFormat', 'SetBatchLines',
-      'SetDefaultMouseSpeed', 'SetWinDelay', 'SetControlDelay',
-      // Ini
-      'IniRead', 'IniWrite',
-      // GUI
-      'Gui', 'GuiControl',
-      // App control
-      'Reload', 'ExitApp', 'Suspend', 'Pause',
-    ))),
+    // Use regex instead of choice() to bypass keyword extraction issues
+    command_name: $ => token(prec(3, /MsgBox|InputBox|ToolTip|TrayTip|Send|SendInput|SendRaw|SendEvent|SendPlay|Sleep|SetTimer|Run|RunWait|WinActivate|WinWait|WinClose|WinMinimize|WinMaximize|FileRead|FileAppend|FileDelete|FileCopy|FileMove|RegRead|RegWrite|RegDelete|SetWorkingDir|CoordMode|SetFormat|SetBatchLines|SetDefaultMouseSpeed|SetWinDelay|SetControlDelay|IniRead|IniWrite|Gui|GuiControl|Reload|ExitApp|Suspend|Pause/)),
 
     command_arguments: $ => prec.left(repeat1(choice(
       $.variable_ref,
