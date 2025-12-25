@@ -335,7 +335,7 @@
         "value": 3,
         "content": {
           "type": "PATTERN",
-          "value": "Sleep|MsgBox|Run"
+          "value": "Sleep|XyzCmd|Run"
         }
       }
     },

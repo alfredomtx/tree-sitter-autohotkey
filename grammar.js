@@ -94,8 +94,8 @@ module.exports = grammar({
       ))
     )),
 
-    // TEST: Use token() to bypass keyword extraction
-    command_name: $ => token(prec(3, /Sleep|MsgBox|Run/)),
+    // TEST: Replace MsgBox with XyzCmd to test if MsgBox has special handling
+    command_name: $ => token(prec(3, /Sleep|XyzCmd|Run/)),
 
     command_arguments: $ => prec.left(repeat1(choice(
       $.variable_ref,
