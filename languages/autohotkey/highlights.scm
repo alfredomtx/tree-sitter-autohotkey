@@ -1,19 +1,31 @@
-; DEBUG: Test if nodes are being produced at all
-; Using distinct colors to see what matches
-
-; These should work (they did before)
+; Comments
 (comment) @comment
 (block_comment) @comment
+
+; Strings
 (string) @string
+
+; Numbers
 (number) @number
+
+; Keywords
 (keyword) @keyword
 
-; Test if these nodes exist - using obvious colors
-(function_definition) @type
-(function_call) @type
-(label) @tag
-(directive) @attribute
-(hotkey) @constant
+; Functions - capture the name identifier
+(function_definition name: (identifier) @function)
+(function_call name: (identifier) @function)
 
-; Fallback
+; Parameters
+(parameter (identifier) @variable.parameter)
+
+; Labels - capture the name identifier
+(label name: (identifier) @label)
+
+; Hotkeys
+(hotkey) @keyword
+
+; Directives
+(directive) @preproc
+
+; Identifiers (fallback - must be last)
 (identifier) @variable
