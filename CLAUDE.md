@@ -56,44 +56,6 @@ After modifying `grammar.js`:
 - Use anchored child syntax with `.` for first child: `(function_definition . (identifier) @function)`
 - Zed uses `@attribute` for preprocessor-style directives (not `@preproc`)
 
-## Tree-sitter Grammar Pitfalls
+## Tree-sitter Technical Details
 
-### DO NOT use `word` rule with token-based command matching
-
-**Problem:** The `word: $ => $.identifier` rule enables tree-sitter's keyword extraction, which interferes with `token()` rules. When enabled, only SOME alternatives in a regex pattern will match - the rest silently fail to highlight.
-
-**Solution:** This grammar intentionally OMITS the `word` rule. Commands use `token(prec(3, /regex/))` instead of `choice()` of string literals.
-
-```javascript
-// WRONG - keyword extraction breaks this
-word: $ => $.identifier,
-command_name: $ => choice('MsgBox', 'Sleep', 'Run'),
-
-// CORRECT - no word rule, use token with regex
-// (no word rule)
-command_name: $ => token(prec(3, /MsgBox|Sleep|Run/)),
-```
-
-### Use `token(prec())` for command names, not `choice()`
-
-**Problem:** Using `choice('MsgBox', 'Sleep', ...)` relies on keyword extraction which has subtle bugs in tree-sitter-wasm/Zed integration.
-
-**Solution:** Use a single regex token with precedence:
-```javascript
-command_name: $ => token(prec(3, /MsgBox|Sleep|Run|.../)),
-```
-
-### The `[$.command]` conflict is required
-
-The grammar needs `[$.command]` in the conflicts array to resolve ambiguity between `command` with and without arguments. Don't remove it.
-
-### Keep command regex reasonably short
-
-**Problem:** Very long regex patterns (40+ alternatives) in `token()` can fail silently in tree-sitter-wasm/Zed. The grammar generates fine but highlighting doesn't work.
-
-**Solution:** Keep the command regex to a reasonable size. If you need many commands, consider:
-- Splitting into multiple command types (e.g., `gui_command`, `file_command`)
-- Using a case-insensitive pattern to reduce variations
-- Testing incrementally when adding commands
-
-Current working limit discovered: ~7-10 alternatives work reliably. 40+ alternatives broke highlighting.
+See [TREE_SITTER_NOTES.md](TREE_SITTER_NOTES.md) for grammar pitfalls, debugging tips, and technical lessons learned.
