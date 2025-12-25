@@ -26,7 +26,7 @@ module.exports = grammar({
       $.number,
       $.keyword,
       $.identifier,
-      $._operator,
+      $._punctuation,
     ),
 
     comment: $ => seq(
@@ -46,20 +46,22 @@ module.exports = grammar({
       optional(/[^\n]*/)
     ),
 
-    hotkey: $ => seq(
+    // Hotkey: modifiers + key + ::
+    hotkey: $ => token(seq(
       optional(/[#!^+<>*~$]+/),
       /[a-zA-Z0-9]+/,
       '::'
-    ),
+    )),
 
+    // Label: identifier followed by single colon at end of meaningful content
     label: $ => seq(
       field('name', $.identifier),
-      token.immediate(':'),
+      token.immediate(':')
     ),
 
     function_definition: $ => seq(
       field('name', $.identifier),
-      '(',
+      token.immediate('('),
       optional($.parameter_list),
       ')',
       '{',
@@ -67,12 +69,12 @@ module.exports = grammar({
       '}'
     ),
 
-    function_call: $ => prec(1, seq(
+    function_call: $ => seq(
       field('name', $.identifier),
-      '(',
+      token.immediate('('),
       optional($.argument_list),
       ')'
-    )),
+    ),
 
     parameter_list: $ => seq(
       $.parameter,
@@ -119,7 +121,7 @@ module.exports = grammar({
 
     identifier: $ => /[a-zA-Z_][a-zA-Z0-9_]*/,
 
-    // Operators and punctuation
-    _operator: $ => /:=|[+\-*\/%<>=!&|^~.,@$?\\{}\[\]]+/,
+    // Punctuation and operators - NO braces, NO ^, NO :
+    _punctuation: $ => /[:=(){}\[\]]+|[+\-*\/%<>=!&|~.,@$?\\]+/,
   }
 });

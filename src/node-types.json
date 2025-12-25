@@ -148,11 +148,6 @@
     }
   },
   {
-    "type": "hotkey",
-    "named": true,
-    "fields": {}
-  },
-  {
     "type": "keyword",
     "named": true,
     "fields": {}
@@ -318,10 +313,6 @@
     "named": false
   },
   {
-    "type": "::",
-    "named": false
-  },
-  {
     "type": ":=",
     "named": false
   },
@@ -380,6 +371,10 @@
   {
     "type": "goto",
     "named": false
+  },
+  {
+    "type": "hotkey",
+    "named": true
   },
   {
     "type": "identifier",
