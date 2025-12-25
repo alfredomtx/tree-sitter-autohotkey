@@ -329,21 +329,15 @@
       }
     },
     "command_name": {
-      "type": "CHOICE",
-      "members": [
-        {
-          "type": "STRING",
-          "value": "Sleep"
-        },
-        {
-          "type": "STRING",
-          "value": "MsgBox"
-        },
-        {
-          "type": "STRING",
-          "value": "Run"
+      "type": "TOKEN",
+      "content": {
+        "type": "PREC",
+        "value": 3,
+        "content": {
+          "type": "PATTERN",
+          "value": "Sleep|MsgBox|Run"
         }
-      ]
+      }
     },
     "command_arguments": {
       "type": "PREC_LEFT",

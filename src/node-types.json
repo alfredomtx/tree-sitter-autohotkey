@@ -81,11 +81,6 @@
     }
   },
   {
-    "type": "command_name",
-    "named": true,
-    "fields": {}
-  },
-  {
     "type": "comment",
     "named": true,
     "fields": {}
@@ -524,18 +519,6 @@
     "named": false
   },
   {
-    "type": "MsgBox",
-    "named": false
-  },
-  {
-    "type": "Run",
-    "named": false
-  },
-  {
-    "type": "Sleep",
-    "named": false
-  },
-  {
     "type": "^",
     "named": false
   },
@@ -554,6 +537,10 @@
   {
     "type": "class",
     "named": false
+  },
+  {
+    "type": "command_name",
+    "named": true
   },
   {
     "type": "continue",

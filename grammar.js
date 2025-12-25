@@ -94,12 +94,8 @@ module.exports = grammar({
       ))
     )),
 
-    // TEST: Sleep first to test if order matters
-    command_name: $ => choice(
-      'Sleep',
-      'MsgBox',
-      'Run',
-    ),
+    // TEST: Use token() to bypass keyword extraction
+    command_name: $ => token(prec(3, /Sleep|MsgBox|Run/)),
 
     command_arguments: $ => prec.left(repeat1(choice(
       $.variable_ref,
