@@ -1,0 +1,11 @@
+id = "autohotkey"
+name = "AutoHotkey"
+version = "0.1.0"
+schema_version = 1
+authors = ["Alfredo"]
+description = "AutoHotkey v1 language support for Zed"
+repository = "https://github.com/Alfredo/tree-sitter-autohotkey"
+
+[grammars.autohotkey]
+repository = "file://C:/Users/Alfredo/Documents/GitHub/tree-sitter-autohotkey"
+rev = "HEAD"
