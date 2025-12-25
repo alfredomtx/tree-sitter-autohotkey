@@ -2,11 +2,11 @@ id = "autohotkey"
 name = "AutoHotkey"
 version = "0.1.0"
 schema_version = 1
-authors = ["Alfredo"]
+authors = ["Alfredo Menezes"]
 description = "AutoHotkey v1 language support for Zed"
 repository = "https://github.com/alfredomtx/tree-sitter-autohotkey"
 
 [grammars.autohotkey]
 repository = "https://github.com/alfredomtx/tree-sitter-autohotkey"
-rev = "5e0f8cc671de7fc6998191f02bf321f28076e911"
+rev = "bc2f63441004952ba00859034ddcbc492a945676"
 path = "."
