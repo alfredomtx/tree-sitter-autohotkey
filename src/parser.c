@@ -9,9 +9,9 @@
 #define LANGUAGE_VERSION 14
 #define STATE_COUNT 129
 #define LARGE_STATE_COUNT 63
-#define SYMBOL_COUNT 146
+#define SYMBOL_COUNT 108
 #define ALIAS_COUNT 0
-#define TOKEN_COUNT 121
+#define TOKEN_COUNT 83
 #define EXTERNAL_TOKEN_COUNT 0
 #define FIELD_COUNT 1
 #define MAX_ALIAS_SEQUENCE_LENGTH 7
@@ -36,135 +36,97 @@ enum ts_symbol_identifiers {
   anon_sym_LBRACE = 14,
   anon_sym_RBRACE = 15,
   anon_sym_COMMA = 16,
-  anon_sym_MsgBox = 17,
-  anon_sym_InputBox = 18,
-  anon_sym_ToolTip = 19,
-  anon_sym_TrayTip = 20,
-  anon_sym_Send = 21,
-  anon_sym_SendInput = 22,
-  anon_sym_SendRaw = 23,
-  anon_sym_SendEvent = 24,
-  anon_sym_SendPlay = 25,
-  anon_sym_Sleep = 26,
-  anon_sym_SetTimer = 27,
-  anon_sym_Run = 28,
-  anon_sym_RunWait = 29,
-  anon_sym_WinActivate = 30,
-  anon_sym_WinWait = 31,
-  anon_sym_WinClose = 32,
-  anon_sym_WinMinimize = 33,
-  anon_sym_WinMaximize = 34,
-  anon_sym_FileRead = 35,
-  anon_sym_FileAppend = 36,
-  anon_sym_FileDelete = 37,
-  anon_sym_FileCopy = 38,
-  anon_sym_FileMove = 39,
-  anon_sym_RegRead = 40,
-  anon_sym_RegWrite = 41,
-  anon_sym_RegDelete = 42,
-  anon_sym_SetWorkingDir = 43,
-  anon_sym_CoordMode = 44,
-  anon_sym_SetFormat = 45,
-  anon_sym_SetBatchLines = 46,
-  anon_sym_SetDefaultMouseSpeed = 47,
-  anon_sym_SetWinDelay = 48,
-  anon_sym_SetControlDelay = 49,
-  anon_sym_IniRead = 50,
-  anon_sym_IniWrite = 51,
-  anon_sym_Gui = 52,
-  anon_sym_GuiControl = 53,
-  anon_sym_Reload = 54,
-  anon_sym_ExitApp = 55,
-  anon_sym_Suspend = 56,
-  anon_sym_Pause = 57,
-  aux_sym_command_arguments_token1 = 58,
-  anon_sym_PERCENT = 59,
-  anon_sym_COLON_EQ = 60,
-  anon_sym_DQUOTE = 61,
-  aux_sym_string_token1 = 62,
-  anon_sym_SQUOTE = 63,
-  aux_sym_string_token2 = 64,
-  aux_sym_number_token1 = 65,
-  aux_sym_number_token2 = 66,
-  aux_sym_number_token3 = 67,
-  anon_sym_if = 68,
-  anon_sym_else = 69,
-  anon_sym_while = 70,
-  anon_sym_loop = 71,
-  anon_sym_for = 72,
-  anon_sym_return = 73,
-  anon_sym_break = 74,
-  anon_sym_continue = 75,
-  anon_sym_goto = 76,
-  anon_sym_gosub = 77,
-  anon_sym_class = 78,
-  anon_sym_extends = 79,
-  anon_sym_global = 80,
-  anon_sym_local = 81,
-  anon_sym_static = 82,
-  anon_sym_try = 83,
-  anon_sym_catch = 84,
-  anon_sym_finally = 85,
-  anon_sym_throw = 86,
-  anon_sym_new = 87,
-  anon_sym_true = 88,
-  anon_sym_false = 89,
-  anon_sym_and = 90,
-  anon_sym_or = 91,
-  anon_sym_not = 92,
-  anon_sym_PLUS_EQ = 93,
-  anon_sym_DASH_EQ = 94,
-  anon_sym_STAR_EQ = 95,
-  anon_sym_SLASH_EQ = 96,
-  anon_sym_DOT_EQ = 97,
-  anon_sym_EQ_EQ = 98,
-  anon_sym_BANG_EQ = 99,
-  anon_sym_LT_GT = 100,
-  anon_sym_GT_EQ = 101,
-  anon_sym_LT_EQ = 102,
-  anon_sym_GT = 103,
-  anon_sym_LT = 104,
-  anon_sym_SLASH_SLASH = 105,
-  anon_sym_STAR_STAR = 106,
-  anon_sym_PLUS = 107,
-  anon_sym_DASH = 108,
-  anon_sym_STAR = 109,
-  anon_sym_AMP_AMP = 110,
-  anon_sym_PIPE_PIPE = 111,
-  anon_sym_BANG = 112,
-  anon_sym_GT_GT = 113,
-  anon_sym_LT_LT = 114,
-  anon_sym_AMP = 115,
-  anon_sym_PIPE = 116,
-  anon_sym_CARET = 117,
-  anon_sym_TILDE = 118,
-  anon_sym_QMARK = 119,
-  sym__punctuation = 120,
-  sym_source_file = 121,
-  sym__statement = 122,
-  sym_comment = 123,
-  sym_block_comment = 124,
-  sym_doc_comment = 125,
-  sym_directive = 126,
-  sym_label = 127,
-  sym_function_definition = 128,
-  sym_function_call = 129,
-  sym_command = 130,
-  sym_command_name = 131,
-  sym_command_arguments = 132,
-  sym_variable_ref = 133,
-  sym_parameter_list = 134,
-  sym_parameter = 135,
-  sym_argument_list = 136,
-  sym__expression = 137,
-  sym_string = 138,
-  sym_number = 139,
-  sym_keyword = 140,
-  sym_operator = 141,
-  aux_sym_source_file_repeat1 = 142,
-  aux_sym_command_arguments_repeat1 = 143,
-  aux_sym_parameter_list_repeat1 = 144,
-  aux_sym_argument_list_repeat1 = 145,
+  anon_sym_Sleep = 17,
+  anon_sym_MsgBox = 18,
+  anon_sym_Run = 19,
+  aux_sym_command_arguments_token1 = 20,
+  anon_sym_PERCENT = 21,
+  anon_sym_COLON_EQ = 22,
+  anon_sym_DQUOTE = 23,
+  aux_sym_string_token1 = 24,
+  anon_sym_SQUOTE = 25,
+  aux_sym_string_token2 = 26,
+  aux_sym_number_token1 = 27,
+  aux_sym_number_token2 = 28,
+  aux_sym_number_token3 = 29,
+  anon_sym_if = 30,
+  anon_sym_else = 31,
+  anon_sym_while = 32,
+  anon_sym_loop = 33,
+  anon_sym_for = 34,
+  anon_sym_return = 35,
+  anon_sym_break = 36,
+  anon_sym_continue = 37,
+  anon_sym_goto = 38,
+  anon_sym_gosub = 39,
+  anon_sym_class = 40,
+  anon_sym_extends = 41,
+  anon_sym_global = 42,
+  anon_sym_local = 43,
+  anon_sym_static = 44,
+  anon_sym_try = 45,
+  anon_sym_catch = 46,
+  anon_sym_finally = 47,
+  anon_sym_throw = 48,
+  anon_sym_new = 49,
+  anon_sym_true = 50,
+  anon_sym_false = 51,
+  anon_sym_and = 52,
+  anon_sym_or = 53,
+  anon_sym_not = 54,
+  anon_sym_PLUS_EQ = 55,
+  anon_sym_DASH_EQ = 56,
+  anon_sym_STAR_EQ = 57,
+  anon_sym_SLASH_EQ = 58,
+  anon_sym_DOT_EQ = 59,
+  anon_sym_EQ_EQ = 60,
+  anon_sym_BANG_EQ = 61,
+  anon_sym_LT_GT = 62,
+  anon_sym_GT_EQ = 63,
+  anon_sym_LT_EQ = 64,
+  anon_sym_GT = 65,
+  anon_sym_LT = 66,
+  anon_sym_SLASH_SLASH = 67,
+  anon_sym_STAR_STAR = 68,
+  anon_sym_PLUS = 69,
+  anon_sym_DASH = 70,
+  anon_sym_STAR = 71,
+  anon_sym_AMP_AMP = 72,
+  anon_sym_PIPE_PIPE = 73,
+  anon_sym_BANG = 74,
+  anon_sym_GT_GT = 75,
+  anon_sym_LT_LT = 76,
+  anon_sym_AMP = 77,
+  anon_sym_PIPE = 78,
+  anon_sym_CARET = 79,
+  anon_sym_TILDE = 80,
+  anon_sym_QMARK = 81,
+  sym__punctuation = 82,
+  sym_source_file = 83,
+  sym__statement = 84,
+  sym_comment = 85,
+  sym_block_comment = 86,
+  sym_doc_comment = 87,
+  sym_directive = 88,
+  sym_label = 89,
+  sym_function_definition = 90,
+  sym_function_call = 91,
+  sym_command = 92,
+  sym_command_name = 93,
+  sym_command_arguments = 94,
+  sym_variable_ref = 95,
+  sym_parameter_list = 96,
+  sym_parameter = 97,
+  sym_argument_list = 98,
+  sym__expression = 99,
+  sym_string = 100,
+  sym_number = 101,
+  sym_keyword = 102,
+  sym_operator = 103,
+  aux_sym_source_file_repeat1 = 104,
+  aux_sym_command_arguments_repeat1 = 105,
+  aux_sym_parameter_list_repeat1 = 106,
+  aux_sym_argument_list_repeat1 = 107,
 };
 
 static const char * const ts_symbol_names[] = {
@@ -185,47 +147,9 @@ static const char * const ts_symbol_names[] = {
   [anon_sym_LBRACE] = "{",
   [anon_sym_RBRACE] = "}",
   [anon_sym_COMMA] = ",",
-  [anon_sym_MsgBox] = "MsgBox",
-  [anon_sym_InputBox] = "InputBox",
-  [anon_sym_ToolTip] = "ToolTip",
-  [anon_sym_TrayTip] = "TrayTip",
-  [anon_sym_Send] = "Send",
-  [anon_sym_SendInput] = "SendInput",
-  [anon_sym_SendRaw] = "SendRaw",
-  [anon_sym_SendEvent] = "SendEvent",
-  [anon_sym_SendPlay] = "SendPlay",
   [anon_sym_Sleep] = "Sleep",
-  [anon_sym_SetTimer] = "SetTimer",
+  [anon_sym_MsgBox] = "MsgBox",
   [anon_sym_Run] = "Run",
-  [anon_sym_RunWait] = "RunWait",
-  [anon_sym_WinActivate] = "WinActivate",
-  [anon_sym_WinWait] = "WinWait",
-  [anon_sym_WinClose] = "WinClose",
-  [anon_sym_WinMinimize] = "WinMinimize",
-  [anon_sym_WinMaximize] = "WinMaximize",
-  [anon_sym_FileRead] = "FileRead",
-  [anon_sym_FileAppend] = "FileAppend",
-  [anon_sym_FileDelete] = "FileDelete",
-  [anon_sym_FileCopy] = "FileCopy",
-  [anon_sym_FileMove] = "FileMove",
-  [anon_sym_RegRead] = "RegRead",
-  [anon_sym_RegWrite] = "RegWrite",
-  [anon_sym_RegDelete] = "RegDelete",
-  [anon_sym_SetWorkingDir] = "SetWorkingDir",
-  [anon_sym_CoordMode] = "CoordMode",
-  [anon_sym_SetFormat] = "SetFormat",
-  [anon_sym_SetBatchLines] = "SetBatchLines",
-  [anon_sym_SetDefaultMouseSpeed] = "SetDefaultMouseSpeed",
-  [anon_sym_SetWinDelay] = "SetWinDelay",
-  [anon_sym_SetControlDelay] = "SetControlDelay",
-  [anon_sym_IniRead] = "IniRead",
-  [anon_sym_IniWrite] = "IniWrite",
-  [anon_sym_Gui] = "Gui",
-  [anon_sym_GuiControl] = "GuiControl",
-  [anon_sym_Reload] = "Reload",
-  [anon_sym_ExitApp] = "ExitApp",
-  [anon_sym_Suspend] = "Suspend",
-  [anon_sym_Pause] = "Pause",
   [aux_sym_command_arguments_token1] = "command_arguments_token1",
   [anon_sym_PERCENT] = "%",
   [anon_sym_COLON_EQ] = ":=",
@@ -334,47 +258,9 @@ static const TSSymbol ts_symbol_map[] = {
   [anon_sym_LBRACE] = anon_sym_LBRACE,
   [anon_sym_RBRACE] = anon_sym_RBRACE,
   [anon_sym_COMMA] = anon_sym_COMMA,
-  [anon_sym_MsgBox] = anon_sym_MsgBox,
-  [anon_sym_InputBox] = anon_sym_InputBox,
-  [anon_sym_ToolTip] = anon_sym_ToolTip,
-  [anon_sym_TrayTip] = anon_sym_TrayTip,
-  [anon_sym_Send] = anon_sym_Send,
-  [anon_sym_SendInput] = anon_sym_SendInput,
-  [anon_sym_SendRaw] = anon_sym_SendRaw,
-  [anon_sym_SendEvent] = anon_sym_SendEvent,
-  [anon_sym_SendPlay] = anon_sym_SendPlay,
   [anon_sym_Sleep] = anon_sym_Sleep,
-  [anon_sym_SetTimer] = anon_sym_SetTimer,
+  [anon_sym_MsgBox] = anon_sym_MsgBox,
   [anon_sym_Run] = anon_sym_Run,
-  [anon_sym_RunWait] = anon_sym_RunWait,
-  [anon_sym_WinActivate] = anon_sym_WinActivate,
-  [anon_sym_WinWait] = anon_sym_WinWait,
-  [anon_sym_WinClose] = anon_sym_WinClose,
-  [anon_sym_WinMinimize] = anon_sym_WinMinimize,
-  [anon_sym_WinMaximize] = anon_sym_WinMaximize,
-  [anon_sym_FileRead] = anon_sym_FileRead,
-  [anon_sym_FileAppend] = anon_sym_FileAppend,
-  [anon_sym_FileDelete] = anon_sym_FileDelete,
-  [anon_sym_FileCopy] = anon_sym_FileCopy,
-  [anon_sym_FileMove] = anon_sym_FileMove,
-  [anon_sym_RegRead] = anon_sym_RegRead,
-  [anon_sym_RegWrite] = anon_sym_RegWrite,
-  [anon_sym_RegDelete] = anon_sym_RegDelete,
-  [anon_sym_SetWorkingDir] = anon_sym_SetWorkingDir,
-  [anon_sym_CoordMode] = anon_sym_CoordMode,
-  [anon_sym_SetFormat] = anon_sym_SetFormat,
-  [anon_sym_SetBatchLines] = anon_sym_SetBatchLines,
-  [anon_sym_SetDefaultMouseSpeed] = anon_sym_SetDefaultMouseSpeed,
-  [anon_sym_SetWinDelay] = anon_sym_SetWinDelay,
-  [anon_sym_SetControlDelay] = anon_sym_SetControlDelay,
-  [anon_sym_IniRead] = anon_sym_IniRead,
-  [anon_sym_IniWrite] = anon_sym_IniWrite,
-  [anon_sym_Gui] = anon_sym_Gui,
-  [anon_sym_GuiControl] = anon_sym_GuiControl,
-  [anon_sym_Reload] = anon_sym_Reload,
-  [anon_sym_ExitApp] = anon_sym_ExitApp,
-  [anon_sym_Suspend] = anon_sym_Suspend,
-  [anon_sym_Pause] = anon_sym_Pause,
   [aux_sym_command_arguments_token1] = aux_sym_command_arguments_token1,
   [anon_sym_PERCENT] = anon_sym_PERCENT,
   [anon_sym_COLON_EQ] = anon_sym_COLON_EQ,
@@ -534,167 +420,15 @@ static const TSSymbolMetadata ts_symbol_metadata[] = {
     .visible = true,
     .named = false,
   },
-  [anon_sym_MsgBox] = {
-    .visible = true,
-    .named = false,
-  },
-  [anon_sym_InputBox] = {
-    .visible = true,
-    .named = false,
-  },
-  [anon_sym_ToolTip] = {
-    .visible = true,
-    .named = false,
-  },
-  [anon_sym_TrayTip] = {
-    .visible = true,
-    .named = false,
-  },
-  [anon_sym_Send] = {
-    .visible = true,
-    .named = false,
-  },
-  [anon_sym_SendInput] = {
-    .visible = true,
-    .named = false,
-  },
-  [anon_sym_SendRaw] = {
-    .visible = true,
-    .named = false,
-  },
-  [anon_sym_SendEvent] = {
-    .visible = true,
-    .named = false,
-  },
-  [anon_sym_SendPlay] = {
-    .visible = true,
-    .named = false,
-  },
   [anon_sym_Sleep] = {
     .visible = true,
     .named = false,
   },
-  [anon_sym_SetTimer] = {
+  [anon_sym_MsgBox] = {
     .visible = true,
     .named = false,
   },
   [anon_sym_Run] = {
-    .visible = true,
-    .named = false,
-  },
-  [anon_sym_RunWait] = {
-    .visible = true,
-    .named = false,
-  },
-  [anon_sym_WinActivate] = {
-    .visible = true,
-    .named = false,
-  },
-  [anon_sym_WinWait] = {
-    .visible = true,
-    .named = false,
-  },
-  [anon_sym_WinClose] = {
-    .visible = true,
-    .named = false,
-  },
-  [anon_sym_WinMinimize] = {
-    .visible = true,
-    .named = false,
-  },
-  [anon_sym_WinMaximize] = {
-    .visible = true,
-    .named = false,
-  },
-  [anon_sym_FileRead] = {
-    .visible = true,
-    .named = false,
-  },
-  [anon_sym_FileAppend] = {
-    .visible = true,
-    .named = false,
-  },
-  [anon_sym_FileDelete] = {
-    .visible = true,
-    .named = false,
-  },
-  [anon_sym_FileCopy] = {
-    .visible = true,
-    .named = false,
-  },
-  [anon_sym_FileMove] = {
-    .visible = true,
-    .named = false,
-  },
-  [anon_sym_RegRead] = {
-    .visible = true,
-    .named = false,
-  },
-  [anon_sym_RegWrite] = {
-    .visible = true,
-    .named = false,
-  },
-  [anon_sym_RegDelete] = {
-    .visible = true,
-    .named = false,
-  },
-  [anon_sym_SetWorkingDir] = {
-    .visible = true,
-    .named = false,
-  },
-  [anon_sym_CoordMode] = {
-    .visible = true,
-    .named = false,
-  },
-  [anon_sym_SetFormat] = {
-    .visible = true,
-    .named = false,
-  },
-  [anon_sym_SetBatchLines] = {
-    .visible = true,
-    .named = false,
-  },
-  [anon_sym_SetDefaultMouseSpeed] = {
-    .visible = true,
-    .named = false,
-  },
-  [anon_sym_SetWinDelay] = {
-    .visible = true,
-    .named = false,
-  },
-  [anon_sym_SetControlDelay] = {
-    .visible = true,
-    .named = false,
-  },
-  [anon_sym_IniRead] = {
-    .visible = true,
-    .named = false,
-  },
-  [anon_sym_IniWrite] = {
-    .visible = true,
-    .named = false,
-  },
-  [anon_sym_Gui] = {
-    .visible = true,
-    .named = false,
-  },
-  [anon_sym_GuiControl] = {
-    .visible = true,
-    .named = false,
-  },
-  [anon_sym_Reload] = {
-    .visible = true,
-    .named = false,
-  },
-  [anon_sym_ExitApp] = {
-    .visible = true,
-    .named = false,
-  },
-  [anon_sym_Suspend] = {
-    .visible = true,
-    .named = false,
-  },
-  [anon_sym_Pause] = {
     .visible = true,
     .named = false,
   },
@@ -3635,1152 +3369,382 @@ static bool ts_lex_keywords(TSLexer *lexer, TSStateId state) {
   switch (state) {
     case 0:
       ADVANCE_MAP(
-        'C', 1,
-        'E', 2,
-        'F', 3,
-        'G', 4,
-        'I', 5,
-        'M', 6,
-        'P', 7,
-        'R', 8,
-        'S', 9,
-        'T', 10,
-        'W', 11,
-        'a', 12,
-        'b', 13,
-        'c', 14,
-        'e', 15,
-        'f', 16,
-        'g', 17,
-        'i', 18,
-        'l', 19,
-        'n', 20,
-        'o', 21,
-        'r', 22,
-        's', 23,
-        't', 24,
-        'w', 25,
+        'M', 1,
+        'R', 2,
+        'S', 3,
+        'a', 4,
+        'b', 5,
+        'c', 6,
+        'e', 7,
+        'f', 8,
+        'g', 9,
+        'i', 10,
+        'l', 11,
+        'n', 12,
+        'o', 13,
+        'r', 14,
+        's', 15,
+        't', 16,
+        'w', 17,
       );
       if (('\t' <= lookahead && lookahead <= '\r') ||
           lookahead == ' ') SKIP(0);
       END_STATE();
     case 1:
-      if (lookahead == 'o') ADVANCE(26);
+      if (lookahead == 's') ADVANCE(18);
       END_STATE();
     case 2:
-      if (lookahead == 'x') ADVANCE(27);
+      if (lookahead == 'u') ADVANCE(19);
       END_STATE();
     case 3:
-      if (lookahead == 'i') ADVANCE(28);
+      if (lookahead == 'l') ADVANCE(20);
       END_STATE();
     case 4:
-      if (lookahead == 'u') ADVANCE(29);
+      if (lookahead == 'n') ADVANCE(21);
       END_STATE();
     case 5:
-      if (lookahead == 'n') ADVANCE(30);
+      if (lookahead == 'r') ADVANCE(22);
       END_STATE();
     case 6:
-      if (lookahead == 's') ADVANCE(31);
+      if (lookahead == 'a') ADVANCE(23);
+      if (lookahead == 'l') ADVANCE(24);
+      if (lookahead == 'o') ADVANCE(25);
       END_STATE();
     case 7:
-      if (lookahead == 'a') ADVANCE(32);
+      if (lookahead == 'l') ADVANCE(26);
+      if (lookahead == 'x') ADVANCE(27);
       END_STATE();
     case 8:
-      if (lookahead == 'e') ADVANCE(33);
-      if (lookahead == 'u') ADVANCE(34);
+      if (lookahead == 'a') ADVANCE(28);
+      if (lookahead == 'i') ADVANCE(29);
+      if (lookahead == 'o') ADVANCE(30);
       END_STATE();
     case 9:
-      if (lookahead == 'e') ADVANCE(35);
-      if (lookahead == 'l') ADVANCE(36);
-      if (lookahead == 'u') ADVANCE(37);
+      if (lookahead == 'l') ADVANCE(31);
+      if (lookahead == 'o') ADVANCE(32);
       END_STATE();
     case 10:
-      if (lookahead == 'o') ADVANCE(38);
-      if (lookahead == 'r') ADVANCE(39);
+      if (lookahead == 'f') ADVANCE(33);
       END_STATE();
     case 11:
-      if (lookahead == 'i') ADVANCE(40);
+      if (lookahead == 'o') ADVANCE(34);
       END_STATE();
     case 12:
-      if (lookahead == 'n') ADVANCE(41);
+      if (lookahead == 'e') ADVANCE(35);
+      if (lookahead == 'o') ADVANCE(36);
       END_STATE();
     case 13:
-      if (lookahead == 'r') ADVANCE(42);
+      if (lookahead == 'r') ADVANCE(37);
       END_STATE();
     case 14:
-      if (lookahead == 'a') ADVANCE(43);
-      if (lookahead == 'l') ADVANCE(44);
-      if (lookahead == 'o') ADVANCE(45);
+      if (lookahead == 'e') ADVANCE(38);
       END_STATE();
     case 15:
-      if (lookahead == 'l') ADVANCE(46);
-      if (lookahead == 'x') ADVANCE(47);
+      if (lookahead == 't') ADVANCE(39);
       END_STATE();
     case 16:
-      if (lookahead == 'a') ADVANCE(48);
-      if (lookahead == 'i') ADVANCE(49);
-      if (lookahead == 'o') ADVANCE(50);
+      if (lookahead == 'h') ADVANCE(40);
+      if (lookahead == 'r') ADVANCE(41);
       END_STATE();
     case 17:
-      if (lookahead == 'l') ADVANCE(51);
-      if (lookahead == 'o') ADVANCE(52);
+      if (lookahead == 'h') ADVANCE(42);
       END_STATE();
     case 18:
-      if (lookahead == 'f') ADVANCE(53);
+      if (lookahead == 'g') ADVANCE(43);
       END_STATE();
     case 19:
-      if (lookahead == 'o') ADVANCE(54);
+      if (lookahead == 'n') ADVANCE(44);
       END_STATE();
     case 20:
-      if (lookahead == 'e') ADVANCE(55);
-      if (lookahead == 'o') ADVANCE(56);
+      if (lookahead == 'e') ADVANCE(45);
       END_STATE();
     case 21:
-      if (lookahead == 'r') ADVANCE(57);
+      if (lookahead == 'd') ADVANCE(46);
       END_STATE();
     case 22:
-      if (lookahead == 'e') ADVANCE(58);
+      if (lookahead == 'e') ADVANCE(47);
       END_STATE();
     case 23:
-      if (lookahead == 't') ADVANCE(59);
+      if (lookahead == 't') ADVANCE(48);
       END_STATE();
     case 24:
-      if (lookahead == 'h') ADVANCE(60);
-      if (lookahead == 'r') ADVANCE(61);
+      if (lookahead == 'a') ADVANCE(49);
       END_STATE();
     case 25:
-      if (lookahead == 'h') ADVANCE(62);
+      if (lookahead == 'n') ADVANCE(50);
       END_STATE();
     case 26:
-      if (lookahead == 'o') ADVANCE(63);
+      if (lookahead == 's') ADVANCE(51);
       END_STATE();
     case 27:
-      if (lookahead == 'i') ADVANCE(64);
+      if (lookahead == 't') ADVANCE(52);
       END_STATE();
     case 28:
-      if (lookahead == 'l') ADVANCE(65);
+      if (lookahead == 'l') ADVANCE(53);
       END_STATE();
     case 29:
-      if (lookahead == 'i') ADVANCE(66);
+      if (lookahead == 'n') ADVANCE(54);
       END_STATE();
     case 30:
-      if (lookahead == 'i') ADVANCE(67);
-      if (lookahead == 'p') ADVANCE(68);
+      if (lookahead == 'r') ADVANCE(55);
       END_STATE();
     case 31:
-      if (lookahead == 'g') ADVANCE(69);
+      if (lookahead == 'o') ADVANCE(56);
       END_STATE();
     case 32:
-      if (lookahead == 'u') ADVANCE(70);
+      if (lookahead == 's') ADVANCE(57);
+      if (lookahead == 't') ADVANCE(58);
       END_STATE();
     case 33:
-      if (lookahead == 'g') ADVANCE(71);
-      if (lookahead == 'l') ADVANCE(72);
-      END_STATE();
-    case 34:
-      if (lookahead == 'n') ADVANCE(73);
-      END_STATE();
-    case 35:
-      if (lookahead == 'n') ADVANCE(74);
-      if (lookahead == 't') ADVANCE(75);
-      END_STATE();
-    case 36:
-      if (lookahead == 'e') ADVANCE(76);
-      END_STATE();
-    case 37:
-      if (lookahead == 's') ADVANCE(77);
-      END_STATE();
-    case 38:
-      if (lookahead == 'o') ADVANCE(78);
-      END_STATE();
-    case 39:
-      if (lookahead == 'a') ADVANCE(79);
-      END_STATE();
-    case 40:
-      if (lookahead == 'n') ADVANCE(80);
-      END_STATE();
-    case 41:
-      if (lookahead == 'd') ADVANCE(81);
-      END_STATE();
-    case 42:
-      if (lookahead == 'e') ADVANCE(82);
-      END_STATE();
-    case 43:
-      if (lookahead == 't') ADVANCE(83);
-      END_STATE();
-    case 44:
-      if (lookahead == 'a') ADVANCE(84);
-      END_STATE();
-    case 45:
-      if (lookahead == 'n') ADVANCE(85);
-      END_STATE();
-    case 46:
-      if (lookahead == 's') ADVANCE(86);
-      END_STATE();
-    case 47:
-      if (lookahead == 't') ADVANCE(87);
-      END_STATE();
-    case 48:
-      if (lookahead == 'l') ADVANCE(88);
-      END_STATE();
-    case 49:
-      if (lookahead == 'n') ADVANCE(89);
-      END_STATE();
-    case 50:
-      if (lookahead == 'r') ADVANCE(90);
-      END_STATE();
-    case 51:
-      if (lookahead == 'o') ADVANCE(91);
-      END_STATE();
-    case 52:
-      if (lookahead == 's') ADVANCE(92);
-      if (lookahead == 't') ADVANCE(93);
-      END_STATE();
-    case 53:
       ACCEPT_TOKEN(anon_sym_if);
       END_STATE();
-    case 54:
-      if (lookahead == 'c') ADVANCE(94);
-      if (lookahead == 'o') ADVANCE(95);
+    case 34:
+      if (lookahead == 'c') ADVANCE(59);
+      if (lookahead == 'o') ADVANCE(60);
       END_STATE();
-    case 55:
-      if (lookahead == 'w') ADVANCE(96);
+    case 35:
+      if (lookahead == 'w') ADVANCE(61);
       END_STATE();
-    case 56:
-      if (lookahead == 't') ADVANCE(97);
+    case 36:
+      if (lookahead == 't') ADVANCE(62);
       END_STATE();
-    case 57:
+    case 37:
       ACCEPT_TOKEN(anon_sym_or);
       END_STATE();
-    case 58:
-      if (lookahead == 't') ADVANCE(98);
+    case 38:
+      if (lookahead == 't') ADVANCE(63);
       END_STATE();
-    case 59:
-      if (lookahead == 'a') ADVANCE(99);
+    case 39:
+      if (lookahead == 'a') ADVANCE(64);
       END_STATE();
-    case 60:
-      if (lookahead == 'r') ADVANCE(100);
+    case 40:
+      if (lookahead == 'r') ADVANCE(65);
       END_STATE();
-    case 61:
-      if (lookahead == 'u') ADVANCE(101);
-      if (lookahead == 'y') ADVANCE(102);
+    case 41:
+      if (lookahead == 'u') ADVANCE(66);
+      if (lookahead == 'y') ADVANCE(67);
       END_STATE();
-    case 62:
-      if (lookahead == 'i') ADVANCE(103);
+    case 42:
+      if (lookahead == 'i') ADVANCE(68);
       END_STATE();
-    case 63:
-      if (lookahead == 'r') ADVANCE(104);
+    case 43:
+      if (lookahead == 'B') ADVANCE(69);
       END_STATE();
-    case 64:
-      if (lookahead == 't') ADVANCE(105);
-      END_STATE();
-    case 65:
-      if (lookahead == 'e') ADVANCE(106);
-      END_STATE();
-    case 66:
-      ACCEPT_TOKEN(anon_sym_Gui);
-      if (lookahead == 'C') ADVANCE(107);
-      END_STATE();
-    case 67:
-      if (lookahead == 'R') ADVANCE(108);
-      if (lookahead == 'W') ADVANCE(109);
-      END_STATE();
-    case 68:
-      if (lookahead == 'u') ADVANCE(110);
-      END_STATE();
-    case 69:
-      if (lookahead == 'B') ADVANCE(111);
-      END_STATE();
-    case 70:
-      if (lookahead == 's') ADVANCE(112);
-      END_STATE();
-    case 71:
-      if (lookahead == 'D') ADVANCE(113);
-      if (lookahead == 'R') ADVANCE(114);
-      if (lookahead == 'W') ADVANCE(115);
-      END_STATE();
-    case 72:
-      if (lookahead == 'o') ADVANCE(116);
-      END_STATE();
-    case 73:
+    case 44:
       ACCEPT_TOKEN(anon_sym_Run);
-      if (lookahead == 'W') ADVANCE(117);
       END_STATE();
-    case 74:
-      if (lookahead == 'd') ADVANCE(118);
+    case 45:
+      if (lookahead == 'e') ADVANCE(70);
       END_STATE();
-    case 75:
-      if (lookahead == 'B') ADVANCE(119);
-      if (lookahead == 'C') ADVANCE(120);
-      if (lookahead == 'D') ADVANCE(121);
-      if (lookahead == 'F') ADVANCE(122);
-      if (lookahead == 'T') ADVANCE(123);
-      if (lookahead == 'W') ADVANCE(124);
-      END_STATE();
-    case 76:
-      if (lookahead == 'e') ADVANCE(125);
-      END_STATE();
-    case 77:
-      if (lookahead == 'p') ADVANCE(126);
-      END_STATE();
-    case 78:
-      if (lookahead == 'l') ADVANCE(127);
-      END_STATE();
-    case 79:
-      if (lookahead == 'y') ADVANCE(128);
-      END_STATE();
-    case 80:
-      if (lookahead == 'A') ADVANCE(129);
-      if (lookahead == 'C') ADVANCE(130);
-      if (lookahead == 'M') ADVANCE(131);
-      if (lookahead == 'W') ADVANCE(132);
-      END_STATE();
-    case 81:
+    case 46:
       ACCEPT_TOKEN(anon_sym_and);
       END_STATE();
-    case 82:
-      if (lookahead == 'a') ADVANCE(133);
+    case 47:
+      if (lookahead == 'a') ADVANCE(71);
       END_STATE();
-    case 83:
-      if (lookahead == 'c') ADVANCE(134);
+    case 48:
+      if (lookahead == 'c') ADVANCE(72);
       END_STATE();
-    case 84:
-      if (lookahead == 's') ADVANCE(135);
+    case 49:
+      if (lookahead == 's') ADVANCE(73);
       END_STATE();
-    case 85:
-      if (lookahead == 't') ADVANCE(136);
+    case 50:
+      if (lookahead == 't') ADVANCE(74);
       END_STATE();
-    case 86:
-      if (lookahead == 'e') ADVANCE(137);
+    case 51:
+      if (lookahead == 'e') ADVANCE(75);
       END_STATE();
-    case 87:
-      if (lookahead == 'e') ADVANCE(138);
+    case 52:
+      if (lookahead == 'e') ADVANCE(76);
       END_STATE();
-    case 88:
-      if (lookahead == 's') ADVANCE(139);
+    case 53:
+      if (lookahead == 's') ADVANCE(77);
       END_STATE();
-    case 89:
-      if (lookahead == 'a') ADVANCE(140);
+    case 54:
+      if (lookahead == 'a') ADVANCE(78);
       END_STATE();
-    case 90:
+    case 55:
       ACCEPT_TOKEN(anon_sym_for);
       END_STATE();
-    case 91:
-      if (lookahead == 'b') ADVANCE(141);
+    case 56:
+      if (lookahead == 'b') ADVANCE(79);
       END_STATE();
-    case 92:
-      if (lookahead == 'u') ADVANCE(142);
+    case 57:
+      if (lookahead == 'u') ADVANCE(80);
       END_STATE();
-    case 93:
-      if (lookahead == 'o') ADVANCE(143);
+    case 58:
+      if (lookahead == 'o') ADVANCE(81);
       END_STATE();
-    case 94:
-      if (lookahead == 'a') ADVANCE(144);
+    case 59:
+      if (lookahead == 'a') ADVANCE(82);
       END_STATE();
-    case 95:
-      if (lookahead == 'p') ADVANCE(145);
+    case 60:
+      if (lookahead == 'p') ADVANCE(83);
       END_STATE();
-    case 96:
+    case 61:
       ACCEPT_TOKEN(anon_sym_new);
       END_STATE();
-    case 97:
+    case 62:
       ACCEPT_TOKEN(anon_sym_not);
       END_STATE();
-    case 98:
-      if (lookahead == 'u') ADVANCE(146);
+    case 63:
+      if (lookahead == 'u') ADVANCE(84);
       END_STATE();
-    case 99:
-      if (lookahead == 't') ADVANCE(147);
+    case 64:
+      if (lookahead == 't') ADVANCE(85);
       END_STATE();
-    case 100:
-      if (lookahead == 'o') ADVANCE(148);
+    case 65:
+      if (lookahead == 'o') ADVANCE(86);
       END_STATE();
-    case 101:
-      if (lookahead == 'e') ADVANCE(149);
+    case 66:
+      if (lookahead == 'e') ADVANCE(87);
       END_STATE();
-    case 102:
+    case 67:
       ACCEPT_TOKEN(anon_sym_try);
       END_STATE();
-    case 103:
-      if (lookahead == 'l') ADVANCE(150);
+    case 68:
+      if (lookahead == 'l') ADVANCE(88);
       END_STATE();
-    case 104:
-      if (lookahead == 'd') ADVANCE(151);
+    case 69:
+      if (lookahead == 'o') ADVANCE(89);
       END_STATE();
-    case 105:
-      if (lookahead == 'A') ADVANCE(152);
+    case 70:
+      if (lookahead == 'p') ADVANCE(90);
       END_STATE();
-    case 106:
-      if (lookahead == 'A') ADVANCE(153);
-      if (lookahead == 'C') ADVANCE(154);
-      if (lookahead == 'D') ADVANCE(155);
-      if (lookahead == 'M') ADVANCE(156);
-      if (lookahead == 'R') ADVANCE(157);
+    case 71:
+      if (lookahead == 'k') ADVANCE(91);
       END_STATE();
-    case 107:
-      if (lookahead == 'o') ADVANCE(158);
+    case 72:
+      if (lookahead == 'h') ADVANCE(92);
       END_STATE();
-    case 108:
-      if (lookahead == 'e') ADVANCE(159);
+    case 73:
+      if (lookahead == 's') ADVANCE(93);
       END_STATE();
-    case 109:
-      if (lookahead == 'r') ADVANCE(160);
+    case 74:
+      if (lookahead == 'i') ADVANCE(94);
       END_STATE();
-    case 110:
-      if (lookahead == 't') ADVANCE(161);
-      END_STATE();
-    case 111:
-      if (lookahead == 'o') ADVANCE(162);
-      END_STATE();
-    case 112:
-      if (lookahead == 'e') ADVANCE(163);
-      END_STATE();
-    case 113:
-      if (lookahead == 'e') ADVANCE(164);
-      END_STATE();
-    case 114:
-      if (lookahead == 'e') ADVANCE(165);
-      END_STATE();
-    case 115:
-      if (lookahead == 'r') ADVANCE(166);
-      END_STATE();
-    case 116:
-      if (lookahead == 'a') ADVANCE(167);
-      END_STATE();
-    case 117:
-      if (lookahead == 'a') ADVANCE(168);
-      END_STATE();
-    case 118:
-      ACCEPT_TOKEN(anon_sym_Send);
-      if (lookahead == 'E') ADVANCE(169);
-      if (lookahead == 'I') ADVANCE(170);
-      if (lookahead == 'P') ADVANCE(171);
-      if (lookahead == 'R') ADVANCE(172);
-      END_STATE();
-    case 119:
-      if (lookahead == 'a') ADVANCE(173);
-      END_STATE();
-    case 120:
-      if (lookahead == 'o') ADVANCE(174);
-      END_STATE();
-    case 121:
-      if (lookahead == 'e') ADVANCE(175);
-      END_STATE();
-    case 122:
-      if (lookahead == 'o') ADVANCE(176);
-      END_STATE();
-    case 123:
-      if (lookahead == 'i') ADVANCE(177);
-      END_STATE();
-    case 124:
-      if (lookahead == 'i') ADVANCE(178);
-      if (lookahead == 'o') ADVANCE(179);
-      END_STATE();
-    case 125:
-      if (lookahead == 'p') ADVANCE(180);
-      END_STATE();
-    case 126:
-      if (lookahead == 'e') ADVANCE(181);
-      END_STATE();
-    case 127:
-      if (lookahead == 'T') ADVANCE(182);
-      END_STATE();
-    case 128:
-      if (lookahead == 'T') ADVANCE(183);
-      END_STATE();
-    case 129:
-      if (lookahead == 'c') ADVANCE(184);
-      END_STATE();
-    case 130:
-      if (lookahead == 'l') ADVANCE(185);
-      END_STATE();
-    case 131:
-      if (lookahead == 'a') ADVANCE(186);
-      if (lookahead == 'i') ADVANCE(187);
-      END_STATE();
-    case 132:
-      if (lookahead == 'a') ADVANCE(188);
-      END_STATE();
-    case 133:
-      if (lookahead == 'k') ADVANCE(189);
-      END_STATE();
-    case 134:
-      if (lookahead == 'h') ADVANCE(190);
-      END_STATE();
-    case 135:
-      if (lookahead == 's') ADVANCE(191);
-      END_STATE();
-    case 136:
-      if (lookahead == 'i') ADVANCE(192);
-      END_STATE();
-    case 137:
+    case 75:
       ACCEPT_TOKEN(anon_sym_else);
       END_STATE();
-    case 138:
-      if (lookahead == 'n') ADVANCE(193);
+    case 76:
+      if (lookahead == 'n') ADVANCE(95);
       END_STATE();
-    case 139:
-      if (lookahead == 'e') ADVANCE(194);
+    case 77:
+      if (lookahead == 'e') ADVANCE(96);
       END_STATE();
-    case 140:
-      if (lookahead == 'l') ADVANCE(195);
+    case 78:
+      if (lookahead == 'l') ADVANCE(97);
       END_STATE();
-    case 141:
-      if (lookahead == 'a') ADVANCE(196);
+    case 79:
+      if (lookahead == 'a') ADVANCE(98);
       END_STATE();
-    case 142:
-      if (lookahead == 'b') ADVANCE(197);
+    case 80:
+      if (lookahead == 'b') ADVANCE(99);
       END_STATE();
-    case 143:
+    case 81:
       ACCEPT_TOKEN(anon_sym_goto);
       END_STATE();
-    case 144:
-      if (lookahead == 'l') ADVANCE(198);
+    case 82:
+      if (lookahead == 'l') ADVANCE(100);
       END_STATE();
-    case 145:
+    case 83:
       ACCEPT_TOKEN(anon_sym_loop);
       END_STATE();
-    case 146:
-      if (lookahead == 'r') ADVANCE(199);
+    case 84:
+      if (lookahead == 'r') ADVANCE(101);
       END_STATE();
-    case 147:
-      if (lookahead == 'i') ADVANCE(200);
+    case 85:
+      if (lookahead == 'i') ADVANCE(102);
       END_STATE();
-    case 148:
-      if (lookahead == 'w') ADVANCE(201);
+    case 86:
+      if (lookahead == 'w') ADVANCE(103);
       END_STATE();
-    case 149:
+    case 87:
       ACCEPT_TOKEN(anon_sym_true);
       END_STATE();
-    case 150:
-      if (lookahead == 'e') ADVANCE(202);
+    case 88:
+      if (lookahead == 'e') ADVANCE(104);
       END_STATE();
-    case 151:
-      if (lookahead == 'M') ADVANCE(203);
+    case 89:
+      if (lookahead == 'x') ADVANCE(105);
       END_STATE();
-    case 152:
-      if (lookahead == 'p') ADVANCE(204);
-      END_STATE();
-    case 153:
-      if (lookahead == 'p') ADVANCE(205);
-      END_STATE();
-    case 154:
-      if (lookahead == 'o') ADVANCE(206);
-      END_STATE();
-    case 155:
-      if (lookahead == 'e') ADVANCE(207);
-      END_STATE();
-    case 156:
-      if (lookahead == 'o') ADVANCE(208);
-      END_STATE();
-    case 157:
-      if (lookahead == 'e') ADVANCE(209);
-      END_STATE();
-    case 158:
-      if (lookahead == 'n') ADVANCE(210);
-      END_STATE();
-    case 159:
-      if (lookahead == 'a') ADVANCE(211);
-      END_STATE();
-    case 160:
-      if (lookahead == 'i') ADVANCE(212);
-      END_STATE();
-    case 161:
-      if (lookahead == 'B') ADVANCE(213);
-      END_STATE();
-    case 162:
-      if (lookahead == 'x') ADVANCE(214);
-      END_STATE();
-    case 163:
-      ACCEPT_TOKEN(anon_sym_Pause);
-      END_STATE();
-    case 164:
-      if (lookahead == 'l') ADVANCE(215);
-      END_STATE();
-    case 165:
-      if (lookahead == 'a') ADVANCE(216);
-      END_STATE();
-    case 166:
-      if (lookahead == 'i') ADVANCE(217);
-      END_STATE();
-    case 167:
-      if (lookahead == 'd') ADVANCE(218);
-      END_STATE();
-    case 168:
-      if (lookahead == 'i') ADVANCE(219);
-      END_STATE();
-    case 169:
-      if (lookahead == 'v') ADVANCE(220);
-      END_STATE();
-    case 170:
-      if (lookahead == 'n') ADVANCE(221);
-      END_STATE();
-    case 171:
-      if (lookahead == 'l') ADVANCE(222);
-      END_STATE();
-    case 172:
-      if (lookahead == 'a') ADVANCE(223);
-      END_STATE();
-    case 173:
-      if (lookahead == 't') ADVANCE(224);
-      END_STATE();
-    case 174:
-      if (lookahead == 'n') ADVANCE(225);
-      END_STATE();
-    case 175:
-      if (lookahead == 'f') ADVANCE(226);
-      END_STATE();
-    case 176:
-      if (lookahead == 'r') ADVANCE(227);
-      END_STATE();
-    case 177:
-      if (lookahead == 'm') ADVANCE(228);
-      END_STATE();
-    case 178:
-      if (lookahead == 'n') ADVANCE(229);
-      END_STATE();
-    case 179:
-      if (lookahead == 'r') ADVANCE(230);
-      END_STATE();
-    case 180:
+    case 90:
       ACCEPT_TOKEN(anon_sym_Sleep);
       END_STATE();
-    case 181:
-      if (lookahead == 'n') ADVANCE(231);
-      END_STATE();
-    case 182:
-      if (lookahead == 'i') ADVANCE(232);
-      END_STATE();
-    case 183:
-      if (lookahead == 'i') ADVANCE(233);
-      END_STATE();
-    case 184:
-      if (lookahead == 't') ADVANCE(234);
-      END_STATE();
-    case 185:
-      if (lookahead == 'o') ADVANCE(235);
-      END_STATE();
-    case 186:
-      if (lookahead == 'x') ADVANCE(236);
-      END_STATE();
-    case 187:
-      if (lookahead == 'n') ADVANCE(237);
-      END_STATE();
-    case 188:
-      if (lookahead == 'i') ADVANCE(238);
-      END_STATE();
-    case 189:
+    case 91:
       ACCEPT_TOKEN(anon_sym_break);
       END_STATE();
-    case 190:
+    case 92:
       ACCEPT_TOKEN(anon_sym_catch);
       END_STATE();
-    case 191:
+    case 93:
       ACCEPT_TOKEN(anon_sym_class);
       END_STATE();
-    case 192:
-      if (lookahead == 'n') ADVANCE(239);
+    case 94:
+      if (lookahead == 'n') ADVANCE(106);
       END_STATE();
-    case 193:
-      if (lookahead == 'd') ADVANCE(240);
+    case 95:
+      if (lookahead == 'd') ADVANCE(107);
       END_STATE();
-    case 194:
+    case 96:
       ACCEPT_TOKEN(anon_sym_false);
       END_STATE();
-    case 195:
-      if (lookahead == 'l') ADVANCE(241);
+    case 97:
+      if (lookahead == 'l') ADVANCE(108);
       END_STATE();
-    case 196:
-      if (lookahead == 'l') ADVANCE(242);
+    case 98:
+      if (lookahead == 'l') ADVANCE(109);
       END_STATE();
-    case 197:
+    case 99:
       ACCEPT_TOKEN(anon_sym_gosub);
       END_STATE();
-    case 198:
+    case 100:
       ACCEPT_TOKEN(anon_sym_local);
       END_STATE();
-    case 199:
-      if (lookahead == 'n') ADVANCE(243);
+    case 101:
+      if (lookahead == 'n') ADVANCE(110);
       END_STATE();
-    case 200:
-      if (lookahead == 'c') ADVANCE(244);
+    case 102:
+      if (lookahead == 'c') ADVANCE(111);
       END_STATE();
-    case 201:
+    case 103:
       ACCEPT_TOKEN(anon_sym_throw);
       END_STATE();
-    case 202:
+    case 104:
       ACCEPT_TOKEN(anon_sym_while);
       END_STATE();
-    case 203:
-      if (lookahead == 'o') ADVANCE(245);
-      END_STATE();
-    case 204:
-      if (lookahead == 'p') ADVANCE(246);
-      END_STATE();
-    case 205:
-      if (lookahead == 'p') ADVANCE(247);
-      END_STATE();
-    case 206:
-      if (lookahead == 'p') ADVANCE(248);
-      END_STATE();
-    case 207:
-      if (lookahead == 'l') ADVANCE(249);
-      END_STATE();
-    case 208:
-      if (lookahead == 'v') ADVANCE(250);
-      END_STATE();
-    case 209:
-      if (lookahead == 'a') ADVANCE(251);
-      END_STATE();
-    case 210:
-      if (lookahead == 't') ADVANCE(252);
-      END_STATE();
-    case 211:
-      if (lookahead == 'd') ADVANCE(253);
-      END_STATE();
-    case 212:
-      if (lookahead == 't') ADVANCE(254);
-      END_STATE();
-    case 213:
-      if (lookahead == 'o') ADVANCE(255);
-      END_STATE();
-    case 214:
+    case 105:
       ACCEPT_TOKEN(anon_sym_MsgBox);
       END_STATE();
-    case 215:
-      if (lookahead == 'e') ADVANCE(256);
+    case 106:
+      if (lookahead == 'u') ADVANCE(112);
       END_STATE();
-    case 216:
-      if (lookahead == 'd') ADVANCE(257);
+    case 107:
+      if (lookahead == 's') ADVANCE(113);
       END_STATE();
-    case 217:
-      if (lookahead == 't') ADVANCE(258);
+    case 108:
+      if (lookahead == 'y') ADVANCE(114);
       END_STATE();
-    case 218:
-      ACCEPT_TOKEN(anon_sym_Reload);
-      END_STATE();
-    case 219:
-      if (lookahead == 't') ADVANCE(259);
-      END_STATE();
-    case 220:
-      if (lookahead == 'e') ADVANCE(260);
-      END_STATE();
-    case 221:
-      if (lookahead == 'p') ADVANCE(261);
-      END_STATE();
-    case 222:
-      if (lookahead == 'a') ADVANCE(262);
-      END_STATE();
-    case 223:
-      if (lookahead == 'w') ADVANCE(263);
-      END_STATE();
-    case 224:
-      if (lookahead == 'c') ADVANCE(264);
-      END_STATE();
-    case 225:
-      if (lookahead == 't') ADVANCE(265);
-      END_STATE();
-    case 226:
-      if (lookahead == 'a') ADVANCE(266);
-      END_STATE();
-    case 227:
-      if (lookahead == 'm') ADVANCE(267);
-      END_STATE();
-    case 228:
-      if (lookahead == 'e') ADVANCE(268);
-      END_STATE();
-    case 229:
-      if (lookahead == 'D') ADVANCE(269);
-      END_STATE();
-    case 230:
-      if (lookahead == 'k') ADVANCE(270);
-      END_STATE();
-    case 231:
-      if (lookahead == 'd') ADVANCE(271);
-      END_STATE();
-    case 232:
-      if (lookahead == 'p') ADVANCE(272);
-      END_STATE();
-    case 233:
-      if (lookahead == 'p') ADVANCE(273);
-      END_STATE();
-    case 234:
-      if (lookahead == 'i') ADVANCE(274);
-      END_STATE();
-    case 235:
-      if (lookahead == 's') ADVANCE(275);
-      END_STATE();
-    case 236:
-      if (lookahead == 'i') ADVANCE(276);
-      END_STATE();
-    case 237:
-      if (lookahead == 'i') ADVANCE(277);
-      END_STATE();
-    case 238:
-      if (lookahead == 't') ADVANCE(278);
-      END_STATE();
-    case 239:
-      if (lookahead == 'u') ADVANCE(279);
-      END_STATE();
-    case 240:
-      if (lookahead == 's') ADVANCE(280);
-      END_STATE();
-    case 241:
-      if (lookahead == 'y') ADVANCE(281);
-      END_STATE();
-    case 242:
+    case 109:
       ACCEPT_TOKEN(anon_sym_global);
       END_STATE();
-    case 243:
+    case 110:
       ACCEPT_TOKEN(anon_sym_return);
       END_STATE();
-    case 244:
+    case 111:
       ACCEPT_TOKEN(anon_sym_static);
       END_STATE();
-    case 245:
-      if (lookahead == 'd') ADVANCE(282);
+    case 112:
+      if (lookahead == 'e') ADVANCE(115);
       END_STATE();
-    case 246:
-      ACCEPT_TOKEN(anon_sym_ExitApp);
-      END_STATE();
-    case 247:
-      if (lookahead == 'e') ADVANCE(283);
-      END_STATE();
-    case 248:
-      if (lookahead == 'y') ADVANCE(284);
-      END_STATE();
-    case 249:
-      if (lookahead == 'e') ADVANCE(285);
-      END_STATE();
-    case 250:
-      if (lookahead == 'e') ADVANCE(286);
-      END_STATE();
-    case 251:
-      if (lookahead == 'd') ADVANCE(287);
-      END_STATE();
-    case 252:
-      if (lookahead == 'r') ADVANCE(288);
-      END_STATE();
-    case 253:
-      ACCEPT_TOKEN(anon_sym_IniRead);
-      END_STATE();
-    case 254:
-      if (lookahead == 'e') ADVANCE(289);
-      END_STATE();
-    case 255:
-      if (lookahead == 'x') ADVANCE(290);
-      END_STATE();
-    case 256:
-      if (lookahead == 't') ADVANCE(291);
-      END_STATE();
-    case 257:
-      ACCEPT_TOKEN(anon_sym_RegRead);
-      END_STATE();
-    case 258:
-      if (lookahead == 'e') ADVANCE(292);
-      END_STATE();
-    case 259:
-      ACCEPT_TOKEN(anon_sym_RunWait);
-      END_STATE();
-    case 260:
-      if (lookahead == 'n') ADVANCE(293);
-      END_STATE();
-    case 261:
-      if (lookahead == 'u') ADVANCE(294);
-      END_STATE();
-    case 262:
-      if (lookahead == 'y') ADVANCE(295);
-      END_STATE();
-    case 263:
-      ACCEPT_TOKEN(anon_sym_SendRaw);
-      END_STATE();
-    case 264:
-      if (lookahead == 'h') ADVANCE(296);
-      END_STATE();
-    case 265:
-      if (lookahead == 'r') ADVANCE(297);
-      END_STATE();
-    case 266:
-      if (lookahead == 'u') ADVANCE(298);
-      END_STATE();
-    case 267:
-      if (lookahead == 'a') ADVANCE(299);
-      END_STATE();
-    case 268:
-      if (lookahead == 'r') ADVANCE(300);
-      END_STATE();
-    case 269:
-      if (lookahead == 'e') ADVANCE(301);
-      END_STATE();
-    case 270:
-      if (lookahead == 'i') ADVANCE(302);
-      END_STATE();
-    case 271:
-      ACCEPT_TOKEN(anon_sym_Suspend);
-      END_STATE();
-    case 272:
-      ACCEPT_TOKEN(anon_sym_ToolTip);
-      END_STATE();
-    case 273:
-      ACCEPT_TOKEN(anon_sym_TrayTip);
-      END_STATE();
-    case 274:
-      if (lookahead == 'v') ADVANCE(303);
-      END_STATE();
-    case 275:
-      if (lookahead == 'e') ADVANCE(304);
-      END_STATE();
-    case 276:
-      if (lookahead == 'm') ADVANCE(305);
-      END_STATE();
-    case 277:
-      if (lookahead == 'm') ADVANCE(306);
-      END_STATE();
-    case 278:
-      ACCEPT_TOKEN(anon_sym_WinWait);
-      END_STATE();
-    case 279:
-      if (lookahead == 'e') ADVANCE(307);
-      END_STATE();
-    case 280:
+    case 113:
       ACCEPT_TOKEN(anon_sym_extends);
       END_STATE();
-    case 281:
+    case 114:
       ACCEPT_TOKEN(anon_sym_finally);
       END_STATE();
-    case 282:
-      if (lookahead == 'e') ADVANCE(308);
-      END_STATE();
-    case 283:
-      if (lookahead == 'n') ADVANCE(309);
-      END_STATE();
-    case 284:
-      ACCEPT_TOKEN(anon_sym_FileCopy);
-      END_STATE();
-    case 285:
-      if (lookahead == 't') ADVANCE(310);
-      END_STATE();
-    case 286:
-      ACCEPT_TOKEN(anon_sym_FileMove);
-      END_STATE();
-    case 287:
-      ACCEPT_TOKEN(anon_sym_FileRead);
-      END_STATE();
-    case 288:
-      if (lookahead == 'o') ADVANCE(311);
-      END_STATE();
-    case 289:
-      ACCEPT_TOKEN(anon_sym_IniWrite);
-      END_STATE();
-    case 290:
-      ACCEPT_TOKEN(anon_sym_InputBox);
-      END_STATE();
-    case 291:
-      if (lookahead == 'e') ADVANCE(312);
-      END_STATE();
-    case 292:
-      ACCEPT_TOKEN(anon_sym_RegWrite);
-      END_STATE();
-    case 293:
-      if (lookahead == 't') ADVANCE(313);
-      END_STATE();
-    case 294:
-      if (lookahead == 't') ADVANCE(314);
-      END_STATE();
-    case 295:
-      ACCEPT_TOKEN(anon_sym_SendPlay);
-      END_STATE();
-    case 296:
-      if (lookahead == 'L') ADVANCE(315);
-      END_STATE();
-    case 297:
-      if (lookahead == 'o') ADVANCE(316);
-      END_STATE();
-    case 298:
-      if (lookahead == 'l') ADVANCE(317);
-      END_STATE();
-    case 299:
-      if (lookahead == 't') ADVANCE(318);
-      END_STATE();
-    case 300:
-      ACCEPT_TOKEN(anon_sym_SetTimer);
-      END_STATE();
-    case 301:
-      if (lookahead == 'l') ADVANCE(319);
-      END_STATE();
-    case 302:
-      if (lookahead == 'n') ADVANCE(320);
-      END_STATE();
-    case 303:
-      if (lookahead == 'a') ADVANCE(321);
-      END_STATE();
-    case 304:
-      ACCEPT_TOKEN(anon_sym_WinClose);
-      END_STATE();
-    case 305:
-      if (lookahead == 'i') ADVANCE(322);
-      END_STATE();
-    case 306:
-      if (lookahead == 'i') ADVANCE(323);
-      END_STATE();
-    case 307:
+    case 115:
       ACCEPT_TOKEN(anon_sym_continue);
-      END_STATE();
-    case 308:
-      ACCEPT_TOKEN(anon_sym_CoordMode);
-      END_STATE();
-    case 309:
-      if (lookahead == 'd') ADVANCE(324);
-      END_STATE();
-    case 310:
-      if (lookahead == 'e') ADVANCE(325);
-      END_STATE();
-    case 311:
-      if (lookahead == 'l') ADVANCE(326);
-      END_STATE();
-    case 312:
-      ACCEPT_TOKEN(anon_sym_RegDelete);
-      END_STATE();
-    case 313:
-      ACCEPT_TOKEN(anon_sym_SendEvent);
-      END_STATE();
-    case 314:
-      ACCEPT_TOKEN(anon_sym_SendInput);
-      END_STATE();
-    case 315:
-      if (lookahead == 'i') ADVANCE(327);
-      END_STATE();
-    case 316:
-      if (lookahead == 'l') ADVANCE(328);
-      END_STATE();
-    case 317:
-      if (lookahead == 't') ADVANCE(329);
-      END_STATE();
-    case 318:
-      ACCEPT_TOKEN(anon_sym_SetFormat);
-      END_STATE();
-    case 319:
-      if (lookahead == 'a') ADVANCE(330);
-      END_STATE();
-    case 320:
-      if (lookahead == 'g') ADVANCE(331);
-      END_STATE();
-    case 321:
-      if (lookahead == 't') ADVANCE(332);
-      END_STATE();
-    case 322:
-      if (lookahead == 'z') ADVANCE(333);
-      END_STATE();
-    case 323:
-      if (lookahead == 'z') ADVANCE(334);
-      END_STATE();
-    case 324:
-      ACCEPT_TOKEN(anon_sym_FileAppend);
-      END_STATE();
-    case 325:
-      ACCEPT_TOKEN(anon_sym_FileDelete);
-      END_STATE();
-    case 326:
-      ACCEPT_TOKEN(anon_sym_GuiControl);
-      END_STATE();
-    case 327:
-      if (lookahead == 'n') ADVANCE(335);
-      END_STATE();
-    case 328:
-      if (lookahead == 'D') ADVANCE(336);
-      END_STATE();
-    case 329:
-      if (lookahead == 'M') ADVANCE(337);
-      END_STATE();
-    case 330:
-      if (lookahead == 'y') ADVANCE(338);
-      END_STATE();
-    case 331:
-      if (lookahead == 'D') ADVANCE(339);
-      END_STATE();
-    case 332:
-      if (lookahead == 'e') ADVANCE(340);
-      END_STATE();
-    case 333:
-      if (lookahead == 'e') ADVANCE(341);
-      END_STATE();
-    case 334:
-      if (lookahead == 'e') ADVANCE(342);
-      END_STATE();
-    case 335:
-      if (lookahead == 'e') ADVANCE(343);
-      END_STATE();
-    case 336:
-      if (lookahead == 'e') ADVANCE(344);
-      END_STATE();
-    case 337:
-      if (lookahead == 'o') ADVANCE(345);
-      END_STATE();
-    case 338:
-      ACCEPT_TOKEN(anon_sym_SetWinDelay);
-      END_STATE();
-    case 339:
-      if (lookahead == 'i') ADVANCE(346);
-      END_STATE();
-    case 340:
-      ACCEPT_TOKEN(anon_sym_WinActivate);
-      END_STATE();
-    case 341:
-      ACCEPT_TOKEN(anon_sym_WinMaximize);
-      END_STATE();
-    case 342:
-      ACCEPT_TOKEN(anon_sym_WinMinimize);
-      END_STATE();
-    case 343:
-      if (lookahead == 's') ADVANCE(347);
-      END_STATE();
-    case 344:
-      if (lookahead == 'l') ADVANCE(348);
-      END_STATE();
-    case 345:
-      if (lookahead == 'u') ADVANCE(349);
-      END_STATE();
-    case 346:
-      if (lookahead == 'r') ADVANCE(350);
-      END_STATE();
-    case 347:
-      ACCEPT_TOKEN(anon_sym_SetBatchLines);
-      END_STATE();
-    case 348:
-      if (lookahead == 'a') ADVANCE(351);
-      END_STATE();
-    case 349:
-      if (lookahead == 's') ADVANCE(352);
-      END_STATE();
-    case 350:
-      ACCEPT_TOKEN(anon_sym_SetWorkingDir);
-      END_STATE();
-    case 351:
-      if (lookahead == 'y') ADVANCE(353);
-      END_STATE();
-    case 352:
-      if (lookahead == 'e') ADVANCE(354);
-      END_STATE();
-    case 353:
-      ACCEPT_TOKEN(anon_sym_SetControlDelay);
-      END_STATE();
-    case 354:
-      if (lookahead == 'S') ADVANCE(355);
-      END_STATE();
-    case 355:
-      if (lookahead == 'p') ADVANCE(356);
-      END_STATE();
-    case 356:
-      if (lookahead == 'e') ADVANCE(357);
-      END_STATE();
-    case 357:
-      if (lookahead == 'e') ADVANCE(358);
-      END_STATE();
-    case 358:
-      if (lookahead == 'd') ADVANCE(359);
-      END_STATE();
-    case 359:
-      ACCEPT_TOKEN(anon_sym_SetDefaultMouseSpeed);
       END_STATE();
     default:
       return false;
@@ -4935,47 +3899,9 @@ static const uint16_t ts_parse_table[LARGE_STATE_COUNT][SYMBOL_COUNT] = {
     [anon_sym_LBRACE] = ACTIONS(1),
     [anon_sym_RBRACE] = ACTIONS(1),
     [anon_sym_COMMA] = ACTIONS(1),
-    [anon_sym_MsgBox] = ACTIONS(1),
-    [anon_sym_InputBox] = ACTIONS(1),
-    [anon_sym_ToolTip] = ACTIONS(1),
-    [anon_sym_TrayTip] = ACTIONS(1),
-    [anon_sym_Send] = ACTIONS(1),
-    [anon_sym_SendInput] = ACTIONS(1),
-    [anon_sym_SendRaw] = ACTIONS(1),
-    [anon_sym_SendEvent] = ACTIONS(1),
-    [anon_sym_SendPlay] = ACTIONS(1),
     [anon_sym_Sleep] = ACTIONS(1),
-    [anon_sym_SetTimer] = ACTIONS(1),
+    [anon_sym_MsgBox] = ACTIONS(1),
     [anon_sym_Run] = ACTIONS(1),
-    [anon_sym_RunWait] = ACTIONS(1),
-    [anon_sym_WinActivate] = ACTIONS(1),
-    [anon_sym_WinWait] = ACTIONS(1),
-    [anon_sym_WinClose] = ACTIONS(1),
-    [anon_sym_WinMinimize] = ACTIONS(1),
-    [anon_sym_WinMaximize] = ACTIONS(1),
-    [anon_sym_FileRead] = ACTIONS(1),
-    [anon_sym_FileAppend] = ACTIONS(1),
-    [anon_sym_FileDelete] = ACTIONS(1),
-    [anon_sym_FileCopy] = ACTIONS(1),
-    [anon_sym_FileMove] = ACTIONS(1),
-    [anon_sym_RegRead] = ACTIONS(1),
-    [anon_sym_RegWrite] = ACTIONS(1),
-    [anon_sym_RegDelete] = ACTIONS(1),
-    [anon_sym_SetWorkingDir] = ACTIONS(1),
-    [anon_sym_CoordMode] = ACTIONS(1),
-    [anon_sym_SetFormat] = ACTIONS(1),
-    [anon_sym_SetBatchLines] = ACTIONS(1),
-    [anon_sym_SetDefaultMouseSpeed] = ACTIONS(1),
-    [anon_sym_SetWinDelay] = ACTIONS(1),
-    [anon_sym_SetControlDelay] = ACTIONS(1),
-    [anon_sym_IniRead] = ACTIONS(1),
-    [anon_sym_IniWrite] = ACTIONS(1),
-    [anon_sym_Gui] = ACTIONS(1),
-    [anon_sym_GuiControl] = ACTIONS(1),
-    [anon_sym_Reload] = ACTIONS(1),
-    [anon_sym_ExitApp] = ACTIONS(1),
-    [anon_sym_Suspend] = ACTIONS(1),
-    [anon_sym_Pause] = ACTIONS(1),
     [anon_sym_PERCENT] = ACTIONS(1),
     [anon_sym_COLON_EQ] = ACTIONS(1),
     [anon_sym_DQUOTE] = ACTIONS(1),
@@ -5061,47 +3987,9 @@ static const uint16_t ts_parse_table[LARGE_STATE_COUNT][SYMBOL_COUNT] = {
     [anon_sym_SLASH_STAR_STAR] = ACTIONS(13),
     [anon_sym_POUND] = ACTIONS(15),
     [sym_hotkey] = ACTIONS(17),
-    [anon_sym_MsgBox] = ACTIONS(19),
-    [anon_sym_InputBox] = ACTIONS(19),
-    [anon_sym_ToolTip] = ACTIONS(19),
-    [anon_sym_TrayTip] = ACTIONS(19),
-    [anon_sym_Send] = ACTIONS(19),
-    [anon_sym_SendInput] = ACTIONS(19),
-    [anon_sym_SendRaw] = ACTIONS(19),
-    [anon_sym_SendEvent] = ACTIONS(19),
-    [anon_sym_SendPlay] = ACTIONS(19),
     [anon_sym_Sleep] = ACTIONS(19),
-    [anon_sym_SetTimer] = ACTIONS(19),
+    [anon_sym_MsgBox] = ACTIONS(19),
     [anon_sym_Run] = ACTIONS(19),
-    [anon_sym_RunWait] = ACTIONS(19),
-    [anon_sym_WinActivate] = ACTIONS(19),
-    [anon_sym_WinWait] = ACTIONS(19),
-    [anon_sym_WinClose] = ACTIONS(19),
-    [anon_sym_WinMinimize] = ACTIONS(19),
-    [anon_sym_WinMaximize] = ACTIONS(19),
-    [anon_sym_FileRead] = ACTIONS(19),
-    [anon_sym_FileAppend] = ACTIONS(19),
-    [anon_sym_FileDelete] = ACTIONS(19),
-    [anon_sym_FileCopy] = ACTIONS(19),
-    [anon_sym_FileMove] = ACTIONS(19),
-    [anon_sym_RegRead] = ACTIONS(19),
-    [anon_sym_RegWrite] = ACTIONS(19),
-    [anon_sym_RegDelete] = ACTIONS(19),
-    [anon_sym_SetWorkingDir] = ACTIONS(19),
-    [anon_sym_CoordMode] = ACTIONS(19),
-    [anon_sym_SetFormat] = ACTIONS(19),
-    [anon_sym_SetBatchLines] = ACTIONS(19),
-    [anon_sym_SetDefaultMouseSpeed] = ACTIONS(19),
-    [anon_sym_SetWinDelay] = ACTIONS(19),
-    [anon_sym_SetControlDelay] = ACTIONS(19),
-    [anon_sym_IniRead] = ACTIONS(19),
-    [anon_sym_IniWrite] = ACTIONS(19),
-    [anon_sym_Gui] = ACTIONS(19),
-    [anon_sym_GuiControl] = ACTIONS(19),
-    [anon_sym_Reload] = ACTIONS(19),
-    [anon_sym_ExitApp] = ACTIONS(19),
-    [anon_sym_Suspend] = ACTIONS(19),
-    [anon_sym_Pause] = ACTIONS(19),
     [anon_sym_PERCENT] = ACTIONS(21),
     [anon_sym_COLON_EQ] = ACTIONS(21),
     [anon_sym_DQUOTE] = ACTIONS(23),
@@ -5187,47 +4075,9 @@ static const uint16_t ts_parse_table[LARGE_STATE_COUNT][SYMBOL_COUNT] = {
     [anon_sym_POUND] = ACTIONS(45),
     [sym_hotkey] = ACTIONS(47),
     [anon_sym_RBRACE] = ACTIONS(49),
-    [anon_sym_MsgBox] = ACTIONS(51),
-    [anon_sym_InputBox] = ACTIONS(51),
-    [anon_sym_ToolTip] = ACTIONS(51),
-    [anon_sym_TrayTip] = ACTIONS(51),
-    [anon_sym_Send] = ACTIONS(51),
-    [anon_sym_SendInput] = ACTIONS(51),
-    [anon_sym_SendRaw] = ACTIONS(51),
-    [anon_sym_SendEvent] = ACTIONS(51),
-    [anon_sym_SendPlay] = ACTIONS(51),
     [anon_sym_Sleep] = ACTIONS(51),
-    [anon_sym_SetTimer] = ACTIONS(51),
+    [anon_sym_MsgBox] = ACTIONS(51),
     [anon_sym_Run] = ACTIONS(51),
-    [anon_sym_RunWait] = ACTIONS(51),
-    [anon_sym_WinActivate] = ACTIONS(51),
-    [anon_sym_WinWait] = ACTIONS(51),
-    [anon_sym_WinClose] = ACTIONS(51),
-    [anon_sym_WinMinimize] = ACTIONS(51),
-    [anon_sym_WinMaximize] = ACTIONS(51),
-    [anon_sym_FileRead] = ACTIONS(51),
-    [anon_sym_FileAppend] = ACTIONS(51),
-    [anon_sym_FileDelete] = ACTIONS(51),
-    [anon_sym_FileCopy] = ACTIONS(51),
-    [anon_sym_FileMove] = ACTIONS(51),
-    [anon_sym_RegRead] = ACTIONS(51),
-    [anon_sym_RegWrite] = ACTIONS(51),
-    [anon_sym_RegDelete] = ACTIONS(51),
-    [anon_sym_SetWorkingDir] = ACTIONS(51),
-    [anon_sym_CoordMode] = ACTIONS(51),
-    [anon_sym_SetFormat] = ACTIONS(51),
-    [anon_sym_SetBatchLines] = ACTIONS(51),
-    [anon_sym_SetDefaultMouseSpeed] = ACTIONS(51),
-    [anon_sym_SetWinDelay] = ACTIONS(51),
-    [anon_sym_SetControlDelay] = ACTIONS(51),
-    [anon_sym_IniRead] = ACTIONS(51),
-    [anon_sym_IniWrite] = ACTIONS(51),
-    [anon_sym_Gui] = ACTIONS(51),
-    [anon_sym_GuiControl] = ACTIONS(51),
-    [anon_sym_Reload] = ACTIONS(51),
-    [anon_sym_ExitApp] = ACTIONS(51),
-    [anon_sym_Suspend] = ACTIONS(51),
-    [anon_sym_Pause] = ACTIONS(51),
     [anon_sym_PERCENT] = ACTIONS(53),
     [anon_sym_COLON_EQ] = ACTIONS(53),
     [anon_sym_DQUOTE] = ACTIONS(55),
@@ -5313,47 +4163,9 @@ static const uint16_t ts_parse_table[LARGE_STATE_COUNT][SYMBOL_COUNT] = {
     [anon_sym_SLASH_STAR_STAR] = ACTIONS(13),
     [anon_sym_POUND] = ACTIONS(15),
     [sym_hotkey] = ACTIONS(69),
-    [anon_sym_MsgBox] = ACTIONS(19),
-    [anon_sym_InputBox] = ACTIONS(19),
-    [anon_sym_ToolTip] = ACTIONS(19),
-    [anon_sym_TrayTip] = ACTIONS(19),
-    [anon_sym_Send] = ACTIONS(19),
-    [anon_sym_SendInput] = ACTIONS(19),
-    [anon_sym_SendRaw] = ACTIONS(19),
-    [anon_sym_SendEvent] = ACTIONS(19),
-    [anon_sym_SendPlay] = ACTIONS(19),
     [anon_sym_Sleep] = ACTIONS(19),
-    [anon_sym_SetTimer] = ACTIONS(19),
+    [anon_sym_MsgBox] = ACTIONS(19),
     [anon_sym_Run] = ACTIONS(19),
-    [anon_sym_RunWait] = ACTIONS(19),
-    [anon_sym_WinActivate] = ACTIONS(19),
-    [anon_sym_WinWait] = ACTIONS(19),
-    [anon_sym_WinClose] = ACTIONS(19),
-    [anon_sym_WinMinimize] = ACTIONS(19),
-    [anon_sym_WinMaximize] = ACTIONS(19),
-    [anon_sym_FileRead] = ACTIONS(19),
-    [anon_sym_FileAppend] = ACTIONS(19),
-    [anon_sym_FileDelete] = ACTIONS(19),
-    [anon_sym_FileCopy] = ACTIONS(19),
-    [anon_sym_FileMove] = ACTIONS(19),
-    [anon_sym_RegRead] = ACTIONS(19),
-    [anon_sym_RegWrite] = ACTIONS(19),
-    [anon_sym_RegDelete] = ACTIONS(19),
-    [anon_sym_SetWorkingDir] = ACTIONS(19),
-    [anon_sym_CoordMode] = ACTIONS(19),
-    [anon_sym_SetFormat] = ACTIONS(19),
-    [anon_sym_SetBatchLines] = ACTIONS(19),
-    [anon_sym_SetDefaultMouseSpeed] = ACTIONS(19),
-    [anon_sym_SetWinDelay] = ACTIONS(19),
-    [anon_sym_SetControlDelay] = ACTIONS(19),
-    [anon_sym_IniRead] = ACTIONS(19),
-    [anon_sym_IniWrite] = ACTIONS(19),
-    [anon_sym_Gui] = ACTIONS(19),
-    [anon_sym_GuiControl] = ACTIONS(19),
-    [anon_sym_Reload] = ACTIONS(19),
-    [anon_sym_ExitApp] = ACTIONS(19),
-    [anon_sym_Suspend] = ACTIONS(19),
-    [anon_sym_Pause] = ACTIONS(19),
     [anon_sym_PERCENT] = ACTIONS(21),
     [anon_sym_COLON_EQ] = ACTIONS(21),
     [anon_sym_DQUOTE] = ACTIONS(23),
@@ -5439,47 +4251,9 @@ static const uint16_t ts_parse_table[LARGE_STATE_COUNT][SYMBOL_COUNT] = {
     [anon_sym_POUND] = ACTIONS(45),
     [sym_hotkey] = ACTIONS(73),
     [anon_sym_RBRACE] = ACTIONS(75),
-    [anon_sym_MsgBox] = ACTIONS(51),
-    [anon_sym_InputBox] = ACTIONS(51),
-    [anon_sym_ToolTip] = ACTIONS(51),
-    [anon_sym_TrayTip] = ACTIONS(51),
-    [anon_sym_Send] = ACTIONS(51),
-    [anon_sym_SendInput] = ACTIONS(51),
-    [anon_sym_SendRaw] = ACTIONS(51),
-    [anon_sym_SendEvent] = ACTIONS(51),
-    [anon_sym_SendPlay] = ACTIONS(51),
     [anon_sym_Sleep] = ACTIONS(51),
-    [anon_sym_SetTimer] = ACTIONS(51),
+    [anon_sym_MsgBox] = ACTIONS(51),
     [anon_sym_Run] = ACTIONS(51),
-    [anon_sym_RunWait] = ACTIONS(51),
-    [anon_sym_WinActivate] = ACTIONS(51),
-    [anon_sym_WinWait] = ACTIONS(51),
-    [anon_sym_WinClose] = ACTIONS(51),
-    [anon_sym_WinMinimize] = ACTIONS(51),
-    [anon_sym_WinMaximize] = ACTIONS(51),
-    [anon_sym_FileRead] = ACTIONS(51),
-    [anon_sym_FileAppend] = ACTIONS(51),
-    [anon_sym_FileDelete] = ACTIONS(51),
-    [anon_sym_FileCopy] = ACTIONS(51),
-    [anon_sym_FileMove] = ACTIONS(51),
-    [anon_sym_RegRead] = ACTIONS(51),
-    [anon_sym_RegWrite] = ACTIONS(51),
-    [anon_sym_RegDelete] = ACTIONS(51),
-    [anon_sym_SetWorkingDir] = ACTIONS(51),
-    [anon_sym_CoordMode] = ACTIONS(51),
-    [anon_sym_SetFormat] = ACTIONS(51),
-    [anon_sym_SetBatchLines] = ACTIONS(51),
-    [anon_sym_SetDefaultMouseSpeed] = ACTIONS(51),
-    [anon_sym_SetWinDelay] = ACTIONS(51),
-    [anon_sym_SetControlDelay] = ACTIONS(51),
-    [anon_sym_IniRead] = ACTIONS(51),
-    [anon_sym_IniWrite] = ACTIONS(51),
-    [anon_sym_Gui] = ACTIONS(51),
-    [anon_sym_GuiControl] = ACTIONS(51),
-    [anon_sym_Reload] = ACTIONS(51),
-    [anon_sym_ExitApp] = ACTIONS(51),
-    [anon_sym_Suspend] = ACTIONS(51),
-    [anon_sym_Pause] = ACTIONS(51),
     [anon_sym_PERCENT] = ACTIONS(53),
     [anon_sym_COLON_EQ] = ACTIONS(53),
     [anon_sym_DQUOTE] = ACTIONS(55),
@@ -5565,47 +4339,9 @@ static const uint16_t ts_parse_table[LARGE_STATE_COUNT][SYMBOL_COUNT] = {
     [anon_sym_SLASH_STAR_STAR] = ACTIONS(93),
     [anon_sym_POUND] = ACTIONS(96),
     [sym_hotkey] = ACTIONS(99),
-    [anon_sym_MsgBox] = ACTIONS(102),
-    [anon_sym_InputBox] = ACTIONS(102),
-    [anon_sym_ToolTip] = ACTIONS(102),
-    [anon_sym_TrayTip] = ACTIONS(102),
-    [anon_sym_Send] = ACTIONS(102),
-    [anon_sym_SendInput] = ACTIONS(102),
-    [anon_sym_SendRaw] = ACTIONS(102),
-    [anon_sym_SendEvent] = ACTIONS(102),
-    [anon_sym_SendPlay] = ACTIONS(102),
     [anon_sym_Sleep] = ACTIONS(102),
-    [anon_sym_SetTimer] = ACTIONS(102),
+    [anon_sym_MsgBox] = ACTIONS(102),
     [anon_sym_Run] = ACTIONS(102),
-    [anon_sym_RunWait] = ACTIONS(102),
-    [anon_sym_WinActivate] = ACTIONS(102),
-    [anon_sym_WinWait] = ACTIONS(102),
-    [anon_sym_WinClose] = ACTIONS(102),
-    [anon_sym_WinMinimize] = ACTIONS(102),
-    [anon_sym_WinMaximize] = ACTIONS(102),
-    [anon_sym_FileRead] = ACTIONS(102),
-    [anon_sym_FileAppend] = ACTIONS(102),
-    [anon_sym_FileDelete] = ACTIONS(102),
-    [anon_sym_FileCopy] = ACTIONS(102),
-    [anon_sym_FileMove] = ACTIONS(102),
-    [anon_sym_RegRead] = ACTIONS(102),
-    [anon_sym_RegWrite] = ACTIONS(102),
-    [anon_sym_RegDelete] = ACTIONS(102),
-    [anon_sym_SetWorkingDir] = ACTIONS(102),
-    [anon_sym_CoordMode] = ACTIONS(102),
-    [anon_sym_SetFormat] = ACTIONS(102),
-    [anon_sym_SetBatchLines] = ACTIONS(102),
-    [anon_sym_SetDefaultMouseSpeed] = ACTIONS(102),
-    [anon_sym_SetWinDelay] = ACTIONS(102),
-    [anon_sym_SetControlDelay] = ACTIONS(102),
-    [anon_sym_IniRead] = ACTIONS(102),
-    [anon_sym_IniWrite] = ACTIONS(102),
-    [anon_sym_Gui] = ACTIONS(102),
-    [anon_sym_GuiControl] = ACTIONS(102),
-    [anon_sym_Reload] = ACTIONS(102),
-    [anon_sym_ExitApp] = ACTIONS(102),
-    [anon_sym_Suspend] = ACTIONS(102),
-    [anon_sym_Pause] = ACTIONS(102),
     [anon_sym_PERCENT] = ACTIONS(105),
     [anon_sym_COLON_EQ] = ACTIONS(105),
     [anon_sym_DQUOTE] = ACTIONS(108),
@@ -5691,47 +4427,9 @@ static const uint16_t ts_parse_table[LARGE_STATE_COUNT][SYMBOL_COUNT] = {
     [anon_sym_POUND] = ACTIONS(45),
     [sym_hotkey] = ACTIONS(126),
     [anon_sym_RBRACE] = ACTIONS(128),
-    [anon_sym_MsgBox] = ACTIONS(51),
-    [anon_sym_InputBox] = ACTIONS(51),
-    [anon_sym_ToolTip] = ACTIONS(51),
-    [anon_sym_TrayTip] = ACTIONS(51),
-    [anon_sym_Send] = ACTIONS(51),
-    [anon_sym_SendInput] = ACTIONS(51),
-    [anon_sym_SendRaw] = ACTIONS(51),
-    [anon_sym_SendEvent] = ACTIONS(51),
-    [anon_sym_SendPlay] = ACTIONS(51),
     [anon_sym_Sleep] = ACTIONS(51),
-    [anon_sym_SetTimer] = ACTIONS(51),
+    [anon_sym_MsgBox] = ACTIONS(51),
     [anon_sym_Run] = ACTIONS(51),
-    [anon_sym_RunWait] = ACTIONS(51),
-    [anon_sym_WinActivate] = ACTIONS(51),
-    [anon_sym_WinWait] = ACTIONS(51),
-    [anon_sym_WinClose] = ACTIONS(51),
-    [anon_sym_WinMinimize] = ACTIONS(51),
-    [anon_sym_WinMaximize] = ACTIONS(51),
-    [anon_sym_FileRead] = ACTIONS(51),
-    [anon_sym_FileAppend] = ACTIONS(51),
-    [anon_sym_FileDelete] = ACTIONS(51),
-    [anon_sym_FileCopy] = ACTIONS(51),
-    [anon_sym_FileMove] = ACTIONS(51),
-    [anon_sym_RegRead] = ACTIONS(51),
-    [anon_sym_RegWrite] = ACTIONS(51),
-    [anon_sym_RegDelete] = ACTIONS(51),
-    [anon_sym_SetWorkingDir] = ACTIONS(51),
-    [anon_sym_CoordMode] = ACTIONS(51),
-    [anon_sym_SetFormat] = ACTIONS(51),
-    [anon_sym_SetBatchLines] = ACTIONS(51),
-    [anon_sym_SetDefaultMouseSpeed] = ACTIONS(51),
-    [anon_sym_SetWinDelay] = ACTIONS(51),
-    [anon_sym_SetControlDelay] = ACTIONS(51),
-    [anon_sym_IniRead] = ACTIONS(51),
-    [anon_sym_IniWrite] = ACTIONS(51),
-    [anon_sym_Gui] = ACTIONS(51),
-    [anon_sym_GuiControl] = ACTIONS(51),
-    [anon_sym_Reload] = ACTIONS(51),
-    [anon_sym_ExitApp] = ACTIONS(51),
-    [anon_sym_Suspend] = ACTIONS(51),
-    [anon_sym_Pause] = ACTIONS(51),
     [anon_sym_PERCENT] = ACTIONS(53),
     [anon_sym_COLON_EQ] = ACTIONS(53),
     [anon_sym_DQUOTE] = ACTIONS(55),
@@ -5817,47 +4515,9 @@ static const uint16_t ts_parse_table[LARGE_STATE_COUNT][SYMBOL_COUNT] = {
     [anon_sym_POUND] = ACTIONS(45),
     [sym_hotkey] = ACTIONS(47),
     [anon_sym_RBRACE] = ACTIONS(128),
-    [anon_sym_MsgBox] = ACTIONS(51),
-    [anon_sym_InputBox] = ACTIONS(51),
-    [anon_sym_ToolTip] = ACTIONS(51),
-    [anon_sym_TrayTip] = ACTIONS(51),
-    [anon_sym_Send] = ACTIONS(51),
-    [anon_sym_SendInput] = ACTIONS(51),
-    [anon_sym_SendRaw] = ACTIONS(51),
-    [anon_sym_SendEvent] = ACTIONS(51),
-    [anon_sym_SendPlay] = ACTIONS(51),
     [anon_sym_Sleep] = ACTIONS(51),
-    [anon_sym_SetTimer] = ACTIONS(51),
+    [anon_sym_MsgBox] = ACTIONS(51),
     [anon_sym_Run] = ACTIONS(51),
-    [anon_sym_RunWait] = ACTIONS(51),
-    [anon_sym_WinActivate] = ACTIONS(51),
-    [anon_sym_WinWait] = ACTIONS(51),
-    [anon_sym_WinClose] = ACTIONS(51),
-    [anon_sym_WinMinimize] = ACTIONS(51),
-    [anon_sym_WinMaximize] = ACTIONS(51),
-    [anon_sym_FileRead] = ACTIONS(51),
-    [anon_sym_FileAppend] = ACTIONS(51),
-    [anon_sym_FileDelete] = ACTIONS(51),
-    [anon_sym_FileCopy] = ACTIONS(51),
-    [anon_sym_FileMove] = ACTIONS(51),
-    [anon_sym_RegRead] = ACTIONS(51),
-    [anon_sym_RegWrite] = ACTIONS(51),
-    [anon_sym_RegDelete] = ACTIONS(51),
-    [anon_sym_SetWorkingDir] = ACTIONS(51),
-    [anon_sym_CoordMode] = ACTIONS(51),
-    [anon_sym_SetFormat] = ACTIONS(51),
-    [anon_sym_SetBatchLines] = ACTIONS(51),
-    [anon_sym_SetDefaultMouseSpeed] = ACTIONS(51),
-    [anon_sym_SetWinDelay] = ACTIONS(51),
-    [anon_sym_SetControlDelay] = ACTIONS(51),
-    [anon_sym_IniRead] = ACTIONS(51),
-    [anon_sym_IniWrite] = ACTIONS(51),
-    [anon_sym_Gui] = ACTIONS(51),
-    [anon_sym_GuiControl] = ACTIONS(51),
-    [anon_sym_Reload] = ACTIONS(51),
-    [anon_sym_ExitApp] = ACTIONS(51),
-    [anon_sym_Suspend] = ACTIONS(51),
-    [anon_sym_Pause] = ACTIONS(51),
     [anon_sym_PERCENT] = ACTIONS(53),
     [anon_sym_COLON_EQ] = ACTIONS(53),
     [anon_sym_DQUOTE] = ACTIONS(55),
@@ -5943,47 +4603,9 @@ static const uint16_t ts_parse_table[LARGE_STATE_COUNT][SYMBOL_COUNT] = {
     [anon_sym_POUND] = ACTIONS(147),
     [sym_hotkey] = ACTIONS(150),
     [anon_sym_RBRACE] = ACTIONS(153),
-    [anon_sym_MsgBox] = ACTIONS(155),
-    [anon_sym_InputBox] = ACTIONS(155),
-    [anon_sym_ToolTip] = ACTIONS(155),
-    [anon_sym_TrayTip] = ACTIONS(155),
-    [anon_sym_Send] = ACTIONS(155),
-    [anon_sym_SendInput] = ACTIONS(155),
-    [anon_sym_SendRaw] = ACTIONS(155),
-    [anon_sym_SendEvent] = ACTIONS(155),
-    [anon_sym_SendPlay] = ACTIONS(155),
     [anon_sym_Sleep] = ACTIONS(155),
-    [anon_sym_SetTimer] = ACTIONS(155),
+    [anon_sym_MsgBox] = ACTIONS(155),
     [anon_sym_Run] = ACTIONS(155),
-    [anon_sym_RunWait] = ACTIONS(155),
-    [anon_sym_WinActivate] = ACTIONS(155),
-    [anon_sym_WinWait] = ACTIONS(155),
-    [anon_sym_WinClose] = ACTIONS(155),
-    [anon_sym_WinMinimize] = ACTIONS(155),
-    [anon_sym_WinMaximize] = ACTIONS(155),
-    [anon_sym_FileRead] = ACTIONS(155),
-    [anon_sym_FileAppend] = ACTIONS(155),
-    [anon_sym_FileDelete] = ACTIONS(155),
-    [anon_sym_FileCopy] = ACTIONS(155),
-    [anon_sym_FileMove] = ACTIONS(155),
-    [anon_sym_RegRead] = ACTIONS(155),
-    [anon_sym_RegWrite] = ACTIONS(155),
-    [anon_sym_RegDelete] = ACTIONS(155),
-    [anon_sym_SetWorkingDir] = ACTIONS(155),
-    [anon_sym_CoordMode] = ACTIONS(155),
-    [anon_sym_SetFormat] = ACTIONS(155),
-    [anon_sym_SetBatchLines] = ACTIONS(155),
-    [anon_sym_SetDefaultMouseSpeed] = ACTIONS(155),
-    [anon_sym_SetWinDelay] = ACTIONS(155),
-    [anon_sym_SetControlDelay] = ACTIONS(155),
-    [anon_sym_IniRead] = ACTIONS(155),
-    [anon_sym_IniWrite] = ACTIONS(155),
-    [anon_sym_Gui] = ACTIONS(155),
-    [anon_sym_GuiControl] = ACTIONS(155),
-    [anon_sym_Reload] = ACTIONS(155),
-    [anon_sym_ExitApp] = ACTIONS(155),
-    [anon_sym_Suspend] = ACTIONS(155),
-    [anon_sym_Pause] = ACTIONS(155),
     [anon_sym_PERCENT] = ACTIONS(158),
     [anon_sym_COLON_EQ] = ACTIONS(158),
     [anon_sym_DQUOTE] = ACTIONS(161),
@@ -6069,47 +4691,9 @@ static const uint16_t ts_parse_table[LARGE_STATE_COUNT][SYMBOL_COUNT] = {
     [anon_sym_POUND] = ACTIONS(45),
     [sym_hotkey] = ACTIONS(47),
     [anon_sym_RBRACE] = ACTIONS(179),
-    [anon_sym_MsgBox] = ACTIONS(51),
-    [anon_sym_InputBox] = ACTIONS(51),
-    [anon_sym_ToolTip] = ACTIONS(51),
-    [anon_sym_TrayTip] = ACTIONS(51),
-    [anon_sym_Send] = ACTIONS(51),
-    [anon_sym_SendInput] = ACTIONS(51),
-    [anon_sym_SendRaw] = ACTIONS(51),
-    [anon_sym_SendEvent] = ACTIONS(51),
-    [anon_sym_SendPlay] = ACTIONS(51),
     [anon_sym_Sleep] = ACTIONS(51),
-    [anon_sym_SetTimer] = ACTIONS(51),
+    [anon_sym_MsgBox] = ACTIONS(51),
     [anon_sym_Run] = ACTIONS(51),
-    [anon_sym_RunWait] = ACTIONS(51),
-    [anon_sym_WinActivate] = ACTIONS(51),
-    [anon_sym_WinWait] = ACTIONS(51),
-    [anon_sym_WinClose] = ACTIONS(51),
-    [anon_sym_WinMinimize] = ACTIONS(51),
-    [anon_sym_WinMaximize] = ACTIONS(51),
-    [anon_sym_FileRead] = ACTIONS(51),
-    [anon_sym_FileAppend] = ACTIONS(51),
-    [anon_sym_FileDelete] = ACTIONS(51),
-    [anon_sym_FileCopy] = ACTIONS(51),
-    [anon_sym_FileMove] = ACTIONS(51),
-    [anon_sym_RegRead] = ACTIONS(51),
-    [anon_sym_RegWrite] = ACTIONS(51),
-    [anon_sym_RegDelete] = ACTIONS(51),
-    [anon_sym_SetWorkingDir] = ACTIONS(51),
-    [anon_sym_CoordMode] = ACTIONS(51),
-    [anon_sym_SetFormat] = ACTIONS(51),
-    [anon_sym_SetBatchLines] = ACTIONS(51),
-    [anon_sym_SetDefaultMouseSpeed] = ACTIONS(51),
-    [anon_sym_SetWinDelay] = ACTIONS(51),
-    [anon_sym_SetControlDelay] = ACTIONS(51),
-    [anon_sym_IniRead] = ACTIONS(51),
-    [anon_sym_IniWrite] = ACTIONS(51),
-    [anon_sym_Gui] = ACTIONS(51),
-    [anon_sym_GuiControl] = ACTIONS(51),
-    [anon_sym_Reload] = ACTIONS(51),
-    [anon_sym_ExitApp] = ACTIONS(51),
-    [anon_sym_Suspend] = ACTIONS(51),
-    [anon_sym_Pause] = ACTIONS(51),
     [anon_sym_PERCENT] = ACTIONS(53),
     [anon_sym_COLON_EQ] = ACTIONS(53),
     [anon_sym_DQUOTE] = ACTIONS(55),
@@ -6195,47 +4779,9 @@ static const uint16_t ts_parse_table[LARGE_STATE_COUNT][SYMBOL_COUNT] = {
     [anon_sym_POUND] = ACTIONS(45),
     [sym_hotkey] = ACTIONS(181),
     [anon_sym_RBRACE] = ACTIONS(183),
-    [anon_sym_MsgBox] = ACTIONS(51),
-    [anon_sym_InputBox] = ACTIONS(51),
-    [anon_sym_ToolTip] = ACTIONS(51),
-    [anon_sym_TrayTip] = ACTIONS(51),
-    [anon_sym_Send] = ACTIONS(51),
-    [anon_sym_SendInput] = ACTIONS(51),
-    [anon_sym_SendRaw] = ACTIONS(51),
-    [anon_sym_SendEvent] = ACTIONS(51),
-    [anon_sym_SendPlay] = ACTIONS(51),
     [anon_sym_Sleep] = ACTIONS(51),
-    [anon_sym_SetTimer] = ACTIONS(51),
+    [anon_sym_MsgBox] = ACTIONS(51),
     [anon_sym_Run] = ACTIONS(51),
-    [anon_sym_RunWait] = ACTIONS(51),
-    [anon_sym_WinActivate] = ACTIONS(51),
-    [anon_sym_WinWait] = ACTIONS(51),
-    [anon_sym_WinClose] = ACTIONS(51),
-    [anon_sym_WinMinimize] = ACTIONS(51),
-    [anon_sym_WinMaximize] = ACTIONS(51),
-    [anon_sym_FileRead] = ACTIONS(51),
-    [anon_sym_FileAppend] = ACTIONS(51),
-    [anon_sym_FileDelete] = ACTIONS(51),
-    [anon_sym_FileCopy] = ACTIONS(51),
-    [anon_sym_FileMove] = ACTIONS(51),
-    [anon_sym_RegRead] = ACTIONS(51),
-    [anon_sym_RegWrite] = ACTIONS(51),
-    [anon_sym_RegDelete] = ACTIONS(51),
-    [anon_sym_SetWorkingDir] = ACTIONS(51),
-    [anon_sym_CoordMode] = ACTIONS(51),
-    [anon_sym_SetFormat] = ACTIONS(51),
-    [anon_sym_SetBatchLines] = ACTIONS(51),
-    [anon_sym_SetDefaultMouseSpeed] = ACTIONS(51),
-    [anon_sym_SetWinDelay] = ACTIONS(51),
-    [anon_sym_SetControlDelay] = ACTIONS(51),
-    [anon_sym_IniRead] = ACTIONS(51),
-    [anon_sym_IniWrite] = ACTIONS(51),
-    [anon_sym_Gui] = ACTIONS(51),
-    [anon_sym_GuiControl] = ACTIONS(51),
-    [anon_sym_Reload] = ACTIONS(51),
-    [anon_sym_ExitApp] = ACTIONS(51),
-    [anon_sym_Suspend] = ACTIONS(51),
-    [anon_sym_Pause] = ACTIONS(51),
     [anon_sym_PERCENT] = ACTIONS(53),
     [anon_sym_COLON_EQ] = ACTIONS(53),
     [anon_sym_DQUOTE] = ACTIONS(55),
@@ -6321,47 +4867,9 @@ static const uint16_t ts_parse_table[LARGE_STATE_COUNT][SYMBOL_COUNT] = {
     [anon_sym_POUND] = ACTIONS(45),
     [sym_hotkey] = ACTIONS(47),
     [anon_sym_RBRACE] = ACTIONS(187),
-    [anon_sym_MsgBox] = ACTIONS(51),
-    [anon_sym_InputBox] = ACTIONS(51),
-    [anon_sym_ToolTip] = ACTIONS(51),
-    [anon_sym_TrayTip] = ACTIONS(51),
-    [anon_sym_Send] = ACTIONS(51),
-    [anon_sym_SendInput] = ACTIONS(51),
-    [anon_sym_SendRaw] = ACTIONS(51),
-    [anon_sym_SendEvent] = ACTIONS(51),
-    [anon_sym_SendPlay] = ACTIONS(51),
     [anon_sym_Sleep] = ACTIONS(51),
-    [anon_sym_SetTimer] = ACTIONS(51),
+    [anon_sym_MsgBox] = ACTIONS(51),
     [anon_sym_Run] = ACTIONS(51),
-    [anon_sym_RunWait] = ACTIONS(51),
-    [anon_sym_WinActivate] = ACTIONS(51),
-    [anon_sym_WinWait] = ACTIONS(51),
-    [anon_sym_WinClose] = ACTIONS(51),
-    [anon_sym_WinMinimize] = ACTIONS(51),
-    [anon_sym_WinMaximize] = ACTIONS(51),
-    [anon_sym_FileRead] = ACTIONS(51),
-    [anon_sym_FileAppend] = ACTIONS(51),
-    [anon_sym_FileDelete] = ACTIONS(51),
-    [anon_sym_FileCopy] = ACTIONS(51),
-    [anon_sym_FileMove] = ACTIONS(51),
-    [anon_sym_RegRead] = ACTIONS(51),
-    [anon_sym_RegWrite] = ACTIONS(51),
-    [anon_sym_RegDelete] = ACTIONS(51),
-    [anon_sym_SetWorkingDir] = ACTIONS(51),
-    [anon_sym_CoordMode] = ACTIONS(51),
-    [anon_sym_SetFormat] = ACTIONS(51),
-    [anon_sym_SetBatchLines] = ACTIONS(51),
-    [anon_sym_SetDefaultMouseSpeed] = ACTIONS(51),
-    [anon_sym_SetWinDelay] = ACTIONS(51),
-    [anon_sym_SetControlDelay] = ACTIONS(51),
-    [anon_sym_IniRead] = ACTIONS(51),
-    [anon_sym_IniWrite] = ACTIONS(51),
-    [anon_sym_Gui] = ACTIONS(51),
-    [anon_sym_GuiControl] = ACTIONS(51),
-    [anon_sym_Reload] = ACTIONS(51),
-    [anon_sym_ExitApp] = ACTIONS(51),
-    [anon_sym_Suspend] = ACTIONS(51),
-    [anon_sym_Pause] = ACTIONS(51),
     [anon_sym_PERCENT] = ACTIONS(53),
     [anon_sym_COLON_EQ] = ACTIONS(53),
     [anon_sym_DQUOTE] = ACTIONS(55),
@@ -6447,47 +4955,9 @@ static const uint16_t ts_parse_table[LARGE_STATE_COUNT][SYMBOL_COUNT] = {
     [anon_sym_POUND] = ACTIONS(45),
     [sym_hotkey] = ACTIONS(189),
     [anon_sym_RBRACE] = ACTIONS(187),
-    [anon_sym_MsgBox] = ACTIONS(51),
-    [anon_sym_InputBox] = ACTIONS(51),
-    [anon_sym_ToolTip] = ACTIONS(51),
-    [anon_sym_TrayTip] = ACTIONS(51),
-    [anon_sym_Send] = ACTIONS(51),
-    [anon_sym_SendInput] = ACTIONS(51),
-    [anon_sym_SendRaw] = ACTIONS(51),
-    [anon_sym_SendEvent] = ACTIONS(51),
-    [anon_sym_SendPlay] = ACTIONS(51),
     [anon_sym_Sleep] = ACTIONS(51),
-    [anon_sym_SetTimer] = ACTIONS(51),
+    [anon_sym_MsgBox] = ACTIONS(51),
     [anon_sym_Run] = ACTIONS(51),
-    [anon_sym_RunWait] = ACTIONS(51),
-    [anon_sym_WinActivate] = ACTIONS(51),
-    [anon_sym_WinWait] = ACTIONS(51),
-    [anon_sym_WinClose] = ACTIONS(51),
-    [anon_sym_WinMinimize] = ACTIONS(51),
-    [anon_sym_WinMaximize] = ACTIONS(51),
-    [anon_sym_FileRead] = ACTIONS(51),
-    [anon_sym_FileAppend] = ACTIONS(51),
-    [anon_sym_FileDelete] = ACTIONS(51),
-    [anon_sym_FileCopy] = ACTIONS(51),
-    [anon_sym_FileMove] = ACTIONS(51),
-    [anon_sym_RegRead] = ACTIONS(51),
-    [anon_sym_RegWrite] = ACTIONS(51),
-    [anon_sym_RegDelete] = ACTIONS(51),
-    [anon_sym_SetWorkingDir] = ACTIONS(51),
-    [anon_sym_CoordMode] = ACTIONS(51),
-    [anon_sym_SetFormat] = ACTIONS(51),
-    [anon_sym_SetBatchLines] = ACTIONS(51),
-    [anon_sym_SetDefaultMouseSpeed] = ACTIONS(51),
-    [anon_sym_SetWinDelay] = ACTIONS(51),
-    [anon_sym_SetControlDelay] = ACTIONS(51),
-    [anon_sym_IniRead] = ACTIONS(51),
-    [anon_sym_IniWrite] = ACTIONS(51),
-    [anon_sym_Gui] = ACTIONS(51),
-    [anon_sym_GuiControl] = ACTIONS(51),
-    [anon_sym_Reload] = ACTIONS(51),
-    [anon_sym_ExitApp] = ACTIONS(51),
-    [anon_sym_Suspend] = ACTIONS(51),
-    [anon_sym_Pause] = ACTIONS(51),
     [anon_sym_PERCENT] = ACTIONS(53),
     [anon_sym_COLON_EQ] = ACTIONS(53),
     [anon_sym_DQUOTE] = ACTIONS(55),
@@ -6564,47 +5034,9 @@ static const uint16_t ts_parse_table[LARGE_STATE_COUNT][SYMBOL_COUNT] = {
     [anon_sym_POUND] = ACTIONS(195),
     [sym_hotkey] = ACTIONS(195),
     [anon_sym_COMMA] = ACTIONS(197),
-    [anon_sym_MsgBox] = ACTIONS(195),
-    [anon_sym_InputBox] = ACTIONS(195),
-    [anon_sym_ToolTip] = ACTIONS(195),
-    [anon_sym_TrayTip] = ACTIONS(195),
-    [anon_sym_Send] = ACTIONS(195),
-    [anon_sym_SendInput] = ACTIONS(195),
-    [anon_sym_SendRaw] = ACTIONS(195),
-    [anon_sym_SendEvent] = ACTIONS(195),
-    [anon_sym_SendPlay] = ACTIONS(195),
     [anon_sym_Sleep] = ACTIONS(195),
-    [anon_sym_SetTimer] = ACTIONS(195),
+    [anon_sym_MsgBox] = ACTIONS(195),
     [anon_sym_Run] = ACTIONS(195),
-    [anon_sym_RunWait] = ACTIONS(195),
-    [anon_sym_WinActivate] = ACTIONS(195),
-    [anon_sym_WinWait] = ACTIONS(195),
-    [anon_sym_WinClose] = ACTIONS(195),
-    [anon_sym_WinMinimize] = ACTIONS(195),
-    [anon_sym_WinMaximize] = ACTIONS(195),
-    [anon_sym_FileRead] = ACTIONS(195),
-    [anon_sym_FileAppend] = ACTIONS(195),
-    [anon_sym_FileDelete] = ACTIONS(195),
-    [anon_sym_FileCopy] = ACTIONS(195),
-    [anon_sym_FileMove] = ACTIONS(195),
-    [anon_sym_RegRead] = ACTIONS(195),
-    [anon_sym_RegWrite] = ACTIONS(195),
-    [anon_sym_RegDelete] = ACTIONS(195),
-    [anon_sym_SetWorkingDir] = ACTIONS(195),
-    [anon_sym_CoordMode] = ACTIONS(195),
-    [anon_sym_SetFormat] = ACTIONS(195),
-    [anon_sym_SetBatchLines] = ACTIONS(195),
-    [anon_sym_SetDefaultMouseSpeed] = ACTIONS(195),
-    [anon_sym_SetWinDelay] = ACTIONS(195),
-    [anon_sym_SetControlDelay] = ACTIONS(195),
-    [anon_sym_IniRead] = ACTIONS(195),
-    [anon_sym_IniWrite] = ACTIONS(195),
-    [anon_sym_Gui] = ACTIONS(195),
-    [anon_sym_GuiControl] = ACTIONS(195),
-    [anon_sym_Reload] = ACTIONS(195),
-    [anon_sym_ExitApp] = ACTIONS(195),
-    [anon_sym_Suspend] = ACTIONS(195),
-    [anon_sym_Pause] = ACTIONS(195),
     [aux_sym_command_arguments_token1] = ACTIONS(197),
     [anon_sym_PERCENT] = ACTIONS(199),
     [anon_sym_COLON_EQ] = ACTIONS(195),
@@ -6682,47 +5114,9 @@ static const uint16_t ts_parse_table[LARGE_STATE_COUNT][SYMBOL_COUNT] = {
     [sym_hotkey] = ACTIONS(195),
     [anon_sym_RBRACE] = ACTIONS(195),
     [anon_sym_COMMA] = ACTIONS(211),
-    [anon_sym_MsgBox] = ACTIONS(195),
-    [anon_sym_InputBox] = ACTIONS(195),
-    [anon_sym_ToolTip] = ACTIONS(195),
-    [anon_sym_TrayTip] = ACTIONS(195),
-    [anon_sym_Send] = ACTIONS(195),
-    [anon_sym_SendInput] = ACTIONS(195),
-    [anon_sym_SendRaw] = ACTIONS(195),
-    [anon_sym_SendEvent] = ACTIONS(195),
-    [anon_sym_SendPlay] = ACTIONS(195),
     [anon_sym_Sleep] = ACTIONS(195),
-    [anon_sym_SetTimer] = ACTIONS(195),
+    [anon_sym_MsgBox] = ACTIONS(195),
     [anon_sym_Run] = ACTIONS(195),
-    [anon_sym_RunWait] = ACTIONS(195),
-    [anon_sym_WinActivate] = ACTIONS(195),
-    [anon_sym_WinWait] = ACTIONS(195),
-    [anon_sym_WinClose] = ACTIONS(195),
-    [anon_sym_WinMinimize] = ACTIONS(195),
-    [anon_sym_WinMaximize] = ACTIONS(195),
-    [anon_sym_FileRead] = ACTIONS(195),
-    [anon_sym_FileAppend] = ACTIONS(195),
-    [anon_sym_FileDelete] = ACTIONS(195),
-    [anon_sym_FileCopy] = ACTIONS(195),
-    [anon_sym_FileMove] = ACTIONS(195),
-    [anon_sym_RegRead] = ACTIONS(195),
-    [anon_sym_RegWrite] = ACTIONS(195),
-    [anon_sym_RegDelete] = ACTIONS(195),
-    [anon_sym_SetWorkingDir] = ACTIONS(195),
-    [anon_sym_CoordMode] = ACTIONS(195),
-    [anon_sym_SetFormat] = ACTIONS(195),
-    [anon_sym_SetBatchLines] = ACTIONS(195),
-    [anon_sym_SetDefaultMouseSpeed] = ACTIONS(195),
-    [anon_sym_SetWinDelay] = ACTIONS(195),
-    [anon_sym_SetControlDelay] = ACTIONS(195),
-    [anon_sym_IniRead] = ACTIONS(195),
-    [anon_sym_IniWrite] = ACTIONS(195),
-    [anon_sym_Gui] = ACTIONS(195),
-    [anon_sym_GuiControl] = ACTIONS(195),
-    [anon_sym_Reload] = ACTIONS(195),
-    [anon_sym_ExitApp] = ACTIONS(195),
-    [anon_sym_Suspend] = ACTIONS(195),
-    [anon_sym_Pause] = ACTIONS(195),
     [aux_sym_command_arguments_token1] = ACTIONS(211),
     [anon_sym_PERCENT] = ACTIONS(213),
     [anon_sym_COLON_EQ] = ACTIONS(195),
@@ -6799,47 +5193,9 @@ static const uint16_t ts_parse_table[LARGE_STATE_COUNT][SYMBOL_COUNT] = {
     [anon_sym_POUND] = ACTIONS(227),
     [sym_hotkey] = ACTIONS(227),
     [anon_sym_COMMA] = ACTIONS(229),
-    [anon_sym_MsgBox] = ACTIONS(227),
-    [anon_sym_InputBox] = ACTIONS(227),
-    [anon_sym_ToolTip] = ACTIONS(227),
-    [anon_sym_TrayTip] = ACTIONS(227),
-    [anon_sym_Send] = ACTIONS(227),
-    [anon_sym_SendInput] = ACTIONS(227),
-    [anon_sym_SendRaw] = ACTIONS(227),
-    [anon_sym_SendEvent] = ACTIONS(227),
-    [anon_sym_SendPlay] = ACTIONS(227),
     [anon_sym_Sleep] = ACTIONS(227),
-    [anon_sym_SetTimer] = ACTIONS(227),
+    [anon_sym_MsgBox] = ACTIONS(227),
     [anon_sym_Run] = ACTIONS(227),
-    [anon_sym_RunWait] = ACTIONS(227),
-    [anon_sym_WinActivate] = ACTIONS(227),
-    [anon_sym_WinWait] = ACTIONS(227),
-    [anon_sym_WinClose] = ACTIONS(227),
-    [anon_sym_WinMinimize] = ACTIONS(227),
-    [anon_sym_WinMaximize] = ACTIONS(227),
-    [anon_sym_FileRead] = ACTIONS(227),
-    [anon_sym_FileAppend] = ACTIONS(227),
-    [anon_sym_FileDelete] = ACTIONS(227),
-    [anon_sym_FileCopy] = ACTIONS(227),
-    [anon_sym_FileMove] = ACTIONS(227),
-    [anon_sym_RegRead] = ACTIONS(227),
-    [anon_sym_RegWrite] = ACTIONS(227),
-    [anon_sym_RegDelete] = ACTIONS(227),
-    [anon_sym_SetWorkingDir] = ACTIONS(227),
-    [anon_sym_CoordMode] = ACTIONS(227),
-    [anon_sym_SetFormat] = ACTIONS(227),
-    [anon_sym_SetBatchLines] = ACTIONS(227),
-    [anon_sym_SetDefaultMouseSpeed] = ACTIONS(227),
-    [anon_sym_SetWinDelay] = ACTIONS(227),
-    [anon_sym_SetControlDelay] = ACTIONS(227),
-    [anon_sym_IniRead] = ACTIONS(227),
-    [anon_sym_IniWrite] = ACTIONS(227),
-    [anon_sym_Gui] = ACTIONS(227),
-    [anon_sym_GuiControl] = ACTIONS(227),
-    [anon_sym_Reload] = ACTIONS(227),
-    [anon_sym_ExitApp] = ACTIONS(227),
-    [anon_sym_Suspend] = ACTIONS(227),
-    [anon_sym_Pause] = ACTIONS(227),
     [aux_sym_command_arguments_token1] = ACTIONS(229),
     [anon_sym_PERCENT] = ACTIONS(232),
     [anon_sym_COLON_EQ] = ACTIONS(227),
@@ -6916,47 +5272,9 @@ static const uint16_t ts_parse_table[LARGE_STATE_COUNT][SYMBOL_COUNT] = {
     [anon_sym_POUND] = ACTIONS(246),
     [sym_hotkey] = ACTIONS(246),
     [anon_sym_COMMA] = ACTIONS(248),
-    [anon_sym_MsgBox] = ACTIONS(246),
-    [anon_sym_InputBox] = ACTIONS(246),
-    [anon_sym_ToolTip] = ACTIONS(246),
-    [anon_sym_TrayTip] = ACTIONS(246),
-    [anon_sym_Send] = ACTIONS(246),
-    [anon_sym_SendInput] = ACTIONS(246),
-    [anon_sym_SendRaw] = ACTIONS(246),
-    [anon_sym_SendEvent] = ACTIONS(246),
-    [anon_sym_SendPlay] = ACTIONS(246),
     [anon_sym_Sleep] = ACTIONS(246),
-    [anon_sym_SetTimer] = ACTIONS(246),
+    [anon_sym_MsgBox] = ACTIONS(246),
     [anon_sym_Run] = ACTIONS(246),
-    [anon_sym_RunWait] = ACTIONS(246),
-    [anon_sym_WinActivate] = ACTIONS(246),
-    [anon_sym_WinWait] = ACTIONS(246),
-    [anon_sym_WinClose] = ACTIONS(246),
-    [anon_sym_WinMinimize] = ACTIONS(246),
-    [anon_sym_WinMaximize] = ACTIONS(246),
-    [anon_sym_FileRead] = ACTIONS(246),
-    [anon_sym_FileAppend] = ACTIONS(246),
-    [anon_sym_FileDelete] = ACTIONS(246),
-    [anon_sym_FileCopy] = ACTIONS(246),
-    [anon_sym_FileMove] = ACTIONS(246),
-    [anon_sym_RegRead] = ACTIONS(246),
-    [anon_sym_RegWrite] = ACTIONS(246),
-    [anon_sym_RegDelete] = ACTIONS(246),
-    [anon_sym_SetWorkingDir] = ACTIONS(246),
-    [anon_sym_CoordMode] = ACTIONS(246),
-    [anon_sym_SetFormat] = ACTIONS(246),
-    [anon_sym_SetBatchLines] = ACTIONS(246),
-    [anon_sym_SetDefaultMouseSpeed] = ACTIONS(246),
-    [anon_sym_SetWinDelay] = ACTIONS(246),
-    [anon_sym_SetControlDelay] = ACTIONS(246),
-    [anon_sym_IniRead] = ACTIONS(246),
-    [anon_sym_IniWrite] = ACTIONS(246),
-    [anon_sym_Gui] = ACTIONS(246),
-    [anon_sym_GuiControl] = ACTIONS(246),
-    [anon_sym_Reload] = ACTIONS(246),
-    [anon_sym_ExitApp] = ACTIONS(246),
-    [anon_sym_Suspend] = ACTIONS(246),
-    [anon_sym_Pause] = ACTIONS(246),
     [aux_sym_command_arguments_token1] = ACTIONS(248),
     [anon_sym_PERCENT] = ACTIONS(244),
     [anon_sym_COLON_EQ] = ACTIONS(246),
@@ -7033,47 +5351,9 @@ static const uint16_t ts_parse_table[LARGE_STATE_COUNT][SYMBOL_COUNT] = {
     [sym_hotkey] = ACTIONS(227),
     [anon_sym_RBRACE] = ACTIONS(227),
     [anon_sym_COMMA] = ACTIONS(250),
-    [anon_sym_MsgBox] = ACTIONS(227),
-    [anon_sym_InputBox] = ACTIONS(227),
-    [anon_sym_ToolTip] = ACTIONS(227),
-    [anon_sym_TrayTip] = ACTIONS(227),
-    [anon_sym_Send] = ACTIONS(227),
-    [anon_sym_SendInput] = ACTIONS(227),
-    [anon_sym_SendRaw] = ACTIONS(227),
-    [anon_sym_SendEvent] = ACTIONS(227),
-    [anon_sym_SendPlay] = ACTIONS(227),
     [anon_sym_Sleep] = ACTIONS(227),
-    [anon_sym_SetTimer] = ACTIONS(227),
+    [anon_sym_MsgBox] = ACTIONS(227),
     [anon_sym_Run] = ACTIONS(227),
-    [anon_sym_RunWait] = ACTIONS(227),
-    [anon_sym_WinActivate] = ACTIONS(227),
-    [anon_sym_WinWait] = ACTIONS(227),
-    [anon_sym_WinClose] = ACTIONS(227),
-    [anon_sym_WinMinimize] = ACTIONS(227),
-    [anon_sym_WinMaximize] = ACTIONS(227),
-    [anon_sym_FileRead] = ACTIONS(227),
-    [anon_sym_FileAppend] = ACTIONS(227),
-    [anon_sym_FileDelete] = ACTIONS(227),
-    [anon_sym_FileCopy] = ACTIONS(227),
-    [anon_sym_FileMove] = ACTIONS(227),
-    [anon_sym_RegRead] = ACTIONS(227),
-    [anon_sym_RegWrite] = ACTIONS(227),
-    [anon_sym_RegDelete] = ACTIONS(227),
-    [anon_sym_SetWorkingDir] = ACTIONS(227),
-    [anon_sym_CoordMode] = ACTIONS(227),
-    [anon_sym_SetFormat] = ACTIONS(227),
-    [anon_sym_SetBatchLines] = ACTIONS(227),
-    [anon_sym_SetDefaultMouseSpeed] = ACTIONS(227),
-    [anon_sym_SetWinDelay] = ACTIONS(227),
-    [anon_sym_SetControlDelay] = ACTIONS(227),
-    [anon_sym_IniRead] = ACTIONS(227),
-    [anon_sym_IniWrite] = ACTIONS(227),
-    [anon_sym_Gui] = ACTIONS(227),
-    [anon_sym_GuiControl] = ACTIONS(227),
-    [anon_sym_Reload] = ACTIONS(227),
-    [anon_sym_ExitApp] = ACTIONS(227),
-    [anon_sym_Suspend] = ACTIONS(227),
-    [anon_sym_Pause] = ACTIONS(227),
     [aux_sym_command_arguments_token1] = ACTIONS(250),
     [anon_sym_PERCENT] = ACTIONS(253),
     [anon_sym_COLON_EQ] = ACTIONS(227),
@@ -7150,47 +5430,9 @@ static const uint16_t ts_parse_table[LARGE_STATE_COUNT][SYMBOL_COUNT] = {
     [sym_hotkey] = ACTIONS(246),
     [anon_sym_RBRACE] = ACTIONS(246),
     [anon_sym_COMMA] = ACTIONS(265),
-    [anon_sym_MsgBox] = ACTIONS(246),
-    [anon_sym_InputBox] = ACTIONS(246),
-    [anon_sym_ToolTip] = ACTIONS(246),
-    [anon_sym_TrayTip] = ACTIONS(246),
-    [anon_sym_Send] = ACTIONS(246),
-    [anon_sym_SendInput] = ACTIONS(246),
-    [anon_sym_SendRaw] = ACTIONS(246),
-    [anon_sym_SendEvent] = ACTIONS(246),
-    [anon_sym_SendPlay] = ACTIONS(246),
     [anon_sym_Sleep] = ACTIONS(246),
-    [anon_sym_SetTimer] = ACTIONS(246),
+    [anon_sym_MsgBox] = ACTIONS(246),
     [anon_sym_Run] = ACTIONS(246),
-    [anon_sym_RunWait] = ACTIONS(246),
-    [anon_sym_WinActivate] = ACTIONS(246),
-    [anon_sym_WinWait] = ACTIONS(246),
-    [anon_sym_WinClose] = ACTIONS(246),
-    [anon_sym_WinMinimize] = ACTIONS(246),
-    [anon_sym_WinMaximize] = ACTIONS(246),
-    [anon_sym_FileRead] = ACTIONS(246),
-    [anon_sym_FileAppend] = ACTIONS(246),
-    [anon_sym_FileDelete] = ACTIONS(246),
-    [anon_sym_FileCopy] = ACTIONS(246),
-    [anon_sym_FileMove] = ACTIONS(246),
-    [anon_sym_RegRead] = ACTIONS(246),
-    [anon_sym_RegWrite] = ACTIONS(246),
-    [anon_sym_RegDelete] = ACTIONS(246),
-    [anon_sym_SetWorkingDir] = ACTIONS(246),
-    [anon_sym_CoordMode] = ACTIONS(246),
-    [anon_sym_SetFormat] = ACTIONS(246),
-    [anon_sym_SetBatchLines] = ACTIONS(246),
-    [anon_sym_SetDefaultMouseSpeed] = ACTIONS(246),
-    [anon_sym_SetWinDelay] = ACTIONS(246),
-    [anon_sym_SetControlDelay] = ACTIONS(246),
-    [anon_sym_IniRead] = ACTIONS(246),
-    [anon_sym_IniWrite] = ACTIONS(246),
-    [anon_sym_Gui] = ACTIONS(246),
-    [anon_sym_GuiControl] = ACTIONS(246),
-    [anon_sym_Reload] = ACTIONS(246),
-    [anon_sym_ExitApp] = ACTIONS(246),
-    [anon_sym_Suspend] = ACTIONS(246),
-    [anon_sym_Pause] = ACTIONS(246),
     [aux_sym_command_arguments_token1] = ACTIONS(265),
     [anon_sym_PERCENT] = ACTIONS(244),
     [anon_sym_COLON_EQ] = ACTIONS(246),
@@ -7263,47 +5505,9 @@ static const uint16_t ts_parse_table[LARGE_STATE_COUNT][SYMBOL_COUNT] = {
     [anon_sym_POUND] = ACTIONS(269),
     [sym_hotkey] = ACTIONS(269),
     [anon_sym_COMMA] = ACTIONS(269),
-    [anon_sym_MsgBox] = ACTIONS(269),
-    [anon_sym_InputBox] = ACTIONS(269),
-    [anon_sym_ToolTip] = ACTIONS(269),
-    [anon_sym_TrayTip] = ACTIONS(269),
-    [anon_sym_Send] = ACTIONS(269),
-    [anon_sym_SendInput] = ACTIONS(269),
-    [anon_sym_SendRaw] = ACTIONS(269),
-    [anon_sym_SendEvent] = ACTIONS(269),
-    [anon_sym_SendPlay] = ACTIONS(269),
     [anon_sym_Sleep] = ACTIONS(269),
-    [anon_sym_SetTimer] = ACTIONS(269),
+    [anon_sym_MsgBox] = ACTIONS(269),
     [anon_sym_Run] = ACTIONS(269),
-    [anon_sym_RunWait] = ACTIONS(269),
-    [anon_sym_WinActivate] = ACTIONS(269),
-    [anon_sym_WinWait] = ACTIONS(269),
-    [anon_sym_WinClose] = ACTIONS(269),
-    [anon_sym_WinMinimize] = ACTIONS(269),
-    [anon_sym_WinMaximize] = ACTIONS(269),
-    [anon_sym_FileRead] = ACTIONS(269),
-    [anon_sym_FileAppend] = ACTIONS(269),
-    [anon_sym_FileDelete] = ACTIONS(269),
-    [anon_sym_FileCopy] = ACTIONS(269),
-    [anon_sym_FileMove] = ACTIONS(269),
-    [anon_sym_RegRead] = ACTIONS(269),
-    [anon_sym_RegWrite] = ACTIONS(269),
-    [anon_sym_RegDelete] = ACTIONS(269),
-    [anon_sym_SetWorkingDir] = ACTIONS(269),
-    [anon_sym_CoordMode] = ACTIONS(269),
-    [anon_sym_SetFormat] = ACTIONS(269),
-    [anon_sym_SetBatchLines] = ACTIONS(269),
-    [anon_sym_SetDefaultMouseSpeed] = ACTIONS(269),
-    [anon_sym_SetWinDelay] = ACTIONS(269),
-    [anon_sym_SetControlDelay] = ACTIONS(269),
-    [anon_sym_IniRead] = ACTIONS(269),
-    [anon_sym_IniWrite] = ACTIONS(269),
-    [anon_sym_Gui] = ACTIONS(269),
-    [anon_sym_GuiControl] = ACTIONS(269),
-    [anon_sym_Reload] = ACTIONS(269),
-    [anon_sym_ExitApp] = ACTIONS(269),
-    [anon_sym_Suspend] = ACTIONS(269),
-    [anon_sym_Pause] = ACTIONS(269),
     [aux_sym_command_arguments_token1] = ACTIONS(269),
     [anon_sym_PERCENT] = ACTIONS(267),
     [anon_sym_COLON_EQ] = ACTIONS(269),
@@ -7376,47 +5580,9 @@ static const uint16_t ts_parse_table[LARGE_STATE_COUNT][SYMBOL_COUNT] = {
     [anon_sym_POUND] = ACTIONS(273),
     [sym_hotkey] = ACTIONS(273),
     [anon_sym_COMMA] = ACTIONS(273),
-    [anon_sym_MsgBox] = ACTIONS(273),
-    [anon_sym_InputBox] = ACTIONS(273),
-    [anon_sym_ToolTip] = ACTIONS(273),
-    [anon_sym_TrayTip] = ACTIONS(273),
-    [anon_sym_Send] = ACTIONS(273),
-    [anon_sym_SendInput] = ACTIONS(273),
-    [anon_sym_SendRaw] = ACTIONS(273),
-    [anon_sym_SendEvent] = ACTIONS(273),
-    [anon_sym_SendPlay] = ACTIONS(273),
     [anon_sym_Sleep] = ACTIONS(273),
-    [anon_sym_SetTimer] = ACTIONS(273),
+    [anon_sym_MsgBox] = ACTIONS(273),
     [anon_sym_Run] = ACTIONS(273),
-    [anon_sym_RunWait] = ACTIONS(273),
-    [anon_sym_WinActivate] = ACTIONS(273),
-    [anon_sym_WinWait] = ACTIONS(273),
-    [anon_sym_WinClose] = ACTIONS(273),
-    [anon_sym_WinMinimize] = ACTIONS(273),
-    [anon_sym_WinMaximize] = ACTIONS(273),
-    [anon_sym_FileRead] = ACTIONS(273),
-    [anon_sym_FileAppend] = ACTIONS(273),
-    [anon_sym_FileDelete] = ACTIONS(273),
-    [anon_sym_FileCopy] = ACTIONS(273),
-    [anon_sym_FileMove] = ACTIONS(273),
-    [anon_sym_RegRead] = ACTIONS(273),
-    [anon_sym_RegWrite] = ACTIONS(273),
-    [anon_sym_RegDelete] = ACTIONS(273),
-    [anon_sym_SetWorkingDir] = ACTIONS(273),
-    [anon_sym_CoordMode] = ACTIONS(273),
-    [anon_sym_SetFormat] = ACTIONS(273),
-    [anon_sym_SetBatchLines] = ACTIONS(273),
-    [anon_sym_SetDefaultMouseSpeed] = ACTIONS(273),
-    [anon_sym_SetWinDelay] = ACTIONS(273),
-    [anon_sym_SetControlDelay] = ACTIONS(273),
-    [anon_sym_IniRead] = ACTIONS(273),
-    [anon_sym_IniWrite] = ACTIONS(273),
-    [anon_sym_Gui] = ACTIONS(273),
-    [anon_sym_GuiControl] = ACTIONS(273),
-    [anon_sym_Reload] = ACTIONS(273),
-    [anon_sym_ExitApp] = ACTIONS(273),
-    [anon_sym_Suspend] = ACTIONS(273),
-    [anon_sym_Pause] = ACTIONS(273),
     [aux_sym_command_arguments_token1] = ACTIONS(273),
     [anon_sym_PERCENT] = ACTIONS(271),
     [anon_sym_COLON_EQ] = ACTIONS(273),
@@ -7489,47 +5655,9 @@ static const uint16_t ts_parse_table[LARGE_STATE_COUNT][SYMBOL_COUNT] = {
     [sym_hotkey] = ACTIONS(269),
     [anon_sym_RBRACE] = ACTIONS(269),
     [anon_sym_COMMA] = ACTIONS(269),
-    [anon_sym_MsgBox] = ACTIONS(269),
-    [anon_sym_InputBox] = ACTIONS(269),
-    [anon_sym_ToolTip] = ACTIONS(269),
-    [anon_sym_TrayTip] = ACTIONS(269),
-    [anon_sym_Send] = ACTIONS(269),
-    [anon_sym_SendInput] = ACTIONS(269),
-    [anon_sym_SendRaw] = ACTIONS(269),
-    [anon_sym_SendEvent] = ACTIONS(269),
-    [anon_sym_SendPlay] = ACTIONS(269),
     [anon_sym_Sleep] = ACTIONS(269),
-    [anon_sym_SetTimer] = ACTIONS(269),
+    [anon_sym_MsgBox] = ACTIONS(269),
     [anon_sym_Run] = ACTIONS(269),
-    [anon_sym_RunWait] = ACTIONS(269),
-    [anon_sym_WinActivate] = ACTIONS(269),
-    [anon_sym_WinWait] = ACTIONS(269),
-    [anon_sym_WinClose] = ACTIONS(269),
-    [anon_sym_WinMinimize] = ACTIONS(269),
-    [anon_sym_WinMaximize] = ACTIONS(269),
-    [anon_sym_FileRead] = ACTIONS(269),
-    [anon_sym_FileAppend] = ACTIONS(269),
-    [anon_sym_FileDelete] = ACTIONS(269),
-    [anon_sym_FileCopy] = ACTIONS(269),
-    [anon_sym_FileMove] = ACTIONS(269),
-    [anon_sym_RegRead] = ACTIONS(269),
-    [anon_sym_RegWrite] = ACTIONS(269),
-    [anon_sym_RegDelete] = ACTIONS(269),
-    [anon_sym_SetWorkingDir] = ACTIONS(269),
-    [anon_sym_CoordMode] = ACTIONS(269),
-    [anon_sym_SetFormat] = ACTIONS(269),
-    [anon_sym_SetBatchLines] = ACTIONS(269),
-    [anon_sym_SetDefaultMouseSpeed] = ACTIONS(269),
-    [anon_sym_SetWinDelay] = ACTIONS(269),
-    [anon_sym_SetControlDelay] = ACTIONS(269),
-    [anon_sym_IniRead] = ACTIONS(269),
-    [anon_sym_IniWrite] = ACTIONS(269),
-    [anon_sym_Gui] = ACTIONS(269),
-    [anon_sym_GuiControl] = ACTIONS(269),
-    [anon_sym_Reload] = ACTIONS(269),
-    [anon_sym_ExitApp] = ACTIONS(269),
-    [anon_sym_Suspend] = ACTIONS(269),
-    [anon_sym_Pause] = ACTIONS(269),
     [aux_sym_command_arguments_token1] = ACTIONS(269),
     [anon_sym_PERCENT] = ACTIONS(267),
     [anon_sym_COLON_EQ] = ACTIONS(269),
@@ -7602,47 +5730,9 @@ static const uint16_t ts_parse_table[LARGE_STATE_COUNT][SYMBOL_COUNT] = {
     [sym_hotkey] = ACTIONS(275),
     [anon_sym_RBRACE] = ACTIONS(275),
     [anon_sym_COMMA] = ACTIONS(275),
-    [anon_sym_MsgBox] = ACTIONS(275),
-    [anon_sym_InputBox] = ACTIONS(275),
-    [anon_sym_ToolTip] = ACTIONS(275),
-    [anon_sym_TrayTip] = ACTIONS(275),
-    [anon_sym_Send] = ACTIONS(275),
-    [anon_sym_SendInput] = ACTIONS(275),
-    [anon_sym_SendRaw] = ACTIONS(275),
-    [anon_sym_SendEvent] = ACTIONS(275),
-    [anon_sym_SendPlay] = ACTIONS(275),
     [anon_sym_Sleep] = ACTIONS(275),
-    [anon_sym_SetTimer] = ACTIONS(275),
+    [anon_sym_MsgBox] = ACTIONS(275),
     [anon_sym_Run] = ACTIONS(275),
-    [anon_sym_RunWait] = ACTIONS(275),
-    [anon_sym_WinActivate] = ACTIONS(275),
-    [anon_sym_WinWait] = ACTIONS(275),
-    [anon_sym_WinClose] = ACTIONS(275),
-    [anon_sym_WinMinimize] = ACTIONS(275),
-    [anon_sym_WinMaximize] = ACTIONS(275),
-    [anon_sym_FileRead] = ACTIONS(275),
-    [anon_sym_FileAppend] = ACTIONS(275),
-    [anon_sym_FileDelete] = ACTIONS(275),
-    [anon_sym_FileCopy] = ACTIONS(275),
-    [anon_sym_FileMove] = ACTIONS(275),
-    [anon_sym_RegRead] = ACTIONS(275),
-    [anon_sym_RegWrite] = ACTIONS(275),
-    [anon_sym_RegDelete] = ACTIONS(275),
-    [anon_sym_SetWorkingDir] = ACTIONS(275),
-    [anon_sym_CoordMode] = ACTIONS(275),
-    [anon_sym_SetFormat] = ACTIONS(275),
-    [anon_sym_SetBatchLines] = ACTIONS(275),
-    [anon_sym_SetDefaultMouseSpeed] = ACTIONS(275),
-    [anon_sym_SetWinDelay] = ACTIONS(275),
-    [anon_sym_SetControlDelay] = ACTIONS(275),
-    [anon_sym_IniRead] = ACTIONS(275),
-    [anon_sym_IniWrite] = ACTIONS(275),
-    [anon_sym_Gui] = ACTIONS(275),
-    [anon_sym_GuiControl] = ACTIONS(275),
-    [anon_sym_Reload] = ACTIONS(275),
-    [anon_sym_ExitApp] = ACTIONS(275),
-    [anon_sym_Suspend] = ACTIONS(275),
-    [anon_sym_Pause] = ACTIONS(275),
     [aux_sym_command_arguments_token1] = ACTIONS(275),
     [anon_sym_PERCENT] = ACTIONS(277),
     [anon_sym_COLON_EQ] = ACTIONS(275),
@@ -7715,47 +5805,9 @@ static const uint16_t ts_parse_table[LARGE_STATE_COUNT][SYMBOL_COUNT] = {
     [anon_sym_POUND] = ACTIONS(275),
     [sym_hotkey] = ACTIONS(275),
     [anon_sym_COMMA] = ACTIONS(275),
-    [anon_sym_MsgBox] = ACTIONS(275),
-    [anon_sym_InputBox] = ACTIONS(275),
-    [anon_sym_ToolTip] = ACTIONS(275),
-    [anon_sym_TrayTip] = ACTIONS(275),
-    [anon_sym_Send] = ACTIONS(275),
-    [anon_sym_SendInput] = ACTIONS(275),
-    [anon_sym_SendRaw] = ACTIONS(275),
-    [anon_sym_SendEvent] = ACTIONS(275),
-    [anon_sym_SendPlay] = ACTIONS(275),
     [anon_sym_Sleep] = ACTIONS(275),
-    [anon_sym_SetTimer] = ACTIONS(275),
+    [anon_sym_MsgBox] = ACTIONS(275),
     [anon_sym_Run] = ACTIONS(275),
-    [anon_sym_RunWait] = ACTIONS(275),
-    [anon_sym_WinActivate] = ACTIONS(275),
-    [anon_sym_WinWait] = ACTIONS(275),
-    [anon_sym_WinClose] = ACTIONS(275),
-    [anon_sym_WinMinimize] = ACTIONS(275),
-    [anon_sym_WinMaximize] = ACTIONS(275),
-    [anon_sym_FileRead] = ACTIONS(275),
-    [anon_sym_FileAppend] = ACTIONS(275),
-    [anon_sym_FileDelete] = ACTIONS(275),
-    [anon_sym_FileCopy] = ACTIONS(275),
-    [anon_sym_FileMove] = ACTIONS(275),
-    [anon_sym_RegRead] = ACTIONS(275),
-    [anon_sym_RegWrite] = ACTIONS(275),
-    [anon_sym_RegDelete] = ACTIONS(275),
-    [anon_sym_SetWorkingDir] = ACTIONS(275),
-    [anon_sym_CoordMode] = ACTIONS(275),
-    [anon_sym_SetFormat] = ACTIONS(275),
-    [anon_sym_SetBatchLines] = ACTIONS(275),
-    [anon_sym_SetDefaultMouseSpeed] = ACTIONS(275),
-    [anon_sym_SetWinDelay] = ACTIONS(275),
-    [anon_sym_SetControlDelay] = ACTIONS(275),
-    [anon_sym_IniRead] = ACTIONS(275),
-    [anon_sym_IniWrite] = ACTIONS(275),
-    [anon_sym_Gui] = ACTIONS(275),
-    [anon_sym_GuiControl] = ACTIONS(275),
-    [anon_sym_Reload] = ACTIONS(275),
-    [anon_sym_ExitApp] = ACTIONS(275),
-    [anon_sym_Suspend] = ACTIONS(275),
-    [anon_sym_Pause] = ACTIONS(275),
     [aux_sym_command_arguments_token1] = ACTIONS(275),
     [anon_sym_PERCENT] = ACTIONS(277),
     [anon_sym_COLON_EQ] = ACTIONS(275),
@@ -7828,47 +5880,9 @@ static const uint16_t ts_parse_table[LARGE_STATE_COUNT][SYMBOL_COUNT] = {
     [sym_hotkey] = ACTIONS(273),
     [anon_sym_RBRACE] = ACTIONS(273),
     [anon_sym_COMMA] = ACTIONS(273),
-    [anon_sym_MsgBox] = ACTIONS(273),
-    [anon_sym_InputBox] = ACTIONS(273),
-    [anon_sym_ToolTip] = ACTIONS(273),
-    [anon_sym_TrayTip] = ACTIONS(273),
-    [anon_sym_Send] = ACTIONS(273),
-    [anon_sym_SendInput] = ACTIONS(273),
-    [anon_sym_SendRaw] = ACTIONS(273),
-    [anon_sym_SendEvent] = ACTIONS(273),
-    [anon_sym_SendPlay] = ACTIONS(273),
     [anon_sym_Sleep] = ACTIONS(273),
-    [anon_sym_SetTimer] = ACTIONS(273),
+    [anon_sym_MsgBox] = ACTIONS(273),
     [anon_sym_Run] = ACTIONS(273),
-    [anon_sym_RunWait] = ACTIONS(273),
-    [anon_sym_WinActivate] = ACTIONS(273),
-    [anon_sym_WinWait] = ACTIONS(273),
-    [anon_sym_WinClose] = ACTIONS(273),
-    [anon_sym_WinMinimize] = ACTIONS(273),
-    [anon_sym_WinMaximize] = ACTIONS(273),
-    [anon_sym_FileRead] = ACTIONS(273),
-    [anon_sym_FileAppend] = ACTIONS(273),
-    [anon_sym_FileDelete] = ACTIONS(273),
-    [anon_sym_FileCopy] = ACTIONS(273),
-    [anon_sym_FileMove] = ACTIONS(273),
-    [anon_sym_RegRead] = ACTIONS(273),
-    [anon_sym_RegWrite] = ACTIONS(273),
-    [anon_sym_RegDelete] = ACTIONS(273),
-    [anon_sym_SetWorkingDir] = ACTIONS(273),
-    [anon_sym_CoordMode] = ACTIONS(273),
-    [anon_sym_SetFormat] = ACTIONS(273),
-    [anon_sym_SetBatchLines] = ACTIONS(273),
-    [anon_sym_SetDefaultMouseSpeed] = ACTIONS(273),
-    [anon_sym_SetWinDelay] = ACTIONS(273),
-    [anon_sym_SetControlDelay] = ACTIONS(273),
-    [anon_sym_IniRead] = ACTIONS(273),
-    [anon_sym_IniWrite] = ACTIONS(273),
-    [anon_sym_Gui] = ACTIONS(273),
-    [anon_sym_GuiControl] = ACTIONS(273),
-    [anon_sym_Reload] = ACTIONS(273),
-    [anon_sym_ExitApp] = ACTIONS(273),
-    [anon_sym_Suspend] = ACTIONS(273),
-    [anon_sym_Pause] = ACTIONS(273),
     [aux_sym_command_arguments_token1] = ACTIONS(273),
     [anon_sym_PERCENT] = ACTIONS(271),
     [anon_sym_COLON_EQ] = ACTIONS(273),
@@ -7942,47 +5956,9 @@ static const uint16_t ts_parse_table[LARGE_STATE_COUNT][SYMBOL_COUNT] = {
     [anon_sym_COLON] = ACTIONS(283),
     [anon_sym_LPAREN] = ACTIONS(285),
     [anon_sym_RBRACE] = ACTIONS(279),
-    [anon_sym_MsgBox] = ACTIONS(279),
-    [anon_sym_InputBox] = ACTIONS(279),
-    [anon_sym_ToolTip] = ACTIONS(279),
-    [anon_sym_TrayTip] = ACTIONS(279),
-    [anon_sym_Send] = ACTIONS(279),
-    [anon_sym_SendInput] = ACTIONS(279),
-    [anon_sym_SendRaw] = ACTIONS(279),
-    [anon_sym_SendEvent] = ACTIONS(279),
-    [anon_sym_SendPlay] = ACTIONS(279),
     [anon_sym_Sleep] = ACTIONS(279),
-    [anon_sym_SetTimer] = ACTIONS(279),
+    [anon_sym_MsgBox] = ACTIONS(279),
     [anon_sym_Run] = ACTIONS(279),
-    [anon_sym_RunWait] = ACTIONS(279),
-    [anon_sym_WinActivate] = ACTIONS(279),
-    [anon_sym_WinWait] = ACTIONS(279),
-    [anon_sym_WinClose] = ACTIONS(279),
-    [anon_sym_WinMinimize] = ACTIONS(279),
-    [anon_sym_WinMaximize] = ACTIONS(279),
-    [anon_sym_FileRead] = ACTIONS(279),
-    [anon_sym_FileAppend] = ACTIONS(279),
-    [anon_sym_FileDelete] = ACTIONS(279),
-    [anon_sym_FileCopy] = ACTIONS(279),
-    [anon_sym_FileMove] = ACTIONS(279),
-    [anon_sym_RegRead] = ACTIONS(279),
-    [anon_sym_RegWrite] = ACTIONS(279),
-    [anon_sym_RegDelete] = ACTIONS(279),
-    [anon_sym_SetWorkingDir] = ACTIONS(279),
-    [anon_sym_CoordMode] = ACTIONS(279),
-    [anon_sym_SetFormat] = ACTIONS(279),
-    [anon_sym_SetBatchLines] = ACTIONS(279),
-    [anon_sym_SetDefaultMouseSpeed] = ACTIONS(279),
-    [anon_sym_SetWinDelay] = ACTIONS(279),
-    [anon_sym_SetControlDelay] = ACTIONS(279),
-    [anon_sym_IniRead] = ACTIONS(279),
-    [anon_sym_IniWrite] = ACTIONS(279),
-    [anon_sym_Gui] = ACTIONS(279),
-    [anon_sym_GuiControl] = ACTIONS(279),
-    [anon_sym_Reload] = ACTIONS(279),
-    [anon_sym_ExitApp] = ACTIONS(279),
-    [anon_sym_Suspend] = ACTIONS(279),
-    [anon_sym_Pause] = ACTIONS(279),
     [anon_sym_PERCENT] = ACTIONS(281),
     [anon_sym_COLON_EQ] = ACTIONS(281),
     [anon_sym_DQUOTE] = ACTIONS(281),
@@ -8055,47 +6031,9 @@ static const uint16_t ts_parse_table[LARGE_STATE_COUNT][SYMBOL_COUNT] = {
     [sym_hotkey] = ACTIONS(281),
     [anon_sym_COLON] = ACTIONS(287),
     [anon_sym_LPAREN] = ACTIONS(289),
-    [anon_sym_MsgBox] = ACTIONS(279),
-    [anon_sym_InputBox] = ACTIONS(279),
-    [anon_sym_ToolTip] = ACTIONS(279),
-    [anon_sym_TrayTip] = ACTIONS(279),
-    [anon_sym_Send] = ACTIONS(279),
-    [anon_sym_SendInput] = ACTIONS(279),
-    [anon_sym_SendRaw] = ACTIONS(279),
-    [anon_sym_SendEvent] = ACTIONS(279),
-    [anon_sym_SendPlay] = ACTIONS(279),
     [anon_sym_Sleep] = ACTIONS(279),
-    [anon_sym_SetTimer] = ACTIONS(279),
+    [anon_sym_MsgBox] = ACTIONS(279),
     [anon_sym_Run] = ACTIONS(279),
-    [anon_sym_RunWait] = ACTIONS(279),
-    [anon_sym_WinActivate] = ACTIONS(279),
-    [anon_sym_WinWait] = ACTIONS(279),
-    [anon_sym_WinClose] = ACTIONS(279),
-    [anon_sym_WinMinimize] = ACTIONS(279),
-    [anon_sym_WinMaximize] = ACTIONS(279),
-    [anon_sym_FileRead] = ACTIONS(279),
-    [anon_sym_FileAppend] = ACTIONS(279),
-    [anon_sym_FileDelete] = ACTIONS(279),
-    [anon_sym_FileCopy] = ACTIONS(279),
-    [anon_sym_FileMove] = ACTIONS(279),
-    [anon_sym_RegRead] = ACTIONS(279),
-    [anon_sym_RegWrite] = ACTIONS(279),
-    [anon_sym_RegDelete] = ACTIONS(279),
-    [anon_sym_SetWorkingDir] = ACTIONS(279),
-    [anon_sym_CoordMode] = ACTIONS(279),
-    [anon_sym_SetFormat] = ACTIONS(279),
-    [anon_sym_SetBatchLines] = ACTIONS(279),
-    [anon_sym_SetDefaultMouseSpeed] = ACTIONS(279),
-    [anon_sym_SetWinDelay] = ACTIONS(279),
-    [anon_sym_SetControlDelay] = ACTIONS(279),
-    [anon_sym_IniRead] = ACTIONS(279),
-    [anon_sym_IniWrite] = ACTIONS(279),
-    [anon_sym_Gui] = ACTIONS(279),
-    [anon_sym_GuiControl] = ACTIONS(279),
-    [anon_sym_Reload] = ACTIONS(279),
-    [anon_sym_ExitApp] = ACTIONS(279),
-    [anon_sym_Suspend] = ACTIONS(279),
-    [anon_sym_Pause] = ACTIONS(279),
     [anon_sym_PERCENT] = ACTIONS(281),
     [anon_sym_COLON_EQ] = ACTIONS(281),
     [anon_sym_DQUOTE] = ACTIONS(281),
@@ -8167,47 +6105,9 @@ static const uint16_t ts_parse_table[LARGE_STATE_COUNT][SYMBOL_COUNT] = {
     [anon_sym_POUND] = ACTIONS(293),
     [sym_hotkey] = ACTIONS(291),
     [anon_sym_COMMA] = ACTIONS(293),
-    [anon_sym_MsgBox] = ACTIONS(293),
-    [anon_sym_InputBox] = ACTIONS(293),
-    [anon_sym_ToolTip] = ACTIONS(293),
-    [anon_sym_TrayTip] = ACTIONS(293),
-    [anon_sym_Send] = ACTIONS(293),
-    [anon_sym_SendInput] = ACTIONS(293),
-    [anon_sym_SendRaw] = ACTIONS(293),
-    [anon_sym_SendEvent] = ACTIONS(293),
-    [anon_sym_SendPlay] = ACTIONS(293),
     [anon_sym_Sleep] = ACTIONS(293),
-    [anon_sym_SetTimer] = ACTIONS(293),
+    [anon_sym_MsgBox] = ACTIONS(293),
     [anon_sym_Run] = ACTIONS(293),
-    [anon_sym_RunWait] = ACTIONS(293),
-    [anon_sym_WinActivate] = ACTIONS(293),
-    [anon_sym_WinWait] = ACTIONS(293),
-    [anon_sym_WinClose] = ACTIONS(293),
-    [anon_sym_WinMinimize] = ACTIONS(293),
-    [anon_sym_WinMaximize] = ACTIONS(293),
-    [anon_sym_FileRead] = ACTIONS(293),
-    [anon_sym_FileAppend] = ACTIONS(293),
-    [anon_sym_FileDelete] = ACTIONS(293),
-    [anon_sym_FileCopy] = ACTIONS(293),
-    [anon_sym_FileMove] = ACTIONS(293),
-    [anon_sym_RegRead] = ACTIONS(293),
-    [anon_sym_RegWrite] = ACTIONS(293),
-    [anon_sym_RegDelete] = ACTIONS(293),
-    [anon_sym_SetWorkingDir] = ACTIONS(293),
-    [anon_sym_CoordMode] = ACTIONS(293),
-    [anon_sym_SetFormat] = ACTIONS(293),
-    [anon_sym_SetBatchLines] = ACTIONS(293),
-    [anon_sym_SetDefaultMouseSpeed] = ACTIONS(293),
-    [anon_sym_SetWinDelay] = ACTIONS(293),
-    [anon_sym_SetControlDelay] = ACTIONS(293),
-    [anon_sym_IniRead] = ACTIONS(293),
-    [anon_sym_IniWrite] = ACTIONS(293),
-    [anon_sym_Gui] = ACTIONS(293),
-    [anon_sym_GuiControl] = ACTIONS(293),
-    [anon_sym_Reload] = ACTIONS(293),
-    [anon_sym_ExitApp] = ACTIONS(293),
-    [anon_sym_Suspend] = ACTIONS(293),
-    [anon_sym_Pause] = ACTIONS(293),
     [anon_sym_PERCENT] = ACTIONS(291),
     [anon_sym_COLON_EQ] = ACTIONS(291),
     [anon_sym_DQUOTE] = ACTIONS(291),
@@ -8279,47 +6179,9 @@ static const uint16_t ts_parse_table[LARGE_STATE_COUNT][SYMBOL_COUNT] = {
     [sym_hotkey] = ACTIONS(297),
     [anon_sym_LBRACE] = ACTIONS(299),
     [anon_sym_RBRACE] = ACTIONS(295),
-    [anon_sym_MsgBox] = ACTIONS(295),
-    [anon_sym_InputBox] = ACTIONS(295),
-    [anon_sym_ToolTip] = ACTIONS(295),
-    [anon_sym_TrayTip] = ACTIONS(295),
-    [anon_sym_Send] = ACTIONS(295),
-    [anon_sym_SendInput] = ACTIONS(295),
-    [anon_sym_SendRaw] = ACTIONS(295),
-    [anon_sym_SendEvent] = ACTIONS(295),
-    [anon_sym_SendPlay] = ACTIONS(295),
     [anon_sym_Sleep] = ACTIONS(295),
-    [anon_sym_SetTimer] = ACTIONS(295),
+    [anon_sym_MsgBox] = ACTIONS(295),
     [anon_sym_Run] = ACTIONS(295),
-    [anon_sym_RunWait] = ACTIONS(295),
-    [anon_sym_WinActivate] = ACTIONS(295),
-    [anon_sym_WinWait] = ACTIONS(295),
-    [anon_sym_WinClose] = ACTIONS(295),
-    [anon_sym_WinMinimize] = ACTIONS(295),
-    [anon_sym_WinMaximize] = ACTIONS(295),
-    [anon_sym_FileRead] = ACTIONS(295),
-    [anon_sym_FileAppend] = ACTIONS(295),
-    [anon_sym_FileDelete] = ACTIONS(295),
-    [anon_sym_FileCopy] = ACTIONS(295),
-    [anon_sym_FileMove] = ACTIONS(295),
-    [anon_sym_RegRead] = ACTIONS(295),
-    [anon_sym_RegWrite] = ACTIONS(295),
-    [anon_sym_RegDelete] = ACTIONS(295),
-    [anon_sym_SetWorkingDir] = ACTIONS(295),
-    [anon_sym_CoordMode] = ACTIONS(295),
-    [anon_sym_SetFormat] = ACTIONS(295),
-    [anon_sym_SetBatchLines] = ACTIONS(295),
-    [anon_sym_SetDefaultMouseSpeed] = ACTIONS(295),
-    [anon_sym_SetWinDelay] = ACTIONS(295),
-    [anon_sym_SetControlDelay] = ACTIONS(295),
-    [anon_sym_IniRead] = ACTIONS(295),
-    [anon_sym_IniWrite] = ACTIONS(295),
-    [anon_sym_Gui] = ACTIONS(295),
-    [anon_sym_GuiControl] = ACTIONS(295),
-    [anon_sym_Reload] = ACTIONS(295),
-    [anon_sym_ExitApp] = ACTIONS(295),
-    [anon_sym_Suspend] = ACTIONS(295),
-    [anon_sym_Pause] = ACTIONS(295),
     [anon_sym_PERCENT] = ACTIONS(297),
     [anon_sym_COLON_EQ] = ACTIONS(297),
     [anon_sym_DQUOTE] = ACTIONS(297),
@@ -8391,47 +6253,9 @@ static const uint16_t ts_parse_table[LARGE_STATE_COUNT][SYMBOL_COUNT] = {
     [sym_hotkey] = ACTIONS(291),
     [anon_sym_RBRACE] = ACTIONS(293),
     [anon_sym_COMMA] = ACTIONS(293),
-    [anon_sym_MsgBox] = ACTIONS(293),
-    [anon_sym_InputBox] = ACTIONS(293),
-    [anon_sym_ToolTip] = ACTIONS(293),
-    [anon_sym_TrayTip] = ACTIONS(293),
-    [anon_sym_Send] = ACTIONS(293),
-    [anon_sym_SendInput] = ACTIONS(293),
-    [anon_sym_SendRaw] = ACTIONS(293),
-    [anon_sym_SendEvent] = ACTIONS(293),
-    [anon_sym_SendPlay] = ACTIONS(293),
     [anon_sym_Sleep] = ACTIONS(293),
-    [anon_sym_SetTimer] = ACTIONS(293),
+    [anon_sym_MsgBox] = ACTIONS(293),
     [anon_sym_Run] = ACTIONS(293),
-    [anon_sym_RunWait] = ACTIONS(293),
-    [anon_sym_WinActivate] = ACTIONS(293),
-    [anon_sym_WinWait] = ACTIONS(293),
-    [anon_sym_WinClose] = ACTIONS(293),
-    [anon_sym_WinMinimize] = ACTIONS(293),
-    [anon_sym_WinMaximize] = ACTIONS(293),
-    [anon_sym_FileRead] = ACTIONS(293),
-    [anon_sym_FileAppend] = ACTIONS(293),
-    [anon_sym_FileDelete] = ACTIONS(293),
-    [anon_sym_FileCopy] = ACTIONS(293),
-    [anon_sym_FileMove] = ACTIONS(293),
-    [anon_sym_RegRead] = ACTIONS(293),
-    [anon_sym_RegWrite] = ACTIONS(293),
-    [anon_sym_RegDelete] = ACTIONS(293),
-    [anon_sym_SetWorkingDir] = ACTIONS(293),
-    [anon_sym_CoordMode] = ACTIONS(293),
-    [anon_sym_SetFormat] = ACTIONS(293),
-    [anon_sym_SetBatchLines] = ACTIONS(293),
-    [anon_sym_SetDefaultMouseSpeed] = ACTIONS(293),
-    [anon_sym_SetWinDelay] = ACTIONS(293),
-    [anon_sym_SetControlDelay] = ACTIONS(293),
-    [anon_sym_IniRead] = ACTIONS(293),
-    [anon_sym_IniWrite] = ACTIONS(293),
-    [anon_sym_Gui] = ACTIONS(293),
-    [anon_sym_GuiControl] = ACTIONS(293),
-    [anon_sym_Reload] = ACTIONS(293),
-    [anon_sym_ExitApp] = ACTIONS(293),
-    [anon_sym_Suspend] = ACTIONS(293),
-    [anon_sym_Pause] = ACTIONS(293),
     [anon_sym_PERCENT] = ACTIONS(291),
     [anon_sym_COLON_EQ] = ACTIONS(291),
     [anon_sym_DQUOTE] = ACTIONS(291),
@@ -8503,47 +6327,9 @@ static const uint16_t ts_parse_table[LARGE_STATE_COUNT][SYMBOL_COUNT] = {
     [anon_sym_POUND] = ACTIONS(303),
     [aux_sym_directive_token1] = ACTIONS(305),
     [sym_hotkey] = ACTIONS(303),
-    [anon_sym_MsgBox] = ACTIONS(303),
-    [anon_sym_InputBox] = ACTIONS(303),
-    [anon_sym_ToolTip] = ACTIONS(303),
-    [anon_sym_TrayTip] = ACTIONS(303),
-    [anon_sym_Send] = ACTIONS(303),
-    [anon_sym_SendInput] = ACTIONS(303),
-    [anon_sym_SendRaw] = ACTIONS(303),
-    [anon_sym_SendEvent] = ACTIONS(303),
-    [anon_sym_SendPlay] = ACTIONS(303),
     [anon_sym_Sleep] = ACTIONS(303),
-    [anon_sym_SetTimer] = ACTIONS(303),
+    [anon_sym_MsgBox] = ACTIONS(303),
     [anon_sym_Run] = ACTIONS(303),
-    [anon_sym_RunWait] = ACTIONS(303),
-    [anon_sym_WinActivate] = ACTIONS(303),
-    [anon_sym_WinWait] = ACTIONS(303),
-    [anon_sym_WinClose] = ACTIONS(303),
-    [anon_sym_WinMinimize] = ACTIONS(303),
-    [anon_sym_WinMaximize] = ACTIONS(303),
-    [anon_sym_FileRead] = ACTIONS(303),
-    [anon_sym_FileAppend] = ACTIONS(303),
-    [anon_sym_FileDelete] = ACTIONS(303),
-    [anon_sym_FileCopy] = ACTIONS(303),
-    [anon_sym_FileMove] = ACTIONS(303),
-    [anon_sym_RegRead] = ACTIONS(303),
-    [anon_sym_RegWrite] = ACTIONS(303),
-    [anon_sym_RegDelete] = ACTIONS(303),
-    [anon_sym_SetWorkingDir] = ACTIONS(303),
-    [anon_sym_CoordMode] = ACTIONS(303),
-    [anon_sym_SetFormat] = ACTIONS(303),
-    [anon_sym_SetBatchLines] = ACTIONS(303),
-    [anon_sym_SetDefaultMouseSpeed] = ACTIONS(303),
-    [anon_sym_SetWinDelay] = ACTIONS(303),
-    [anon_sym_SetControlDelay] = ACTIONS(303),
-    [anon_sym_IniRead] = ACTIONS(303),
-    [anon_sym_IniWrite] = ACTIONS(303),
-    [anon_sym_Gui] = ACTIONS(303),
-    [anon_sym_GuiControl] = ACTIONS(303),
-    [anon_sym_Reload] = ACTIONS(303),
-    [anon_sym_ExitApp] = ACTIONS(303),
-    [anon_sym_Suspend] = ACTIONS(303),
-    [anon_sym_Pause] = ACTIONS(303),
     [anon_sym_PERCENT] = ACTIONS(303),
     [anon_sym_COLON_EQ] = ACTIONS(303),
     [anon_sym_DQUOTE] = ACTIONS(303),
@@ -8615,47 +6401,9 @@ static const uint16_t ts_parse_table[LARGE_STATE_COUNT][SYMBOL_COUNT] = {
     [anon_sym_POUND] = ACTIONS(295),
     [sym_hotkey] = ACTIONS(297),
     [anon_sym_LBRACE] = ACTIONS(307),
-    [anon_sym_MsgBox] = ACTIONS(295),
-    [anon_sym_InputBox] = ACTIONS(295),
-    [anon_sym_ToolTip] = ACTIONS(295),
-    [anon_sym_TrayTip] = ACTIONS(295),
-    [anon_sym_Send] = ACTIONS(295),
-    [anon_sym_SendInput] = ACTIONS(295),
-    [anon_sym_SendRaw] = ACTIONS(295),
-    [anon_sym_SendEvent] = ACTIONS(295),
-    [anon_sym_SendPlay] = ACTIONS(295),
     [anon_sym_Sleep] = ACTIONS(295),
-    [anon_sym_SetTimer] = ACTIONS(295),
+    [anon_sym_MsgBox] = ACTIONS(295),
     [anon_sym_Run] = ACTIONS(295),
-    [anon_sym_RunWait] = ACTIONS(295),
-    [anon_sym_WinActivate] = ACTIONS(295),
-    [anon_sym_WinWait] = ACTIONS(295),
-    [anon_sym_WinClose] = ACTIONS(295),
-    [anon_sym_WinMinimize] = ACTIONS(295),
-    [anon_sym_WinMaximize] = ACTIONS(295),
-    [anon_sym_FileRead] = ACTIONS(295),
-    [anon_sym_FileAppend] = ACTIONS(295),
-    [anon_sym_FileDelete] = ACTIONS(295),
-    [anon_sym_FileCopy] = ACTIONS(295),
-    [anon_sym_FileMove] = ACTIONS(295),
-    [anon_sym_RegRead] = ACTIONS(295),
-    [anon_sym_RegWrite] = ACTIONS(295),
-    [anon_sym_RegDelete] = ACTIONS(295),
-    [anon_sym_SetWorkingDir] = ACTIONS(295),
-    [anon_sym_CoordMode] = ACTIONS(295),
-    [anon_sym_SetFormat] = ACTIONS(295),
-    [anon_sym_SetBatchLines] = ACTIONS(295),
-    [anon_sym_SetDefaultMouseSpeed] = ACTIONS(295),
-    [anon_sym_SetWinDelay] = ACTIONS(295),
-    [anon_sym_SetControlDelay] = ACTIONS(295),
-    [anon_sym_IniRead] = ACTIONS(295),
-    [anon_sym_IniWrite] = ACTIONS(295),
-    [anon_sym_Gui] = ACTIONS(295),
-    [anon_sym_GuiControl] = ACTIONS(295),
-    [anon_sym_Reload] = ACTIONS(295),
-    [anon_sym_ExitApp] = ACTIONS(295),
-    [anon_sym_Suspend] = ACTIONS(295),
-    [anon_sym_Pause] = ACTIONS(295),
     [anon_sym_PERCENT] = ACTIONS(297),
     [anon_sym_COLON_EQ] = ACTIONS(297),
     [anon_sym_DQUOTE] = ACTIONS(297),
@@ -8727,47 +6475,9 @@ static const uint16_t ts_parse_table[LARGE_STATE_COUNT][SYMBOL_COUNT] = {
     [anon_sym_POUND] = ACTIONS(311),
     [sym_hotkey] = ACTIONS(309),
     [anon_sym_COMMA] = ACTIONS(313),
-    [anon_sym_MsgBox] = ACTIONS(311),
-    [anon_sym_InputBox] = ACTIONS(311),
-    [anon_sym_ToolTip] = ACTIONS(311),
-    [anon_sym_TrayTip] = ACTIONS(311),
-    [anon_sym_Send] = ACTIONS(311),
-    [anon_sym_SendInput] = ACTIONS(311),
-    [anon_sym_SendRaw] = ACTIONS(311),
-    [anon_sym_SendEvent] = ACTIONS(311),
-    [anon_sym_SendPlay] = ACTIONS(311),
     [anon_sym_Sleep] = ACTIONS(311),
-    [anon_sym_SetTimer] = ACTIONS(311),
+    [anon_sym_MsgBox] = ACTIONS(311),
     [anon_sym_Run] = ACTIONS(311),
-    [anon_sym_RunWait] = ACTIONS(311),
-    [anon_sym_WinActivate] = ACTIONS(311),
-    [anon_sym_WinWait] = ACTIONS(311),
-    [anon_sym_WinClose] = ACTIONS(311),
-    [anon_sym_WinMinimize] = ACTIONS(311),
-    [anon_sym_WinMaximize] = ACTIONS(311),
-    [anon_sym_FileRead] = ACTIONS(311),
-    [anon_sym_FileAppend] = ACTIONS(311),
-    [anon_sym_FileDelete] = ACTIONS(311),
-    [anon_sym_FileCopy] = ACTIONS(311),
-    [anon_sym_FileMove] = ACTIONS(311),
-    [anon_sym_RegRead] = ACTIONS(311),
-    [anon_sym_RegWrite] = ACTIONS(311),
-    [anon_sym_RegDelete] = ACTIONS(311),
-    [anon_sym_SetWorkingDir] = ACTIONS(311),
-    [anon_sym_CoordMode] = ACTIONS(311),
-    [anon_sym_SetFormat] = ACTIONS(311),
-    [anon_sym_SetBatchLines] = ACTIONS(311),
-    [anon_sym_SetDefaultMouseSpeed] = ACTIONS(311),
-    [anon_sym_SetWinDelay] = ACTIONS(311),
-    [anon_sym_SetControlDelay] = ACTIONS(311),
-    [anon_sym_IniRead] = ACTIONS(311),
-    [anon_sym_IniWrite] = ACTIONS(311),
-    [anon_sym_Gui] = ACTIONS(311),
-    [anon_sym_GuiControl] = ACTIONS(311),
-    [anon_sym_Reload] = ACTIONS(311),
-    [anon_sym_ExitApp] = ACTIONS(311),
-    [anon_sym_Suspend] = ACTIONS(311),
-    [anon_sym_Pause] = ACTIONS(311),
     [anon_sym_PERCENT] = ACTIONS(309),
     [anon_sym_COLON_EQ] = ACTIONS(309),
     [anon_sym_DQUOTE] = ACTIONS(309),
@@ -8839,47 +6549,9 @@ static const uint16_t ts_parse_table[LARGE_STATE_COUNT][SYMBOL_COUNT] = {
     [sym_hotkey] = ACTIONS(309),
     [anon_sym_RBRACE] = ACTIONS(311),
     [anon_sym_COMMA] = ACTIONS(315),
-    [anon_sym_MsgBox] = ACTIONS(311),
-    [anon_sym_InputBox] = ACTIONS(311),
-    [anon_sym_ToolTip] = ACTIONS(311),
-    [anon_sym_TrayTip] = ACTIONS(311),
-    [anon_sym_Send] = ACTIONS(311),
-    [anon_sym_SendInput] = ACTIONS(311),
-    [anon_sym_SendRaw] = ACTIONS(311),
-    [anon_sym_SendEvent] = ACTIONS(311),
-    [anon_sym_SendPlay] = ACTIONS(311),
     [anon_sym_Sleep] = ACTIONS(311),
-    [anon_sym_SetTimer] = ACTIONS(311),
+    [anon_sym_MsgBox] = ACTIONS(311),
     [anon_sym_Run] = ACTIONS(311),
-    [anon_sym_RunWait] = ACTIONS(311),
-    [anon_sym_WinActivate] = ACTIONS(311),
-    [anon_sym_WinWait] = ACTIONS(311),
-    [anon_sym_WinClose] = ACTIONS(311),
-    [anon_sym_WinMinimize] = ACTIONS(311),
-    [anon_sym_WinMaximize] = ACTIONS(311),
-    [anon_sym_FileRead] = ACTIONS(311),
-    [anon_sym_FileAppend] = ACTIONS(311),
-    [anon_sym_FileDelete] = ACTIONS(311),
-    [anon_sym_FileCopy] = ACTIONS(311),
-    [anon_sym_FileMove] = ACTIONS(311),
-    [anon_sym_RegRead] = ACTIONS(311),
-    [anon_sym_RegWrite] = ACTIONS(311),
-    [anon_sym_RegDelete] = ACTIONS(311),
-    [anon_sym_SetWorkingDir] = ACTIONS(311),
-    [anon_sym_CoordMode] = ACTIONS(311),
-    [anon_sym_SetFormat] = ACTIONS(311),
-    [anon_sym_SetBatchLines] = ACTIONS(311),
-    [anon_sym_SetDefaultMouseSpeed] = ACTIONS(311),
-    [anon_sym_SetWinDelay] = ACTIONS(311),
-    [anon_sym_SetControlDelay] = ACTIONS(311),
-    [anon_sym_IniRead] = ACTIONS(311),
-    [anon_sym_IniWrite] = ACTIONS(311),
-    [anon_sym_Gui] = ACTIONS(311),
-    [anon_sym_GuiControl] = ACTIONS(311),
-    [anon_sym_Reload] = ACTIONS(311),
-    [anon_sym_ExitApp] = ACTIONS(311),
-    [anon_sym_Suspend] = ACTIONS(311),
-    [anon_sym_Pause] = ACTIONS(311),
     [anon_sym_PERCENT] = ACTIONS(309),
     [anon_sym_COLON_EQ] = ACTIONS(309),
     [anon_sym_DQUOTE] = ACTIONS(309),
@@ -8951,47 +6623,9 @@ static const uint16_t ts_parse_table[LARGE_STATE_COUNT][SYMBOL_COUNT] = {
     [aux_sym_directive_token1] = ACTIONS(317),
     [sym_hotkey] = ACTIONS(303),
     [anon_sym_RBRACE] = ACTIONS(303),
-    [anon_sym_MsgBox] = ACTIONS(303),
-    [anon_sym_InputBox] = ACTIONS(303),
-    [anon_sym_ToolTip] = ACTIONS(303),
-    [anon_sym_TrayTip] = ACTIONS(303),
-    [anon_sym_Send] = ACTIONS(303),
-    [anon_sym_SendInput] = ACTIONS(303),
-    [anon_sym_SendRaw] = ACTIONS(303),
-    [anon_sym_SendEvent] = ACTIONS(303),
-    [anon_sym_SendPlay] = ACTIONS(303),
     [anon_sym_Sleep] = ACTIONS(303),
-    [anon_sym_SetTimer] = ACTIONS(303),
+    [anon_sym_MsgBox] = ACTIONS(303),
     [anon_sym_Run] = ACTIONS(303),
-    [anon_sym_RunWait] = ACTIONS(303),
-    [anon_sym_WinActivate] = ACTIONS(303),
-    [anon_sym_WinWait] = ACTIONS(303),
-    [anon_sym_WinClose] = ACTIONS(303),
-    [anon_sym_WinMinimize] = ACTIONS(303),
-    [anon_sym_WinMaximize] = ACTIONS(303),
-    [anon_sym_FileRead] = ACTIONS(303),
-    [anon_sym_FileAppend] = ACTIONS(303),
-    [anon_sym_FileDelete] = ACTIONS(303),
-    [anon_sym_FileCopy] = ACTIONS(303),
-    [anon_sym_FileMove] = ACTIONS(303),
-    [anon_sym_RegRead] = ACTIONS(303),
-    [anon_sym_RegWrite] = ACTIONS(303),
-    [anon_sym_RegDelete] = ACTIONS(303),
-    [anon_sym_SetWorkingDir] = ACTIONS(303),
-    [anon_sym_CoordMode] = ACTIONS(303),
-    [anon_sym_SetFormat] = ACTIONS(303),
-    [anon_sym_SetBatchLines] = ACTIONS(303),
-    [anon_sym_SetDefaultMouseSpeed] = ACTIONS(303),
-    [anon_sym_SetWinDelay] = ACTIONS(303),
-    [anon_sym_SetControlDelay] = ACTIONS(303),
-    [anon_sym_IniRead] = ACTIONS(303),
-    [anon_sym_IniWrite] = ACTIONS(303),
-    [anon_sym_Gui] = ACTIONS(303),
-    [anon_sym_GuiControl] = ACTIONS(303),
-    [anon_sym_Reload] = ACTIONS(303),
-    [anon_sym_ExitApp] = ACTIONS(303),
-    [anon_sym_Suspend] = ACTIONS(303),
-    [anon_sym_Pause] = ACTIONS(303),
     [anon_sym_PERCENT] = ACTIONS(303),
     [anon_sym_COLON_EQ] = ACTIONS(303),
     [anon_sym_DQUOTE] = ACTIONS(303),
@@ -9062,47 +6696,9 @@ static const uint16_t ts_parse_table[LARGE_STATE_COUNT][SYMBOL_COUNT] = {
     [anon_sym_POUND] = ACTIONS(319),
     [sym_hotkey] = ACTIONS(321),
     [anon_sym_RBRACE] = ACTIONS(319),
-    [anon_sym_MsgBox] = ACTIONS(319),
-    [anon_sym_InputBox] = ACTIONS(319),
-    [anon_sym_ToolTip] = ACTIONS(319),
-    [anon_sym_TrayTip] = ACTIONS(319),
-    [anon_sym_Send] = ACTIONS(319),
-    [anon_sym_SendInput] = ACTIONS(319),
-    [anon_sym_SendRaw] = ACTIONS(319),
-    [anon_sym_SendEvent] = ACTIONS(319),
-    [anon_sym_SendPlay] = ACTIONS(319),
     [anon_sym_Sleep] = ACTIONS(319),
-    [anon_sym_SetTimer] = ACTIONS(319),
+    [anon_sym_MsgBox] = ACTIONS(319),
     [anon_sym_Run] = ACTIONS(319),
-    [anon_sym_RunWait] = ACTIONS(319),
-    [anon_sym_WinActivate] = ACTIONS(319),
-    [anon_sym_WinWait] = ACTIONS(319),
-    [anon_sym_WinClose] = ACTIONS(319),
-    [anon_sym_WinMinimize] = ACTIONS(319),
-    [anon_sym_WinMaximize] = ACTIONS(319),
-    [anon_sym_FileRead] = ACTIONS(319),
-    [anon_sym_FileAppend] = ACTIONS(319),
-    [anon_sym_FileDelete] = ACTIONS(319),
-    [anon_sym_FileCopy] = ACTIONS(319),
-    [anon_sym_FileMove] = ACTIONS(319),
-    [anon_sym_RegRead] = ACTIONS(319),
-    [anon_sym_RegWrite] = ACTIONS(319),
-    [anon_sym_RegDelete] = ACTIONS(319),
-    [anon_sym_SetWorkingDir] = ACTIONS(319),
-    [anon_sym_CoordMode] = ACTIONS(319),
-    [anon_sym_SetFormat] = ACTIONS(319),
-    [anon_sym_SetBatchLines] = ACTIONS(319),
-    [anon_sym_SetDefaultMouseSpeed] = ACTIONS(319),
-    [anon_sym_SetWinDelay] = ACTIONS(319),
-    [anon_sym_SetControlDelay] = ACTIONS(319),
-    [anon_sym_IniRead] = ACTIONS(319),
-    [anon_sym_IniWrite] = ACTIONS(319),
-    [anon_sym_Gui] = ACTIONS(319),
-    [anon_sym_GuiControl] = ACTIONS(319),
-    [anon_sym_Reload] = ACTIONS(319),
-    [anon_sym_ExitApp] = ACTIONS(319),
-    [anon_sym_Suspend] = ACTIONS(319),
-    [anon_sym_Pause] = ACTIONS(319),
     [anon_sym_PERCENT] = ACTIONS(321),
     [anon_sym_COLON_EQ] = ACTIONS(321),
     [anon_sym_DQUOTE] = ACTIONS(321),
@@ -9173,47 +6769,9 @@ static const uint16_t ts_parse_table[LARGE_STATE_COUNT][SYMBOL_COUNT] = {
     [anon_sym_SLASH_STAR_STAR] = ACTIONS(277),
     [anon_sym_POUND] = ACTIONS(275),
     [sym_hotkey] = ACTIONS(277),
-    [anon_sym_MsgBox] = ACTIONS(275),
-    [anon_sym_InputBox] = ACTIONS(275),
-    [anon_sym_ToolTip] = ACTIONS(275),
-    [anon_sym_TrayTip] = ACTIONS(275),
-    [anon_sym_Send] = ACTIONS(275),
-    [anon_sym_SendInput] = ACTIONS(275),
-    [anon_sym_SendRaw] = ACTIONS(275),
-    [anon_sym_SendEvent] = ACTIONS(275),
-    [anon_sym_SendPlay] = ACTIONS(275),
     [anon_sym_Sleep] = ACTIONS(275),
-    [anon_sym_SetTimer] = ACTIONS(275),
+    [anon_sym_MsgBox] = ACTIONS(275),
     [anon_sym_Run] = ACTIONS(275),
-    [anon_sym_RunWait] = ACTIONS(275),
-    [anon_sym_WinActivate] = ACTIONS(275),
-    [anon_sym_WinWait] = ACTIONS(275),
-    [anon_sym_WinClose] = ACTIONS(275),
-    [anon_sym_WinMinimize] = ACTIONS(275),
-    [anon_sym_WinMaximize] = ACTIONS(275),
-    [anon_sym_FileRead] = ACTIONS(275),
-    [anon_sym_FileAppend] = ACTIONS(275),
-    [anon_sym_FileDelete] = ACTIONS(275),
-    [anon_sym_FileCopy] = ACTIONS(275),
-    [anon_sym_FileMove] = ACTIONS(275),
-    [anon_sym_RegRead] = ACTIONS(275),
-    [anon_sym_RegWrite] = ACTIONS(275),
-    [anon_sym_RegDelete] = ACTIONS(275),
-    [anon_sym_SetWorkingDir] = ACTIONS(275),
-    [anon_sym_CoordMode] = ACTIONS(275),
-    [anon_sym_SetFormat] = ACTIONS(275),
-    [anon_sym_SetBatchLines] = ACTIONS(275),
-    [anon_sym_SetDefaultMouseSpeed] = ACTIONS(275),
-    [anon_sym_SetWinDelay] = ACTIONS(275),
-    [anon_sym_SetControlDelay] = ACTIONS(275),
-    [anon_sym_IniRead] = ACTIONS(275),
-    [anon_sym_IniWrite] = ACTIONS(275),
-    [anon_sym_Gui] = ACTIONS(275),
-    [anon_sym_GuiControl] = ACTIONS(275),
-    [anon_sym_Reload] = ACTIONS(275),
-    [anon_sym_ExitApp] = ACTIONS(275),
-    [anon_sym_Suspend] = ACTIONS(275),
-    [anon_sym_Pause] = ACTIONS(275),
     [anon_sym_PERCENT] = ACTIONS(277),
     [anon_sym_COLON_EQ] = ACTIONS(277),
     [anon_sym_DQUOTE] = ACTIONS(277),
@@ -9284,47 +6842,9 @@ static const uint16_t ts_parse_table[LARGE_STATE_COUNT][SYMBOL_COUNT] = {
     [anon_sym_SLASH_STAR_STAR] = ACTIONS(323),
     [anon_sym_POUND] = ACTIONS(325),
     [sym_hotkey] = ACTIONS(323),
-    [anon_sym_MsgBox] = ACTIONS(325),
-    [anon_sym_InputBox] = ACTIONS(325),
-    [anon_sym_ToolTip] = ACTIONS(325),
-    [anon_sym_TrayTip] = ACTIONS(325),
-    [anon_sym_Send] = ACTIONS(325),
-    [anon_sym_SendInput] = ACTIONS(325),
-    [anon_sym_SendRaw] = ACTIONS(325),
-    [anon_sym_SendEvent] = ACTIONS(325),
-    [anon_sym_SendPlay] = ACTIONS(325),
     [anon_sym_Sleep] = ACTIONS(325),
-    [anon_sym_SetTimer] = ACTIONS(325),
+    [anon_sym_MsgBox] = ACTIONS(325),
     [anon_sym_Run] = ACTIONS(325),
-    [anon_sym_RunWait] = ACTIONS(325),
-    [anon_sym_WinActivate] = ACTIONS(325),
-    [anon_sym_WinWait] = ACTIONS(325),
-    [anon_sym_WinClose] = ACTIONS(325),
-    [anon_sym_WinMinimize] = ACTIONS(325),
-    [anon_sym_WinMaximize] = ACTIONS(325),
-    [anon_sym_FileRead] = ACTIONS(325),
-    [anon_sym_FileAppend] = ACTIONS(325),
-    [anon_sym_FileDelete] = ACTIONS(325),
-    [anon_sym_FileCopy] = ACTIONS(325),
-    [anon_sym_FileMove] = ACTIONS(325),
-    [anon_sym_RegRead] = ACTIONS(325),
-    [anon_sym_RegWrite] = ACTIONS(325),
-    [anon_sym_RegDelete] = ACTIONS(325),
-    [anon_sym_SetWorkingDir] = ACTIONS(325),
-    [anon_sym_CoordMode] = ACTIONS(325),
-    [anon_sym_SetFormat] = ACTIONS(325),
-    [anon_sym_SetBatchLines] = ACTIONS(325),
-    [anon_sym_SetDefaultMouseSpeed] = ACTIONS(325),
-    [anon_sym_SetWinDelay] = ACTIONS(325),
-    [anon_sym_SetControlDelay] = ACTIONS(325),
-    [anon_sym_IniRead] = ACTIONS(325),
-    [anon_sym_IniWrite] = ACTIONS(325),
-    [anon_sym_Gui] = ACTIONS(325),
-    [anon_sym_GuiControl] = ACTIONS(325),
-    [anon_sym_Reload] = ACTIONS(325),
-    [anon_sym_ExitApp] = ACTIONS(325),
-    [anon_sym_Suspend] = ACTIONS(325),
-    [anon_sym_Pause] = ACTIONS(325),
     [anon_sym_PERCENT] = ACTIONS(323),
     [anon_sym_COLON_EQ] = ACTIONS(323),
     [anon_sym_DQUOTE] = ACTIONS(323),
@@ -9395,47 +6915,9 @@ static const uint16_t ts_parse_table[LARGE_STATE_COUNT][SYMBOL_COUNT] = {
     [anon_sym_SLASH_STAR_STAR] = ACTIONS(327),
     [anon_sym_POUND] = ACTIONS(329),
     [sym_hotkey] = ACTIONS(327),
-    [anon_sym_MsgBox] = ACTIONS(329),
-    [anon_sym_InputBox] = ACTIONS(329),
-    [anon_sym_ToolTip] = ACTIONS(329),
-    [anon_sym_TrayTip] = ACTIONS(329),
-    [anon_sym_Send] = ACTIONS(329),
-    [anon_sym_SendInput] = ACTIONS(329),
-    [anon_sym_SendRaw] = ACTIONS(329),
-    [anon_sym_SendEvent] = ACTIONS(329),
-    [anon_sym_SendPlay] = ACTIONS(329),
     [anon_sym_Sleep] = ACTIONS(329),
-    [anon_sym_SetTimer] = ACTIONS(329),
+    [anon_sym_MsgBox] = ACTIONS(329),
     [anon_sym_Run] = ACTIONS(329),
-    [anon_sym_RunWait] = ACTIONS(329),
-    [anon_sym_WinActivate] = ACTIONS(329),
-    [anon_sym_WinWait] = ACTIONS(329),
-    [anon_sym_WinClose] = ACTIONS(329),
-    [anon_sym_WinMinimize] = ACTIONS(329),
-    [anon_sym_WinMaximize] = ACTIONS(329),
-    [anon_sym_FileRead] = ACTIONS(329),
-    [anon_sym_FileAppend] = ACTIONS(329),
-    [anon_sym_FileDelete] = ACTIONS(329),
-    [anon_sym_FileCopy] = ACTIONS(329),
-    [anon_sym_FileMove] = ACTIONS(329),
-    [anon_sym_RegRead] = ACTIONS(329),
-    [anon_sym_RegWrite] = ACTIONS(329),
-    [anon_sym_RegDelete] = ACTIONS(329),
-    [anon_sym_SetWorkingDir] = ACTIONS(329),
-    [anon_sym_CoordMode] = ACTIONS(329),
-    [anon_sym_SetFormat] = ACTIONS(329),
-    [anon_sym_SetBatchLines] = ACTIONS(329),
-    [anon_sym_SetDefaultMouseSpeed] = ACTIONS(329),
-    [anon_sym_SetWinDelay] = ACTIONS(329),
-    [anon_sym_SetControlDelay] = ACTIONS(329),
-    [anon_sym_IniRead] = ACTIONS(329),
-    [anon_sym_IniWrite] = ACTIONS(329),
-    [anon_sym_Gui] = ACTIONS(329),
-    [anon_sym_GuiControl] = ACTIONS(329),
-    [anon_sym_Reload] = ACTIONS(329),
-    [anon_sym_ExitApp] = ACTIONS(329),
-    [anon_sym_Suspend] = ACTIONS(329),
-    [anon_sym_Pause] = ACTIONS(329),
     [anon_sym_PERCENT] = ACTIONS(327),
     [anon_sym_COLON_EQ] = ACTIONS(327),
     [anon_sym_DQUOTE] = ACTIONS(327),
@@ -9506,47 +6988,9 @@ static const uint16_t ts_parse_table[LARGE_STATE_COUNT][SYMBOL_COUNT] = {
     [anon_sym_SLASH_STAR_STAR] = ACTIONS(331),
     [anon_sym_POUND] = ACTIONS(333),
     [sym_hotkey] = ACTIONS(331),
-    [anon_sym_MsgBox] = ACTIONS(333),
-    [anon_sym_InputBox] = ACTIONS(333),
-    [anon_sym_ToolTip] = ACTIONS(333),
-    [anon_sym_TrayTip] = ACTIONS(333),
-    [anon_sym_Send] = ACTIONS(333),
-    [anon_sym_SendInput] = ACTIONS(333),
-    [anon_sym_SendRaw] = ACTIONS(333),
-    [anon_sym_SendEvent] = ACTIONS(333),
-    [anon_sym_SendPlay] = ACTIONS(333),
     [anon_sym_Sleep] = ACTIONS(333),
-    [anon_sym_SetTimer] = ACTIONS(333),
+    [anon_sym_MsgBox] = ACTIONS(333),
     [anon_sym_Run] = ACTIONS(333),
-    [anon_sym_RunWait] = ACTIONS(333),
-    [anon_sym_WinActivate] = ACTIONS(333),
-    [anon_sym_WinWait] = ACTIONS(333),
-    [anon_sym_WinClose] = ACTIONS(333),
-    [anon_sym_WinMinimize] = ACTIONS(333),
-    [anon_sym_WinMaximize] = ACTIONS(333),
-    [anon_sym_FileRead] = ACTIONS(333),
-    [anon_sym_FileAppend] = ACTIONS(333),
-    [anon_sym_FileDelete] = ACTIONS(333),
-    [anon_sym_FileCopy] = ACTIONS(333),
-    [anon_sym_FileMove] = ACTIONS(333),
-    [anon_sym_RegRead] = ACTIONS(333),
-    [anon_sym_RegWrite] = ACTIONS(333),
-    [anon_sym_RegDelete] = ACTIONS(333),
-    [anon_sym_SetWorkingDir] = ACTIONS(333),
-    [anon_sym_CoordMode] = ACTIONS(333),
-    [anon_sym_SetFormat] = ACTIONS(333),
-    [anon_sym_SetBatchLines] = ACTIONS(333),
-    [anon_sym_SetDefaultMouseSpeed] = ACTIONS(333),
-    [anon_sym_SetWinDelay] = ACTIONS(333),
-    [anon_sym_SetControlDelay] = ACTIONS(333),
-    [anon_sym_IniRead] = ACTIONS(333),
-    [anon_sym_IniWrite] = ACTIONS(333),
-    [anon_sym_Gui] = ACTIONS(333),
-    [anon_sym_GuiControl] = ACTIONS(333),
-    [anon_sym_Reload] = ACTIONS(333),
-    [anon_sym_ExitApp] = ACTIONS(333),
-    [anon_sym_Suspend] = ACTIONS(333),
-    [anon_sym_Pause] = ACTIONS(333),
     [anon_sym_PERCENT] = ACTIONS(331),
     [anon_sym_COLON_EQ] = ACTIONS(331),
     [anon_sym_DQUOTE] = ACTIONS(331),
@@ -9617,47 +7061,9 @@ static const uint16_t ts_parse_table[LARGE_STATE_COUNT][SYMBOL_COUNT] = {
     [anon_sym_SLASH_STAR_STAR] = ACTIONS(335),
     [anon_sym_POUND] = ACTIONS(337),
     [sym_hotkey] = ACTIONS(335),
-    [anon_sym_MsgBox] = ACTIONS(337),
-    [anon_sym_InputBox] = ACTIONS(337),
-    [anon_sym_ToolTip] = ACTIONS(337),
-    [anon_sym_TrayTip] = ACTIONS(337),
-    [anon_sym_Send] = ACTIONS(337),
-    [anon_sym_SendInput] = ACTIONS(337),
-    [anon_sym_SendRaw] = ACTIONS(337),
-    [anon_sym_SendEvent] = ACTIONS(337),
-    [anon_sym_SendPlay] = ACTIONS(337),
     [anon_sym_Sleep] = ACTIONS(337),
-    [anon_sym_SetTimer] = ACTIONS(337),
+    [anon_sym_MsgBox] = ACTIONS(337),
     [anon_sym_Run] = ACTIONS(337),
-    [anon_sym_RunWait] = ACTIONS(337),
-    [anon_sym_WinActivate] = ACTIONS(337),
-    [anon_sym_WinWait] = ACTIONS(337),
-    [anon_sym_WinClose] = ACTIONS(337),
-    [anon_sym_WinMinimize] = ACTIONS(337),
-    [anon_sym_WinMaximize] = ACTIONS(337),
-    [anon_sym_FileRead] = ACTIONS(337),
-    [anon_sym_FileAppend] = ACTIONS(337),
-    [anon_sym_FileDelete] = ACTIONS(337),
-    [anon_sym_FileCopy] = ACTIONS(337),
-    [anon_sym_FileMove] = ACTIONS(337),
-    [anon_sym_RegRead] = ACTIONS(337),
-    [anon_sym_RegWrite] = ACTIONS(337),
-    [anon_sym_RegDelete] = ACTIONS(337),
-    [anon_sym_SetWorkingDir] = ACTIONS(337),
-    [anon_sym_CoordMode] = ACTIONS(337),
-    [anon_sym_SetFormat] = ACTIONS(337),
-    [anon_sym_SetBatchLines] = ACTIONS(337),
-    [anon_sym_SetDefaultMouseSpeed] = ACTIONS(337),
-    [anon_sym_SetWinDelay] = ACTIONS(337),
-    [anon_sym_SetControlDelay] = ACTIONS(337),
-    [anon_sym_IniRead] = ACTIONS(337),
-    [anon_sym_IniWrite] = ACTIONS(337),
-    [anon_sym_Gui] = ACTIONS(337),
-    [anon_sym_GuiControl] = ACTIONS(337),
-    [anon_sym_Reload] = ACTIONS(337),
-    [anon_sym_ExitApp] = ACTIONS(337),
-    [anon_sym_Suspend] = ACTIONS(337),
-    [anon_sym_Pause] = ACTIONS(337),
     [anon_sym_PERCENT] = ACTIONS(335),
     [anon_sym_COLON_EQ] = ACTIONS(335),
     [anon_sym_DQUOTE] = ACTIONS(335),
@@ -9728,47 +7134,9 @@ static const uint16_t ts_parse_table[LARGE_STATE_COUNT][SYMBOL_COUNT] = {
     [anon_sym_SLASH_STAR_STAR] = ACTIONS(339),
     [anon_sym_POUND] = ACTIONS(341),
     [sym_hotkey] = ACTIONS(339),
-    [anon_sym_MsgBox] = ACTIONS(341),
-    [anon_sym_InputBox] = ACTIONS(341),
-    [anon_sym_ToolTip] = ACTIONS(341),
-    [anon_sym_TrayTip] = ACTIONS(341),
-    [anon_sym_Send] = ACTIONS(341),
-    [anon_sym_SendInput] = ACTIONS(341),
-    [anon_sym_SendRaw] = ACTIONS(341),
-    [anon_sym_SendEvent] = ACTIONS(341),
-    [anon_sym_SendPlay] = ACTIONS(341),
     [anon_sym_Sleep] = ACTIONS(341),
-    [anon_sym_SetTimer] = ACTIONS(341),
+    [anon_sym_MsgBox] = ACTIONS(341),
     [anon_sym_Run] = ACTIONS(341),
-    [anon_sym_RunWait] = ACTIONS(341),
-    [anon_sym_WinActivate] = ACTIONS(341),
-    [anon_sym_WinWait] = ACTIONS(341),
-    [anon_sym_WinClose] = ACTIONS(341),
-    [anon_sym_WinMinimize] = ACTIONS(341),
-    [anon_sym_WinMaximize] = ACTIONS(341),
-    [anon_sym_FileRead] = ACTIONS(341),
-    [anon_sym_FileAppend] = ACTIONS(341),
-    [anon_sym_FileDelete] = ACTIONS(341),
-    [anon_sym_FileCopy] = ACTIONS(341),
-    [anon_sym_FileMove] = ACTIONS(341),
-    [anon_sym_RegRead] = ACTIONS(341),
-    [anon_sym_RegWrite] = ACTIONS(341),
-    [anon_sym_RegDelete] = ACTIONS(341),
-    [anon_sym_SetWorkingDir] = ACTIONS(341),
-    [anon_sym_CoordMode] = ACTIONS(341),
-    [anon_sym_SetFormat] = ACTIONS(341),
-    [anon_sym_SetBatchLines] = ACTIONS(341),
-    [anon_sym_SetDefaultMouseSpeed] = ACTIONS(341),
-    [anon_sym_SetWinDelay] = ACTIONS(341),
-    [anon_sym_SetControlDelay] = ACTIONS(341),
-    [anon_sym_IniRead] = ACTIONS(341),
-    [anon_sym_IniWrite] = ACTIONS(341),
-    [anon_sym_Gui] = ACTIONS(341),
-    [anon_sym_GuiControl] = ACTIONS(341),
-    [anon_sym_Reload] = ACTIONS(341),
-    [anon_sym_ExitApp] = ACTIONS(341),
-    [anon_sym_Suspend] = ACTIONS(341),
-    [anon_sym_Pause] = ACTIONS(341),
     [anon_sym_PERCENT] = ACTIONS(339),
     [anon_sym_COLON_EQ] = ACTIONS(339),
     [anon_sym_DQUOTE] = ACTIONS(339),
@@ -9839,47 +7207,9 @@ static const uint16_t ts_parse_table[LARGE_STATE_COUNT][SYMBOL_COUNT] = {
     [anon_sym_SLASH_STAR_STAR] = ACTIONS(343),
     [anon_sym_POUND] = ACTIONS(345),
     [sym_hotkey] = ACTIONS(343),
-    [anon_sym_MsgBox] = ACTIONS(345),
-    [anon_sym_InputBox] = ACTIONS(345),
-    [anon_sym_ToolTip] = ACTIONS(345),
-    [anon_sym_TrayTip] = ACTIONS(345),
-    [anon_sym_Send] = ACTIONS(345),
-    [anon_sym_SendInput] = ACTIONS(345),
-    [anon_sym_SendRaw] = ACTIONS(345),
-    [anon_sym_SendEvent] = ACTIONS(345),
-    [anon_sym_SendPlay] = ACTIONS(345),
     [anon_sym_Sleep] = ACTIONS(345),
-    [anon_sym_SetTimer] = ACTIONS(345),
+    [anon_sym_MsgBox] = ACTIONS(345),
     [anon_sym_Run] = ACTIONS(345),
-    [anon_sym_RunWait] = ACTIONS(345),
-    [anon_sym_WinActivate] = ACTIONS(345),
-    [anon_sym_WinWait] = ACTIONS(345),
-    [anon_sym_WinClose] = ACTIONS(345),
-    [anon_sym_WinMinimize] = ACTIONS(345),
-    [anon_sym_WinMaximize] = ACTIONS(345),
-    [anon_sym_FileRead] = ACTIONS(345),
-    [anon_sym_FileAppend] = ACTIONS(345),
-    [anon_sym_FileDelete] = ACTIONS(345),
-    [anon_sym_FileCopy] = ACTIONS(345),
-    [anon_sym_FileMove] = ACTIONS(345),
-    [anon_sym_RegRead] = ACTIONS(345),
-    [anon_sym_RegWrite] = ACTIONS(345),
-    [anon_sym_RegDelete] = ACTIONS(345),
-    [anon_sym_SetWorkingDir] = ACTIONS(345),
-    [anon_sym_CoordMode] = ACTIONS(345),
-    [anon_sym_SetFormat] = ACTIONS(345),
-    [anon_sym_SetBatchLines] = ACTIONS(345),
-    [anon_sym_SetDefaultMouseSpeed] = ACTIONS(345),
-    [anon_sym_SetWinDelay] = ACTIONS(345),
-    [anon_sym_SetControlDelay] = ACTIONS(345),
-    [anon_sym_IniRead] = ACTIONS(345),
-    [anon_sym_IniWrite] = ACTIONS(345),
-    [anon_sym_Gui] = ACTIONS(345),
-    [anon_sym_GuiControl] = ACTIONS(345),
-    [anon_sym_Reload] = ACTIONS(345),
-    [anon_sym_ExitApp] = ACTIONS(345),
-    [anon_sym_Suspend] = ACTIONS(345),
-    [anon_sym_Pause] = ACTIONS(345),
     [anon_sym_PERCENT] = ACTIONS(343),
     [anon_sym_COLON_EQ] = ACTIONS(343),
     [anon_sym_DQUOTE] = ACTIONS(343),
@@ -9950,47 +7280,9 @@ static const uint16_t ts_parse_table[LARGE_STATE_COUNT][SYMBOL_COUNT] = {
     [anon_sym_SLASH_STAR_STAR] = ACTIONS(347),
     [anon_sym_POUND] = ACTIONS(349),
     [sym_hotkey] = ACTIONS(347),
-    [anon_sym_MsgBox] = ACTIONS(349),
-    [anon_sym_InputBox] = ACTIONS(349),
-    [anon_sym_ToolTip] = ACTIONS(349),
-    [anon_sym_TrayTip] = ACTIONS(349),
-    [anon_sym_Send] = ACTIONS(349),
-    [anon_sym_SendInput] = ACTIONS(349),
-    [anon_sym_SendRaw] = ACTIONS(349),
-    [anon_sym_SendEvent] = ACTIONS(349),
-    [anon_sym_SendPlay] = ACTIONS(349),
     [anon_sym_Sleep] = ACTIONS(349),
-    [anon_sym_SetTimer] = ACTIONS(349),
+    [anon_sym_MsgBox] = ACTIONS(349),
     [anon_sym_Run] = ACTIONS(349),
-    [anon_sym_RunWait] = ACTIONS(349),
-    [anon_sym_WinActivate] = ACTIONS(349),
-    [anon_sym_WinWait] = ACTIONS(349),
-    [anon_sym_WinClose] = ACTIONS(349),
-    [anon_sym_WinMinimize] = ACTIONS(349),
-    [anon_sym_WinMaximize] = ACTIONS(349),
-    [anon_sym_FileRead] = ACTIONS(349),
-    [anon_sym_FileAppend] = ACTIONS(349),
-    [anon_sym_FileDelete] = ACTIONS(349),
-    [anon_sym_FileCopy] = ACTIONS(349),
-    [anon_sym_FileMove] = ACTIONS(349),
-    [anon_sym_RegRead] = ACTIONS(349),
-    [anon_sym_RegWrite] = ACTIONS(349),
-    [anon_sym_RegDelete] = ACTIONS(349),
-    [anon_sym_SetWorkingDir] = ACTIONS(349),
-    [anon_sym_CoordMode] = ACTIONS(349),
-    [anon_sym_SetFormat] = ACTIONS(349),
-    [anon_sym_SetBatchLines] = ACTIONS(349),
-    [anon_sym_SetDefaultMouseSpeed] = ACTIONS(349),
-    [anon_sym_SetWinDelay] = ACTIONS(349),
-    [anon_sym_SetControlDelay] = ACTIONS(349),
-    [anon_sym_IniRead] = ACTIONS(349),
-    [anon_sym_IniWrite] = ACTIONS(349),
-    [anon_sym_Gui] = ACTIONS(349),
-    [anon_sym_GuiControl] = ACTIONS(349),
-    [anon_sym_Reload] = ACTIONS(349),
-    [anon_sym_ExitApp] = ACTIONS(349),
-    [anon_sym_Suspend] = ACTIONS(349),
-    [anon_sym_Pause] = ACTIONS(349),
     [anon_sym_PERCENT] = ACTIONS(347),
     [anon_sym_COLON_EQ] = ACTIONS(347),
     [anon_sym_DQUOTE] = ACTIONS(347),
@@ -10061,47 +7353,9 @@ static const uint16_t ts_parse_table[LARGE_STATE_COUNT][SYMBOL_COUNT] = {
     [anon_sym_POUND] = ACTIONS(337),
     [sym_hotkey] = ACTIONS(335),
     [anon_sym_RBRACE] = ACTIONS(337),
-    [anon_sym_MsgBox] = ACTIONS(337),
-    [anon_sym_InputBox] = ACTIONS(337),
-    [anon_sym_ToolTip] = ACTIONS(337),
-    [anon_sym_TrayTip] = ACTIONS(337),
-    [anon_sym_Send] = ACTIONS(337),
-    [anon_sym_SendInput] = ACTIONS(337),
-    [anon_sym_SendRaw] = ACTIONS(337),
-    [anon_sym_SendEvent] = ACTIONS(337),
-    [anon_sym_SendPlay] = ACTIONS(337),
     [anon_sym_Sleep] = ACTIONS(337),
-    [anon_sym_SetTimer] = ACTIONS(337),
+    [anon_sym_MsgBox] = ACTIONS(337),
     [anon_sym_Run] = ACTIONS(337),
-    [anon_sym_RunWait] = ACTIONS(337),
-    [anon_sym_WinActivate] = ACTIONS(337),
-    [anon_sym_WinWait] = ACTIONS(337),
-    [anon_sym_WinClose] = ACTIONS(337),
-    [anon_sym_WinMinimize] = ACTIONS(337),
-    [anon_sym_WinMaximize] = ACTIONS(337),
-    [anon_sym_FileRead] = ACTIONS(337),
-    [anon_sym_FileAppend] = ACTIONS(337),
-    [anon_sym_FileDelete] = ACTIONS(337),
-    [anon_sym_FileCopy] = ACTIONS(337),
-    [anon_sym_FileMove] = ACTIONS(337),
-    [anon_sym_RegRead] = ACTIONS(337),
-    [anon_sym_RegWrite] = ACTIONS(337),
-    [anon_sym_RegDelete] = ACTIONS(337),
-    [anon_sym_SetWorkingDir] = ACTIONS(337),
-    [anon_sym_CoordMode] = ACTIONS(337),
-    [anon_sym_SetFormat] = ACTIONS(337),
-    [anon_sym_SetBatchLines] = ACTIONS(337),
-    [anon_sym_SetDefaultMouseSpeed] = ACTIONS(337),
-    [anon_sym_SetWinDelay] = ACTIONS(337),
-    [anon_sym_SetControlDelay] = ACTIONS(337),
-    [anon_sym_IniRead] = ACTIONS(337),
-    [anon_sym_IniWrite] = ACTIONS(337),
-    [anon_sym_Gui] = ACTIONS(337),
-    [anon_sym_GuiControl] = ACTIONS(337),
-    [anon_sym_Reload] = ACTIONS(337),
-    [anon_sym_ExitApp] = ACTIONS(337),
-    [anon_sym_Suspend] = ACTIONS(337),
-    [anon_sym_Pause] = ACTIONS(337),
     [anon_sym_PERCENT] = ACTIONS(335),
     [anon_sym_COLON_EQ] = ACTIONS(335),
     [anon_sym_DQUOTE] = ACTIONS(335),
@@ -10172,47 +7426,9 @@ static const uint16_t ts_parse_table[LARGE_STATE_COUNT][SYMBOL_COUNT] = {
     [anon_sym_POUND] = ACTIONS(325),
     [sym_hotkey] = ACTIONS(323),
     [anon_sym_RBRACE] = ACTIONS(325),
-    [anon_sym_MsgBox] = ACTIONS(325),
-    [anon_sym_InputBox] = ACTIONS(325),
-    [anon_sym_ToolTip] = ACTIONS(325),
-    [anon_sym_TrayTip] = ACTIONS(325),
-    [anon_sym_Send] = ACTIONS(325),
-    [anon_sym_SendInput] = ACTIONS(325),
-    [anon_sym_SendRaw] = ACTIONS(325),
-    [anon_sym_SendEvent] = ACTIONS(325),
-    [anon_sym_SendPlay] = ACTIONS(325),
     [anon_sym_Sleep] = ACTIONS(325),
-    [anon_sym_SetTimer] = ACTIONS(325),
+    [anon_sym_MsgBox] = ACTIONS(325),
     [anon_sym_Run] = ACTIONS(325),
-    [anon_sym_RunWait] = ACTIONS(325),
-    [anon_sym_WinActivate] = ACTIONS(325),
-    [anon_sym_WinWait] = ACTIONS(325),
-    [anon_sym_WinClose] = ACTIONS(325),
-    [anon_sym_WinMinimize] = ACTIONS(325),
-    [anon_sym_WinMaximize] = ACTIONS(325),
-    [anon_sym_FileRead] = ACTIONS(325),
-    [anon_sym_FileAppend] = ACTIONS(325),
-    [anon_sym_FileDelete] = ACTIONS(325),
-    [anon_sym_FileCopy] = ACTIONS(325),
-    [anon_sym_FileMove] = ACTIONS(325),
-    [anon_sym_RegRead] = ACTIONS(325),
-    [anon_sym_RegWrite] = ACTIONS(325),
-    [anon_sym_RegDelete] = ACTIONS(325),
-    [anon_sym_SetWorkingDir] = ACTIONS(325),
-    [anon_sym_CoordMode] = ACTIONS(325),
-    [anon_sym_SetFormat] = ACTIONS(325),
-    [anon_sym_SetBatchLines] = ACTIONS(325),
-    [anon_sym_SetDefaultMouseSpeed] = ACTIONS(325),
-    [anon_sym_SetWinDelay] = ACTIONS(325),
-    [anon_sym_SetControlDelay] = ACTIONS(325),
-    [anon_sym_IniRead] = ACTIONS(325),
-    [anon_sym_IniWrite] = ACTIONS(325),
-    [anon_sym_Gui] = ACTIONS(325),
-    [anon_sym_GuiControl] = ACTIONS(325),
-    [anon_sym_Reload] = ACTIONS(325),
-    [anon_sym_ExitApp] = ACTIONS(325),
-    [anon_sym_Suspend] = ACTIONS(325),
-    [anon_sym_Pause] = ACTIONS(325),
     [anon_sym_PERCENT] = ACTIONS(323),
     [anon_sym_COLON_EQ] = ACTIONS(323),
     [anon_sym_DQUOTE] = ACTIONS(323),
@@ -10283,47 +7499,9 @@ static const uint16_t ts_parse_table[LARGE_STATE_COUNT][SYMBOL_COUNT] = {
     [anon_sym_SLASH_STAR_STAR] = ACTIONS(351),
     [anon_sym_POUND] = ACTIONS(353),
     [sym_hotkey] = ACTIONS(351),
-    [anon_sym_MsgBox] = ACTIONS(353),
-    [anon_sym_InputBox] = ACTIONS(353),
-    [anon_sym_ToolTip] = ACTIONS(353),
-    [anon_sym_TrayTip] = ACTIONS(353),
-    [anon_sym_Send] = ACTIONS(353),
-    [anon_sym_SendInput] = ACTIONS(353),
-    [anon_sym_SendRaw] = ACTIONS(353),
-    [anon_sym_SendEvent] = ACTIONS(353),
-    [anon_sym_SendPlay] = ACTIONS(353),
     [anon_sym_Sleep] = ACTIONS(353),
-    [anon_sym_SetTimer] = ACTIONS(353),
+    [anon_sym_MsgBox] = ACTIONS(353),
     [anon_sym_Run] = ACTIONS(353),
-    [anon_sym_RunWait] = ACTIONS(353),
-    [anon_sym_WinActivate] = ACTIONS(353),
-    [anon_sym_WinWait] = ACTIONS(353),
-    [anon_sym_WinClose] = ACTIONS(353),
-    [anon_sym_WinMinimize] = ACTIONS(353),
-    [anon_sym_WinMaximize] = ACTIONS(353),
-    [anon_sym_FileRead] = ACTIONS(353),
-    [anon_sym_FileAppend] = ACTIONS(353),
-    [anon_sym_FileDelete] = ACTIONS(353),
-    [anon_sym_FileCopy] = ACTIONS(353),
-    [anon_sym_FileMove] = ACTIONS(353),
-    [anon_sym_RegRead] = ACTIONS(353),
-    [anon_sym_RegWrite] = ACTIONS(353),
-    [anon_sym_RegDelete] = ACTIONS(353),
-    [anon_sym_SetWorkingDir] = ACTIONS(353),
-    [anon_sym_CoordMode] = ACTIONS(353),
-    [anon_sym_SetFormat] = ACTIONS(353),
-    [anon_sym_SetBatchLines] = ACTIONS(353),
-    [anon_sym_SetDefaultMouseSpeed] = ACTIONS(353),
-    [anon_sym_SetWinDelay] = ACTIONS(353),
-    [anon_sym_SetControlDelay] = ACTIONS(353),
-    [anon_sym_IniRead] = ACTIONS(353),
-    [anon_sym_IniWrite] = ACTIONS(353),
-    [anon_sym_Gui] = ACTIONS(353),
-    [anon_sym_GuiControl] = ACTIONS(353),
-    [anon_sym_Reload] = ACTIONS(353),
-    [anon_sym_ExitApp] = ACTIONS(353),
-    [anon_sym_Suspend] = ACTIONS(353),
-    [anon_sym_Pause] = ACTIONS(353),
     [anon_sym_PERCENT] = ACTIONS(351),
     [anon_sym_COLON_EQ] = ACTIONS(351),
     [anon_sym_DQUOTE] = ACTIONS(351),
@@ -10394,47 +7572,9 @@ static const uint16_t ts_parse_table[LARGE_STATE_COUNT][SYMBOL_COUNT] = {
     [anon_sym_POUND] = ACTIONS(355),
     [sym_hotkey] = ACTIONS(357),
     [anon_sym_RBRACE] = ACTIONS(355),
-    [anon_sym_MsgBox] = ACTIONS(355),
-    [anon_sym_InputBox] = ACTIONS(355),
-    [anon_sym_ToolTip] = ACTIONS(355),
-    [anon_sym_TrayTip] = ACTIONS(355),
-    [anon_sym_Send] = ACTIONS(355),
-    [anon_sym_SendInput] = ACTIONS(355),
-    [anon_sym_SendRaw] = ACTIONS(355),
-    [anon_sym_SendEvent] = ACTIONS(355),
-    [anon_sym_SendPlay] = ACTIONS(355),
     [anon_sym_Sleep] = ACTIONS(355),
-    [anon_sym_SetTimer] = ACTIONS(355),
+    [anon_sym_MsgBox] = ACTIONS(355),
     [anon_sym_Run] = ACTIONS(355),
-    [anon_sym_RunWait] = ACTIONS(355),
-    [anon_sym_WinActivate] = ACTIONS(355),
-    [anon_sym_WinWait] = ACTIONS(355),
-    [anon_sym_WinClose] = ACTIONS(355),
-    [anon_sym_WinMinimize] = ACTIONS(355),
-    [anon_sym_WinMaximize] = ACTIONS(355),
-    [anon_sym_FileRead] = ACTIONS(355),
-    [anon_sym_FileAppend] = ACTIONS(355),
-    [anon_sym_FileDelete] = ACTIONS(355),
-    [anon_sym_FileCopy] = ACTIONS(355),
-    [anon_sym_FileMove] = ACTIONS(355),
-    [anon_sym_RegRead] = ACTIONS(355),
-    [anon_sym_RegWrite] = ACTIONS(355),
-    [anon_sym_RegDelete] = ACTIONS(355),
-    [anon_sym_SetWorkingDir] = ACTIONS(355),
-    [anon_sym_CoordMode] = ACTIONS(355),
-    [anon_sym_SetFormat] = ACTIONS(355),
-    [anon_sym_SetBatchLines] = ACTIONS(355),
-    [anon_sym_SetDefaultMouseSpeed] = ACTIONS(355),
-    [anon_sym_SetWinDelay] = ACTIONS(355),
-    [anon_sym_SetControlDelay] = ACTIONS(355),
-    [anon_sym_IniRead] = ACTIONS(355),
-    [anon_sym_IniWrite] = ACTIONS(355),
-    [anon_sym_Gui] = ACTIONS(355),
-    [anon_sym_GuiControl] = ACTIONS(355),
-    [anon_sym_Reload] = ACTIONS(355),
-    [anon_sym_ExitApp] = ACTIONS(355),
-    [anon_sym_Suspend] = ACTIONS(355),
-    [anon_sym_Pause] = ACTIONS(355),
     [anon_sym_PERCENT] = ACTIONS(357),
     [anon_sym_COLON_EQ] = ACTIONS(357),
     [anon_sym_DQUOTE] = ACTIONS(357),
@@ -10505,47 +7645,9 @@ static const uint16_t ts_parse_table[LARGE_STATE_COUNT][SYMBOL_COUNT] = {
     [anon_sym_SLASH_STAR_STAR] = ACTIONS(357),
     [anon_sym_POUND] = ACTIONS(355),
     [sym_hotkey] = ACTIONS(357),
-    [anon_sym_MsgBox] = ACTIONS(355),
-    [anon_sym_InputBox] = ACTIONS(355),
-    [anon_sym_ToolTip] = ACTIONS(355),
-    [anon_sym_TrayTip] = ACTIONS(355),
-    [anon_sym_Send] = ACTIONS(355),
-    [anon_sym_SendInput] = ACTIONS(355),
-    [anon_sym_SendRaw] = ACTIONS(355),
-    [anon_sym_SendEvent] = ACTIONS(355),
-    [anon_sym_SendPlay] = ACTIONS(355),
     [anon_sym_Sleep] = ACTIONS(355),
-    [anon_sym_SetTimer] = ACTIONS(355),
+    [anon_sym_MsgBox] = ACTIONS(355),
     [anon_sym_Run] = ACTIONS(355),
-    [anon_sym_RunWait] = ACTIONS(355),
-    [anon_sym_WinActivate] = ACTIONS(355),
-    [anon_sym_WinWait] = ACTIONS(355),
-    [anon_sym_WinClose] = ACTIONS(355),
-    [anon_sym_WinMinimize] = ACTIONS(355),
-    [anon_sym_WinMaximize] = ACTIONS(355),
-    [anon_sym_FileRead] = ACTIONS(355),
-    [anon_sym_FileAppend] = ACTIONS(355),
-    [anon_sym_FileDelete] = ACTIONS(355),
-    [anon_sym_FileCopy] = ACTIONS(355),
-    [anon_sym_FileMove] = ACTIONS(355),
-    [anon_sym_RegRead] = ACTIONS(355),
-    [anon_sym_RegWrite] = ACTIONS(355),
-    [anon_sym_RegDelete] = ACTIONS(355),
-    [anon_sym_SetWorkingDir] = ACTIONS(355),
-    [anon_sym_CoordMode] = ACTIONS(355),
-    [anon_sym_SetFormat] = ACTIONS(355),
-    [anon_sym_SetBatchLines] = ACTIONS(355),
-    [anon_sym_SetDefaultMouseSpeed] = ACTIONS(355),
-    [anon_sym_SetWinDelay] = ACTIONS(355),
-    [anon_sym_SetControlDelay] = ACTIONS(355),
-    [anon_sym_IniRead] = ACTIONS(355),
-    [anon_sym_IniWrite] = ACTIONS(355),
-    [anon_sym_Gui] = ACTIONS(355),
-    [anon_sym_GuiControl] = ACTIONS(355),
-    [anon_sym_Reload] = ACTIONS(355),
-    [anon_sym_ExitApp] = ACTIONS(355),
-    [anon_sym_Suspend] = ACTIONS(355),
-    [anon_sym_Pause] = ACTIONS(355),
     [anon_sym_PERCENT] = ACTIONS(357),
     [anon_sym_COLON_EQ] = ACTIONS(357),
     [anon_sym_DQUOTE] = ACTIONS(357),
@@ -10616,47 +7718,9 @@ static const uint16_t ts_parse_table[LARGE_STATE_COUNT][SYMBOL_COUNT] = {
     [anon_sym_POUND] = ACTIONS(359),
     [sym_hotkey] = ACTIONS(361),
     [anon_sym_RBRACE] = ACTIONS(359),
-    [anon_sym_MsgBox] = ACTIONS(359),
-    [anon_sym_InputBox] = ACTIONS(359),
-    [anon_sym_ToolTip] = ACTIONS(359),
-    [anon_sym_TrayTip] = ACTIONS(359),
-    [anon_sym_Send] = ACTIONS(359),
-    [anon_sym_SendInput] = ACTIONS(359),
-    [anon_sym_SendRaw] = ACTIONS(359),
-    [anon_sym_SendEvent] = ACTIONS(359),
-    [anon_sym_SendPlay] = ACTIONS(359),
     [anon_sym_Sleep] = ACTIONS(359),
-    [anon_sym_SetTimer] = ACTIONS(359),
+    [anon_sym_MsgBox] = ACTIONS(359),
     [anon_sym_Run] = ACTIONS(359),
-    [anon_sym_RunWait] = ACTIONS(359),
-    [anon_sym_WinActivate] = ACTIONS(359),
-    [anon_sym_WinWait] = ACTIONS(359),
-    [anon_sym_WinClose] = ACTIONS(359),
-    [anon_sym_WinMinimize] = ACTIONS(359),
-    [anon_sym_WinMaximize] = ACTIONS(359),
-    [anon_sym_FileRead] = ACTIONS(359),
-    [anon_sym_FileAppend] = ACTIONS(359),
-    [anon_sym_FileDelete] = ACTIONS(359),
-    [anon_sym_FileCopy] = ACTIONS(359),
-    [anon_sym_FileMove] = ACTIONS(359),
-    [anon_sym_RegRead] = ACTIONS(359),
-    [anon_sym_RegWrite] = ACTIONS(359),
-    [anon_sym_RegDelete] = ACTIONS(359),
-    [anon_sym_SetWorkingDir] = ACTIONS(359),
-    [anon_sym_CoordMode] = ACTIONS(359),
-    [anon_sym_SetFormat] = ACTIONS(359),
-    [anon_sym_SetBatchLines] = ACTIONS(359),
-    [anon_sym_SetDefaultMouseSpeed] = ACTIONS(359),
-    [anon_sym_SetWinDelay] = ACTIONS(359),
-    [anon_sym_SetControlDelay] = ACTIONS(359),
-    [anon_sym_IniRead] = ACTIONS(359),
-    [anon_sym_IniWrite] = ACTIONS(359),
-    [anon_sym_Gui] = ACTIONS(359),
-    [anon_sym_GuiControl] = ACTIONS(359),
-    [anon_sym_Reload] = ACTIONS(359),
-    [anon_sym_ExitApp] = ACTIONS(359),
-    [anon_sym_Suspend] = ACTIONS(359),
-    [anon_sym_Pause] = ACTIONS(359),
     [anon_sym_PERCENT] = ACTIONS(361),
     [anon_sym_COLON_EQ] = ACTIONS(361),
     [anon_sym_DQUOTE] = ACTIONS(361),
@@ -10727,47 +7791,9 @@ static const uint16_t ts_parse_table[LARGE_STATE_COUNT][SYMBOL_COUNT] = {
     [anon_sym_POUND] = ACTIONS(363),
     [sym_hotkey] = ACTIONS(365),
     [anon_sym_RBRACE] = ACTIONS(363),
-    [anon_sym_MsgBox] = ACTIONS(363),
-    [anon_sym_InputBox] = ACTIONS(363),
-    [anon_sym_ToolTip] = ACTIONS(363),
-    [anon_sym_TrayTip] = ACTIONS(363),
-    [anon_sym_Send] = ACTIONS(363),
-    [anon_sym_SendInput] = ACTIONS(363),
-    [anon_sym_SendRaw] = ACTIONS(363),
-    [anon_sym_SendEvent] = ACTIONS(363),
-    [anon_sym_SendPlay] = ACTIONS(363),
     [anon_sym_Sleep] = ACTIONS(363),
-    [anon_sym_SetTimer] = ACTIONS(363),
+    [anon_sym_MsgBox] = ACTIONS(363),
     [anon_sym_Run] = ACTIONS(363),
-    [anon_sym_RunWait] = ACTIONS(363),
-    [anon_sym_WinActivate] = ACTIONS(363),
-    [anon_sym_WinWait] = ACTIONS(363),
-    [anon_sym_WinClose] = ACTIONS(363),
-    [anon_sym_WinMinimize] = ACTIONS(363),
-    [anon_sym_WinMaximize] = ACTIONS(363),
-    [anon_sym_FileRead] = ACTIONS(363),
-    [anon_sym_FileAppend] = ACTIONS(363),
-    [anon_sym_FileDelete] = ACTIONS(363),
-    [anon_sym_FileCopy] = ACTIONS(363),
-    [anon_sym_FileMove] = ACTIONS(363),
-    [anon_sym_RegRead] = ACTIONS(363),
-    [anon_sym_RegWrite] = ACTIONS(363),
-    [anon_sym_RegDelete] = ACTIONS(363),
-    [anon_sym_SetWorkingDir] = ACTIONS(363),
-    [anon_sym_CoordMode] = ACTIONS(363),
-    [anon_sym_SetFormat] = ACTIONS(363),
-    [anon_sym_SetBatchLines] = ACTIONS(363),
-    [anon_sym_SetDefaultMouseSpeed] = ACTIONS(363),
-    [anon_sym_SetWinDelay] = ACTIONS(363),
-    [anon_sym_SetControlDelay] = ACTIONS(363),
-    [anon_sym_IniRead] = ACTIONS(363),
-    [anon_sym_IniWrite] = ACTIONS(363),
-    [anon_sym_Gui] = ACTIONS(363),
-    [anon_sym_GuiControl] = ACTIONS(363),
-    [anon_sym_Reload] = ACTIONS(363),
-    [anon_sym_ExitApp] = ACTIONS(363),
-    [anon_sym_Suspend] = ACTIONS(363),
-    [anon_sym_Pause] = ACTIONS(363),
     [anon_sym_PERCENT] = ACTIONS(365),
     [anon_sym_COLON_EQ] = ACTIONS(365),
     [anon_sym_DQUOTE] = ACTIONS(365),
@@ -10838,47 +7864,9 @@ static const uint16_t ts_parse_table[LARGE_STATE_COUNT][SYMBOL_COUNT] = {
     [anon_sym_POUND] = ACTIONS(353),
     [sym_hotkey] = ACTIONS(351),
     [anon_sym_RBRACE] = ACTIONS(353),
-    [anon_sym_MsgBox] = ACTIONS(353),
-    [anon_sym_InputBox] = ACTIONS(353),
-    [anon_sym_ToolTip] = ACTIONS(353),
-    [anon_sym_TrayTip] = ACTIONS(353),
-    [anon_sym_Send] = ACTIONS(353),
-    [anon_sym_SendInput] = ACTIONS(353),
-    [anon_sym_SendRaw] = ACTIONS(353),
-    [anon_sym_SendEvent] = ACTIONS(353),
-    [anon_sym_SendPlay] = ACTIONS(353),
     [anon_sym_Sleep] = ACTIONS(353),
-    [anon_sym_SetTimer] = ACTIONS(353),
+    [anon_sym_MsgBox] = ACTIONS(353),
     [anon_sym_Run] = ACTIONS(353),
-    [anon_sym_RunWait] = ACTIONS(353),
-    [anon_sym_WinActivate] = ACTIONS(353),
-    [anon_sym_WinWait] = ACTIONS(353),
-    [anon_sym_WinClose] = ACTIONS(353),
-    [anon_sym_WinMinimize] = ACTIONS(353),
-    [anon_sym_WinMaximize] = ACTIONS(353),
-    [anon_sym_FileRead] = ACTIONS(353),
-    [anon_sym_FileAppend] = ACTIONS(353),
-    [anon_sym_FileDelete] = ACTIONS(353),
-    [anon_sym_FileCopy] = ACTIONS(353),
-    [anon_sym_FileMove] = ACTIONS(353),
-    [anon_sym_RegRead] = ACTIONS(353),
-    [anon_sym_RegWrite] = ACTIONS(353),
-    [anon_sym_RegDelete] = ACTIONS(353),
-    [anon_sym_SetWorkingDir] = ACTIONS(353),
-    [anon_sym_CoordMode] = ACTIONS(353),
-    [anon_sym_SetFormat] = ACTIONS(353),
-    [anon_sym_SetBatchLines] = ACTIONS(353),
-    [anon_sym_SetDefaultMouseSpeed] = ACTIONS(353),
-    [anon_sym_SetWinDelay] = ACTIONS(353),
-    [anon_sym_SetControlDelay] = ACTIONS(353),
-    [anon_sym_IniRead] = ACTIONS(353),
-    [anon_sym_IniWrite] = ACTIONS(353),
-    [anon_sym_Gui] = ACTIONS(353),
-    [anon_sym_GuiControl] = ACTIONS(353),
-    [anon_sym_Reload] = ACTIONS(353),
-    [anon_sym_ExitApp] = ACTIONS(353),
-    [anon_sym_Suspend] = ACTIONS(353),
-    [anon_sym_Pause] = ACTIONS(353),
     [anon_sym_PERCENT] = ACTIONS(351),
     [anon_sym_COLON_EQ] = ACTIONS(351),
     [anon_sym_DQUOTE] = ACTIONS(351),
@@ -10949,47 +7937,9 @@ static const uint16_t ts_parse_table[LARGE_STATE_COUNT][SYMBOL_COUNT] = {
     [anon_sym_SLASH_STAR_STAR] = ACTIONS(361),
     [anon_sym_POUND] = ACTIONS(359),
     [sym_hotkey] = ACTIONS(361),
-    [anon_sym_MsgBox] = ACTIONS(359),
-    [anon_sym_InputBox] = ACTIONS(359),
-    [anon_sym_ToolTip] = ACTIONS(359),
-    [anon_sym_TrayTip] = ACTIONS(359),
-    [anon_sym_Send] = ACTIONS(359),
-    [anon_sym_SendInput] = ACTIONS(359),
-    [anon_sym_SendRaw] = ACTIONS(359),
-    [anon_sym_SendEvent] = ACTIONS(359),
-    [anon_sym_SendPlay] = ACTIONS(359),
     [anon_sym_Sleep] = ACTIONS(359),
-    [anon_sym_SetTimer] = ACTIONS(359),
+    [anon_sym_MsgBox] = ACTIONS(359),
     [anon_sym_Run] = ACTIONS(359),
-    [anon_sym_RunWait] = ACTIONS(359),
-    [anon_sym_WinActivate] = ACTIONS(359),
-    [anon_sym_WinWait] = ACTIONS(359),
-    [anon_sym_WinClose] = ACTIONS(359),
-    [anon_sym_WinMinimize] = ACTIONS(359),
-    [anon_sym_WinMaximize] = ACTIONS(359),
-    [anon_sym_FileRead] = ACTIONS(359),
-    [anon_sym_FileAppend] = ACTIONS(359),
-    [anon_sym_FileDelete] = ACTIONS(359),
-    [anon_sym_FileCopy] = ACTIONS(359),
-    [anon_sym_FileMove] = ACTIONS(359),
-    [anon_sym_RegRead] = ACTIONS(359),
-    [anon_sym_RegWrite] = ACTIONS(359),
-    [anon_sym_RegDelete] = ACTIONS(359),
-    [anon_sym_SetWorkingDir] = ACTIONS(359),
-    [anon_sym_CoordMode] = ACTIONS(359),
-    [anon_sym_SetFormat] = ACTIONS(359),
-    [anon_sym_SetBatchLines] = ACTIONS(359),
-    [anon_sym_SetDefaultMouseSpeed] = ACTIONS(359),
-    [anon_sym_SetWinDelay] = ACTIONS(359),
-    [anon_sym_SetControlDelay] = ACTIONS(359),
-    [anon_sym_IniRead] = ACTIONS(359),
-    [anon_sym_IniWrite] = ACTIONS(359),
-    [anon_sym_Gui] = ACTIONS(359),
-    [anon_sym_GuiControl] = ACTIONS(359),
-    [anon_sym_Reload] = ACTIONS(359),
-    [anon_sym_ExitApp] = ACTIONS(359),
-    [anon_sym_Suspend] = ACTIONS(359),
-    [anon_sym_Pause] = ACTIONS(359),
     [anon_sym_PERCENT] = ACTIONS(361),
     [anon_sym_COLON_EQ] = ACTIONS(361),
     [anon_sym_DQUOTE] = ACTIONS(361),
@@ -11060,47 +8010,9 @@ static const uint16_t ts_parse_table[LARGE_STATE_COUNT][SYMBOL_COUNT] = {
     [anon_sym_POUND] = ACTIONS(333),
     [sym_hotkey] = ACTIONS(331),
     [anon_sym_RBRACE] = ACTIONS(333),
-    [anon_sym_MsgBox] = ACTIONS(333),
-    [anon_sym_InputBox] = ACTIONS(333),
-    [anon_sym_ToolTip] = ACTIONS(333),
-    [anon_sym_TrayTip] = ACTIONS(333),
-    [anon_sym_Send] = ACTIONS(333),
-    [anon_sym_SendInput] = ACTIONS(333),
-    [anon_sym_SendRaw] = ACTIONS(333),
-    [anon_sym_SendEvent] = ACTIONS(333),
-    [anon_sym_SendPlay] = ACTIONS(333),
     [anon_sym_Sleep] = ACTIONS(333),
-    [anon_sym_SetTimer] = ACTIONS(333),
+    [anon_sym_MsgBox] = ACTIONS(333),
     [anon_sym_Run] = ACTIONS(333),
-    [anon_sym_RunWait] = ACTIONS(333),
-    [anon_sym_WinActivate] = ACTIONS(333),
-    [anon_sym_WinWait] = ACTIONS(333),
-    [anon_sym_WinClose] = ACTIONS(333),
-    [anon_sym_WinMinimize] = ACTIONS(333),
-    [anon_sym_WinMaximize] = ACTIONS(333),
-    [anon_sym_FileRead] = ACTIONS(333),
-    [anon_sym_FileAppend] = ACTIONS(333),
-    [anon_sym_FileDelete] = ACTIONS(333),
-    [anon_sym_FileCopy] = ACTIONS(333),
-    [anon_sym_FileMove] = ACTIONS(333),
-    [anon_sym_RegRead] = ACTIONS(333),
-    [anon_sym_RegWrite] = ACTIONS(333),
-    [anon_sym_RegDelete] = ACTIONS(333),
-    [anon_sym_SetWorkingDir] = ACTIONS(333),
-    [anon_sym_CoordMode] = ACTIONS(333),
-    [anon_sym_SetFormat] = ACTIONS(333),
-    [anon_sym_SetBatchLines] = ACTIONS(333),
-    [anon_sym_SetDefaultMouseSpeed] = ACTIONS(333),
-    [anon_sym_SetWinDelay] = ACTIONS(333),
-    [anon_sym_SetControlDelay] = ACTIONS(333),
-    [anon_sym_IniRead] = ACTIONS(333),
-    [anon_sym_IniWrite] = ACTIONS(333),
-    [anon_sym_Gui] = ACTIONS(333),
-    [anon_sym_GuiControl] = ACTIONS(333),
-    [anon_sym_Reload] = ACTIONS(333),
-    [anon_sym_ExitApp] = ACTIONS(333),
-    [anon_sym_Suspend] = ACTIONS(333),
-    [anon_sym_Pause] = ACTIONS(333),
     [anon_sym_PERCENT] = ACTIONS(331),
     [anon_sym_COLON_EQ] = ACTIONS(331),
     [anon_sym_DQUOTE] = ACTIONS(331),
@@ -11171,47 +8083,9 @@ static const uint16_t ts_parse_table[LARGE_STATE_COUNT][SYMBOL_COUNT] = {
     [anon_sym_SLASH_STAR_STAR] = ACTIONS(365),
     [anon_sym_POUND] = ACTIONS(363),
     [sym_hotkey] = ACTIONS(365),
-    [anon_sym_MsgBox] = ACTIONS(363),
-    [anon_sym_InputBox] = ACTIONS(363),
-    [anon_sym_ToolTip] = ACTIONS(363),
-    [anon_sym_TrayTip] = ACTIONS(363),
-    [anon_sym_Send] = ACTIONS(363),
-    [anon_sym_SendInput] = ACTIONS(363),
-    [anon_sym_SendRaw] = ACTIONS(363),
-    [anon_sym_SendEvent] = ACTIONS(363),
-    [anon_sym_SendPlay] = ACTIONS(363),
     [anon_sym_Sleep] = ACTIONS(363),
-    [anon_sym_SetTimer] = ACTIONS(363),
+    [anon_sym_MsgBox] = ACTIONS(363),
     [anon_sym_Run] = ACTIONS(363),
-    [anon_sym_RunWait] = ACTIONS(363),
-    [anon_sym_WinActivate] = ACTIONS(363),
-    [anon_sym_WinWait] = ACTIONS(363),
-    [anon_sym_WinClose] = ACTIONS(363),
-    [anon_sym_WinMinimize] = ACTIONS(363),
-    [anon_sym_WinMaximize] = ACTIONS(363),
-    [anon_sym_FileRead] = ACTIONS(363),
-    [anon_sym_FileAppend] = ACTIONS(363),
-    [anon_sym_FileDelete] = ACTIONS(363),
-    [anon_sym_FileCopy] = ACTIONS(363),
-    [anon_sym_FileMove] = ACTIONS(363),
-    [anon_sym_RegRead] = ACTIONS(363),
-    [anon_sym_RegWrite] = ACTIONS(363),
-    [anon_sym_RegDelete] = ACTIONS(363),
-    [anon_sym_SetWorkingDir] = ACTIONS(363),
-    [anon_sym_CoordMode] = ACTIONS(363),
-    [anon_sym_SetFormat] = ACTIONS(363),
-    [anon_sym_SetBatchLines] = ACTIONS(363),
-    [anon_sym_SetDefaultMouseSpeed] = ACTIONS(363),
-    [anon_sym_SetWinDelay] = ACTIONS(363),
-    [anon_sym_SetControlDelay] = ACTIONS(363),
-    [anon_sym_IniRead] = ACTIONS(363),
-    [anon_sym_IniWrite] = ACTIONS(363),
-    [anon_sym_Gui] = ACTIONS(363),
-    [anon_sym_GuiControl] = ACTIONS(363),
-    [anon_sym_Reload] = ACTIONS(363),
-    [anon_sym_ExitApp] = ACTIONS(363),
-    [anon_sym_Suspend] = ACTIONS(363),
-    [anon_sym_Pause] = ACTIONS(363),
     [anon_sym_PERCENT] = ACTIONS(365),
     [anon_sym_COLON_EQ] = ACTIONS(365),
     [anon_sym_DQUOTE] = ACTIONS(365),
@@ -11282,47 +8156,9 @@ static const uint16_t ts_parse_table[LARGE_STATE_COUNT][SYMBOL_COUNT] = {
     [anon_sym_POUND] = ACTIONS(341),
     [sym_hotkey] = ACTIONS(339),
     [anon_sym_RBRACE] = ACTIONS(341),
-    [anon_sym_MsgBox] = ACTIONS(341),
-    [anon_sym_InputBox] = ACTIONS(341),
-    [anon_sym_ToolTip] = ACTIONS(341),
-    [anon_sym_TrayTip] = ACTIONS(341),
-    [anon_sym_Send] = ACTIONS(341),
-    [anon_sym_SendInput] = ACTIONS(341),
-    [anon_sym_SendRaw] = ACTIONS(341),
-    [anon_sym_SendEvent] = ACTIONS(341),
-    [anon_sym_SendPlay] = ACTIONS(341),
     [anon_sym_Sleep] = ACTIONS(341),
-    [anon_sym_SetTimer] = ACTIONS(341),
+    [anon_sym_MsgBox] = ACTIONS(341),
     [anon_sym_Run] = ACTIONS(341),
-    [anon_sym_RunWait] = ACTIONS(341),
-    [anon_sym_WinActivate] = ACTIONS(341),
-    [anon_sym_WinWait] = ACTIONS(341),
-    [anon_sym_WinClose] = ACTIONS(341),
-    [anon_sym_WinMinimize] = ACTIONS(341),
-    [anon_sym_WinMaximize] = ACTIONS(341),
-    [anon_sym_FileRead] = ACTIONS(341),
-    [anon_sym_FileAppend] = ACTIONS(341),
-    [anon_sym_FileDelete] = ACTIONS(341),
-    [anon_sym_FileCopy] = ACTIONS(341),
-    [anon_sym_FileMove] = ACTIONS(341),
-    [anon_sym_RegRead] = ACTIONS(341),
-    [anon_sym_RegWrite] = ACTIONS(341),
-    [anon_sym_RegDelete] = ACTIONS(341),
-    [anon_sym_SetWorkingDir] = ACTIONS(341),
-    [anon_sym_CoordMode] = ACTIONS(341),
-    [anon_sym_SetFormat] = ACTIONS(341),
-    [anon_sym_SetBatchLines] = ACTIONS(341),
-    [anon_sym_SetDefaultMouseSpeed] = ACTIONS(341),
-    [anon_sym_SetWinDelay] = ACTIONS(341),
-    [anon_sym_SetControlDelay] = ACTIONS(341),
-    [anon_sym_IniRead] = ACTIONS(341),
-    [anon_sym_IniWrite] = ACTIONS(341),
-    [anon_sym_Gui] = ACTIONS(341),
-    [anon_sym_GuiControl] = ACTIONS(341),
-    [anon_sym_Reload] = ACTIONS(341),
-    [anon_sym_ExitApp] = ACTIONS(341),
-    [anon_sym_Suspend] = ACTIONS(341),
-    [anon_sym_Pause] = ACTIONS(341),
     [anon_sym_PERCENT] = ACTIONS(339),
     [anon_sym_COLON_EQ] = ACTIONS(339),
     [anon_sym_DQUOTE] = ACTIONS(339),
@@ -11393,47 +8229,9 @@ static const uint16_t ts_parse_table[LARGE_STATE_COUNT][SYMBOL_COUNT] = {
     [anon_sym_POUND] = ACTIONS(349),
     [sym_hotkey] = ACTIONS(347),
     [anon_sym_RBRACE] = ACTIONS(349),
-    [anon_sym_MsgBox] = ACTIONS(349),
-    [anon_sym_InputBox] = ACTIONS(349),
-    [anon_sym_ToolTip] = ACTIONS(349),
-    [anon_sym_TrayTip] = ACTIONS(349),
-    [anon_sym_Send] = ACTIONS(349),
-    [anon_sym_SendInput] = ACTIONS(349),
-    [anon_sym_SendRaw] = ACTIONS(349),
-    [anon_sym_SendEvent] = ACTIONS(349),
-    [anon_sym_SendPlay] = ACTIONS(349),
     [anon_sym_Sleep] = ACTIONS(349),
-    [anon_sym_SetTimer] = ACTIONS(349),
+    [anon_sym_MsgBox] = ACTIONS(349),
     [anon_sym_Run] = ACTIONS(349),
-    [anon_sym_RunWait] = ACTIONS(349),
-    [anon_sym_WinActivate] = ACTIONS(349),
-    [anon_sym_WinWait] = ACTIONS(349),
-    [anon_sym_WinClose] = ACTIONS(349),
-    [anon_sym_WinMinimize] = ACTIONS(349),
-    [anon_sym_WinMaximize] = ACTIONS(349),
-    [anon_sym_FileRead] = ACTIONS(349),
-    [anon_sym_FileAppend] = ACTIONS(349),
-    [anon_sym_FileDelete] = ACTIONS(349),
-    [anon_sym_FileCopy] = ACTIONS(349),
-    [anon_sym_FileMove] = ACTIONS(349),
-    [anon_sym_RegRead] = ACTIONS(349),
-    [anon_sym_RegWrite] = ACTIONS(349),
-    [anon_sym_RegDelete] = ACTIONS(349),
-    [anon_sym_SetWorkingDir] = ACTIONS(349),
-    [anon_sym_CoordMode] = ACTIONS(349),
-    [anon_sym_SetFormat] = ACTIONS(349),
-    [anon_sym_SetBatchLines] = ACTIONS(349),
-    [anon_sym_SetDefaultMouseSpeed] = ACTIONS(349),
-    [anon_sym_SetWinDelay] = ACTIONS(349),
-    [anon_sym_SetControlDelay] = ACTIONS(349),
-    [anon_sym_IniRead] = ACTIONS(349),
-    [anon_sym_IniWrite] = ACTIONS(349),
-    [anon_sym_Gui] = ACTIONS(349),
-    [anon_sym_GuiControl] = ACTIONS(349),
-    [anon_sym_Reload] = ACTIONS(349),
-    [anon_sym_ExitApp] = ACTIONS(349),
-    [anon_sym_Suspend] = ACTIONS(349),
-    [anon_sym_Pause] = ACTIONS(349),
     [anon_sym_PERCENT] = ACTIONS(347),
     [anon_sym_COLON_EQ] = ACTIONS(347),
     [anon_sym_DQUOTE] = ACTIONS(347),
@@ -11504,47 +8302,9 @@ static const uint16_t ts_parse_table[LARGE_STATE_COUNT][SYMBOL_COUNT] = {
     [anon_sym_SLASH_STAR_STAR] = ACTIONS(321),
     [anon_sym_POUND] = ACTIONS(319),
     [sym_hotkey] = ACTIONS(321),
-    [anon_sym_MsgBox] = ACTIONS(319),
-    [anon_sym_InputBox] = ACTIONS(319),
-    [anon_sym_ToolTip] = ACTIONS(319),
-    [anon_sym_TrayTip] = ACTIONS(319),
-    [anon_sym_Send] = ACTIONS(319),
-    [anon_sym_SendInput] = ACTIONS(319),
-    [anon_sym_SendRaw] = ACTIONS(319),
-    [anon_sym_SendEvent] = ACTIONS(319),
-    [anon_sym_SendPlay] = ACTIONS(319),
     [anon_sym_Sleep] = ACTIONS(319),
-    [anon_sym_SetTimer] = ACTIONS(319),
+    [anon_sym_MsgBox] = ACTIONS(319),
     [anon_sym_Run] = ACTIONS(319),
-    [anon_sym_RunWait] = ACTIONS(319),
-    [anon_sym_WinActivate] = ACTIONS(319),
-    [anon_sym_WinWait] = ACTIONS(319),
-    [anon_sym_WinClose] = ACTIONS(319),
-    [anon_sym_WinMinimize] = ACTIONS(319),
-    [anon_sym_WinMaximize] = ACTIONS(319),
-    [anon_sym_FileRead] = ACTIONS(319),
-    [anon_sym_FileAppend] = ACTIONS(319),
-    [anon_sym_FileDelete] = ACTIONS(319),
-    [anon_sym_FileCopy] = ACTIONS(319),
-    [anon_sym_FileMove] = ACTIONS(319),
-    [anon_sym_RegRead] = ACTIONS(319),
-    [anon_sym_RegWrite] = ACTIONS(319),
-    [anon_sym_RegDelete] = ACTIONS(319),
-    [anon_sym_SetWorkingDir] = ACTIONS(319),
-    [anon_sym_CoordMode] = ACTIONS(319),
-    [anon_sym_SetFormat] = ACTIONS(319),
-    [anon_sym_SetBatchLines] = ACTIONS(319),
-    [anon_sym_SetDefaultMouseSpeed] = ACTIONS(319),
-    [anon_sym_SetWinDelay] = ACTIONS(319),
-    [anon_sym_SetControlDelay] = ACTIONS(319),
-    [anon_sym_IniRead] = ACTIONS(319),
-    [anon_sym_IniWrite] = ACTIONS(319),
-    [anon_sym_Gui] = ACTIONS(319),
-    [anon_sym_GuiControl] = ACTIONS(319),
-    [anon_sym_Reload] = ACTIONS(319),
-    [anon_sym_ExitApp] = ACTIONS(319),
-    [anon_sym_Suspend] = ACTIONS(319),
-    [anon_sym_Pause] = ACTIONS(319),
     [anon_sym_PERCENT] = ACTIONS(321),
     [anon_sym_COLON_EQ] = ACTIONS(321),
     [anon_sym_DQUOTE] = ACTIONS(321),
@@ -11615,47 +8375,9 @@ static const uint16_t ts_parse_table[LARGE_STATE_COUNT][SYMBOL_COUNT] = {
     [anon_sym_SLASH_STAR_STAR] = ACTIONS(267),
     [anon_sym_POUND] = ACTIONS(269),
     [sym_hotkey] = ACTIONS(267),
-    [anon_sym_MsgBox] = ACTIONS(269),
-    [anon_sym_InputBox] = ACTIONS(269),
-    [anon_sym_ToolTip] = ACTIONS(269),
-    [anon_sym_TrayTip] = ACTIONS(269),
-    [anon_sym_Send] = ACTIONS(269),
-    [anon_sym_SendInput] = ACTIONS(269),
-    [anon_sym_SendRaw] = ACTIONS(269),
-    [anon_sym_SendEvent] = ACTIONS(269),
-    [anon_sym_SendPlay] = ACTIONS(269),
     [anon_sym_Sleep] = ACTIONS(269),
-    [anon_sym_SetTimer] = ACTIONS(269),
+    [anon_sym_MsgBox] = ACTIONS(269),
     [anon_sym_Run] = ACTIONS(269),
-    [anon_sym_RunWait] = ACTIONS(269),
-    [anon_sym_WinActivate] = ACTIONS(269),
-    [anon_sym_WinWait] = ACTIONS(269),
-    [anon_sym_WinClose] = ACTIONS(269),
-    [anon_sym_WinMinimize] = ACTIONS(269),
-    [anon_sym_WinMaximize] = ACTIONS(269),
-    [anon_sym_FileRead] = ACTIONS(269),
-    [anon_sym_FileAppend] = ACTIONS(269),
-    [anon_sym_FileDelete] = ACTIONS(269),
-    [anon_sym_FileCopy] = ACTIONS(269),
-    [anon_sym_FileMove] = ACTIONS(269),
-    [anon_sym_RegRead] = ACTIONS(269),
-    [anon_sym_RegWrite] = ACTIONS(269),
-    [anon_sym_RegDelete] = ACTIONS(269),
-    [anon_sym_SetWorkingDir] = ACTIONS(269),
-    [anon_sym_CoordMode] = ACTIONS(269),
-    [anon_sym_SetFormat] = ACTIONS(269),
-    [anon_sym_SetBatchLines] = ACTIONS(269),
-    [anon_sym_SetDefaultMouseSpeed] = ACTIONS(269),
-    [anon_sym_SetWinDelay] = ACTIONS(269),
-    [anon_sym_SetControlDelay] = ACTIONS(269),
-    [anon_sym_IniRead] = ACTIONS(269),
-    [anon_sym_IniWrite] = ACTIONS(269),
-    [anon_sym_Gui] = ACTIONS(269),
-    [anon_sym_GuiControl] = ACTIONS(269),
-    [anon_sym_Reload] = ACTIONS(269),
-    [anon_sym_ExitApp] = ACTIONS(269),
-    [anon_sym_Suspend] = ACTIONS(269),
-    [anon_sym_Pause] = ACTIONS(269),
     [anon_sym_PERCENT] = ACTIONS(267),
     [anon_sym_COLON_EQ] = ACTIONS(267),
     [anon_sym_DQUOTE] = ACTIONS(267),
@@ -11726,47 +8448,9 @@ static const uint16_t ts_parse_table[LARGE_STATE_COUNT][SYMBOL_COUNT] = {
     [anon_sym_POUND] = ACTIONS(329),
     [sym_hotkey] = ACTIONS(327),
     [anon_sym_RBRACE] = ACTIONS(329),
-    [anon_sym_MsgBox] = ACTIONS(329),
-    [anon_sym_InputBox] = ACTIONS(329),
-    [anon_sym_ToolTip] = ACTIONS(329),
-    [anon_sym_TrayTip] = ACTIONS(329),
-    [anon_sym_Send] = ACTIONS(329),
-    [anon_sym_SendInput] = ACTIONS(329),
-    [anon_sym_SendRaw] = ACTIONS(329),
-    [anon_sym_SendEvent] = ACTIONS(329),
-    [anon_sym_SendPlay] = ACTIONS(329),
     [anon_sym_Sleep] = ACTIONS(329),
-    [anon_sym_SetTimer] = ACTIONS(329),
+    [anon_sym_MsgBox] = ACTIONS(329),
     [anon_sym_Run] = ACTIONS(329),
-    [anon_sym_RunWait] = ACTIONS(329),
-    [anon_sym_WinActivate] = ACTIONS(329),
-    [anon_sym_WinWait] = ACTIONS(329),
-    [anon_sym_WinClose] = ACTIONS(329),
-    [anon_sym_WinMinimize] = ACTIONS(329),
-    [anon_sym_WinMaximize] = ACTIONS(329),
-    [anon_sym_FileRead] = ACTIONS(329),
-    [anon_sym_FileAppend] = ACTIONS(329),
-    [anon_sym_FileDelete] = ACTIONS(329),
-    [anon_sym_FileCopy] = ACTIONS(329),
-    [anon_sym_FileMove] = ACTIONS(329),
-    [anon_sym_RegRead] = ACTIONS(329),
-    [anon_sym_RegWrite] = ACTIONS(329),
-    [anon_sym_RegDelete] = ACTIONS(329),
-    [anon_sym_SetWorkingDir] = ACTIONS(329),
-    [anon_sym_CoordMode] = ACTIONS(329),
-    [anon_sym_SetFormat] = ACTIONS(329),
-    [anon_sym_SetBatchLines] = ACTIONS(329),
-    [anon_sym_SetDefaultMouseSpeed] = ACTIONS(329),
-    [anon_sym_SetWinDelay] = ACTIONS(329),
-    [anon_sym_SetControlDelay] = ACTIONS(329),
-    [anon_sym_IniRead] = ACTIONS(329),
-    [anon_sym_IniWrite] = ACTIONS(329),
-    [anon_sym_Gui] = ACTIONS(329),
-    [anon_sym_GuiControl] = ACTIONS(329),
-    [anon_sym_Reload] = ACTIONS(329),
-    [anon_sym_ExitApp] = ACTIONS(329),
-    [anon_sym_Suspend] = ACTIONS(329),
-    [anon_sym_Pause] = ACTIONS(329),
     [anon_sym_PERCENT] = ACTIONS(327),
     [anon_sym_COLON_EQ] = ACTIONS(327),
     [anon_sym_DQUOTE] = ACTIONS(327),
@@ -11837,47 +8521,9 @@ static const uint16_t ts_parse_table[LARGE_STATE_COUNT][SYMBOL_COUNT] = {
     [anon_sym_POUND] = ACTIONS(275),
     [sym_hotkey] = ACTIONS(277),
     [anon_sym_RBRACE] = ACTIONS(275),
-    [anon_sym_MsgBox] = ACTIONS(275),
-    [anon_sym_InputBox] = ACTIONS(275),
-    [anon_sym_ToolTip] = ACTIONS(275),
-    [anon_sym_TrayTip] = ACTIONS(275),
-    [anon_sym_Send] = ACTIONS(275),
-    [anon_sym_SendInput] = ACTIONS(275),
-    [anon_sym_SendRaw] = ACTIONS(275),
-    [anon_sym_SendEvent] = ACTIONS(275),
-    [anon_sym_SendPlay] = ACTIONS(275),
     [anon_sym_Sleep] = ACTIONS(275),
-    [anon_sym_SetTimer] = ACTIONS(275),
+    [anon_sym_MsgBox] = ACTIONS(275),
     [anon_sym_Run] = ACTIONS(275),
-    [anon_sym_RunWait] = ACTIONS(275),
-    [anon_sym_WinActivate] = ACTIONS(275),
-    [anon_sym_WinWait] = ACTIONS(275),
-    [anon_sym_WinClose] = ACTIONS(275),
-    [anon_sym_WinMinimize] = ACTIONS(275),
-    [anon_sym_WinMaximize] = ACTIONS(275),
-    [anon_sym_FileRead] = ACTIONS(275),
-    [anon_sym_FileAppend] = ACTIONS(275),
-    [anon_sym_FileDelete] = ACTIONS(275),
-    [anon_sym_FileCopy] = ACTIONS(275),
-    [anon_sym_FileMove] = ACTIONS(275),
-    [anon_sym_RegRead] = ACTIONS(275),
-    [anon_sym_RegWrite] = ACTIONS(275),
-    [anon_sym_RegDelete] = ACTIONS(275),
-    [anon_sym_SetWorkingDir] = ACTIONS(275),
-    [anon_sym_CoordMode] = ACTIONS(275),
-    [anon_sym_SetFormat] = ACTIONS(275),
-    [anon_sym_SetBatchLines] = ACTIONS(275),
-    [anon_sym_SetDefaultMouseSpeed] = ACTIONS(275),
-    [anon_sym_SetWinDelay] = ACTIONS(275),
-    [anon_sym_SetControlDelay] = ACTIONS(275),
-    [anon_sym_IniRead] = ACTIONS(275),
-    [anon_sym_IniWrite] = ACTIONS(275),
-    [anon_sym_Gui] = ACTIONS(275),
-    [anon_sym_GuiControl] = ACTIONS(275),
-    [anon_sym_Reload] = ACTIONS(275),
-    [anon_sym_ExitApp] = ACTIONS(275),
-    [anon_sym_Suspend] = ACTIONS(275),
-    [anon_sym_Pause] = ACTIONS(275),
     [anon_sym_PERCENT] = ACTIONS(277),
     [anon_sym_COLON_EQ] = ACTIONS(277),
     [anon_sym_DQUOTE] = ACTIONS(277),
@@ -11948,47 +8594,9 @@ static const uint16_t ts_parse_table[LARGE_STATE_COUNT][SYMBOL_COUNT] = {
     [anon_sym_POUND] = ACTIONS(269),
     [sym_hotkey] = ACTIONS(267),
     [anon_sym_RBRACE] = ACTIONS(269),
-    [anon_sym_MsgBox] = ACTIONS(269),
-    [anon_sym_InputBox] = ACTIONS(269),
-    [anon_sym_ToolTip] = ACTIONS(269),
-    [anon_sym_TrayTip] = ACTIONS(269),
-    [anon_sym_Send] = ACTIONS(269),
-    [anon_sym_SendInput] = ACTIONS(269),
-    [anon_sym_SendRaw] = ACTIONS(269),
-    [anon_sym_SendEvent] = ACTIONS(269),
-    [anon_sym_SendPlay] = ACTIONS(269),
     [anon_sym_Sleep] = ACTIONS(269),
-    [anon_sym_SetTimer] = ACTIONS(269),
+    [anon_sym_MsgBox] = ACTIONS(269),
     [anon_sym_Run] = ACTIONS(269),
-    [anon_sym_RunWait] = ACTIONS(269),
-    [anon_sym_WinActivate] = ACTIONS(269),
-    [anon_sym_WinWait] = ACTIONS(269),
-    [anon_sym_WinClose] = ACTIONS(269),
-    [anon_sym_WinMinimize] = ACTIONS(269),
-    [anon_sym_WinMaximize] = ACTIONS(269),
-    [anon_sym_FileRead] = ACTIONS(269),
-    [anon_sym_FileAppend] = ACTIONS(269),
-    [anon_sym_FileDelete] = ACTIONS(269),
-    [anon_sym_FileCopy] = ACTIONS(269),
-    [anon_sym_FileMove] = ACTIONS(269),
-    [anon_sym_RegRead] = ACTIONS(269),
-    [anon_sym_RegWrite] = ACTIONS(269),
-    [anon_sym_RegDelete] = ACTIONS(269),
-    [anon_sym_SetWorkingDir] = ACTIONS(269),
-    [anon_sym_CoordMode] = ACTIONS(269),
-    [anon_sym_SetFormat] = ACTIONS(269),
-    [anon_sym_SetBatchLines] = ACTIONS(269),
-    [anon_sym_SetDefaultMouseSpeed] = ACTIONS(269),
-    [anon_sym_SetWinDelay] = ACTIONS(269),
-    [anon_sym_SetControlDelay] = ACTIONS(269),
-    [anon_sym_IniRead] = ACTIONS(269),
-    [anon_sym_IniWrite] = ACTIONS(269),
-    [anon_sym_Gui] = ACTIONS(269),
-    [anon_sym_GuiControl] = ACTIONS(269),
-    [anon_sym_Reload] = ACTIONS(269),
-    [anon_sym_ExitApp] = ACTIONS(269),
-    [anon_sym_Suspend] = ACTIONS(269),
-    [anon_sym_Pause] = ACTIONS(269),
     [anon_sym_PERCENT] = ACTIONS(267),
     [anon_sym_COLON_EQ] = ACTIONS(267),
     [anon_sym_DQUOTE] = ACTIONS(267),
@@ -12059,47 +8667,9 @@ static const uint16_t ts_parse_table[LARGE_STATE_COUNT][SYMBOL_COUNT] = {
     [anon_sym_POUND] = ACTIONS(345),
     [sym_hotkey] = ACTIONS(343),
     [anon_sym_RBRACE] = ACTIONS(345),
-    [anon_sym_MsgBox] = ACTIONS(345),
-    [anon_sym_InputBox] = ACTIONS(345),
-    [anon_sym_ToolTip] = ACTIONS(345),
-    [anon_sym_TrayTip] = ACTIONS(345),
-    [anon_sym_Send] = ACTIONS(345),
-    [anon_sym_SendInput] = ACTIONS(345),
-    [anon_sym_SendRaw] = ACTIONS(345),
-    [anon_sym_SendEvent] = ACTIONS(345),
-    [anon_sym_SendPlay] = ACTIONS(345),
     [anon_sym_Sleep] = ACTIONS(345),
-    [anon_sym_SetTimer] = ACTIONS(345),
+    [anon_sym_MsgBox] = ACTIONS(345),
     [anon_sym_Run] = ACTIONS(345),
-    [anon_sym_RunWait] = ACTIONS(345),
-    [anon_sym_WinActivate] = ACTIONS(345),
-    [anon_sym_WinWait] = ACTIONS(345),
-    [anon_sym_WinClose] = ACTIONS(345),
-    [anon_sym_WinMinimize] = ACTIONS(345),
-    [anon_sym_WinMaximize] = ACTIONS(345),
-    [anon_sym_FileRead] = ACTIONS(345),
-    [anon_sym_FileAppend] = ACTIONS(345),
-    [anon_sym_FileDelete] = ACTIONS(345),
-    [anon_sym_FileCopy] = ACTIONS(345),
-    [anon_sym_FileMove] = ACTIONS(345),
-    [anon_sym_RegRead] = ACTIONS(345),
-    [anon_sym_RegWrite] = ACTIONS(345),
-    [anon_sym_RegDelete] = ACTIONS(345),
-    [anon_sym_SetWorkingDir] = ACTIONS(345),
-    [anon_sym_CoordMode] = ACTIONS(345),
-    [anon_sym_SetFormat] = ACTIONS(345),
-    [anon_sym_SetBatchLines] = ACTIONS(345),
-    [anon_sym_SetDefaultMouseSpeed] = ACTIONS(345),
-    [anon_sym_SetWinDelay] = ACTIONS(345),
-    [anon_sym_SetControlDelay] = ACTIONS(345),
-    [anon_sym_IniRead] = ACTIONS(345),
-    [anon_sym_IniWrite] = ACTIONS(345),
-    [anon_sym_Gui] = ACTIONS(345),
-    [anon_sym_GuiControl] = ACTIONS(345),
-    [anon_sym_Reload] = ACTIONS(345),
-    [anon_sym_ExitApp] = ACTIONS(345),
-    [anon_sym_Suspend] = ACTIONS(345),
-    [anon_sym_Pause] = ACTIONS(345),
     [anon_sym_PERCENT] = ACTIONS(343),
     [anon_sym_COLON_EQ] = ACTIONS(343),
     [anon_sym_DQUOTE] = ACTIONS(343),

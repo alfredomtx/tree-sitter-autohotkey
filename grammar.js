@@ -94,21 +94,11 @@ module.exports = grammar({
       ))
     )),
 
-    // Plain choice() uses keyword extraction: main lexer returns identifier,
-    // then ts_lex_keywords checks if it's a command name
+    // TEST: Sleep first to test if order matters
     command_name: $ => choice(
-      'MsgBox', 'InputBox', 'ToolTip', 'TrayTip',
-      'Send', 'SendInput', 'SendRaw', 'SendEvent', 'SendPlay',
-      'Sleep', 'SetTimer',
-      'Run', 'RunWait',
-      'WinActivate', 'WinWait', 'WinClose', 'WinMinimize', 'WinMaximize',
-      'FileRead', 'FileAppend', 'FileDelete', 'FileCopy', 'FileMove',
-      'RegRead', 'RegWrite', 'RegDelete',
-      'SetWorkingDir', 'CoordMode', 'SetFormat', 'SetBatchLines',
-      'SetDefaultMouseSpeed', 'SetWinDelay', 'SetControlDelay',
-      'IniRead', 'IniWrite',
-      'Gui', 'GuiControl',
-      'Reload', 'ExitApp', 'Suspend', 'Pause',
+      'Sleep',
+      'MsgBox',
+      'Run',
     ),
 
     command_arguments: $ => prec.left(repeat1(choice(
