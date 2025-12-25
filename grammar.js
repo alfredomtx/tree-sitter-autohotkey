@@ -5,7 +5,7 @@ module.exports = grammar({
     /\s/,
   ],
 
-  word: $ => $.identifier,
+  // Removed word: $ => $.identifier (keyword extraction)
 
   conflicts: $ => [
     [$.parameter, $._expression],
