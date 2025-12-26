@@ -1,4 +1,4 @@
-# Tree-sitter grammar for AutoHotkey
+# Tree-sitter grammar for AutoHotkey V1
 
 This repository provides a Tree-sitter grammar for the AutoHotkey scripting language. It is intended to be used by editors and other tools that support Tree-sitter for syntax highlighting and other language-aware features.
 

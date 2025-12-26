@@ -15,14 +15,24 @@ MyFunc(param1, param2) {
     return param1 + param2
 }
 
+test(text)
+{
+    return text
+}
+
+emptyFunc()
+{
+}
+
 result := MyFunc(1, 2)
+emptyFunc()
 
 MyLabel:
-    MsgBox("Hello")
+    test("Hello")
 return
 
 ^a::
-    Send("test")
+    Send, % "test"
 return
 
 x := "hello world"
@@ -88,8 +98,10 @@ MsgBox, Hello World
 Sleep, 1000
 Send, {Enter}
 Run, notepad.exe
-CoordMode, Mouse, Screen
+SetTimer, MyLabel, 1000
+SetTimer, MyLabel, Delete
 SetFormat, Float, 0.0
+CoordMode, Mouse, Screen
 IniRead, value, %filepath%, section, key
 Gui, MyGui:Add, Text,, Hello
 

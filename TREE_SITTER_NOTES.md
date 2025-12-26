@@ -8,45 +8,88 @@ Technical details, pitfalls, and lessons learned while developing this tree-sitt
 
 **Problem:** The `word: $ => $.identifier` rule enables tree-sitter's keyword extraction, which interferes with `token()` rules. When enabled, only SOME alternatives in a regex pattern will match - the rest silently fail to highlight.
 
-**Solution:** This grammar intentionally OMITS the `word` rule. Commands use `token(prec(3, /regex/))` instead of `choice()` of string literals.
+**Solution:** This grammar intentionally OMITS the `word` rule. Commands use internal patterns with `alias()` instead of `choice()` of string literals.
 
 ```javascript
 // WRONG - keyword extraction breaks this
 word: $ => $.identifier,
 command_name: $ => choice('MsgBox', 'Sleep', 'Run'),
 
-// CORRECT - no word rule, use token with regex
+// CORRECT - no word rule, use internal pattern with alias
 // (no word rule)
-command_name: $ => token(prec(3, /MsgBox|Sleep|Run/)),
+_command_name_pattern: $ => token(choice(/MsgBox|Sleep|Run/)),
+command: $ => seq(alias($._command_name_pattern, $.command_name), ...),
 ```
 
-### Use `token(prec())` for command names, not `choice()`
+### Use `prec.dynamic()` for function_definition to beat function_call
 
-**Problem:** Using `choice('MsgBox', 'Sleep', ...)` relies on keyword extraction which has subtle bugs in tree-sitter-wasm/Zed integration.
+**Problem:** With `prec(3)` on function_definition and `prec(2)` on function_call, functions still parse as function_call when there's content after them (like another identifier or function).
 
-**Solution:** Use token with regex and precedence:
+**Root cause:** Tree-sitter's static precedence (`prec()`) doesn't always resolve ambiguity when both rules produce valid parses. The parser may choose function_call because it's "simpler" in some global optimization sense.
+
+**Solution:** Use `prec.dynamic()` which applies precedence at parse time:
 ```javascript
+// WRONG - static precedence doesn't always win
+function_definition: $ => prec(3, seq(...)),
+
+// CORRECT - dynamic precedence ensures function_definition wins
+function_definition: $ => prec.dynamic(10, seq(...)),
+```
+
+### Commands must require comma to distinguish from function calls
+
+**Problem:** `MsgBox("Hello")` looks like a function call but `MsgBox` is a command name. If command_name has high token precedence, it steals the identifier from function_call, breaking function definitions that contain such calls.
+
+**Solution:** Make commands require comma syntax. This naturally distinguishes:
+- `MsgBox, Hello` → command (comma after name)
+- `MsgBox("Hello")` → would be function_call syntax (don't use this)
+
+```javascript
+// Command requires comma - clearly not a function call
+command: $ => prec(2, seq(
+  field('name', alias($._command_name_pattern, $.command_name)),
+  ',',
+  optional($.command_arguments)
+)),
+
+// Internal pattern - no token precedence to interfere
+_command_name_pattern: $ => token(choice(
+  /MsgBox|InputBox|.../,
+)),
+```
+
+### Avoid high token precedence on patterns that overlap with identifiers
+
+**Problem:** Using `token(prec(3, /MsgBox|.../))` for command_name causes the lexer to tokenize `MsgBox` as command_name even in contexts where it should be an identifier (like inside function bodies).
+
+**Solution:** Use internal patterns (prefixed with `_`) without token precedence, exposed via `alias()`:
+```javascript
+// WRONG - high precedence steals from identifier in all contexts
 command_name: $ => token(prec(3, /MsgBox|Sleep|Run/)),
+
+// CORRECT - internal pattern, exposed only in command context
+_command_name_pattern: $ => token(choice(/MsgBox|Sleep|Run/)),
+command: $ => seq(alias($._command_name_pattern, $.command_name), ',', ...),
 ```
 
 ### Keep individual regex patterns short - use choice() to combine groups
 
 **Problem:** Very long regex patterns (40+ alternatives) in a single `token()` can fail silently in tree-sitter-wasm/Zed. The grammar generates fine but highlighting doesn't work.
 
-**Solution:** Split commands into logical groups, each with their own `token()`, combined with `choice()`:
+**Solution:** Split into logical groups combined with `choice()`:
 
 ```javascript
 // WRONG - too many alternatives in one regex
-command_name: $ => token(prec(3, /MsgBox|InputBox|...|ExitApp/)),  // 40+ items
+_command_name_pattern: $ => token(/MsgBox|InputBox|...|ExitApp/),  // 40+ items
 
 // CORRECT - split into groups of ~5 items each
-command_name: $ => choice(
-  token(prec(3, /MsgBox|InputBox|ToolTip|TrayTip/)),
-  token(prec(3, /Send|SendInput|SendRaw|SendEvent|SendPlay/)),
-  token(prec(3, /Sleep|SetTimer|Pause|Suspend/)),
-  token(prec(3, /Run|RunWait|Reload|ExitApp/)),
+_command_name_pattern: $ => token(choice(
+  /MsgBox|InputBox|ToolTip|TrayTip/,
+  /Send|SendInput|SendRaw|SendEvent|SendPlay/,
+  /Sleep|SetTimer|Pause|Suspend/,
+  /Run|RunWait|Reload|ExitApp/,
   // ... more groups
-),
+)),
 ```
 
 ### Rules in `_expression` must also be in `_statement` for top-level parsing
