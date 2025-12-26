@@ -374,7 +374,7 @@ module.exports = grammar({
 
     object_property: $ => choice(
       seq(
-        field('key', choice($.identifier, $.string)),
+        field('key', choice($.identifier, $.string, $.number)),
         ':',
         field('value', $._expression)
       ),

@@ -90,6 +90,7 @@
 (object_literal "}" @punctuation.bracket)
 (object_property key: (identifier) @property)
 (object_property key: (string) @property)
+(object_property key: (number) @property)
 (object_property ":" @punctuation.delimiter)
 
 ; Class definitions

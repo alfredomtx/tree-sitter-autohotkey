@@ -117,3 +117,44 @@ obj := {items: [1, 2, 3]}
           (number)
           (number)
           (number))))))
+
+================================================================================
+Object with numeric keys
+================================================================================
+
+obj := {1: "one", 2: "two"}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (assignment_expression
+    left: (identifier)
+    right: (object_literal
+      (object_property
+        key: (number)
+        value: (string))
+      (object_property
+        key: (number)
+        value: (string)))))
+
+================================================================================
+Object with mixed key types
+================================================================================
+
+obj := {1: "one", "two": 2, name: "test"}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (assignment_expression
+    left: (identifier)
+    right: (object_literal
+      (object_property
+        key: (number)
+        value: (string))
+      (object_property
+        key: (string)
+        value: (number))
+      (object_property
+        key: (identifier)
+        value: (string)))))
