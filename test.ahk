@@ -240,6 +240,8 @@ result := obj.GetValue()
 obj.nested.Method(arg1, arg2)
 x := obj.a.b.c
 
+obj2 := {1: "one", 2: "two", "test": "three"}
+
 ; === Array Syntax ===
 ; Array literals
 arr := [1, 2, 3]
@@ -278,4 +280,16 @@ carriage := "line1`rline2"
 :B0:test::testing       ; no backspacing
 
 ; Execute code instead of replacement
+:X:now::MsgBox, % A_Now
+
 :X:now::
+MsgBox, %A_Now%
+Sleep, 1000
+return
+
+test := LANGUAGE = "EN-US" ? "Hi" : "Bonjour"
+test := LANGUAGE = "EN-US" ? "How are you?" : "Comment allez-vous?"
+
+return
+
+global VAR := true

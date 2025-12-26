@@ -257,3 +257,63 @@ x := y := 1
     right: (assignment_expression
       left: (identifier)
       right: (number))))
+
+================================================================================
+Case-insensitive equality (single =)
+================================================================================
+
+result := a = b
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (assignment_expression
+    left: (identifier)
+    right: (binary_expression
+      left: (identifier)
+      right: (identifier))))
+
+================================================================================
+Ternary with case-insensitive equality
+================================================================================
+
+test := LANGUAGE = "EN-US" ? "Hi" : "Bonjour"
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (assignment_expression
+    left: (identifier)
+    right: (ternary_expression
+      condition: (binary_expression
+        left: (identifier)
+        right: (string))
+      consequence: (string)
+      alternative: (string))))
+
+================================================================================
+Consecutive ternary expressions
+================================================================================
+
+test1 := x = "a" ? "yes" : "no"
+test2 := y = "b" ? "true" : "false"
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (assignment_expression
+    left: (identifier)
+    right: (ternary_expression
+      condition: (binary_expression
+        left: (identifier)
+        right: (string))
+      consequence: (string)
+      alternative: (string)))
+  (assignment_expression
+    left: (identifier)
+    right: (ternary_expression
+      condition: (binary_expression
+        left: (identifier)
+        right: (string))
+      consequence: (string)
+      alternative: (string))))

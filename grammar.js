@@ -15,8 +15,6 @@ module.exports = grammar({
 
     _statement: $ => choice(
       $.comment,
-      $.doc_comment,
-      $.block_comment,
       $.directive,
       $.hotkey,
       $.hotstring_definition,
@@ -48,21 +46,10 @@ module.exports = grammar({
       $._punctuation,
     ),
 
-    comment: $ => seq(
-      ';',
-      /.*/
-    ),
-
-    block_comment: $ => seq(
-      '/*',
-      /[^*]*\*+([^/*][^*]*\*+)*/,
-      '/'
-    ),
-
-    doc_comment: $ => seq(
-      '/**',
-      /[^*]*\*+([^/*][^*]*\*+)*/,
-      '/'
+    comment: $ => choice(
+      seq(';', /.*/),                                    // line comment
+      seq('/**', /[^*]*\*+([^/*][^*]*\*+)*/, '/'),      // doc comment (must be before block_comment)
+      seq('/*', /[^*]*\*+([^/*][^*]*\*+)*/, '/')        // block comment
     ),
 
     directive: $ => seq(
@@ -320,8 +307,8 @@ module.exports = grammar({
       prec.left(5, seq(field('left', $._expression), '^', field('right', $._expression))),
       // Bitwise AND (precedence 6)
       prec.left(6, seq(field('left', $._expression), '&', field('right', $._expression))),
-      // Equality (precedence 7)
-      prec.left(7, seq(field('left', $._expression), choice('==', '!=', '<>'), field('right', $._expression))),
+      // Equality (precedence 7) - '=' is case-insensitive comparison in AHK v1
+      prec.left(7, seq(field('left', $._expression), choice('=', '==', '!=', '<>'), field('right', $._expression))),
       // Comparison (precedence 8)
       prec.left(8, seq(field('left', $._expression), choice('<', '>', '<=', '>='), field('right', $._expression))),
       // Bitwise shift (precedence 9)
@@ -418,7 +405,7 @@ module.exports = grammar({
       // Assignment
       ':=', '+=', '-=', '*=', '/=', '.=',
       // Comparison
-      '==', '!=', '<>', '>=', '<=', '>', '<',
+      '=', '==', '!=', '<>', '>=', '<=', '>', '<',
       // Arithmetic
       '//', '**', '+', '-', '*', '/', '%',
       // Logical
