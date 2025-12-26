@@ -290,6 +290,7 @@ module.exports = grammar({
       $.number,
       prec(3, $.builtin_variable),
       $.array_literal,
+      $.object_literal,
       $.index_expression,
       $.member_expression,
       $.method_call,
@@ -361,6 +362,24 @@ module.exports = grammar({
       )),
       ']'
     )),
+
+    object_literal: $ => prec(2, seq(
+      '{',
+      optional(seq(
+        $.object_property,
+        repeat(seq(',', $.object_property))
+      )),
+      '}'
+    )),
+
+    object_property: $ => choice(
+      seq(
+        field('key', choice($.identifier, $.string)),
+        ':',
+        field('value', $._expression)
+      ),
+      field('key', $.identifier)
+    ),
 
     index_expression: $ => prec.left(1, seq(
       field('object', choice($.identifier, $.member_expression, $.index_expression)),

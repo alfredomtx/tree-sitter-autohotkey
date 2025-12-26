@@ -85,6 +85,13 @@
 (index_expression "[" @punctuation.bracket)
 (index_expression "]" @punctuation.bracket)
 
+; Object literals
+(object_literal "{" @punctuation.bracket)
+(object_literal "}" @punctuation.bracket)
+(object_property key: (identifier) @property)
+(object_property key: (string) @property)
+(object_property ":" @punctuation.delimiter)
+
 ; Class definitions
 (class_definition "class" @keyword)
 (class_definition "extends" @keyword)

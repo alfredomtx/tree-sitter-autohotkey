@@ -1,0 +1,119 @@
+================================================================================
+Empty object literal
+================================================================================
+
+obj := {}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (assignment_expression
+    left: (identifier)
+    right: (object_literal)))
+
+================================================================================
+Object with single property
+================================================================================
+
+obj := {name: "test"}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (assignment_expression
+    left: (identifier)
+    right: (object_literal
+      (object_property
+        key: (identifier)
+        value: (string)))))
+
+================================================================================
+Object with multiple properties
+================================================================================
+
+obj := {name: "test", value: 42}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (assignment_expression
+    left: (identifier)
+    right: (object_literal
+      (object_property
+        key: (identifier)
+        value: (string))
+      (object_property
+        key: (identifier)
+        value: (number)))))
+
+================================================================================
+Object with string keys
+================================================================================
+
+obj := {"my-key": 1, "another": 2}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (assignment_expression
+    left: (identifier)
+    right: (object_literal
+      (object_property
+        key: (string)
+        value: (number))
+      (object_property
+        key: (string)
+        value: (number)))))
+
+================================================================================
+Object with shorthand property
+================================================================================
+
+obj := {name}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (assignment_expression
+    left: (identifier)
+    right: (object_literal
+      (object_property
+        key: (identifier)))))
+
+================================================================================
+Nested object literal
+================================================================================
+
+obj := {outer: {inner: 1}}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (assignment_expression
+    left: (identifier)
+    right: (object_literal
+      (object_property
+        key: (identifier)
+        value: (object_literal
+          (object_property
+            key: (identifier)
+            value: (number)))))))
+
+================================================================================
+Object with array value
+================================================================================
+
+obj := {items: [1, 2, 3]}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (assignment_expression
+    left: (identifier)
+    right: (object_literal
+      (object_property
+        key: (identifier)
+        value: (array_literal
+          (number)
+          (number)
+          (number))))))
