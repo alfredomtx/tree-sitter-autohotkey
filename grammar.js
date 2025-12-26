@@ -103,10 +103,10 @@ module.exports = grammar({
       token.immediate(':')
     ),
 
-    // Colon pair (like MyGui:Add) - higher precedence than label to prevent
-    // "MyGui:Add" from being parsed as label + identifier during injection
-    // Uses single token to ensure no whitespace between colon and next identifier
-    _colon_pair: $ => token(prec(10, /[a-zA-Z_#@$][a-zA-Z0-9_#@$]*:[a-zA-Z_#@$][a-zA-Z0-9_#@$]*/)),
+    // Colon pair (like MyGui:Add or MyGui:-Caption) - higher precedence than label
+    // to prevent "MyGui:Add" from being parsed as label + identifier during injection
+    // Matches identifier: followed by non-whitespace, non-colon (excludes :: hotkey syntax)
+    _colon_pair: $ => token(prec(10, /[a-zA-Z_#@$][a-zA-Z0-9_#@$]*:[^:\s]+/)),
 
     block: $ => repeat1($._statement),
 
