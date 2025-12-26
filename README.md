@@ -74,7 +74,7 @@ After modifying `grammar.js` or query files:
 5. Delete the `grammars/` folder (Zed's cache)
 6. Reinstall the dev extension in Zed
 
-See [TREE_SITTER_NOTES.md](TREE_SITTER_NOTES.md) for technical details and lessons learned.
+See [TREE_SITTER_NOTES.md](TREE_SITTER_NOTES.md) for technical details, debugging tips, and technical lessons learned.
 
 ## Contributing
 
