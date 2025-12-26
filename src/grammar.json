@@ -941,15 +941,42 @@
       }
     },
     "builtin_variable": {
-      "type": "TOKEN",
-      "content": {
-        "type": "PREC",
-        "value": 3,
-        "content": {
-          "type": "PATTERN",
-          "value": "A_ScriptDir|A_Now|A_TickCount|Clipboard|ErrorLevel"
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "TOKEN",
+          "content": {
+            "type": "PREC",
+            "value": 3,
+            "content": {
+              "type": "PATTERN",
+              "value": "A_ScriptDir|A_Now|A_TickCount"
+            }
+          }
+        },
+        {
+          "type": "TOKEN",
+          "content": {
+            "type": "PREC",
+            "value": 3,
+            "content": {
+              "type": "PATTERN",
+              "value": "A_TimeIdle|A_AhkVersion|A_ComSpec"
+            }
+          }
+        },
+        {
+          "type": "TOKEN",
+          "content": {
+            "type": "PREC",
+            "value": 3,
+            "content": {
+              "type": "PATTERN",
+              "value": "Clipboard|ErrorLevel"
+            }
+          }
         }
-      }
+      ]
     },
     "_punctuation": {
       "type": "PATTERN",

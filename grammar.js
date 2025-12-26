@@ -183,9 +183,12 @@ module.exports = grammar({
     // Explicit low precedence so builtin_variable wins
     identifier: $ => token(prec(-1, /[a-zA-Z_][a-zA-Z0-9_]*/)),
 
-    // MINIMAL TEST - just a few built-in variables to test if rule works at all
-    // Use prec(3) like command_name to ensure precedence over identifier
-    builtin_variable: $ => token(prec(3, /A_ScriptDir|A_Now|A_TickCount|Clipboard|ErrorLevel/)),
+    // Use choice() of multiple token(prec(3,...)) groups - matching command_name structure
+    builtin_variable: $ => choice(
+      token(prec(3, /A_ScriptDir|A_Now|A_TickCount/)),
+      token(prec(3, /A_TimeIdle|A_AhkVersion|A_ComSpec/)),
+      token(prec(3, /Clipboard|ErrorLevel/)),
+    ),
 
     // Remaining punctuation (braces, brackets, parens, dots, commas)
     _punctuation: $ => /[(){}\[\].,@$\\]+/,
