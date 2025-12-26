@@ -180,7 +180,8 @@ module.exports = grammar({
       '?',
     ),
 
-    identifier: $ => /[a-zA-Z_][a-zA-Z0-9_]*/,
+    // Explicit low precedence so builtin_variable wins
+    identifier: $ => token(prec(-1, /[a-zA-Z_][a-zA-Z0-9_]*/)),
 
     // MINIMAL TEST - just a few built-in variables to test if rule works at all
     // Use prec(3) like command_name to ensure precedence over identifier
