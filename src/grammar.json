@@ -1495,9 +1495,224 @@
     "_command_name_pattern": {
       "type": "TOKEN",
       "content": {
-        "type": "PATTERN",
-        "value": "MsgBox|InputBox|ToolTip|TrayTip|Send|SendInput|SendRaw|SendEvent|SendPlay|Sleep|SetTimer|Pause|Suspend|Run|RunWait|Reload|ExitApp|WinActivate|WinWait|WinClose|WinMinimize|WinMaximize|FileRead|FileAppend|FileDelete|FileCopy|FileMove|RegRead|RegWrite|RegDelete|IniRead|IniWrite|Gui|GuiControl|SetWorkingDir|CoordMode|SetFormat|SetBatchLines|SetDefaultMouseSpeed|SetWinDelay|SetControlDelay",
-        "flags": "i"
+        "type": "CHOICE",
+        "members": [
+          {
+            "type": "PATTERN",
+            "value": "MsgBox|InputBox|ToolTip|TrayTip|Progress",
+            "flags": "i"
+          },
+          {
+            "type": "PATTERN",
+            "value": "Gui|GuiControl|GuiControlGet|Menu",
+            "flags": "i"
+          },
+          {
+            "type": "PATTERN",
+            "value": "Send|SendInput|SendRaw|SendEvent|SendPlay|SendLevel",
+            "flags": "i"
+          },
+          {
+            "type": "PATTERN",
+            "value": "Click|MouseClick|MouseClickDrag|MouseGetPos|MouseMove",
+            "flags": "i"
+          },
+          {
+            "type": "PATTERN",
+            "value": "KeyWait|Input|Hotkey",
+            "flags": "i"
+          },
+          {
+            "type": "PATTERN",
+            "value": "Sleep|SetTimer|Pause|Suspend|Thread",
+            "flags": "i"
+          },
+          {
+            "type": "PATTERN",
+            "value": "Run|RunWait|RunAs|Reload|ExitApp|Exit|Shutdown",
+            "flags": "i"
+          },
+          {
+            "type": "PATTERN",
+            "value": "WinActivate|WinActivateBottom|WinWait|WinWaitActive|WinWaitClose",
+            "flags": "i"
+          },
+          {
+            "type": "PATTERN",
+            "value": "WinClose|WinKill|WinMinimize|WinMaximize|WinRestore",
+            "flags": "i"
+          },
+          {
+            "type": "PATTERN",
+            "value": "WinMinimizeAll|WinMinimizeAllUndo|WinHide|WinShow|WinMove",
+            "flags": "i"
+          },
+          {
+            "type": "PATTERN",
+            "value": "WinSet|WinSetTitle|WinMenuSelectItem",
+            "flags": "i"
+          },
+          {
+            "type": "PATTERN",
+            "value": "Control|ControlClick|ControlFocus|ControlGet|ControlGetFocus",
+            "flags": "i"
+          },
+          {
+            "type": "PATTERN",
+            "value": "ControlGetPos|ControlGetText|ControlMove|ControlSend|ControlSendRaw|ControlSetText",
+            "flags": "i"
+          },
+          {
+            "type": "PATTERN",
+            "value": "FileRead|FileReadLine|FileAppend|FileDelete|FileCopy|FileMove",
+            "flags": "i"
+          },
+          {
+            "type": "PATTERN",
+            "value": "FileCopyDir|FileMoveDir|FileCreateDir|FileRemoveDir",
+            "flags": "i"
+          },
+          {
+            "type": "PATTERN",
+            "value": "FileCreateShortcut|FileGetShortcut|FileGetAttrib|FileSetAttrib",
+            "flags": "i"
+          },
+          {
+            "type": "PATTERN",
+            "value": "FileGetSize|FileGetTime|FileGetVersion|FileSetTime",
+            "flags": "i"
+          },
+          {
+            "type": "PATTERN",
+            "value": "FileSelectFile|FileSelectFolder|FileRecycle|FileRecycleEmpty",
+            "flags": "i"
+          },
+          {
+            "type": "PATTERN",
+            "value": "RegRead|RegWrite|RegDelete|IniRead|IniWrite|IniDelete",
+            "flags": "i"
+          },
+          {
+            "type": "PATTERN",
+            "value": "StringCaseSense|StringGetPos|StringLeft|StringRight|StringMid",
+            "flags": "i"
+          },
+          {
+            "type": "PATTERN",
+            "value": "StringLower|StringUpper|StringLen|StringReplace|StringSplit",
+            "flags": "i"
+          },
+          {
+            "type": "PATTERN",
+            "value": "StringTrimLeft|StringTrimRight",
+            "flags": "i"
+          },
+          {
+            "type": "PATTERN",
+            "value": "IfEqual|IfNotEqual|IfLess|IfLessOrEqual|IfGreater|IfGreaterOrEqual",
+            "flags": "i"
+          },
+          {
+            "type": "PATTERN",
+            "value": "IfExist|IfNotExist|IfInString|IfNotInString|IfMsgBox",
+            "flags": "i"
+          },
+          {
+            "type": "PATTERN",
+            "value": "IfWinExist|IfWinNotExist|IfWinActive|IfWinNotActive",
+            "flags": "i"
+          },
+          {
+            "type": "PATTERN",
+            "value": "SetWorkingDir|CoordMode|SetFormat|SetBatchLines",
+            "flags": "i"
+          },
+          {
+            "type": "PATTERN",
+            "value": "SetDefaultMouseSpeed|SetWinDelay|SetControlDelay|SetKeyDelay|SetMouseDelay",
+            "flags": "i"
+          },
+          {
+            "type": "PATTERN",
+            "value": "SetTitleMatchMode|SetRegView|SetStoreCapsLockMode",
+            "flags": "i"
+          },
+          {
+            "type": "PATTERN",
+            "value": "SetCapsLockState|SetNumLockState|SetScrollLockState",
+            "flags": "i"
+          },
+          {
+            "type": "PATTERN",
+            "value": "AutoTrim|DetectHiddenWindows|DetectHiddenText",
+            "flags": "i"
+          },
+          {
+            "type": "PATTERN",
+            "value": "SoundBeep|SoundGet|SoundPlay|SoundSet",
+            "flags": "i"
+          },
+          {
+            "type": "PATTERN",
+            "value": "GroupActivate|GroupAdd|GroupClose|GroupDeactivate",
+            "flags": "i"
+          },
+          {
+            "type": "PATTERN",
+            "value": "BlockInput|Drive|DriveGet|DriveSpaceFree",
+            "flags": "i"
+          },
+          {
+            "type": "PATTERN",
+            "value": "Edit|KeyHistory|ListHotkeys|ListLines|ListVars",
+            "flags": "i"
+          },
+          {
+            "type": "PATTERN",
+            "value": "Process|Random|Sort|Transform|UrlDownloadToFile",
+            "flags": "i"
+          },
+          {
+            "type": "PATTERN",
+            "value": "ClipWait|EnvGet|EnvSet|EnvUpdate|FormatTime",
+            "flags": "i"
+          },
+          {
+            "type": "PATTERN",
+            "value": "SplitPath|StatusBarGetText|StatusBarWait",
+            "flags": "i"
+          },
+          {
+            "type": "PATTERN",
+            "value": "SysGet|WinGet|WinGetActiveStats|WinGetActiveTitle",
+            "flags": "i"
+          },
+          {
+            "type": "PATTERN",
+            "value": "WinGetClass|WinGetPos|WinGetText|WinGetTitle",
+            "flags": "i"
+          },
+          {
+            "type": "PATTERN",
+            "value": "PostMessage|SendMessage|OnMessage",
+            "flags": "i"
+          },
+          {
+            "type": "PATTERN",
+            "value": "DllCall|NumGet|NumPut|VarSetCapacity",
+            "flags": "i"
+          },
+          {
+            "type": "PATTERN",
+            "value": "ComObjCreate|ComObjGet|ComObjConnect|ComObjError",
+            "flags": "i"
+          },
+          {
+            "type": "PATTERN",
+            "value": "ObjAddRef|ObjRelease|ObjBindMethod|ObjRawSet",
+            "flags": "i"
+          }
+        ]
       }
     },
     "command_arguments": {

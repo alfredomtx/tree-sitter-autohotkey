@@ -294,9 +294,65 @@ module.exports = grammar({
     // Internal pattern for command names - only used within command rule
     // Case-insensitive (/i) because AutoHotkey is case-insensitive
     // Note: Goto and Gosub excluded - they're handled by the keyword rule since they work without comma
-    _command_name_pattern: $ => token(
-      /MsgBox|InputBox|ToolTip|TrayTip|Send|SendInput|SendRaw|SendEvent|SendPlay|Sleep|SetTimer|Pause|Suspend|Run|RunWait|Reload|ExitApp|WinActivate|WinWait|WinClose|WinMinimize|WinMaximize|FileRead|FileAppend|FileDelete|FileCopy|FileMove|RegRead|RegWrite|RegDelete|IniRead|IniWrite|Gui|GuiControl|SetWorkingDir|CoordMode|SetFormat|SetBatchLines|SetDefaultMouseSpeed|SetWinDelay|SetControlDelay/i
-    ),
+    // Groups kept small (~5 items) to avoid WASM compilation issues per TREE_SITTER_NOTES.md
+    _command_name_pattern: $ => token(choice(
+      // GUI/Dialog commands
+      /MsgBox|InputBox|ToolTip|TrayTip|Progress/i,
+      /Gui|GuiControl|GuiControlGet|Menu/i,
+      // Input/Output commands
+      /Send|SendInput|SendRaw|SendEvent|SendPlay|SendLevel/i,
+      /Click|MouseClick|MouseClickDrag|MouseGetPos|MouseMove/i,
+      /KeyWait|Input|Hotkey/i,
+      // Flow control commands
+      /Sleep|SetTimer|Pause|Suspend|Thread/i,
+      /Run|RunWait|RunAs|Reload|ExitApp|Exit|Shutdown/i,
+      // Window management commands
+      /WinActivate|WinActivateBottom|WinWait|WinWaitActive|WinWaitClose/i,
+      /WinClose|WinKill|WinMinimize|WinMaximize|WinRestore/i,
+      /WinMinimizeAll|WinMinimizeAllUndo|WinHide|WinShow|WinMove/i,
+      /WinSet|WinSetTitle|WinMenuSelectItem/i,
+      // Control commands
+      /Control|ControlClick|ControlFocus|ControlGet|ControlGetFocus/i,
+      /ControlGetPos|ControlGetText|ControlMove|ControlSend|ControlSendRaw|ControlSetText/i,
+      // File operations commands
+      /FileRead|FileReadLine|FileAppend|FileDelete|FileCopy|FileMove/i,
+      /FileCopyDir|FileMoveDir|FileCreateDir|FileRemoveDir/i,
+      /FileCreateShortcut|FileGetShortcut|FileGetAttrib|FileSetAttrib/i,
+      /FileGetSize|FileGetTime|FileGetVersion|FileSetTime/i,
+      /FileSelectFile|FileSelectFolder|FileRecycle|FileRecycleEmpty/i,
+      // Registry and INI commands
+      /RegRead|RegWrite|RegDelete|IniRead|IniWrite|IniDelete/i,
+      // String manipulation commands (legacy)
+      /StringCaseSense|StringGetPos|StringLeft|StringRight|StringMid/i,
+      /StringLower|StringUpper|StringLen|StringReplace|StringSplit/i,
+      /StringTrimLeft|StringTrimRight/i,
+      // Legacy conditional commands
+      /IfEqual|IfNotEqual|IfLess|IfLessOrEqual|IfGreater|IfGreaterOrEqual/i,
+      /IfExist|IfNotExist|IfInString|IfNotInString|IfMsgBox/i,
+      /IfWinExist|IfWinNotExist|IfWinActive|IfWinNotActive/i,
+      // Configuration commands
+      /SetWorkingDir|CoordMode|SetFormat|SetBatchLines/i,
+      /SetDefaultMouseSpeed|SetWinDelay|SetControlDelay|SetKeyDelay|SetMouseDelay/i,
+      /SetTitleMatchMode|SetRegView|SetStoreCapsLockMode/i,
+      /SetCapsLockState|SetNumLockState|SetScrollLockState/i,
+      /AutoTrim|DetectHiddenWindows|DetectHiddenText/i,
+      // Sound commands
+      /SoundBeep|SoundGet|SoundPlay|SoundSet/i,
+      // Group commands
+      /GroupActivate|GroupAdd|GroupClose|GroupDeactivate/i,
+      // Other commands
+      /BlockInput|Drive|DriveGet|DriveSpaceFree/i,
+      /Edit|KeyHistory|ListHotkeys|ListLines|ListVars/i,
+      /Process|Random|Sort|Transform|UrlDownloadToFile/i,
+      /ClipWait|EnvGet|EnvSet|EnvUpdate|FormatTime/i,
+      /SplitPath|StatusBarGetText|StatusBarWait/i,
+      /SysGet|WinGet|WinGetActiveStats|WinGetActiveTitle/i,
+      /WinGetClass|WinGetPos|WinGetText|WinGetTitle/i,
+      /PostMessage|SendMessage|OnMessage/i,
+      /DllCall|NumGet|NumPut|VarSetCapacity/i,
+      /ComObjCreate|ComObjGet|ComObjConnect|ComObjError/i,
+      /ObjAddRef|ObjRelease|ObjBindMethod|ObjRawSet/i,
+    )),
 
     // Single-line token to prevent commands from spanning lines
     // prec(15) ensures this wins over _colon_pair (prec 10) for patterns like "Gui, MyGui:Add"
