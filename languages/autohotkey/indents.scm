@@ -1,3 +1,2 @@
-; Function body indentation
-(function_definition "{" @indent)
-(function_definition "}" @outdent)
+; Function body indentation (Zed style: @indent on node, @end on closing brace)
+(function_definition "}" @end) @indent
