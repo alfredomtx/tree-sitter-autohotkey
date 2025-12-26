@@ -59,3 +59,7 @@ After modifying `grammar.js`, `highlights.scm`, or any grammar-related file:
 ## Tree-sitter Technical Details
 
 See [TREE_SITTER_NOTES.md](TREE_SITTER_NOTES.md) for grammar pitfalls, debugging tips, and technical lessons learned.
+
+# Taskmaster
+
+@.taskmaster/CLAUDE.md
