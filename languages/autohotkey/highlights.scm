@@ -25,6 +25,10 @@
 (loop_statement "loop" @keyword)
 (for_statement "for" @keyword)
 (for_statement "in" @keyword)
+(try_statement "try" @keyword)
+(catch_clause "catch" @keyword)
+(catch_clause exception: (identifier) @variable.parameter)
+(finally_clause "finally" @keyword)
 
 ; Statement blocks
 (statement_block "{" @punctuation.bracket)

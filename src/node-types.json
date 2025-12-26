@@ -198,6 +198,10 @@
           "named": true
         },
         {
+          "type": "try_statement",
+          "named": true
+        },
+        {
           "type": "while_statement",
           "named": true
         }
@@ -213,6 +217,32 @@
     "type": "builtin_variable",
     "named": true,
     "fields": {}
+  },
+  {
+    "type": "catch_clause",
+    "named": true,
+    "fields": {
+      "body": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "statement_block",
+            "named": true
+          }
+        ]
+      },
+      "exception": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    }
   },
   {
     "type": "command",
@@ -305,6 +335,22 @@
           "named": true
         }
       ]
+    }
+  },
+  {
+    "type": "finally_clause",
+    "named": true,
+    "fields": {
+      "body": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "statement_block",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -903,6 +949,10 @@
           "named": true
         },
         {
+          "type": "try_statement",
+          "named": true
+        },
+        {
           "type": "while_statement",
           "named": true
         }
@@ -934,6 +984,36 @@
       "types": [
         {
           "type": "escape_sequence",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "try_statement",
+    "named": true,
+    "fields": {
+      "body": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "statement_block",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "catch_clause",
+          "named": true
+        },
+        {
+          "type": "finally_clause",
           "named": true
         }
       ]

@@ -109,6 +109,53 @@ if (outer) {
     }
 }
 
+; === Try/Catch/Finally ===
+; Simple try block
+try {
+    RiskyOperation()
+}
+
+; Try with catch
+try {
+    MightFail()
+} catch e {
+    HandleError(e)
+}
+
+; Try with finally
+try {
+    AcquireResource()
+} finally {
+    ReleaseResource()
+}
+
+; Try with both catch and finally
+try {
+    DoWork()
+} catch err {
+    LogError(err)
+} finally {
+    Cleanup()
+}
+
+; Catch without exception variable
+try {
+    x := 1
+} catch {
+    MsgBox, Something went wrong
+}
+
+; Nested try blocks
+try {
+    try {
+        InnerRisky()
+    } catch inner {
+        throw
+    }
+} catch outer {
+    LogError(outer)
+}
+
 ; === Operators ===
 ; Assignment
 a := 1

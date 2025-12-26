@@ -26,6 +26,7 @@ module.exports = grammar({
       $.while_statement,
       $.loop_statement,
       $.for_statement,
+      $.try_statement,
       $.method_call,
       $.member_expression,
       $.index_expression,
@@ -118,6 +119,24 @@ module.exports = grammar({
       optional(seq(',', field('value', $.identifier))),
       'in',
       field('collection', $._expression),
+      field('body', $.statement_block)
+    ),
+
+    try_statement: $ => seq(
+      'try',
+      field('body', $.statement_block),
+      optional($.catch_clause),
+      optional($.finally_clause)
+    ),
+
+    catch_clause: $ => seq(
+      'catch',
+      optional(field('exception', $.identifier)),
+      field('body', $.statement_block)
+    ),
+
+    finally_clause: $ => seq(
+      'finally',
       field('body', $.statement_block)
     ),
 
@@ -253,7 +272,7 @@ module.exports = grammar({
       'return', 'break', 'continue', 'goto', 'gosub',
       'class', 'extends',
       'global', 'local', 'static',
-      'try', 'catch', 'finally', 'throw',
+      'throw',
       'new', 'true', 'false',
       'and', 'or', 'not',
     ),

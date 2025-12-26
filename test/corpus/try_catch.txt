@@ -1,0 +1,195 @@
+================================================================================
+Simple try block
+================================================================================
+
+try {
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (try_statement
+    body: (statement_block)))
+
+================================================================================
+Try with catch and exception variable
+================================================================================
+
+try {
+    risky()
+} catch e {
+    handle(e)
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (try_statement
+    body: (statement_block
+      (block
+        (function_call
+          name: (identifier))))
+    (catch_clause
+      exception: (identifier)
+      body: (statement_block
+        (block
+          (function_call
+            name: (identifier)
+            (argument_list
+              (identifier))))))))
+
+================================================================================
+Try with finally
+================================================================================
+
+try {
+    risky()
+} finally {
+    cleanup()
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (try_statement
+    body: (statement_block
+      (block
+        (function_call
+          name: (identifier))))
+    (finally_clause
+      body: (statement_block
+        (block
+          (function_call
+            name: (identifier)))))))
+
+================================================================================
+Try with catch and finally
+================================================================================
+
+try {
+    risky()
+} catch e {
+    handle(e)
+} finally {
+    cleanup()
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (try_statement
+    body: (statement_block
+      (block
+        (function_call
+          name: (identifier))))
+    (catch_clause
+      exception: (identifier)
+      body: (statement_block
+        (block
+          (function_call
+            name: (identifier)
+            (argument_list
+              (identifier))))))
+    (finally_clause
+      body: (statement_block
+        (block
+          (function_call
+            name: (identifier)))))))
+
+================================================================================
+Catch without exception variable
+================================================================================
+
+try {
+    x := 1
+} catch {
+    MsgBox, Error
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (try_statement
+    body: (statement_block
+      (block
+        (identifier)
+        (operator)
+        (number)))
+    (catch_clause
+      body: (statement_block
+        (block
+          (command
+            name: (command_name)
+            (command_arguments)))))))
+
+================================================================================
+Nested try blocks
+================================================================================
+
+try {
+    try {
+        inner()
+    } catch e {
+        throw
+    }
+} catch outer {
+    log(outer)
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (try_statement
+    body: (statement_block
+      (block
+        (try_statement
+          body: (statement_block
+            (block
+              (function_call
+                name: (identifier))))
+          (catch_clause
+            exception: (identifier)
+            body: (statement_block
+              (block
+                (keyword)))))))
+    (catch_clause
+      exception: (identifier)
+      body: (statement_block
+        (block
+          (function_call
+            name: (identifier)
+            (argument_list
+              (identifier))))))))
+
+================================================================================
+Try inside function
+================================================================================
+
+SafeCall() {
+    try {
+        DoWork()
+    } catch {
+        return false
+    }
+    return true
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (function_definition
+    name: (identifier)
+    body: (block
+      (try_statement
+        body: (statement_block
+          (block
+            (function_call
+              name: (identifier))))
+        (catch_clause
+          body: (statement_block
+            (block
+              (keyword)
+              (keyword)))))
+      (keyword)
+      (keyword))))
+
