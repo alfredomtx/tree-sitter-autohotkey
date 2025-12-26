@@ -1272,8 +1272,15 @@
       }
     },
     "command_arguments": {
-      "type": "PATTERN",
-      "value": "[^\\r\\n]+"
+      "type": "TOKEN",
+      "content": {
+        "type": "PREC",
+        "value": 15,
+        "content": {
+          "type": "PATTERN",
+          "value": "[^\\r\\n]+"
+        }
+      }
     },
     "variable_ref": {
       "type": "SEQ",

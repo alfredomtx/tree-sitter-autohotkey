@@ -258,8 +258,9 @@ module.exports = grammar({
     ),
 
     // Single-line token to prevent commands from spanning lines
-    // Variable refs (%var%) are highlighted via #match? in highlights.scm
-    command_arguments: $ => /[^\r\n]+/,
+    // prec(15) ensures this wins over _colon_pair (prec 10) for patterns like "Gui, MyGui:Add"
+    // Variable refs (%var%) are highlighted via injection in injections.scm
+    command_arguments: $ => token(prec(15, /[^\r\n]+/)),
 
     variable_ref: $ => seq('%', choice(prec(3, $.builtin_variable), $.identifier), '%'),
 
