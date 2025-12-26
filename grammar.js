@@ -32,7 +32,6 @@ module.exports = grammar({
       $.string,
       $.number,
       $.keyword,
-      prec(2, $.variable_ref),
       $.operator,
       prec(3, $.builtin_variable),
       $.identifier,
@@ -139,7 +138,7 @@ module.exports = grammar({
       /[^\s,\n%"']+/,
     ))),
 
-    variable_ref: $ => prec(4, seq('%', choice(prec(3, $.builtin_variable), $.identifier), '%')),
+    variable_ref: $ => seq('%', choice(prec(3, $.builtin_variable), $.identifier), '%'),
 
     parameter_list: $ => seq(
       $.parameter,

@@ -306,10 +306,6 @@
         {
           "type": "string",
           "named": true
-        },
-        {
-          "type": "variable_ref",
-          "named": true
         }
       ]
     }
@@ -626,10 +622,6 @@
         },
         {
           "type": "string",
-          "named": true
-        },
-        {
-          "type": "variable_ref",
           "named": true
         }
       ]
