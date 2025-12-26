@@ -7,9 +7,9 @@ arr := []
 --------------------------------------------------------------------------------
 
 (source_file
-  (identifier)
-  (operator)
-  (array_literal))
+  (assignment_expression
+    left: (identifier)
+    right: (array_literal)))
 
 ================================================================================
 Simple array literal
@@ -20,12 +20,12 @@ arr := [1, 2, 3]
 --------------------------------------------------------------------------------
 
 (source_file
-  (identifier)
-  (operator)
-  (array_literal
-    (number)
-    (number)
-    (number)))
+  (assignment_expression
+    left: (identifier)
+    right: (array_literal
+      (number)
+      (number)
+      (number))))
 
 ================================================================================
 Array with strings
@@ -36,12 +36,12 @@ arr := ["a", "b", "c"]
 --------------------------------------------------------------------------------
 
 (source_file
-  (identifier)
-  (operator)
-  (array_literal
-    (string)
-    (string)
-    (string)))
+  (assignment_expression
+    left: (identifier)
+    right: (array_literal
+      (string)
+      (string)
+      (string))))
 
 ================================================================================
 Nested array
@@ -52,15 +52,15 @@ arr := [[1, 2], [3, 4]]
 --------------------------------------------------------------------------------
 
 (source_file
-  (identifier)
-  (operator)
-  (array_literal
-    (array_literal
-      (number)
-      (number))
-    (array_literal
-      (number)
-      (number))))
+  (assignment_expression
+    left: (identifier)
+    right: (array_literal
+      (array_literal
+        (number)
+        (number))
+      (array_literal
+        (number)
+        (number)))))
 
 ================================================================================
 Array access
@@ -71,11 +71,11 @@ x := arr[1]
 --------------------------------------------------------------------------------
 
 (source_file
-  (identifier)
-  (operator)
-  (index_expression
-    object: (identifier)
-    index: (number)))
+  (assignment_expression
+    left: (identifier)
+    right: (index_expression
+      object: (identifier)
+      index: (number))))
 
 ================================================================================
 Nested array access
@@ -86,13 +86,13 @@ x := arr[1][2]
 --------------------------------------------------------------------------------
 
 (source_file
-  (identifier)
-  (operator)
-  (index_expression
-    object: (index_expression
-      object: (identifier)
-      index: (number))
-    index: (number)))
+  (assignment_expression
+    left: (identifier)
+    right: (index_expression
+      object: (index_expression
+        object: (identifier)
+        index: (number))
+      index: (number))))
 
 ================================================================================
 Member with array access
@@ -103,10 +103,10 @@ x := obj.items[0]
 --------------------------------------------------------------------------------
 
 (source_file
-  (identifier)
-  (operator)
-  (index_expression
-    object: (member_expression
-      object: (identifier)
-      property: (identifier))
-    index: (number)))
+  (assignment_expression
+    left: (identifier)
+    right: (index_expression
+      object: (member_expression
+        object: (identifier)
+        property: (identifier))
+      index: (number))))

@@ -29,6 +29,8 @@ module.exports = grammar({
       $.loop_statement,
       $.for_statement,
       $.try_statement,
+      // Expressions that can appear at statement level
+      $.assignment_expression,
       $.method_call,
       $.member_expression,
       $.index_expression,
@@ -269,7 +271,7 @@ module.exports = grammar({
 
     parameter: $ => seq(
       $.identifier,
-      optional(seq(':=', $._expression))
+      optional(prec(5, seq(':=', $._expression)))
     ),
 
     argument_list: $ => seq(
@@ -278,6 +280,10 @@ module.exports = grammar({
     ),
 
     _expression: $ => choice(
+      $.ternary_expression,
+      $.binary_expression,
+      $.unary_expression,
+      $.assignment_expression,
       $.this_expression,
       $.base_expression,
       $.string,
@@ -291,6 +297,58 @@ module.exports = grammar({
       $.function_call,
       $.parenthesized_expression,
     ),
+
+    // Ternary expression: condition ? consequence : alternative
+    ternary_expression: $ => prec.right(1, seq(
+      field('condition', $._expression),
+      '?',
+      field('consequence', $._expression),
+      ':',
+      field('alternative', $._expression)
+    )),
+
+    // Binary expressions with operator precedence
+    binary_expression: $ => choice(
+      // Logical OR (precedence 2)
+      prec.left(2, seq(field('left', $._expression), choice('||', 'or'), field('right', $._expression))),
+      // Logical AND (precedence 3)
+      prec.left(3, seq(field('left', $._expression), choice('&&', 'and'), field('right', $._expression))),
+      // Bitwise OR (precedence 4)
+      prec.left(4, seq(field('left', $._expression), '|', field('right', $._expression))),
+      // Bitwise XOR (precedence 5)
+      prec.left(5, seq(field('left', $._expression), '^', field('right', $._expression))),
+      // Bitwise AND (precedence 6)
+      prec.left(6, seq(field('left', $._expression), '&', field('right', $._expression))),
+      // Equality (precedence 7)
+      prec.left(7, seq(field('left', $._expression), choice('==', '!=', '<>'), field('right', $._expression))),
+      // Comparison (precedence 8)
+      prec.left(8, seq(field('left', $._expression), choice('<', '>', '<=', '>='), field('right', $._expression))),
+      // Bitwise shift (precedence 9)
+      prec.left(9, seq(field('left', $._expression), choice('<<', '>>'), field('right', $._expression))),
+      // Addition/Subtraction (precedence 10)
+      prec.left(10, seq(field('left', $._expression), choice('+', '-'), field('right', $._expression))),
+      // Multiplication/Division (precedence 11)
+      prec.left(11, seq(field('left', $._expression), choice('*', '/', '//', '%'), field('right', $._expression))),
+      // Concatenation (precedence 10) - member_expression uses token.immediate('.') so obj.prop won't match
+      prec.left(10, seq(field('left', $._expression), '.', field('right', $._expression))),
+      // Power (precedence 12, RIGHT associative)
+      prec.right(12, seq(field('left', $._expression), '**', field('right', $._expression))),
+    ),
+
+    // Unary expressions
+    unary_expression: $ => prec(13, choice(
+      seq('!', $._expression),
+      seq('not', $._expression),
+      seq('~', $._expression),
+      seq('-', $._expression),
+    )),
+
+    // Assignment expression - higher precedence than standalone identifier (-1) to resolve shift/reduce conflict
+    assignment_expression: $ => prec.right(1, seq(
+      field('left', choice($.identifier, $.member_expression, $.index_expression)),
+      field('operator', choice(':=', '+=', '-=', '*=', '/=', '.=')),
+      field('right', $._expression)
+    )),
 
     this_expression: $ => 'this',
     base_expression: $ => 'base',
@@ -330,11 +388,11 @@ module.exports = grammar({
     keyword: $ => choice(
       // Control flow keywords (if, else, while, loop, for) now have dedicated rules
       // Class keywords (class, extends) now have dedicated rules
+      // Logical keywords (and, or, not) now handled in binary/unary expressions
       'return', 'break', 'continue', 'goto', 'gosub',
       'global', 'local', 'static',
       'throw',
       'new', 'true', 'false',
-      'and', 'or', 'not',
     ),
 
     operator: $ => choice(

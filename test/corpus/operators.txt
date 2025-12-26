@@ -7,9 +7,9 @@ x := 1
 --------------------------------------------------------------------------------
 
 (source_file
-  (identifier)
-  (operator)
-  (number))
+  (assignment_expression
+    left: (identifier)
+    right: (number)))
 
 ================================================================================
 Add-assign operator
@@ -20,9 +20,9 @@ x += 1
 --------------------------------------------------------------------------------
 
 (source_file
-  (identifier)
-  (operator)
-  (number))
+  (assignment_expression
+    left: (identifier)
+    right: (number)))
 
 ================================================================================
 Subtract-assign operator
@@ -33,9 +33,9 @@ x -= 1
 --------------------------------------------------------------------------------
 
 (source_file
-  (identifier)
-  (operator)
-  (number))
+  (assignment_expression
+    left: (identifier)
+    right: (number)))
 
 ================================================================================
 Multiply-assign operator
@@ -46,9 +46,9 @@ x *= 2
 --------------------------------------------------------------------------------
 
 (source_file
-  (identifier)
-  (operator)
-  (number))
+  (assignment_expression
+    left: (identifier)
+    right: (number)))
 
 ================================================================================
 Divide-assign operator
@@ -59,9 +59,9 @@ x /= 2
 --------------------------------------------------------------------------------
 
 (source_file
-  (identifier)
-  (operator)
-  (number))
+  (assignment_expression
+    left: (identifier)
+    right: (number)))
 
 ================================================================================
 Concat-assign operator
@@ -72,316 +72,188 @@ x .= "text"
 --------------------------------------------------------------------------------
 
 (source_file
-  (identifier)
-  (operator)
-  (string))
+  (assignment_expression
+    left: (identifier)
+    right: (string)))
 
 ================================================================================
-Equality operator
+Equality in assignment
 ================================================================================
 
-x == y
+result := x == y
 
 --------------------------------------------------------------------------------
 
 (source_file
-  (identifier)
-  (operator)
-  (identifier))
+  (assignment_expression
+    left: (identifier)
+    right: (binary_expression
+      left: (identifier)
+      right: (identifier))))
 
 ================================================================================
-Not equal operator
+Comparison in assignment
 ================================================================================
 
-x != y
+result := x > y
 
 --------------------------------------------------------------------------------
 
 (source_file
-  (identifier)
-  (operator)
-  (identifier))
+  (assignment_expression
+    left: (identifier)
+    right: (binary_expression
+      left: (identifier)
+      right: (identifier))))
 
 ================================================================================
-Not equal alt operator
+Addition in assignment
 ================================================================================
 
-x <> y
+result := x + y
 
 --------------------------------------------------------------------------------
 
 (source_file
-  (identifier)
-  (operator)
-  (identifier))
+  (assignment_expression
+    left: (identifier)
+    right: (binary_expression
+      left: (identifier)
+      right: (identifier))))
 
 ================================================================================
-Greater than operator
+Logical AND in assignment
 ================================================================================
 
-x > y
+result := x && y
 
 --------------------------------------------------------------------------------
 
 (source_file
-  (identifier)
-  (operator)
-  (identifier))
+  (assignment_expression
+    left: (identifier)
+    right: (binary_expression
+      left: (identifier)
+      right: (identifier))))
 
 ================================================================================
-Less than operator
+Logical OR in assignment
 ================================================================================
 
-x < y
+result := x || y
 
 --------------------------------------------------------------------------------
 
 (source_file
-  (identifier)
-  (operator)
-  (identifier))
+  (assignment_expression
+    left: (identifier)
+    right: (binary_expression
+      left: (identifier)
+      right: (identifier))))
 
 ================================================================================
-Greater or equal operator
+Logical NOT in assignment
 ================================================================================
 
-x >= y
+result := !x
 
 --------------------------------------------------------------------------------
 
 (source_file
-  (identifier)
-  (operator)
-  (identifier))
+  (assignment_expression
+    left: (identifier)
+    right: (unary_expression
+      (identifier))))
 
 ================================================================================
-Less or equal operator
+Bitwise NOT in assignment
 ================================================================================
 
-x <= y
+result := ~x
 
 --------------------------------------------------------------------------------
 
 (source_file
-  (identifier)
-  (operator)
-  (identifier))
+  (assignment_expression
+    left: (identifier)
+    right: (unary_expression
+      (identifier))))
 
 ================================================================================
-Addition operator
+Unary negation in assignment
 ================================================================================
 
-x + y
+result := -x
 
 --------------------------------------------------------------------------------
 
 (source_file
-  (identifier)
-  (operator)
-  (identifier))
+  (assignment_expression
+    left: (identifier)
+    right: (unary_expression
+      (identifier))))
 
 ================================================================================
-Subtraction operator
+Ternary expression
 ================================================================================
 
-x - y
+result := x ? "yes" : "no"
 
 --------------------------------------------------------------------------------
 
 (source_file
-  (identifier)
-  (operator)
-  (identifier))
+  (assignment_expression
+    left: (identifier)
+    right: (ternary_expression
+      condition: (identifier)
+      consequence: (string)
+      alternative: (string))))
 
 ================================================================================
-Multiplication operator
+Binary expression precedence (multiply before add)
 ================================================================================
 
-x * y
+x := a + b * c
 
 --------------------------------------------------------------------------------
 
 (source_file
-  (identifier)
-  (operator)
-  (identifier))
+  (assignment_expression
+    left: (identifier)
+    right: (binary_expression
+      left: (identifier)
+      right: (binary_expression
+        left: (identifier)
+        right: (identifier)))))
 
 ================================================================================
-Division operator
+Power operator (right associative)
 ================================================================================
 
-x / y
+result := a ** b ** c
 
 --------------------------------------------------------------------------------
 
 (source_file
-  (identifier)
-  (operator)
-  (identifier))
+  (assignment_expression
+    left: (identifier)
+    right: (binary_expression
+      left: (identifier)
+      right: (binary_expression
+        left: (identifier)
+        right: (identifier)))))
 
 ================================================================================
-Integer division operator
+Chained assignment
 ================================================================================
 
-x // y
+x := y := 1
 
 --------------------------------------------------------------------------------
 
 (source_file
-  (identifier)
-  (operator)
-  (identifier))
-
-================================================================================
-Power operator
-================================================================================
-
-x ** y
-
---------------------------------------------------------------------------------
-
-(source_file
-  (identifier)
-  (operator)
-  (identifier))
-
-================================================================================
-Modulo operator
-================================================================================
-
-x % y
-
---------------------------------------------------------------------------------
-
-(source_file
-  (identifier)
-  (operator)
-  (identifier))
-
-================================================================================
-Logical AND operator
-================================================================================
-
-x && y
-
---------------------------------------------------------------------------------
-
-(source_file
-  (identifier)
-  (operator)
-  (identifier))
-
-================================================================================
-Logical OR operator
-================================================================================
-
-x || y
-
---------------------------------------------------------------------------------
-
-(source_file
-  (identifier)
-  (operator)
-  (identifier))
-
-================================================================================
-Logical NOT operator
-================================================================================
-
-!x
-
---------------------------------------------------------------------------------
-
-(source_file
-  (operator)
-  (identifier))
-
-================================================================================
-Right shift operator
-================================================================================
-
-x >> y
-
---------------------------------------------------------------------------------
-
-(source_file
-  (identifier)
-  (operator)
-  (identifier))
-
-================================================================================
-Left shift operator
-================================================================================
-
-x << y
-
---------------------------------------------------------------------------------
-
-(source_file
-  (identifier)
-  (operator)
-  (identifier))
-
-================================================================================
-Bitwise AND operator
-================================================================================
-
-x & y
-
---------------------------------------------------------------------------------
-
-(source_file
-  (identifier)
-  (operator)
-  (identifier))
-
-================================================================================
-Bitwise OR operator
-================================================================================
-
-x | y
-
---------------------------------------------------------------------------------
-
-(source_file
-  (identifier)
-  (operator)
-  (identifier))
-
-================================================================================
-Bitwise XOR operator
-================================================================================
-
-x ^ y
-
---------------------------------------------------------------------------------
-
-(source_file
-  (identifier)
-  (operator)
-  (identifier))
-
-================================================================================
-Bitwise NOT operator
-================================================================================
-
-~x
-
---------------------------------------------------------------------------------
-
-(source_file
-  (operator)
-  (identifier))
-
-================================================================================
-Ternary question mark
-================================================================================
-
-x ? y
-
---------------------------------------------------------------------------------
-
-(source_file
-  (identifier)
-  (operator)
-  (identifier))
+  (assignment_expression
+    left: (identifier)
+    right: (assignment_expression
+      left: (identifier)
+      right: (number))))

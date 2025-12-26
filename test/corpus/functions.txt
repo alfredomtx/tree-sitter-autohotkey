@@ -79,9 +79,9 @@ MyFunc() {
   (function_definition
     name: (identifier)
     body: (block
-      (identifier)
-      (operator)
-      (number)
+      (assignment_expression
+        left: (identifier)
+        right: (number))
       (keyword))))
 
 ================================================================================

@@ -18,9 +18,9 @@ x := 1 ; inline comment
 --------------------------------------------------------------------------------
 
 (source_file
-  (identifier)
-  (operator)
-  (number)
+  (assignment_expression
+    left: (identifier)
+    right: (number))
   (comment))
 
 ================================================================================

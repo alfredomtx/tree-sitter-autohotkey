@@ -106,9 +106,9 @@ x := 42
 --------------------------------------------------------------------------------
 
 (source_file
-  (identifier)
-  (operator)
-  (number))
+  (assignment_expression
+    left: (identifier)
+    right: (number)))
 
 ================================================================================
 Multiple numbers
@@ -121,12 +121,12 @@ c := 0xFF
 --------------------------------------------------------------------------------
 
 (source_file
-  (identifier)
-  (operator)
-  (number)
-  (identifier)
-  (operator)
-  (number)
-  (identifier)
-  (operator)
-  (number))
+  (assignment_expression
+    left: (identifier)
+    right: (number))
+  (assignment_expression
+    left: (identifier)
+    right: (number))
+  (assignment_expression
+    left: (identifier)
+    right: (number)))

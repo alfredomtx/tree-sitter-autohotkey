@@ -22,9 +22,9 @@ x := 1
 (source_file
   (label
     name: (identifier))
-  (identifier)
-  (operator)
-  (number))
+  (assignment_expression
+    left: (identifier)
+    right: (number)))
 
 ================================================================================
 Multiple labels

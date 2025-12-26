@@ -112,9 +112,9 @@ try {
   (try_statement
     body: (statement_block
       (block
-        (identifier)
-        (operator)
-        (number)))
+        (assignment_expression
+          left: (identifier)
+          right: (number))))
     (catch_clause
       body: (statement_block
         (block

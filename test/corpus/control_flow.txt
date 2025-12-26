@@ -14,9 +14,9 @@ if (x) {
       (identifier))
     consequence: (statement_block
       (block
-        (identifier)
-        (operator)
-        (number)))))
+        (assignment_expression
+          left: (identifier)
+          right: (number))))))
 
 ================================================================================
 If-else statement
@@ -36,15 +36,15 @@ if (x) {
       (identifier))
     consequence: (statement_block
       (block
-        (identifier)
-        (operator)
-        (number)))
+        (assignment_expression
+          left: (identifier)
+          right: (number))))
     alternative: (else_clause
       (statement_block
         (block
-          (identifier)
-          (operator)
-          (number))))))
+          (assignment_expression
+            left: (identifier)
+            right: (number)))))))
 
 ================================================================================
 If-else if-else chain
@@ -66,24 +66,24 @@ if (a) {
       (identifier))
     consequence: (statement_block
       (block
-        (identifier)
-        (operator)
-        (number)))
+        (assignment_expression
+          left: (identifier)
+          right: (number))))
     alternative: (else_clause
       (if_statement
         condition: (parenthesized_expression
           (identifier))
         consequence: (statement_block
           (block
-            (identifier)
-            (operator)
-            (number)))
+            (assignment_expression
+              left: (identifier)
+              right: (number))))
         alternative: (else_clause
           (statement_block
             (block
-              (identifier)
-              (operator)
-              (number))))))))
+              (assignment_expression
+                left: (identifier)
+                right: (number)))))))))
 
 ================================================================================
 While statement
@@ -135,9 +135,9 @@ loop 10 {
     count: (number)
     body: (statement_block
       (block
-        (identifier)
-        (operator)
-        (number)))))
+        (assignment_expression
+          left: (identifier)
+          right: (number))))))
 
 ================================================================================
 For-in with single variable
@@ -177,9 +177,9 @@ for key, value in myObject {
     collection: (identifier)
     body: (statement_block
       (block
-        (identifier)
-        (operator)
-        (identifier)))))
+        (assignment_expression
+          left: (identifier)
+          right: (identifier))))))
 
 ================================================================================
 Nested control flow
@@ -210,9 +210,9 @@ if (a) {
                 count: (number)
                 body: (statement_block
                   (block
-                    (identifier)
-                    (operator)
-                    (number)))))))))))
+                    (assignment_expression
+                      left: (identifier)
+                      right: (number))))))))))))
 
 ================================================================================
 Empty blocks
@@ -228,4 +228,3 @@ if (x) {
     condition: (parenthesized_expression
       (identifier))
     consequence: (statement_block)))
-

@@ -95,9 +95,9 @@ x := A_ScriptDir
 --------------------------------------------------------------------------------
 
 (source_file
-  (identifier)
-  (operator)
-  (builtin_variable))
+  (assignment_expression
+    left: (identifier)
+    right: (builtin_variable)))
 
 ================================================================================
 Builtin in command variable reference

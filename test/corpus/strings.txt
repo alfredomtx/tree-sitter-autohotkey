@@ -7,9 +7,9 @@ msg := "hello"
 --------------------------------------------------------------------------------
 
 (source_file
-  (identifier)
-  (operator)
-  (string))
+  (assignment_expression
+    left: (identifier)
+    right: (string)))
 
 ================================================================================
 String with newline escape
@@ -20,10 +20,10 @@ msg := "Hello`nWorld"
 --------------------------------------------------------------------------------
 
 (source_file
-  (identifier)
-  (operator)
-  (string
-    (escape_sequence)))
+  (assignment_expression
+    left: (identifier)
+    right: (string
+      (escape_sequence))))
 
 ================================================================================
 String with multiple escapes
@@ -34,11 +34,11 @@ msg := "col1`tcol2`tcol3"
 --------------------------------------------------------------------------------
 
 (source_file
-  (identifier)
-  (operator)
-  (string
-    (escape_sequence)
-    (escape_sequence)))
+  (assignment_expression
+    left: (identifier)
+    right: (string
+      (escape_sequence)
+      (escape_sequence))))
 
 ================================================================================
 String with escaped backtick
@@ -49,11 +49,11 @@ path := "C:``temp``file"
 --------------------------------------------------------------------------------
 
 (source_file
-  (identifier)
-  (operator)
-  (string
-    (escape_sequence)
-    (escape_sequence)))
+  (assignment_expression
+    left: (identifier)
+    right: (string
+      (escape_sequence)
+      (escape_sequence))))
 
 ================================================================================
 String with escaped quote
@@ -64,11 +64,11 @@ msg := "She said `"Hello`""
 --------------------------------------------------------------------------------
 
 (source_file
-  (identifier)
-  (operator)
-  (string
-    (escape_sequence)
-    (escape_sequence)))
+  (assignment_expression
+    left: (identifier)
+    right: (string
+      (escape_sequence)
+      (escape_sequence))))
 
 ================================================================================
 Single quoted string with escape
@@ -79,10 +79,10 @@ msg := 'line1`nline2'
 --------------------------------------------------------------------------------
 
 (source_file
-  (identifier)
-  (operator)
-  (string
-    (escape_sequence)))
+  (assignment_expression
+    left: (identifier)
+    right: (string
+      (escape_sequence))))
 
 ================================================================================
 String with carriage return escape
@@ -93,7 +93,7 @@ msg := "line1`rline2"
 --------------------------------------------------------------------------------
 
 (source_file
-  (identifier)
-  (operator)
-  (string
-    (escape_sequence)))
+  (assignment_expression
+    left: (identifier)
+    right: (string
+      (escape_sequence))))

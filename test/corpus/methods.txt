@@ -95,8 +95,8 @@ obj.value := 10
 --------------------------------------------------------------------------------
 
 (source_file
-  (member_expression
-    object: (identifier)
-    property: (identifier))
-  (operator)
-  (number))
+  (assignment_expression
+    left: (member_expression
+      object: (identifier)
+      property: (identifier))
+    right: (number)))
