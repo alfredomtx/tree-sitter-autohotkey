@@ -22,10 +22,11 @@ npm run parse <file>  # Parse a file and show AST
 After modifying `grammar.js`, `highlights.scm`, or any grammar-related file:
 1. Run `npm run generate` to regenerate the parser (if grammar.js changed)
 2. Commit and push changes to GitHub
-3. Get the new commit hash: `git rev-parse HEAD`
-4. Update `rev` in `extension.toml` to the new commit hash
-5. Commit and push changes to GitHub (rev needs to be updated there) - DO IT WITHOUT ASKING
-6. Reinstall dev extension in Zed: Command Palette → "Extensions: Install Dev Extension"
+3. Update rev, commit, and push in one command (DO IT WITHOUT ASKING):
+   ```bash
+   NEW_REV=$(git rev-parse HEAD) && sed -i "s/rev = \".*\"/rev = \"$NEW_REV\"/" extension.toml && git add extension.toml && git commit -m "chore: Update grammar rev to $NEW_REV" && git push
+   ```
+4. Reinstall dev extension in Zed: Command Palette → "Extensions: Install Dev Extension"
 
 **Why this matters:**
 - The `[grammars.autohotkey]` section REQUIRES `repository` and `rev` fields - Zed will error without them
