@@ -78,10 +78,11 @@ MyFunc() {
 (source_file
   (function_definition
     name: (identifier)
-    (identifier)
-    (operator)
-    (number)
-    (keyword)))
+    body: (block
+      (identifier)
+      (operator)
+      (number)
+      (keyword))))
 
 ================================================================================
 Simple function call

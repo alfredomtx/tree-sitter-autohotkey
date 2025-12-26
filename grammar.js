@@ -72,13 +72,15 @@ module.exports = grammar({
       token.immediate(':')
     ),
 
+    block: $ => repeat1($._statement),
+
     function_definition: $ => prec.dynamic(10, seq(
       field('name', $.identifier),
       token.immediate('('),
       optional($.parameter_list),
       ')',
       '{',
-      repeat($._statement),
+      optional(field('body', $.block)),
       '}'
     )),
 
