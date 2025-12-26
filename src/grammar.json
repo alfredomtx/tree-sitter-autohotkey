@@ -622,8 +622,12 @@
               "name": "string"
             },
             {
-              "type": "SYMBOL",
-              "name": "number"
+              "type": "PREC",
+              "value": 1,
+              "content": {
+                "type": "SYMBOL",
+                "name": "number"
+              }
             },
             {
               "type": "STRING",
@@ -631,7 +635,7 @@
             },
             {
               "type": "PATTERN",
-              "value": "[^\\s,\\n%\"']+"
+              "value": "[^\\s,\\n%\"'0-9][^\\s,\\n%\"']*"
             }
           ]
         }

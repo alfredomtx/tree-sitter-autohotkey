@@ -133,9 +133,9 @@ module.exports = grammar({
     command_arguments: $ => prec.left(repeat1(choice(
       $.variable_ref,
       $.string,
-      $.number,
+      prec(1, $.number),  // Give number precedence
       ',',
-      /[^\s,\n%"']+/,
+      /[^\s,\n%"'0-9][^\s,\n%"']*/,  // Exclude leading digits so numbers match $.number
     ))),
 
     variable_ref: $ => seq('%', choice(prec(3, $.builtin_variable), $.identifier), '%'),
