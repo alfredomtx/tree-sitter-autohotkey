@@ -9,6 +9,7 @@ module.exports = grammar({
 
   conflicts: $ => [
     [$.parameter, $._expression],
+    [$.variable_ref, $.operator],
   ],
 
   rules: {
@@ -46,6 +47,7 @@ module.exports = grammar({
       $.keyword,
       $.operator,
       prec(3, $.builtin_variable),
+      prec(4, $.variable_ref),  // Higher precedence than builtin_variable for injection parsing
       $.identifier,
       $._punctuation,
     ),
@@ -246,7 +248,7 @@ module.exports = grammar({
     ),
 
     // Single-line token to prevent commands from spanning lines
-    // Internal structure (variable_ref, string, number) is handled via highlights.scm
+    // Variable refs (%var%) are highlighted via #match? in highlights.scm
     command_arguments: $ => /[^\r\n]+/,
 
     variable_ref: $ => seq('%', choice(prec(3, $.builtin_variable), $.identifier), '%'),

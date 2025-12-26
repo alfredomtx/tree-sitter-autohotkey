@@ -126,6 +126,14 @@
           }
         },
         {
+          "type": "PREC",
+          "value": 4,
+          "content": {
+            "type": "SYMBOL",
+            "name": "variable_ref"
+          }
+        },
+        {
           "type": "SYMBOL",
           "name": "identifier"
         },
@@ -2542,6 +2550,10 @@
     [
       "parameter",
       "_expression"
+    ],
+    [
+      "variable_ref",
+      "operator"
     ]
   ],
   "precedences": [],

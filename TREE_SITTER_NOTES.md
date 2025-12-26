@@ -134,16 +134,18 @@ _statement: $ => choice(
 
 **Key insight:** `_expression` is only reachable through specific contexts (function arguments, parameter defaults). Top-level statements go through `_statement`.
 
-### The `[$.command]` conflict is required
+### Current conflicts
 
-The grammar needs `[$.command]` in the conflicts array to resolve ambiguity between `command` with and without arguments. Don't remove it.
+The grammar uses these conflicts:
 
 ```javascript
 conflicts: $ => [
-  [$.parameter, $._expression],
-  [$.command],  // Required - don't remove
+  [$.parameter, $._expression],  // Parameter vs expression in function signatures
+  [$.variable_ref, $.operator],  // % can start variable_ref or be modulo operator
 ],
 ```
+
+The `[$.variable_ref, $.operator]` conflict is needed because `%` is ambiguous - it could be the modulo operator or the start of a variable reference like `%myVar%`.
 
 ### Remove `()[]` from `_punctuation` to enable empty function calls and arrays
 
@@ -353,6 +355,62 @@ The `}` is a direct child of `statement_block`, NOT `if_statement`.
 | `@indent.ignore` | Skip indentation for this node |
 
 **Reference:** [Zed Language Extensions Documentation](https://zed.dev/docs/extensions/languages)
+
+## Self-Injection for Sub-Token Highlighting
+
+### Use injections.scm to highlight patterns inside flat tokens
+
+**Problem:** `command_arguments` needs to stay as a flat regex `/[^\r\n]+/` to prevent multi-line parsing (tree-sitter's `extras` consumes newlines between repetitions). But we want to highlight `%var%` patterns inside it.
+
+**Why `repeat1(choice(...))` doesn't work:**
+```javascript
+// WRONG - spans multiple lines because extras: [/\s/] consumes newlines
+command_arguments: $ => repeat1(choice(
+  $.variable_ref,
+  $.string,
+  $._command_text,
+)),
+```
+
+Tree-sitter's `extras` automatically consume whitespace (including newlines) between tokens. Even with `prec.right(-1)`, the repeat continues across lines.
+
+**Solution:** Self-injection - re-parse the flat token's content as AutoHotkey:
+
+1. Keep `command_arguments` as flat regex:
+```javascript
+command_arguments: $ => /[^\r\n]+/,
+```
+
+2. Add `variable_ref` to `_statement` so it can parse at the top level:
+```javascript
+_statement: $ => choice(
+  // ... other rules ...
+  prec(4, $.variable_ref),  // Higher precedence than operator
+  $.operator,
+  // ...
+),
+```
+
+3. Add conflict for `%` ambiguity:
+```javascript
+conflicts: $ => [
+  [$.variable_ref, $.operator],
+],
+```
+
+4. Create `injections.scm` to re-parse command_arguments:
+```scheme
+((command_arguments) @injection.content
+ (#set! injection.language "autohotkey"))
+```
+
+**How it works:**
+- Main parse: `MsgBox, %A_TickCount%` → `command_arguments` = `%A_TickCount%` (flat text)
+- Injection: Zed re-parses `%A_TickCount%` as AutoHotkey starting from `source_file`
+- The text matches `variable_ref` because it's now in `_statement`
+- Highlight rules apply to the injected parse tree
+
+**Key insight:** Self-injection lets you have a "coarse" main parse (for correct structure) and a "fine" injected parse (for detailed highlighting).
 
 ## Parser Optimization
 
