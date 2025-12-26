@@ -10,3 +10,6 @@
 
 ; Method definition has its own braces
 (method_definition "}" @end) @indent
+
+; Switch statement indentation
+(switch_statement "}" @end) @indent

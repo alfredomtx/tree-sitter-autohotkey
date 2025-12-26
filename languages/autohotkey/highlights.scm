@@ -38,6 +38,15 @@
 (catch_clause exception: (identifier) @variable.parameter)
 (finally_clause "finally" @keyword)
 
+; Switch statements
+(switch_statement "switch" @keyword)
+(switch_statement "{" @punctuation.bracket)
+(switch_statement "}" @punctuation.bracket)
+(case_clause "case" @keyword)
+(case_clause ":" @punctuation.delimiter)
+(default_clause "default" @keyword)
+(default_clause ":" @punctuation.delimiter)
+
 ; Statement blocks
 (statement_block "{" @punctuation.bracket)
 (statement_block "}" @punctuation.bracket)

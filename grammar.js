@@ -36,6 +36,7 @@ module.exports = grammar({
       $.loop_statement,
       $.for_statement,
       $.try_statement,
+      $.switch_statement,
       // Expressions that can appear at statement level
       $.assignment_expression,
       $.method_call,
@@ -186,6 +187,28 @@ module.exports = grammar({
     finally_clause: $ => seq(
       'finally',
       field('body', choice($.statement_block, $._statement))
+    ),
+
+    switch_statement: $ => seq(
+      'switch',
+      field('value', $._expression),
+      '{',
+      repeat($.case_clause),
+      optional($.default_clause),
+      '}'
+    ),
+
+    case_clause: $ => seq(
+      'case',
+      field('values', seq($._expression, repeat(seq(',', $._expression)))),
+      ':',
+      optional($.block)
+    ),
+
+    default_clause: $ => seq(
+      'default',
+      ':',
+      optional($.block)
     ),
 
     function_definition: $ => prec.dynamic(10, seq(

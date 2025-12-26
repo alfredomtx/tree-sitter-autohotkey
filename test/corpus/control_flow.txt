@@ -565,3 +565,119 @@ if (a) && (b) || (c) {
         (assignment_expression
           left: (identifier)
           right: (number))))))
+
+================================================================================
+switch statement basic
+================================================================================
+
+switch x {
+    case 1:
+        MsgBox, One
+    default:
+        MsgBox, Other
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (switch_statement
+    value: (identifier)
+    (case_clause
+      values: (number)
+      (block
+        (command
+          name: (command_name)
+          (command_arguments))))
+    (default_clause
+      (block
+        (command
+          name: (command_name)
+          (command_arguments))))))
+
+================================================================================
+switch with parenthesized expression
+================================================================================
+
+switch (e.What) {
+    case "ReloadException":
+        return
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (switch_statement
+    value: (parenthesized_expression
+      (member_expression
+        object: (identifier)
+        property: (identifier)))
+    (case_clause
+      values: (string)
+      (block
+        (keyword)))))
+
+================================================================================
+switch with multiple case values
+================================================================================
+
+switch x {
+    case 1, 2, 3:
+        MsgBox, Small
+    case 4, 5:
+        MsgBox, Medium
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (switch_statement
+    value: (identifier)
+    (case_clause
+      values: (number)
+      values: (number)
+      values: (number)
+      (block
+        (command
+          name: (command_name)
+          (command_arguments))))
+    (case_clause
+      values: (number)
+      values: (number)
+      (block
+        (command
+          name: (command_name)
+          (command_arguments))))))
+
+================================================================================
+switch with string cases
+================================================================================
+
+switch action {
+    case "save":
+        Save()
+    case "load":
+        Load()
+    default:
+        MsgBox, Unknown
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (switch_statement
+    value: (identifier)
+    (case_clause
+      values: (string)
+      (block
+        (function_call
+          name: (identifier))))
+    (case_clause
+      values: (string)
+      (block
+        (function_call
+          name: (identifier))))
+    (default_clause
+      (block
+        (command
+          name: (command_name)
+          (command_arguments))))))
