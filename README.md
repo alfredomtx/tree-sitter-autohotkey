@@ -23,7 +23,8 @@ To enable the "Run" button in the gutter, add a task configuration:
      {
        "label": "Run AHK Script",
        "command": "AutoHotkey.exe",
-       "args": ["$ZED_FILE"]
+       "args": ["$ZED_FILE"],
+       "tags": ["ahk-script"]
      }
    ]
    ```
