@@ -36,6 +36,11 @@
     "fields": {}
   },
   {
+    "type": "builtin_variable",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "command",
     "named": true,
     "fields": {
@@ -554,10 +559,6 @@
   {
     "type": "break",
     "named": false
-  },
-  {
-    "type": "builtin_variable",
-    "named": true
   },
   {
     "type": "catch",
