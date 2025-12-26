@@ -1,6 +1,7 @@
 {
   "$schema": "https://tree-sitter.github.io/tree-sitter/assets/schemas/grammar.schema.json",
   "name": "autohotkey",
+  "word": "identifier",
   "rules": {
     "source_file": {
       "type": "REPEAT",
@@ -1164,57 +1165,8 @@
     "_command_name_pattern": {
       "type": "TOKEN",
       "content": {
-        "type": "CHOICE",
-        "members": [
-          {
-            "type": "PATTERN",
-            "value": "MsgBox|InputBox|ToolTip|TrayTip"
-          },
-          {
-            "type": "PATTERN",
-            "value": "Send|SendInput|SendRaw|SendEvent|SendPlay"
-          },
-          {
-            "type": "PATTERN",
-            "value": "Sleep|SetTimer|Pause|Suspend"
-          },
-          {
-            "type": "PATTERN",
-            "value": "Run|RunWait|Reload|ExitApp"
-          },
-          {
-            "type": "PATTERN",
-            "value": "WinActivate|WinWait|WinClose|WinMinimize|WinMaximize"
-          },
-          {
-            "type": "PATTERN",
-            "value": "FileRead|FileAppend|FileDelete|FileCopy|FileMove"
-          },
-          {
-            "type": "PATTERN",
-            "value": "RegRead|RegWrite|RegDelete"
-          },
-          {
-            "type": "PATTERN",
-            "value": "IniRead|IniWrite"
-          },
-          {
-            "type": "PATTERN",
-            "value": "Gui|GuiControl"
-          },
-          {
-            "type": "PATTERN",
-            "value": "SetWorkingDir|CoordMode|SetFormat|SetBatchLines"
-          },
-          {
-            "type": "PATTERN",
-            "value": "SetDefaultMouseSpeed|SetWinDelay|SetControlDelay"
-          },
-          {
-            "type": "PATTERN",
-            "value": "Gosub|Goto"
-          }
-        ]
+        "type": "PATTERN",
+        "value": "MsgBox|InputBox|ToolTip|TrayTip|Send|SendInput|SendRaw|SendEvent|SendPlay|Sleep|SetTimer|Pause|Suspend|Run|RunWait|Reload|ExitApp|WinActivate|WinWait|WinClose|WinMinimize|WinMaximize|FileRead|FileAppend|FileDelete|FileCopy|FileMove|RegRead|RegWrite|RegDelete|IniRead|IniWrite|Gui|GuiControl|SetWorkingDir|CoordMode|SetFormat|SetBatchLines|SetDefaultMouseSpeed|SetWinDelay|SetControlDelay|Gosub|Goto"
       }
     },
     "command_arguments": {
@@ -2588,42 +2540,15 @@
       }
     },
     "builtin_variable": {
-      "type": "CHOICE",
-      "members": [
-        {
-          "type": "TOKEN",
-          "content": {
-            "type": "PREC",
-            "value": 3,
-            "content": {
-              "type": "PATTERN",
-              "value": "A_ScriptDir|A_Now|A_TickCount"
-            }
-          }
-        },
-        {
-          "type": "TOKEN",
-          "content": {
-            "type": "PREC",
-            "value": 3,
-            "content": {
-              "type": "PATTERN",
-              "value": "A_TimeIdle|A_AhkVersion|A_ComSpec"
-            }
-          }
-        },
-        {
-          "type": "TOKEN",
-          "content": {
-            "type": "PREC",
-            "value": 3,
-            "content": {
-              "type": "PATTERN",
-              "value": "Clipboard|ErrorLevel"
-            }
-          }
+      "type": "TOKEN",
+      "content": {
+        "type": "PREC",
+        "value": 3,
+        "content": {
+          "type": "PATTERN",
+          "value": "A_ScriptDir|A_Now|A_TickCount|A_TimeIdle|A_AhkVersion|A_ComSpec|Clipboard|ErrorLevel"
         }
-      ]
+      }
     },
     "_punctuation": {
       "type": "PATTERN",

@@ -1,6 +1,8 @@
 module.exports = grammar({
   name: 'autohotkey',
 
+  word: $ => $.identifier,
+
   extras: $ => [
     /\s/,
   ],
@@ -239,20 +241,9 @@ module.exports = grammar({
     )),
 
     // Internal pattern for command names - only used within command rule
-    _command_name_pattern: $ => token(choice(
-      /MsgBox|InputBox|ToolTip|TrayTip/,
-      /Send|SendInput|SendRaw|SendEvent|SendPlay/,
-      /Sleep|SetTimer|Pause|Suspend/,
-      /Run|RunWait|Reload|ExitApp/,
-      /WinActivate|WinWait|WinClose|WinMinimize|WinMaximize/,
-      /FileRead|FileAppend|FileDelete|FileCopy|FileMove/,
-      /RegRead|RegWrite|RegDelete/,
-      /IniRead|IniWrite/,
-      /Gui|GuiControl/,
-      /SetWorkingDir|CoordMode|SetFormat|SetBatchLines/,
-      /SetDefaultMouseSpeed|SetWinDelay|SetControlDelay/,
-      /Gosub|Goto/,
-    )),
+    _command_name_pattern: $ => token(
+      /MsgBox|InputBox|ToolTip|TrayTip|Send|SendInput|SendRaw|SendEvent|SendPlay|Sleep|SetTimer|Pause|Suspend|Run|RunWait|Reload|ExitApp|WinActivate|WinWait|WinClose|WinMinimize|WinMaximize|FileRead|FileAppend|FileDelete|FileCopy|FileMove|RegRead|RegWrite|RegDelete|IniRead|IniWrite|Gui|GuiControl|SetWorkingDir|CoordMode|SetFormat|SetBatchLines|SetDefaultMouseSpeed|SetWinDelay|SetControlDelay|Gosub|Goto/
+    ),
 
     command_arguments: $ => prec.left(1, repeat1(choice(
       $.variable_ref,
@@ -320,7 +311,7 @@ module.exports = grammar({
       prec.left(5, seq(field('left', $._expression), '^', field('right', $._expression))),
       // Bitwise AND (precedence 6)
       prec.left(6, seq(field('left', $._expression), '&', field('right', $._expression))),
-      // Equality (precedence 7) - '=' is case-insensitive comparison in AHK v1
+      // Equality (precedence 7)
       prec.left(7, seq(field('left', $._expression), choice('=', '==', '!=', '<>'), field('right', $._expression))),
       // Comparison (precedence 8)
       prec.left(8, seq(field('left', $._expression), choice('<', '>', '<=', '>='), field('right', $._expression))),
@@ -330,7 +321,7 @@ module.exports = grammar({
       prec.left(10, seq(field('left', $._expression), choice('+', '-'), field('right', $._expression))),
       // Multiplication/Division (precedence 11)
       prec.left(11, seq(field('left', $._expression), choice('*', '/', '//', '%'), field('right', $._expression))),
-      // Concatenation (precedence 10) - member_expression uses token.immediate('.') so obj.prop won't match
+      // Concatenation (precedence 10)
       prec.left(10, seq(field('left', $._expression), '.', field('right', $._expression))),
       // Power (precedence 12, RIGHT associative)
       prec.right(12, seq(field('left', $._expression), '**', field('right', $._expression))),
@@ -344,7 +335,7 @@ module.exports = grammar({
       seq('-', $._expression),
     )),
 
-    // Assignment expression - higher precedence than standalone identifier (-1) to resolve shift/reduce conflict
+    // Assignment expression - prec(1) ensures higher precedence than identifier's prec(-1)
     assignment_expression: $ => prec.right(1, seq(
       field('left', choice($.identifier, $.member_expression, $.index_expression)),
       field('operator', choice(':=', '+=', '-=', '*=', '/=', '.=')),
@@ -432,12 +423,9 @@ module.exports = grammar({
     // Explicit low precedence so builtin_variable wins
     identifier: $ => token(prec(-1, /[a-zA-Z_][a-zA-Z0-9_]*/)),
 
-    // Use choice() of multiple token(prec(3,...)) groups - matching command_name structure
-    builtin_variable: $ => choice(
-      token(prec(3, /A_ScriptDir|A_Now|A_TickCount/)),
-      token(prec(3, /A_TimeIdle|A_AhkVersion|A_ComSpec/)),
-      token(prec(3, /Clipboard|ErrorLevel/)),
-    ),
+    builtin_variable: $ => token(prec(3,
+      /A_ScriptDir|A_Now|A_TickCount|A_TimeIdle|A_AhkVersion|A_ComSpec|Clipboard|ErrorLevel/
+    )),
 
     // Remaining punctuation - NOT parens/brackets/braces which have semantic meaning
     _punctuation: $ => /[.,@$\\]+/,
