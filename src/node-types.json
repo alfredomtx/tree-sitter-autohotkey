@@ -174,6 +174,10 @@
           "named": true
         },
         {
+          "type": "hotstring_definition",
+          "named": true
+        },
+        {
           "type": "identifier",
           "named": true
         },
@@ -682,6 +686,42 @@
     }
   },
   {
+    "type": "hotstring_definition",
+    "named": true,
+    "fields": {
+      "options": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "hotstring_options",
+            "named": true
+          }
+        ]
+      },
+      "replacement": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "hotstring_replacement",
+            "named": true
+          }
+        ]
+      },
+      "trigger": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "hotstring_trigger",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "if_statement",
     "named": true,
     "fields": {
@@ -1169,6 +1209,10 @@
           "named": true
         },
         {
+          "type": "hotstring_definition",
+          "named": true
+        },
+        {
           "type": "identifier",
           "named": true
         },
@@ -1433,6 +1477,10 @@
     "named": false
   },
   {
+    "type": "::",
+    "named": false
+  },
+  {
     "type": ":=",
     "named": false
   },
@@ -1554,6 +1602,18 @@
   },
   {
     "type": "hotkey",
+    "named": true
+  },
+  {
+    "type": "hotstring_options",
+    "named": true
+  },
+  {
+    "type": "hotstring_replacement",
+    "named": true
+  },
+  {
+    "type": "hotstring_trigger",
     "named": true
   },
   {

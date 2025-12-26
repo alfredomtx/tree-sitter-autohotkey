@@ -1,0 +1,67 @@
+================================================================================
+Simple hotstring
+================================================================================
+
+::btw::by the way
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (hotstring_definition
+    trigger: (hotstring_trigger)
+    replacement: (hotstring_replacement)))
+
+================================================================================
+Hotstring with immediate option
+================================================================================
+
+:*:btw::by the way
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (hotstring_definition
+    options: (hotstring_options)
+    trigger: (hotstring_trigger)
+    replacement: (hotstring_replacement)))
+
+================================================================================
+Hotstring with case-sensitive option
+================================================================================
+
+:C:BTW::BY THE WAY
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (hotstring_definition
+    options: (hotstring_options)
+    trigger: (hotstring_trigger)
+    replacement: (hotstring_replacement)))
+
+================================================================================
+Hotstring with multiple options
+================================================================================
+
+:*?C:btw::by the way
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (hotstring_definition
+    options: (hotstring_options)
+    trigger: (hotstring_trigger)
+    replacement: (hotstring_replacement)))
+
+================================================================================
+Hotstring without replacement (X option)
+================================================================================
+
+:X:btw::
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (hotstring_definition
+    options: (hotstring_options)
+    trigger: (hotstring_trigger)))

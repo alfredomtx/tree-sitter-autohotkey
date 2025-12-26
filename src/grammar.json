@@ -34,6 +34,10 @@
         },
         {
           "type": "SYMBOL",
+          "name": "hotstring_definition"
+        },
+        {
+          "type": "SYMBOL",
           "name": "label"
         },
         {
@@ -220,6 +224,85 @@
             "value": "::"
           }
         ]
+      }
+    },
+    "hotstring_definition": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": ":"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "FIELD",
+              "name": "options",
+              "content": {
+                "type": "SYMBOL",
+                "name": "hotstring_options"
+              }
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "STRING",
+          "value": ":"
+        },
+        {
+          "type": "FIELD",
+          "name": "trigger",
+          "content": {
+            "type": "SYMBOL",
+            "name": "hotstring_trigger"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "::"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "FIELD",
+              "name": "replacement",
+              "content": {
+                "type": "SYMBOL",
+                "name": "hotstring_replacement"
+              }
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        }
+      ]
+    },
+    "hotstring_options": {
+      "type": "TOKEN",
+      "content": {
+        "type": "PATTERN",
+        "value": "[*?CORZTXB0-9SIEPK]+",
+        "flags": "i"
+      }
+    },
+    "hotstring_trigger": {
+      "type": "TOKEN",
+      "content": {
+        "type": "PATTERN",
+        "value": "[^:\\r\\n]+"
+      }
+    },
+    "hotstring_replacement": {
+      "type": "TOKEN",
+      "content": {
+        "type": "PATTERN",
+        "value": "[^\\r\\n]+"
       }
     },
     "label": {

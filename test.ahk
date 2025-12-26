@@ -263,3 +263,19 @@ tabs := "col1`tcol2`tcol3"
 quotes := "She said `"Hello`""
 mixed := 'single`'quote'
 carriage := "line1`rline2"
+
+; === Hotstrings ===
+; Basic hotstrings
+::btw::by the way
+::omw::on my way
+::sig::Best regards,`nJohn
+
+; With options
+:*:btw2::by the way     ; immediate
+:?:ing::ING             ; inside words
+:C:BTW::BY THE WAY      ; case-sensitive
+:*?C:abbr::expanded     ; multiple options
+:B0:test::testing       ; no backspacing
+
+; Execute code instead of replacement
+:X:now::

@@ -44,6 +44,13 @@
 ; Hotkeys
 (hotkey) @keyword
 
+; Hotstrings
+(hotstring_definition ":" @punctuation.delimiter)
+(hotstring_definition "::" @punctuation.delimiter)
+(hotstring_trigger) @string.special
+(hotstring_options) @attribute
+(hotstring_replacement) @string
+
 ; Directives - use @attribute instead of @preproc
 (directive) @attribute
 (directive . (identifier) @attribute)

@@ -19,6 +19,7 @@ module.exports = grammar({
       $.block_comment,
       $.directive,
       $.hotkey,
+      $.hotstring_definition,
       $.label,
       $.class_definition,
       $.function_definition,
@@ -74,6 +75,20 @@ module.exports = grammar({
       /[a-zA-Z0-9]+/,
       '::'
     )),
+
+    // Hotstring: :options:trigger::replacement
+    hotstring_definition: $ => seq(
+      ':',
+      optional(field('options', $.hotstring_options)),
+      ':',
+      field('trigger', $.hotstring_trigger),
+      '::',
+      optional(field('replacement', $.hotstring_replacement))
+    ),
+
+    hotstring_options: $ => token(/[*?CORZTXB0-9SIEPK]+/i),
+    hotstring_trigger: $ => token(/[^:\r\n]+/),
+    hotstring_replacement: $ => token(/[^\r\n]+/),
 
     // Label: identifier followed by single colon at end of meaningful content
     label: $ => seq(
