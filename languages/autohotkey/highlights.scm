@@ -33,11 +33,11 @@
 (command_name) @function.builtin
 
 ; Built-in variables
-(builtin_variable) @variable.builtin
+(builtin_variable) @variable.special
 
 ; Variable references in commands
 (variable_ref (identifier) @variable)
-(variable_ref (builtin_variable) @variable.builtin)
+(variable_ref (builtin_variable) @variable.special)
 (variable_ref "%" @punctuation.special)
 
 ; Labels
