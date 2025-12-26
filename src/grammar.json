@@ -107,6 +107,10 @@
         },
         {
           "type": "SYMBOL",
+          "name": "boolean"
+        },
+        {
+          "type": "SYMBOL",
           "name": "keyword"
         },
         {
@@ -1323,6 +1327,10 @@
           "name": "number"
         },
         {
+          "type": "SYMBOL",
+          "name": "boolean"
+        },
+        {
           "type": "PREC",
           "value": 3,
           "content": {
@@ -1989,6 +1997,19 @@
       "type": "STRING",
       "value": "base"
     },
+    "boolean": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "true"
+        },
+        {
+          "type": "STRING",
+          "value": "false"
+        }
+      ]
+    },
     "array_literal": {
       "type": "PREC",
       "value": 2,
@@ -2352,14 +2373,6 @@
         {
           "type": "STRING",
           "value": "new"
-        },
-        {
-          "type": "STRING",
-          "value": "true"
-        },
-        {
-          "type": "STRING",
-          "value": "false"
         }
       ]
     },

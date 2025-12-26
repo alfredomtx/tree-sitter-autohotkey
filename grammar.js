@@ -40,6 +40,7 @@ module.exports = grammar({
       $.array_literal,
       $.string,
       $.number,
+      $.boolean,
       // NOTE: parenthesized_expression removed from _statement to reduce state count
       // It's still in _expression for conditions
       $.keyword,
@@ -274,6 +275,7 @@ module.exports = grammar({
       $.base_expression,
       $.string,
       $.number,
+      $.boolean,
       prec(3, $.builtin_variable),
       $.variable_ref,  // %var% syntax - must be reachable for highlights.scm
       $.array_literal,
@@ -341,6 +343,8 @@ module.exports = grammar({
     this_expression: $ => 'this',
     base_expression: $ => 'base',
 
+    boolean: $ => choice('true', 'false'),
+
     array_literal: $ => prec(2, seq(
       '[',
       optional(seq(
@@ -398,7 +402,7 @@ module.exports = grammar({
       'return', 'break', 'continue', 'goto', 'gosub',
       'global', 'local', 'static',
       'throw',
-      'new', 'true', 'false',
+      'new',
     ),
 
     operator: $ => choice(

@@ -189,7 +189,7 @@ SafeCall() {
           body: (statement_block
             (block
               (keyword)
-              (keyword)))))
+              (boolean)))))
       (keyword)
-      (keyword))))
+      (boolean))))
 

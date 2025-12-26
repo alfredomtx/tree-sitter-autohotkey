@@ -18,6 +18,9 @@
 ; Keywords
 (keyword) @keyword
 
+; Boolean literals
+(boolean) @constant.builtin
+
 ; Control flow keywords
 (if_statement "if" @keyword)
 (else_clause "else" @keyword)
