@@ -90,10 +90,6 @@
         },
         {
           "type": "SYMBOL",
-          "name": "parenthesized_expression"
-        },
-        {
-          "type": "SYMBOL",
           "name": "keyword"
         },
         {
@@ -402,10 +398,6 @@
                   {
                     "type": "SYMBOL",
                     "name": "identifier"
-                  },
-                  {
-                    "type": "SYMBOL",
-                    "name": "parenthesized_expression"
                   }
                 ]
               }
@@ -1478,7 +1470,7 @@
     },
     "_punctuation": {
       "type": "PATTERN",
-      "value": "[{}.,@$\\\\]+"
+      "value": "[.,@$\\\\]+"
     }
   },
   "extras": [

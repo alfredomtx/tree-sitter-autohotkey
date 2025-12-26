@@ -34,7 +34,8 @@ module.exports = grammar({
       $.array_literal,
       $.string,
       $.number,
-      $.parenthesized_expression,
+      // NOTE: parenthesized_expression removed from _statement to reduce state count
+      // It's still in _expression for conditions
       $.keyword,
       $.operator,
       prec(3, $.builtin_variable),
@@ -107,7 +108,7 @@ module.exports = grammar({
 
     loop_statement: $ => seq(
       'loop',
-      optional(field('count', choice($.number, $.identifier, $.parenthesized_expression))),
+      optional(field('count', choice($.number, $.identifier))),
       field('body', $.statement_block)
     ),
 
@@ -282,7 +283,7 @@ module.exports = grammar({
       token(prec(3, /Clipboard|ErrorLevel/)),
     ),
 
-    // Remaining punctuation (braces, dots, commas) - NOT parens/brackets which have semantic meaning
-    _punctuation: $ => /[{}.,@$\\]+/,
+    // Remaining punctuation - NOT parens/brackets/braces which have semantic meaning
+    _punctuation: $ => /[.,@$\\]+/,
   }
 });

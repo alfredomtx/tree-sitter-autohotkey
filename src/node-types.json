@@ -194,10 +194,6 @@
           "named": true
         },
         {
-          "type": "parenthesized_expression",
-          "named": true
-        },
-        {
           "type": "string",
           "named": true
         },
@@ -607,10 +603,6 @@
           {
             "type": "number",
             "named": true
-          },
-          {
-            "type": "parenthesized_expression",
-            "named": true
           }
         ]
       }
@@ -904,10 +896,6 @@
         },
         {
           "type": "operator",
-          "named": true
-        },
-        {
-          "type": "parenthesized_expression",
           "named": true
         },
         {
