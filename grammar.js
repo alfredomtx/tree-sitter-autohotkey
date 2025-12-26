@@ -130,12 +130,12 @@ module.exports = grammar({
       token(prec(3, /Gosub|Goto/)),
     ),
 
-    command_arguments: $ => prec.left(repeat1(choice(
+    command_arguments: $ => prec.left(1, repeat1(choice(
       $.variable_ref,
       $.string,
-      prec(1, $.number),  // Give number precedence
+      $.number,
       ',',
-      /[^\s,\n%"'0-9][^\s,\n%"']*/,  // Exclude leading digits so numbers match $.number
+      /[^\s,\n%"'][^\s,\n%"']*/,  // Generic catch-all for text
     ))),
 
     variable_ref: $ => seq('%', choice(prec(3, $.builtin_variable), $.identifier), '%'),

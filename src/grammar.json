@@ -607,7 +607,7 @@
     },
     "command_arguments": {
       "type": "PREC_LEFT",
-      "value": 0,
+      "value": 1,
       "content": {
         "type": "REPEAT1",
         "content": {
@@ -622,12 +622,8 @@
               "name": "string"
             },
             {
-              "type": "PREC",
-              "value": 1,
-              "content": {
-                "type": "SYMBOL",
-                "name": "number"
-              }
+              "type": "SYMBOL",
+              "name": "number"
             },
             {
               "type": "STRING",
@@ -635,7 +631,7 @@
             },
             {
               "type": "PATTERN",
-              "value": "[^\\s,\\n%\"'0-9][^\\s,\\n%\"']*"
+              "value": "[^\\s,\\n%\"'][^\\s,\\n%\"']*"
             }
           ]
         }
