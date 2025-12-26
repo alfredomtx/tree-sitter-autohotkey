@@ -1,0 +1,231 @@
+================================================================================
+Simple if statement
+================================================================================
+
+if (x) {
+    y := 1
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (if_statement
+    condition: (parenthesized_expression
+      (identifier))
+    consequence: (statement_block
+      (block
+        (identifier)
+        (operator)
+        (number)))))
+
+================================================================================
+If-else statement
+================================================================================
+
+if (x) {
+    a := 1
+} else {
+    b := 2
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (if_statement
+    condition: (parenthesized_expression
+      (identifier))
+    consequence: (statement_block
+      (block
+        (identifier)
+        (operator)
+        (number)))
+    alternative: (else_clause
+      (statement_block
+        (block
+          (identifier)
+          (operator)
+          (number))))))
+
+================================================================================
+If-else if-else chain
+================================================================================
+
+if (a) {
+    x := 1
+} else if (b) {
+    x := 2
+} else {
+    x := 3
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (if_statement
+    condition: (parenthesized_expression
+      (identifier))
+    consequence: (statement_block
+      (block
+        (identifier)
+        (operator)
+        (number)))
+    alternative: (else_clause
+      (if_statement
+        condition: (parenthesized_expression
+          (identifier))
+        consequence: (statement_block
+          (block
+            (identifier)
+            (operator)
+            (number)))
+        alternative: (else_clause
+          (statement_block
+            (block
+              (identifier)
+              (operator)
+              (number))))))))
+
+================================================================================
+While statement
+================================================================================
+
+while (running) {
+    DoWork()
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (while_statement
+    condition: (parenthesized_expression
+      (identifier))
+    body: (statement_block
+      (block
+        (function_call
+          name: (identifier))))))
+
+================================================================================
+Simple loop (infinite)
+================================================================================
+
+loop {
+    break
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (loop_statement
+    body: (statement_block
+      (block
+        (keyword)))))
+
+================================================================================
+Loop with count
+================================================================================
+
+loop 10 {
+    count += 1
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (loop_statement
+    count: (number)
+    body: (statement_block
+      (block
+        (identifier)
+        (operator)
+        (number)))))
+
+================================================================================
+For-in with single variable
+================================================================================
+
+for item in collection {
+    Process(item)
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (for_statement
+    key: (identifier)
+    collection: (identifier)
+    body: (statement_block
+      (block
+        (function_call
+          name: (identifier)
+          (argument_list
+            (identifier)))))))
+
+================================================================================
+For-in with key-value pair
+================================================================================
+
+for key, value in myObject {
+    result .= key
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (for_statement
+    key: (identifier)
+    value: (identifier)
+    collection: (identifier)
+    body: (statement_block
+      (block
+        (identifier)
+        (operator)
+        (identifier)))))
+
+================================================================================
+Nested control flow
+================================================================================
+
+if (a) {
+    while (b) {
+        loop 5 {
+            x := 1
+        }
+    }
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (if_statement
+    condition: (parenthesized_expression
+      (identifier))
+    consequence: (statement_block
+      (block
+        (while_statement
+          condition: (parenthesized_expression
+            (identifier))
+          body: (statement_block
+            (block
+              (loop_statement
+                count: (number)
+                body: (statement_block
+                  (block
+                    (identifier)
+                    (operator)
+                    (number)))))))))))
+
+================================================================================
+Empty blocks
+================================================================================
+
+if (x) {
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (if_statement
+    condition: (parenthesized_expression
+      (identifier))
+    consequence: (statement_block)))
+

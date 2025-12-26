@@ -41,12 +41,71 @@ num := 123
 hex := 0xFF
 pi := 3.14
 
-if (x = 1) {
-    return true
+; === Control Flow ===
+; If statement
+if (enabled) {
+    DoSomething()
+}
+
+; If-else
+if (condition) {
+    x := 1
 } else {
-    global myVar
-    loop 10 {
+    x := 2
+}
+
+; If-else if-else chain
+if (status) {
+    MsgBox, Active
+} else if (pending) {
+    MsgBox, Waiting
+} else {
+    MsgBox, Inactive
+}
+
+; While loop
+while (running) {
+    Process()
+    if (done) {
         break
+    }
+}
+
+; Simple loop (infinite)
+loop {
+    if (shouldStop) {
+        break
+    }
+}
+
+; Loop with count
+loop 10 {
+    counter += 1
+}
+
+; Loop with variable count
+loop iterations {
+    DoWork()
+}
+
+; For-in with single variable
+for item in collection {
+    Process(item)
+}
+
+; For-in with key-value
+for key, value in myObject {
+    result .= key
+}
+
+; Nested control flow
+if (outer) {
+    while (inner) {
+        loop 5 {
+            for k, v in data {
+                Handle(k, v)
+            }
+        }
     }
 }
 
@@ -104,6 +163,7 @@ SetFormat, Float, 0.0
 CoordMode, Mouse, Screen
 IniRead, value, %filepath%, section, key
 Gui, MyGui:Add, Text,, Hello
+
 
 ; === Built-in Variables ===
 ; Direct usage in expressions

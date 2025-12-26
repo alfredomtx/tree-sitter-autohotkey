@@ -21,6 +21,11 @@ module.exports = grammar({
       $.hotkey,
       $.label,
       $.function_definition,
+      // Control flow statements (before keyword!)
+      $.if_statement,
+      $.while_statement,
+      $.loop_statement,
+      $.for_statement,
       $.method_call,
       $.member_expression,
       $.index_expression,
@@ -29,6 +34,7 @@ module.exports = grammar({
       $.array_literal,
       $.string,
       $.number,
+      $.parenthesized_expression,
       $.keyword,
       $.operator,
       prec(3, $.builtin_variable),
@@ -73,6 +79,46 @@ module.exports = grammar({
     ),
 
     block: $ => repeat1($._statement),
+
+    // Parenthesized expression for conditions
+    parenthesized_expression: $ => seq('(', $._expression, ')'),
+
+    // Statement block (braces + optional statements) for control flow
+    statement_block: $ => seq('{', optional($.block), '}'),
+
+    // Control flow statements
+    if_statement: $ => prec.right(seq(
+      'if',
+      field('condition', $.parenthesized_expression),
+      field('consequence', $.statement_block),
+      optional(field('alternative', $.else_clause))
+    )),
+
+    else_clause: $ => seq(
+      'else',
+      choice($.if_statement, $.statement_block)
+    ),
+
+    while_statement: $ => seq(
+      'while',
+      field('condition', $.parenthesized_expression),
+      field('body', $.statement_block)
+    ),
+
+    loop_statement: $ => seq(
+      'loop',
+      optional(field('count', choice($.number, $.identifier, $.parenthesized_expression))),
+      field('body', $.statement_block)
+    ),
+
+    for_statement: $ => seq(
+      'for',
+      field('key', $.identifier),
+      optional(seq(',', field('value', $.identifier))),
+      'in',
+      field('collection', $._expression),
+      field('body', $.statement_block)
+    ),
 
     function_definition: $ => prec.dynamic(10, seq(
       field('name', $.identifier),
@@ -166,6 +212,7 @@ module.exports = grammar({
       $.method_call,
       $.identifier,
       $.function_call,
+      $.parenthesized_expression,
     ),
 
     array_literal: $ => prec(2, seq(
@@ -201,7 +248,7 @@ module.exports = grammar({
     ),
 
     keyword: $ => choice(
-      'if', 'else', 'while', 'loop', 'for',
+      // Control flow keywords (if, else, while, loop, for) now have dedicated rules
       'return', 'break', 'continue', 'goto', 'gosub',
       'class', 'extends',
       'global', 'local', 'static',

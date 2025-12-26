@@ -18,6 +18,22 @@
 ; Keywords
 (keyword) @keyword
 
+; Control flow keywords
+(if_statement "if" @keyword)
+(else_clause "else" @keyword)
+(while_statement "while" @keyword)
+(loop_statement "loop" @keyword)
+(for_statement "for" @keyword)
+(for_statement "in" @keyword)
+
+; Statement blocks
+(statement_block "{" @punctuation.bracket)
+(statement_block "}" @punctuation.bracket)
+
+; Parenthesized expressions
+(parenthesized_expression "(" @punctuation.bracket)
+(parenthesized_expression ")" @punctuation.bracket)
+
 ; Operators
 (operator) @operator
 
