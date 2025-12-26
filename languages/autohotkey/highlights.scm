@@ -9,6 +9,9 @@
 ; Strings
 (string) @string
 
+; Escape sequences within strings
+(escape_sequence) @string.escape
+
 ; Numbers
 (number) @number
 

@@ -184,9 +184,14 @@ module.exports = grammar({
     )),
 
     string: $ => choice(
-      seq('"', /[^"]*/, '"'),
-      seq("'", /[^']*/, "'"),
+      seq('"', repeat(choice($.escape_sequence, /[^"`]+/)), '"'),
+      seq("'", repeat(choice($.escape_sequence, /[^'`]+/)), "'"),
     ),
+
+    escape_sequence: $ => token(seq(
+      '`',
+      choice('n', 't', 'r', '`', '"', "'")
+    )),
 
     number: $ => choice(
       /0[xX][0-9a-fA-F]+/,

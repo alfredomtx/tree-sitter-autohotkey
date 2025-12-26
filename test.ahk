@@ -136,3 +136,11 @@ nested_access := arr[1][2]
 ; Combined with member expressions
 obj.items[0] := "test"
 result := obj.data[index]
+
+; === Escape Sequences ===
+msg := "Hello`nWorld"
+path := "C:``temp``file.txt"
+tabs := "col1`tcol2`tcol3"
+quotes := "She said `"Hello`""
+mixed := 'single`'quote'
+carriage := "line1`rline2"
