@@ -1,29 +1,91 @@
-# Tree-sitter grammar for AutoHotkey V1
+# Tree-sitter AutoHotkey
 
-This repository provides a Tree-sitter grammar for the AutoHotkey scripting language. It is intended to be used by editors and other tools that support Tree-sitter for syntax highlighting and other language-aware features.
+[![CI](https://github.com/alfredomtx/tree-sitter-autohotkey/actions/workflows/ci.yml/badge.svg)](https://github.com/alfredomtx/tree-sitter-autohotkey/actions/workflows/ci.yml)
+
+Tree-sitter grammar for AutoHotkey v1, packaged as a Zed editor extension.
 
 ## Features
 
-*   Accurate and robust parsing of AutoHotkey code.
-*   Support for a wide range of AutoHotkey features, including:
-    *   Hotkeys and hotstrings
-    *   Variables and expressions
-    *   Control flow statements (if, else, loops)
-    *   Functions and subroutines
-    *   GUI commands
+- Syntax highlighting for `.ahk` files
+- Comment toggling (`Ctrl+/` or `gcc` in vim mode)
+- Document outline and go-to-symbol (`Ctrl+Shift+O`)
+- Auto-indentation
+- Bracket matching
 
-## Usage
+### Supported Syntax
 
-This grammar can be used with any editor or tool that supports Tree-sitter. For instructions on how to integrate this grammar with your editor, please refer to your editor's documentation.
+| Category | Elements |
+|----------|----------|
+| Comments | Line (`;`), block (`/* */`), doc (`/** */`) |
+| Literals | Strings, numbers (int, hex, float), arrays |
+| Operators | Assignment, comparison, arithmetic, logical, bitwise |
+| Keywords | `if`, `else`, `while`, `loop`, `for`, `return`, `class`, `try`, `catch`, etc. |
+| Functions | Definitions, calls, parameters with defaults |
+| Commands | 30+ built-in commands (`MsgBox`, `Send`, `Sleep`, `Run`, etc.) |
+| Variables | Regular, built-in (`A_ScriptDir`, `A_Now`, etc.), `%var%` dereferencing |
+| Objects | Property access, method calls, array indexing |
+| Hotkeys | Modifier combinations (`^!+#`) |
+| Directives | `#Include`, `#NoEnv`, `#SingleInstance`, etc. |
+| Escape sequences | `` `n ``, `` `t ``, `` `r ``, etc. |
 
-## For Zed Editor
+### Not Yet Implemented
 
-This grammar is in the process of being packaged as a Zed extension. Once published, it will be available for installation from the Zed extension store.
+- Hotstrings (`::\btw::by the way`)
+- Structured control flow blocks (if/else/while bodies)
+- Class definitions
+- Object literals (`{key: value}`)
+- Try/catch/finally blocks
+
+## Installation
+
+### Zed Editor (Development Extension)
+
+1. Clone this repository
+2. In Zed, open Command Palette (`Ctrl+Shift+P`)
+3. Run "Extensions: Install Dev Extension"
+4. Select the cloned folder
+
+> **Note:** This extension is not yet published to the Zed extension store.
+
+## Development
+
+### Prerequisites
+
+- Node.js 18+
+- npm
+
+### Commands
+
+```bash
+npm install          # Install dependencies
+npm run generate     # Generate parser from grammar.js
+npm run test         # Run test suite
+npm run parse <file> # Parse a file and show AST
+```
+
+### Making Changes
+
+After modifying `grammar.js` or query files:
+
+1. Run `npm run generate`
+2. Run `npm run test` to verify changes
+3. Commit and push to GitHub
+4. Update `rev` in `extension.toml` to the new commit hash
+5. Delete the `grammars/` folder (Zed's cache)
+6. Reinstall the dev extension in Zed
+
+See [TREE_SITTER_NOTES.md](TREE_SITTER_NOTES.md) for technical details and lessons learned.
 
 ## Contributing
 
-Contributions are welcome! If you find a bug or have a suggestion for improvement, please open an issue or submit a pull request.
+Contributions are welcome! Please:
+
+1. Check existing [issues](https://github.com/alfredomtx/tree-sitter-autohotkey/issues) or open a new one
+2. Fork the repository
+3. Create a branch for your changes
+4. Add tests in `test/corpus/` for new syntax
+5. Submit a pull request
 
 ## License
 
-This project is licensed under the MIT License.
+MIT License - see [LICENSE](LICENSE) for details.
