@@ -170,8 +170,6 @@ module.exports = grammar({
 
     class_member: $ => choice(
       $.comment,
-      $.doc_comment,
-      $.block_comment,
       $.class_definition,
       $.method_definition,
       $.class_property,

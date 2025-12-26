@@ -1,6 +1,3 @@
-; Doc comments annotate the following item
-(doc_comment) @annotation
-
 ; Function definitions
 (function_definition
   name: (identifier) @name) @item
