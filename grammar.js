@@ -476,9 +476,38 @@ module.exports = grammar({
     // Explicit low precedence so builtin_variable wins
     identifier: $ => token(prec(-1, /[a-zA-Z_][a-zA-Z0-9_]*/)),
 
-    builtin_variable: $ => token(prec(3,
-      /A_ScriptDir|A_Now|A_TickCount|A_TimeIdle|A_AhkVersion|A_ComSpec|Clipboard|ErrorLevel/
-    )),
+    builtin_variable: $ => token(prec(3, choice(
+      // Script properties
+      /A_ScriptDir|A_ScriptName|A_ScriptFullPath|A_ScriptHwnd|A_WorkingDir|A_InitialWorkingDir|A_Args|A_LineNumber|A_LineFile|A_ThisFunc|A_ThisLabel|A_AhkVersion|A_AhkPath|A_IsUnicode|A_IsCompiled|A_ExitReason/,
+      // Date and time
+      /A_Now|A_NowUTC|A_YYYY|A_MM|A_DD|A_MMMM|A_MMM|A_DDDD|A_DDD|A_WDay|A_YDay|A_YWeek|A_Hour|A_Min|A_Sec|A_MSec|A_TickCount/,
+      // Script settings (part 1)
+      /A_IsSuspended|A_IsPaused|A_IsCritical|A_BatchLines|A_ListLines|A_TitleMatchMode|A_TitleMatchModeSpeed|A_DetectHiddenWindows|A_DetectHiddenText|A_AutoTrim|A_StringCaseSense|A_FileEncoding|A_FormatInteger|A_FormatFloat/,
+      // Script settings (part 2)
+      /A_SendMode|A_SendLevel|A_StoreCapsLockMode|A_KeyDelay|A_KeyDuration|A_KeyDelayPlay|A_KeyDurationPlay|A_WinDelay|A_ControlDelay|A_MouseDelay|A_MouseDelayPlay|A_DefaultMouseSpeed/,
+      // Script settings (part 3)
+      /A_CoordModeToolTip|A_CoordModePixel|A_CoordModeMouse|A_CoordModeCaret|A_CoordModeMenu|A_RegView|A_IconHidden|A_IconTip|A_IconFile|A_IconNumber/,
+      // User idle time
+      /A_TimeIdle|A_TimeIdlePhysical|A_TimeIdleKeyboard|A_TimeIdleMouse/,
+      // GUI windows
+      /A_DefaultGui|A_DefaultListView|A_DefaultTreeView|A_Gui|A_GuiControl|A_GuiWidth|A_GuiHeight|A_GuiX|A_GuiY|A_GuiEvent|A_GuiControlEvent|A_EventInfo/,
+      // Hotkeys, hotstrings, menus
+      /A_ThisMenuItem|A_ThisMenu|A_ThisMenuItemPos|A_ThisHotkey|A_PriorHotkey|A_PriorKey|A_TimeSinceThisHotkey|A_TimeSincePriorHotkey|A_EndChar/,
+      // OS and user info (part 1)
+      /A_ComSpec|ComSpec|A_Temp|A_OSType|A_OSVersion|A_Is64bitOS|A_PtrSize|A_Language|A_ComputerName|A_UserName|A_WinDir|A_ProgramFiles/,
+      // OS and user info (part 2)
+      /A_AppData|A_AppDataCommon|A_Desktop|A_DesktopCommon|A_StartMenu|A_StartMenuCommon|A_Programs|A_ProgramsCommon|A_Startup|A_StartupCommon|A_MyDocuments|A_IsAdmin/,
+      // OS and user info (part 3)
+      /A_ScreenWidth|A_ScreenHeight|A_ScreenDPI|A_IPAddress1|A_IPAddress2|A_IPAddress3|A_IPAddress4/,
+      // Special characters and misc
+      /A_Space|A_Tab|A_Cursor|A_CaretX|A_CaretY|A_Clipboard|Clipboard|ClipboardAll|A_LastError|True|False|ErrorLevel/,
+      // Loop variables (file loop)
+      /A_Index|A_LoopFileName|A_LoopFileExt|A_LoopFileFullPath|A_LoopFileLongPath|A_LoopFileShortPath|A_LoopFileShortName|A_LoopFileDir/,
+      // Loop variables (file loop attributes)
+      /A_LoopFileTimeModified|A_LoopFileTimeCreated|A_LoopFileTimeAccessed|A_LoopFileAttrib|A_LoopFileSize|A_LoopFileSizeKB|A_LoopFileSizeMB/,
+      // Loop variables (registry and parsing)
+      /A_LoopRegName|A_LoopRegType|A_LoopRegKey|A_LoopRegSubKey|A_LoopRegTimeModified|A_LoopReadLine|A_LoopField/,
+    ))),
 
     // Remaining punctuation - NOT parens/brackets/braces which have semantic meaning
     _punctuation: $ => /[.,@$\\]+/,

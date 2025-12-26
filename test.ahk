@@ -106,8 +106,7 @@ loop, read, input.txt
     line := A_LoopReadLine
 }
 
-loop, reg, HKEY_LOCAL_MACHINE\SOFTWARE
-{
+loop, reg, HKEY_LOCAL_MACHINE\SOFTWARE {
     RegRead, val, %A_LoopRegKey%, %A_LoopRegName%
 }
 
@@ -130,6 +129,36 @@ if (outer) {
             }
         }
     }
+}
+
+; === Switch Statement ===
+; Basic switch
+switch action {
+    case "save":
+        Save()
+    case "load":
+        Load()
+    default:
+        MsgBox, Unknown action
+}
+
+; Switch with parenthesized expression
+switch (e.What) {
+    case "ReloadException":
+        Reload(false)
+        return
+    case "EnableDefenderException":
+        EnableDefender()
+}
+
+; Switch with multiple case values
+switch errorCode {
+    case 1, 2, 3:
+        MsgBox, Minor error
+    case 100, 200:
+        MsgBox, Major error
+    default:
+        MsgBox, Unknown error: %errorCode%
 }
 
 ; === Try/Catch/Finally ===
@@ -250,6 +279,11 @@ Run, %A_ComSpec%
 text := Clipboard
 if (ErrorLevel)
     return
+
+; New builtins (from AHK v1 docs)
+if (!A_IsCompiled) {
+    MsgBox, Not compiled
+}
 
 ; Should NOT match as builtins (regular identifiers)
 A_CustomVar := 1
