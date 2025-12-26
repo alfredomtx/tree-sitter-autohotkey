@@ -275,6 +275,7 @@ module.exports = grammar({
       $.string,
       $.number,
       prec(3, $.builtin_variable),
+      $.variable_ref,  // %var% syntax - must be reachable for highlights.scm
       $.array_literal,
       $.object_literal,
       $.index_expression,
