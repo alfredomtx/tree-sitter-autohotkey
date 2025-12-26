@@ -10,6 +10,10 @@ module.exports = grammar({
   conflicts: $ => [
     [$.parameter, $._expression],
     [$.variable_ref, $.operator],
+    [$.variable_ref, $._expression],   // %var% in expressions
+    [$.loop_statement, $._statement],  // loop identifier: count vs braceless body
+    [$.catch_clause, $._statement],    // catch identifier: exception vs braceless body
+    [$.else_clause, $._statement],     // else if_statement: else body vs separate statement
   ],
 
   rules: {
@@ -116,30 +120,30 @@ module.exports = grammar({
     // Statement block (braces + optional statements) for control flow
     statement_block: $ => seq('{', optional($.block), '}'),
 
-    // Control flow statements
+    // Control flow statements - support both braced blocks and single statements
     if_statement: $ => prec.right(seq(
       'if',
       field('condition', $.parenthesized_expression),
-      field('consequence', $.statement_block),
+      field('consequence', choice($.statement_block, $._statement)),
       optional(field('alternative', $.else_clause))
     )),
 
     else_clause: $ => seq(
       'else',
-      choice($.if_statement, $.statement_block)
+      choice($.if_statement, $.statement_block, $._statement)
     ),
 
     while_statement: $ => seq(
       'while',
       field('condition', $.parenthesized_expression),
-      field('body', $.statement_block)
+      field('body', choice($.statement_block, $._statement))
     ),
 
-    loop_statement: $ => seq(
+    loop_statement: $ => prec.right(seq(
       'loop',
       optional(field('count', choice($.number, $.identifier))),
-      field('body', $.statement_block)
-    ),
+      field('body', choice($.statement_block, $._statement))
+    )),
 
     for_statement: $ => seq(
       'for',
@@ -147,25 +151,25 @@ module.exports = grammar({
       optional(seq(',', field('value', $.identifier))),
       'in',
       field('collection', $._expression),
-      field('body', $.statement_block)
+      field('body', choice($.statement_block, $._statement))
     ),
 
-    try_statement: $ => seq(
+    try_statement: $ => prec.right(seq(
       'try',
-      field('body', $.statement_block),
+      field('body', choice($.statement_block, $._statement)),
       optional($.catch_clause),
       optional($.finally_clause)
-    ),
+    )),
 
     catch_clause: $ => seq(
       'catch',
       optional(field('exception', $.identifier)),
-      field('body', $.statement_block)
+      field('body', choice($.statement_block, $._statement))
     ),
 
     finally_clause: $ => seq(
       'finally',
-      field('body', $.statement_block)
+      field('body', choice($.statement_block, $._statement))
     ),
 
     function_definition: $ => prec.dynamic(10, seq(

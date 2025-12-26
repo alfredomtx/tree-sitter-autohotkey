@@ -228,3 +228,145 @@ if (x) {
     condition: (parenthesized_expression
       (identifier))
     consequence: (statement_block)))
+
+================================================================================
+Braceless if statement
+================================================================================
+
+if (x)
+    y := 1
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (if_statement
+    condition: (parenthesized_expression
+      (identifier))
+    consequence: (assignment_expression
+      left: (identifier)
+      right: (number))))
+
+================================================================================
+Braceless if-else statement
+================================================================================
+
+if (x)
+    a := 1
+else
+    b := 2
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (if_statement
+    condition: (parenthesized_expression
+      (identifier))
+    consequence: (assignment_expression
+      left: (identifier)
+      right: (number))
+    alternative: (else_clause
+      (assignment_expression
+        left: (identifier)
+        right: (number)))))
+
+================================================================================
+Braceless while statement
+================================================================================
+
+while (running)
+    DoWork()
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (while_statement
+    condition: (parenthesized_expression
+      (identifier))
+    body: (function_call
+      name: (identifier))))
+
+================================================================================
+Braceless loop statement
+================================================================================
+
+loop 5
+    count += 1
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (loop_statement
+    count: (number)
+    body: (assignment_expression
+      left: (identifier)
+      right: (number))))
+
+================================================================================
+Braceless for statement
+================================================================================
+
+for item in collection
+    Process(item)
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (for_statement
+    key: (identifier)
+    collection: (identifier)
+    body: (function_call
+      name: (identifier)
+      (argument_list
+        (identifier)))))
+
+================================================================================
+Dangling else associates with nearest if
+================================================================================
+
+if (a)
+    if (b)
+        x := 1
+    else
+        x := 2
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (if_statement
+    condition: (parenthesized_expression
+      (identifier))
+    consequence: (if_statement
+      condition: (parenthesized_expression
+        (identifier))
+      consequence: (assignment_expression
+        left: (identifier)
+        right: (number))
+      alternative: (else_clause
+        (assignment_expression
+          left: (identifier)
+          right: (number))))))
+
+================================================================================
+Mixed braced and braceless
+================================================================================
+
+if (x) {
+    a := 1
+} else
+    b := 2
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (if_statement
+    condition: (parenthesized_expression
+      (identifier))
+    consequence: (statement_block
+      (block
+        (assignment_expression
+          left: (identifier)
+          right: (number))))
+    alternative: (else_clause
+      (assignment_expression
+        left: (identifier)
+        right: (number)))))
