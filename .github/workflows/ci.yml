@@ -34,5 +34,8 @@ jobs:
       - name: Generate parser
         run: npm run generate
 
+      - name: Validate query files
+        run: npm run validate-queries
+
       - name: Run tests
         run: npm test
