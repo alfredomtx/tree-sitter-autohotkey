@@ -123,7 +123,10 @@ module.exports = grammar({
     // Control flow statements - support both braced blocks and single statements
     if_statement: $ => prec.right(seq(
       'if',
-      field('condition', $.parenthesized_expression),
+      field('condition', seq(
+        $.parenthesized_expression,
+        repeat(seq(choice('&&', '||', 'and', 'or'), $.parenthesized_expression))
+      )),
       field('consequence', choice($.statement_block, $._statement)),
       optional(field('alternative', $.else_clause))
     )),

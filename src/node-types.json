@@ -1607,12 +1607,28 @@
         ]
       },
       "condition": {
-        "multiple": false,
+        "multiple": true,
         "required": true,
         "types": [
           {
+            "type": "&&",
+            "named": false
+          },
+          {
+            "type": "and",
+            "named": false
+          },
+          {
+            "type": "or",
+            "named": false
+          },
+          {
             "type": "parenthesized_expression",
             "named": true
+          },
+          {
+            "type": "||",
+            "named": false
           }
         ]
       },

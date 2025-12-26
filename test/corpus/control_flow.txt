@@ -471,3 +471,97 @@ loop, parse, text
     body: (assignment_expression
       left: (identifier)
       right: (identifier))))
+
+================================================================================
+If with chained AND conditions
+================================================================================
+
+if (x != 5) && (y != 1)
+    Goto, MyLabel
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (if_statement
+    condition: (parenthesized_expression
+      (binary_expression
+        left: (identifier)
+        right: (number)))
+    condition: (parenthesized_expression
+      (binary_expression
+        left: (identifier)
+        right: (number)))
+    consequence: (command
+      name: (command_name)
+      (command_arguments))))
+
+================================================================================
+If with chained OR conditions
+================================================================================
+
+if (a = 1) || (b = 2)
+    result := true
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (if_statement
+    condition: (parenthesized_expression
+      (binary_expression
+        left: (identifier)
+        right: (number)))
+    condition: (parenthesized_expression
+      (binary_expression
+        left: (identifier)
+        right: (number)))
+    consequence: (assignment_expression
+      left: (identifier)
+      right: (boolean))))
+
+================================================================================
+If with three chained conditions
+================================================================================
+
+if (a) && (b) && (c) {
+    x := 1
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (if_statement
+    condition: (parenthesized_expression
+      (identifier))
+    condition: (parenthesized_expression
+      (identifier))
+    condition: (parenthesized_expression
+      (identifier))
+    consequence: (statement_block
+      (block
+        (assignment_expression
+          left: (identifier)
+          right: (number))))))
+
+================================================================================
+If with mixed AND and OR conditions
+================================================================================
+
+if (a) && (b) || (c) {
+    x := 1
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (if_statement
+    condition: (parenthesized_expression
+      (identifier))
+    condition: (parenthesized_expression
+      (identifier))
+    condition: (parenthesized_expression
+      (identifier))
+    consequence: (statement_block
+      (block
+        (assignment_expression
+          left: (identifier)
+          right: (number))))))
