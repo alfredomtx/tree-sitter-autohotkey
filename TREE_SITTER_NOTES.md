@@ -280,3 +280,41 @@ If installation hangs, check Task Manager for `clang.exe` processes. Multiple cl
 - Matching `command_name` structure with `choice()` of multiple `token()` groups
 
 **Lesson learned:** When highlighting doesn't work, check if the capture group is supported by Zed's themes before assuming a grammar issue. Reference: [Zed Issue #22193](https://github.com/zed-industries/zed/issues/22193) documents that Zed uses non-standard captures compared to Helix/Neovim.
+
+## Zed indents.scm Uses Different Pattern Than Helix
+
+### Use `@indent` on the node, `@end` on closing delimiter
+
+**Problem:** Indentation doesn't work - pressing Enter after `{` puts cursor at column 1.
+
+**Root Cause:** Zed uses a different indentation pattern than Helix/Neovim:
+
+| Editor | Pattern |
+|--------|---------|
+| Helix/Neovim | `@indent` on `{`, `@outdent` on `}` |
+| Zed | `@indent` on parent node, `@end` on closing delimiter |
+
+```scheme
+; WRONG (Helix style) - doesn't work in Zed
+(function_definition "{" @indent)
+(function_definition "}" @outdent)
+
+; CORRECT (Zed style)
+(function_definition "}" @end) @indent
+```
+
+**How Zed's pattern works:**
+- `@indent` on the node means "indent children of this node"
+- `@end` marks the closing delimiter that ends the indented region
+- `@outdent` is NOT a standard Zed capture
+
+**Zed's supported captures:**
+| Capture | Purpose |
+|---------|---------|
+| `@indent` | Increase indent for node's children |
+| `@end` | Mark closing delimiter |
+| `@indent.begin` | Alternative to `@indent` |
+| `@indent.end` | Alternative to `@end` |
+| `@indent.ignore` | Skip indentation for this node |
+
+**Reference:** [Zed Language Extensions Documentation](https://zed.dev/docs/extensions/languages)
