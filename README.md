@@ -11,6 +11,26 @@ Tree-sitter grammar for AutoHotkey v1, packaged as a Zed editor extension.
 - Document outline and go-to-symbol (`Ctrl+Shift+O`)
 - Auto-indentation
 - Bracket matching
+- Run scripts directly from the editor (requires task configuration)
+
+### Running Scripts
+
+To enable the "Run" button in the gutter, add a task configuration:
+
+1. Create `.zed/tasks.json` in your project:
+   ```json
+   [
+     {
+       "label": "Run AHK Script",
+       "command": "AutoHotkey.exe",
+       "args": ["$ZED_FILE"]
+     }
+   ]
+   ```
+
+2. Ensure `AutoHotkey.exe` is in your PATH, or use the full path
+
+3. Click the run button in the gutter or use Command Palette → "Run"
 
 ### Supported Syntax
 
