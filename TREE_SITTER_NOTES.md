@@ -100,6 +100,44 @@ conflicts: $ => [
 ],
 ```
 
+### Remove `()[]` from `_punctuation` to enable empty function calls and arrays
+
+**Problem:** `MyFunc()` parses as just `identifier`, and `arr := []` doesn't recognize the array literal. The `()` and `[]` are being consumed by `_punctuation` before `function_call` or `array_literal` can match.
+
+**Solution:** Remove parentheses and brackets from `_punctuation`:
+```javascript
+// WRONG - eats () and [] before semantic rules match
+_punctuation: $ => /[(){}\[\].,@$\\]+/,
+
+// CORRECT - let function_call, array_literal, etc. handle these
+_punctuation: $ => /[{}.,@$\\]+/,
+```
+
+**Why this happens:** Tree-sitter commits to matching `identifier` for `MyFunc`, then looks for the next token. If `_punctuation` matches `()`, the parser never backtracks to try `function_call` as a unit.
+
+### Use inline tokens with precedence for patterns inside `repeat1(choice(...))`
+
+**Problem:** In `command_arguments`, numbers like `1000` are captured by a catch-all regex instead of `$.number`, so they don't get number highlighting.
+
+**Root cause:** Even with `$.number` listed before the catch-all in the choice, tree-sitter may prefer the catch-all for various reasons.
+
+**Solution:** Use an inline token with explicit precedence and alias it to the desired node type:
+```javascript
+// WRONG - $.number may not win over catch-all
+command_arguments: $ => repeat1(choice(
+  $.number,
+  /[^\s,\n%"'][^\s,\n%"']*/,  // catch-all
+)),
+
+// CORRECT - inline token with high precedence, aliased to number
+command_arguments: $ => repeat1(choice(
+  alias(token(prec(3, /\d+\.?\d*|0[xX][0-9a-fA-F]+/)), $.number),
+  /[^\s,\n%"'0-9][^\s,\n%"']*/,  // catch-all excludes leading digits
+)),
+```
+
+**Bonus:** Also exclude leading digits from the catch-all pattern to ensure numbers can only match via the number rule.
+
 ## Debugging Tips
 
 ### Verify Zed is using the correct grammar
