@@ -127,44 +127,35 @@ If installation hangs, check Task Manager for `clang.exe` processes. Multiple cl
 | `%LOCALAPPDATA%\Zed\extensions\build\wasi-sdk\` | WASM SDK for compilation |
 | `%LOCALAPPDATA%\Zed\logs\Zed.log` | Main log file |
 
-## Known Issues
+## Zed Theme Highlight Group Support
 
-### builtin_variable highlighting not working (UNSOLVED)
+### Use `@variable.special` instead of `@variable.builtin` (SOLVED)
 
-**Status:** Blocked - needs further investigation
+**Problem:** `builtin_variable` nodes weren't highlighting in Zed, while `command_name` nodes worked fine with identical grammar patterns.
 
-**Problem:** `builtin_variable` nodes don't highlight in Zed, but `command_name` nodes do (same grammar pattern).
+**Root Cause:** Zed's default themes (like "One") don't include `variable.builtin` in their syntax color definitions. The grammar was correct - Zed just had no color to apply.
 
-**Symptoms:**
-- `A_ScriptDir`, `A_Now`, `Clipboard`, `ErrorLevel` show same color as regular identifiers
-- `MsgBox`, `Run` (command_name) highlight correctly
-- Grammar generates without errors, extension installs successfully
-- highlights.scm has correct query: `(builtin_variable) @variable.builtin`
+**Zed theme support:**
+| Capture Group | Supported |
+|---------------|-----------|
+| `@variable` | ✓ Yes |
+| `@variable.special` | ✓ Yes |
+| `@variable.builtin` | ✗ No |
+| `@function.builtin` | ✓ Yes (falls back to @function) |
 
-**Attempted fixes (all failed):**
+**Solution:** Use `@variable.special` instead of `@variable.builtin` in highlights.scm:
+```scheme
+; WRONG - Zed themes don't support this
+(builtin_variable) @variable.builtin
 
-1. **Added `prec(3)` to builtin_variable** - Same pattern as working command_name
-   ```javascript
-   builtin_variable: $ => token(prec(3, /A_ScriptDir|A_Now|.../)),
-   ```
-   Result: No change
+; CORRECT - Zed themes support this
+(builtin_variable) @variable.special
+```
 
-2. **Added explicit `prec(-1)` to identifier** - To ensure builtin_variable wins lexer conflict
-   ```javascript
-   identifier: $ => token(prec(-1, /[a-zA-Z_][a-zA-Z0-9_]*/)),
-   ```
-   Result: No change
+**What we tried that didn't help (because the grammar was never the problem):**
+- Adding `prec(3)` to builtin_variable token
+- Adding `prec(-1)` to identifier token
+- Adding parser-level `prec(3, $.builtin_variable)` in choices
+- Matching `command_name` structure with `choice()` of multiple `token()` groups
 
-**Key differences between working command_name and broken builtin_variable:**
-
-| Aspect | command_name (works) | builtin_variable (broken) |
-|--------|---------------------|---------------------------|
-| Structure | `choice()` of multiple `token(prec(3,...))` | Single `token(prec(3,...))` |
-| Usage | Inside `command` rule with `prec(2)` | Direct in `_expression`/`_statement` |
-| Wrapper | Has outer rule with field and precedence | No wrapper, bare choice |
-
-**Theories to investigate:**
-1. Parser creating `identifier` nodes instead of `builtin_variable` (lexer not respecting precedence)
-2. May need `choice()` wrapper structure like command_name
-3. May need outer rule with precedence wrapping builtin_variable usage
-4. Possible Zed/tree-sitter-wasm specific bug with token precedence
+**Lesson learned:** When highlighting doesn't work, check if the capture group is supported by Zed's themes before assuming a grammar issue. Reference: [Zed Issue #22193](https://github.com/zed-industries/zed/issues/22193) documents that Zed uses non-standard captures compared to Helix/Neovim.

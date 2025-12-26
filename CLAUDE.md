@@ -17,10 +17,10 @@ npm run parse <file>  # Parse a file and show AST
 
 ## Development Workflow
 
-**CRITICAL: Zed ALWAYS fetches grammar from GitHub, never local files!**
+**CRITICAL: Zed ALWAYS fetches grammar files from GitHub, never local files!**
 
-After modifying `grammar.js`:
-1. Run `npm run generate` to regenerate the parser
+After modifying `grammar.js`, `highlights.scm`, or any grammar-related file:
+1. Run `npm run generate` to regenerate the parser (if grammar.js changed)
 2. Commit and push changes to GitHub
 3. Get the new commit hash: `git rev-parse HEAD`
 4. Update `rev` in `extension.toml` to the new commit hash
@@ -29,8 +29,8 @@ After modifying `grammar.js`:
 
 **Why this matters:**
 - The `[grammars.autohotkey]` section REQUIRES `repository` and `rev` fields - Zed will error without them
-- Zed clones the grammar from GitHub at the specified `rev`, ignoring your local `grammar.js`
-- Local changes have NO effect until pushed and rev updated
+- Zed clones the grammar from GitHub at the specified `rev`, ignoring ALL local files
+- Local changes to `grammar.js`, `highlights.scm`, etc. have NO effect until pushed and rev updated
 - The `grammars/` folder contains Zed's git clone - delete it to force re-fetch
 
 ## Architecture
