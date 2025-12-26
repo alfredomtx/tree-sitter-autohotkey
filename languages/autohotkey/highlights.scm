@@ -48,3 +48,9 @@
 
 ; Labels
 (label . (identifier) @label)
+
+; Arrays
+(array_literal "[" @punctuation.bracket)
+(array_literal "]" @punctuation.bracket)
+(index_expression "[" @punctuation.bracket)
+(index_expression "]" @punctuation.bracket)

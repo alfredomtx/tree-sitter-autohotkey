@@ -120,3 +120,19 @@ obj.nested.value := 1
 result := obj.GetValue()
 obj.nested.Method(arg1, arg2)
 x := obj.a.b.c
+
+; === Array Syntax ===
+; Array literals
+arr := [1, 2, 3]
+empty := []
+nested := [[1, 2], [3, 4]]
+mixed := [1, "text", 3.14]
+
+; Array access
+first := arr[1]
+second := arr[2]
+nested_access := arr[1][2]
+
+; Combined with member expressions
+obj.items[0] := "test"
+result := obj.data[index]

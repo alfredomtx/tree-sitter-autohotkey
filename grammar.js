@@ -25,8 +25,10 @@ module.exports = grammar({
       $.function_definition,
       $.method_call,
       $.member_expression,
+      $.index_expression,
       $.function_call,
       $.command,
+      $.array_literal,
       $.string,
       $.number,
       $.keyword,
@@ -157,11 +159,29 @@ module.exports = grammar({
       $.string,
       $.number,
       prec(3, $.builtin_variable),
+      $.array_literal,
+      $.index_expression,
       $.member_expression,
       $.method_call,
       $.identifier,
       $.function_call,
     ),
+
+    array_literal: $ => seq(
+      '[',
+      optional(seq(
+        $._expression,
+        repeat(seq(',', $._expression))
+      )),
+      ']'
+    ),
+
+    index_expression: $ => prec.left(1, seq(
+      field('object', choice($.identifier, $.member_expression, $.index_expression)),
+      token.immediate('['),
+      field('index', $._expression),
+      ']'
+    )),
 
     string: $ => choice(
       seq('"', /[^"]*/, '"'),
