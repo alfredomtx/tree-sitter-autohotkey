@@ -32,6 +32,7 @@ module.exports = grammar({
       $.string,
       $.number,
       $.keyword,
+      prec(2, $.variable_ref),
       $.operator,
       prec(3, $.builtin_variable),
       $.identifier,
@@ -74,7 +75,7 @@ module.exports = grammar({
       token.immediate(':')
     ),
 
-    function_definition: $ => seq(
+    function_definition: $ => prec(2, seq(
       field('name', $.identifier),
       token.immediate('('),
       optional($.parameter_list),
@@ -82,14 +83,14 @@ module.exports = grammar({
       '{',
       repeat($._statement),
       '}'
-    ),
+    )),
 
-    function_call: $ => seq(
+    function_call: $ => prec(2, seq(
       field('name', $.identifier),
       token.immediate('('),
       optional($.argument_list),
       ')'
-    ),
+    )),
 
     member_expression: $ => prec.left(1, seq(
       field('object', choice($.identifier, $.member_expression)),
@@ -97,14 +98,14 @@ module.exports = grammar({
       field('property', $.identifier)
     )),
 
-    method_call: $ => prec.left(2, seq(
+    method_call: $ => prec(3, prec.left(2, seq(
       field('object', choice($.identifier, $.member_expression)),
       token.immediate('.'),
       field('method', $.identifier),
       token.immediate('('),
       optional($.argument_list),
       ')'
-    )),
+    ))),
 
     command: $ => prec(2, seq(
       field('name', $.command_name),
@@ -138,7 +139,7 @@ module.exports = grammar({
       /[^\s,\n%"']+/,
     ))),
 
-    variable_ref: $ => seq('%', choice(prec(3, $.builtin_variable), $.identifier), '%'),
+    variable_ref: $ => prec(4, seq('%', choice(prec(3, $.builtin_variable), $.identifier), '%')),
 
     parameter_list: $ => seq(
       $.parameter,
@@ -167,14 +168,14 @@ module.exports = grammar({
       $.function_call,
     ),
 
-    array_literal: $ => seq(
+    array_literal: $ => prec(2, seq(
       '[',
       optional(seq(
         $._expression,
         repeat(seq(',', $._expression))
       )),
       ']'
-    ),
+    )),
 
     index_expression: $ => prec.left(1, seq(
       field('object', choice($.identifier, $.member_expression, $.index_expression)),
@@ -234,7 +235,7 @@ module.exports = grammar({
       token(prec(3, /Clipboard|ErrorLevel/)),
     ),
 
-    // Remaining punctuation (braces, brackets, parens, dots, commas)
-    _punctuation: $ => /[(){}\[\].,@$\\]+/,
+    // Remaining punctuation (braces, dots, commas) - NOT parens/brackets which have semantic meaning
+    _punctuation: $ => /[{}.,@$\\]+/,
   }
 });
