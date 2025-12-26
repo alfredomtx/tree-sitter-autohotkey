@@ -1,19 +1,29 @@
 {
   "name": "tree-sitter-autohotkey",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Tree-sitter grammar for AutoHotkey v1 with Zed editor support",
+  "main": "bindings/node",
   "scripts": {
     "generate": "tree-sitter generate",
     "build": "tree-sitter generate",
     "test": "tree-sitter test",
     "parse": "tree-sitter parse"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "type": "commonjs",
+  "keywords": [
+    "autohotkey",
+    "ahk",
+    "tree-sitter",
+    "parser",
+    "syntax-highlighting",
+    "zed"
+  ],
+  "author": "Alfredo Menezes",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/alfredomtx/tree-sitter-autohotkey"
+  },
   "devDependencies": {
-    "tree-sitter-cli": "^0.26.3"
+    "tree-sitter-cli": "0.26.3"
   }
 }
