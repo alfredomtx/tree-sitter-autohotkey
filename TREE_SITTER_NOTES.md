@@ -49,6 +49,46 @@ command_name: $ => choice(
 ),
 ```
 
+### Rules in `_expression` must also be in `_statement` for top-level parsing
+
+**Problem:** Adding a new rule to `_expression` doesn't make it parse at the top level. The parser will fall back to simpler matches (like `identifier` + `_punctuation`).
+
+**Example:** Adding `member_expression` to parse `obj.name`:
+```javascript
+// WRONG - member_expression only in _expression
+_expression: $ => choice(
+  $.member_expression,  // Added here
+  $.identifier,
+  ...
+),
+
+_statement: $ => choice(
+  $.function_call,
+  $.identifier,
+  $._punctuation,  // "." matches here instead!
+  ...
+),
+```
+
+With the above, `obj.name` parses as three separate tokens:
+- `obj` → identifier
+- `.` → punctuation (from `_punctuation: $ => /[(){}\[\].,@$\\]+/`)
+- `name` → identifier
+
+**Solution:** Add the rule to BOTH `_expression` AND `_statement`:
+```javascript
+_statement: $ => choice(
+  $.method_call,        // Before function_call for precedence
+  $.member_expression,  // Before identifier so it wins
+  $.function_call,
+  $.identifier,
+  $._punctuation,
+  ...
+),
+```
+
+**Key insight:** `_expression` is only reachable through specific contexts (function arguments, parameter defaults). Top-level statements go through `_statement`.
+
 ### The `[$.command]` conflict is required
 
 The grammar needs `[$.command]` in the conflicts array to resolve ambiguity between `command` with and without arguments. Don't remove it.
