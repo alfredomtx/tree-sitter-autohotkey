@@ -183,7 +183,8 @@ module.exports = grammar({
     identifier: $ => /[a-zA-Z_][a-zA-Z0-9_]*/,
 
     // MINIMAL TEST - just a few built-in variables to test if rule works at all
-    builtin_variable: $ => token(/A_ScriptDir|A_Now|A_TickCount|Clipboard|ErrorLevel/),
+    // Use prec(3) like command_name to ensure precedence over identifier
+    builtin_variable: $ => token(prec(3, /A_ScriptDir|A_Now|A_TickCount|Clipboard|ErrorLevel/)),
 
     // Remaining punctuation (braces, brackets, parens, dots, commas)
     _punctuation: $ => /[(){}\[\].,@$\\]+/,

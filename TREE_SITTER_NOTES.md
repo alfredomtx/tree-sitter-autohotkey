@@ -82,3 +82,53 @@ When adding new commands or rules:
 - It's a git clone from GitHub at the specified `rev`
 - Delete it to force Zed to re-fetch
 - Your local grammar.js changes have NO effect until pushed and rev updated
+
+## Troubleshooting Extension Installation Failures
+
+### "Failed to install dev extension: failed to compile grammar"
+
+This error can have multiple causes. Check Zed's logs for the actual error:
+
+**Log location (Windows):**
+```
+C:\Users\<username>\AppData\Local\Zed\logs\Zed.log
+```
+
+**Search for the actual error:**
+```bash
+grep -i "autohotkey\|grammar\|compile\|failed" "C:/Users/<username>/AppData/Local/Zed/logs/Zed.log" | tail -50
+```
+
+**Common causes:**
+
+1. **Invalid commit hash in extension.toml**
+   ```
+   failed to fetch revision <hash> in directory '...\grammars\autohotkey'
+   ```
+   - Verify the `rev` in extension.toml matches an actual commit: `git rev-parse <short-hash>`
+   - Use the full 40-character hash, not abbreviated
+
+2. **Grammar too complex for WASM compilation**
+   - Multiple `clang.exe` processes consuming GB of memory
+   - Installation hangs indefinitely
+   - Solution: Split large `token()` rules into smaller groups (see "Keep individual regex patterns short" above)
+
+3. **Corrupted cache state**
+   - Delete these and retry:
+     ```
+     <project>/grammars/
+     C:\Users\<username>\AppData\Local\Zed\extensions\installed\autohotkey\
+     ```
+
+### Monitoring WASM compilation
+
+If installation hangs, check Task Manager for `clang.exe` processes. Multiple clang processes consuming excessive memory (1GB+) indicates the grammar is too complex for WASM compilation.
+
+### Zed cache locations (Windows)
+
+| Path | Purpose |
+|------|---------|
+| `<project>/grammars/` | Git clone of grammar at specified rev |
+| `%LOCALAPPDATA%\Zed\extensions\installed\` | Installed extensions |
+| `%LOCALAPPDATA%\Zed\extensions\build\wasi-sdk\` | WASM SDK for compilation |
+| `%LOCALAPPDATA%\Zed\logs\Zed.log` | Main log file |
