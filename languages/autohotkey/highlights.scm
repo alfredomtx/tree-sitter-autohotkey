@@ -41,8 +41,65 @@
 (parenthesized_expression "(" @punctuation.bracket)
 (parenthesized_expression ")" @punctuation.bracket)
 
-; Operators
+; Operators - match in all contexts they appear
+
+; Standalone operator rule
 (operator) @operator
+
+; Assignment operators
+(assignment_expression ":=" @operator)
+(assignment_expression "+=" @operator)
+(assignment_expression "-=" @operator)
+(assignment_expression "*=" @operator)
+(assignment_expression "/=" @operator)
+(assignment_expression ".=" @operator)
+
+; Binary operators - Logical
+(binary_expression "||" @operator)
+(binary_expression "or" @keyword.operator)
+(binary_expression "&&" @operator)
+(binary_expression "and" @keyword.operator)
+
+; Binary operators - Bitwise
+(binary_expression "|" @operator)
+(binary_expression "^" @operator)
+(binary_expression "&" @operator)
+(binary_expression "<<" @operator)
+(binary_expression ">>" @operator)
+
+; Binary operators - Equality
+(binary_expression "=" @operator)
+(binary_expression "==" @operator)
+(binary_expression "!=" @operator)
+(binary_expression "<>" @operator)
+
+; Binary operators - Comparison
+(binary_expression "<" @operator)
+(binary_expression ">" @operator)
+(binary_expression "<=" @operator)
+(binary_expression ">=" @operator)
+
+; Binary operators - Arithmetic
+(binary_expression "+" @operator)
+(binary_expression "-" @operator)
+(binary_expression "*" @operator)
+(binary_expression "/" @operator)
+(binary_expression "//" @operator)
+(binary_expression "%" @operator)
+(binary_expression "**" @operator)
+
+; Binary operators - Concatenation
+(binary_expression "." @operator)
+
+; Unary operators
+(unary_expression "!" @operator)
+(unary_expression "not" @keyword.operator)
+(unary_expression "~" @operator)
+(unary_expression "-" @operator)
+
+; Ternary operator
+(ternary_expression "?" @operator)
+(ternary_expression ":" @operator)
 
 ; Hotkeys
 (hotkey) @keyword

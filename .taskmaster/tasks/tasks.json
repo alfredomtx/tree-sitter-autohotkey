@@ -2,7 +2,7 @@
   "master": {
     "tasks": [
       {
-        "id": "1",
+        "id": 1,
         "title": "Initialize Node.js project and install tree-sitter-cli",
         "description": "Create the foundational Node.js project structure with package.json and install tree-sitter-cli as a dev dependency.",
         "details": "1. Run `npm init -y` to create package.json\n2. Run `npm install --save-dev tree-sitter-cli`\n3. Add build scripts to package.json:\n   ```json\n   \"scripts\": {\n     \"generate\": \"tree-sitter generate\",\n     \"build\": \"tree-sitter generate\",\n     \"test\": \"tree-sitter test\",\n     \"parse\": \"tree-sitter parse\"\n   }\n   ```\n4. Update .gitignore to include:\n   - `build/`\n   - `src/` (generated C files)\n   - `*.wasm`\n\nNote: tree-sitter-cli requires Node.js. The CLI will be used to generate the parser from grammar.js.",
@@ -14,7 +14,7 @@
         "updatedAt": "2025-12-25T20:01:52.115Z"
       },
       {
-        "id": "2",
+        "id": 2,
         "title": "Create minimal tree-sitter grammar for comments",
         "description": "Create grammar.js with the minimum viable parser that handles AHK line comments (;) and block comments (/* */).",
         "details": "Create `grammar.js` at project root:\n```javascript\nmodule.exports = grammar({\n  name: 'autohotkey',\n\n  extras: $ => [\n    /\\s/,\n  ],\n\n  rules: {\n    source_file: $ => repeat($._statement),\n\n    _statement: $ => choice(\n      $.comment,\n      $.block_comment,\n      $._text,\n    ),\n\n    comment: $ => seq(\n      ';',\n      /.*/\n    ),\n\n    block_comment: $ => seq(\n      '/*',\n      /[^*]*\\*+([^/*][^*]*\\*+)*/,\n      '/'\n    ),\n\n    // Catch-all for non-comment text (temporary for MVP)\n    _text: $ => /[^;\\s\\/][^\\n]*/,\n  }\n});\n```\n\nThis minimal grammar:\n- Parses `;` as start of line comment, captures rest of line\n- Parses `/* ... */` block comments\n- Uses `_text` as catch-all for other content (prefixed with _ so it's hidden)\n- `extras` handles whitespace automatically",
@@ -28,7 +28,7 @@
         "updatedAt": "2025-12-25T20:03:36.799Z"
       },
       {
-        "id": "3",
+        "id": 3,
         "title": "Create Zed extension manifest (extension.toml)",
         "description": "Create the extension.toml file that registers this as a Zed extension and declares the AutoHotkey language grammar.",
         "details": "Create `extension.toml` at project root:\n```toml\nid = \"autohotkey\"\nname = \"AutoHotkey\"\nversion = \"0.1.0\"\nschema_version = 1\nauthors = [\"Alfredo\"]\ndescription = \"AutoHotkey v1 language support for Zed\"\nrepository = \"https://github.com/Alfredo/tree-sitter-autohotkey\"\n\n[grammars.autohotkey]\nrepository = \".\"\npath = \".\"\n```\n\nThe `grammars.autohotkey` section tells Zed:\n- Grammar name is `autohotkey`\n- Source is in the current directory (local development)\n- Zed will look for `grammar.js` and run tree-sitter generate",
@@ -42,7 +42,7 @@
         "updatedAt": "2025-12-25T20:04:17.613Z"
       },
       {
-        "id": "4",
+        "id": 4,
         "title": "Create language configuration (config.toml)",
         "description": "Create the language config file that defines file associations, comment syntax, and other language-specific settings for Zed.",
         "details": "Create directory structure and file:\n1. `mkdir -p languages/autohotkey`\n2. Create `languages/autohotkey/config.toml`:\n```toml\nname = \"AutoHotkey\"\ngrammar = \"autohotkey\"\npath_suffixes = [\"ahk\"]\nline_comments = [\";\"]\nblock_comment = [\"/*\", \"*/\"]\nauto_indent_using_last_non_empty_line = true\n```\n\nKey settings:\n- `path_suffixes`: Associates `.ahk` files with this language\n- `line_comments`: Enables `;` for `gcc`/`Ctrl+/` comment toggling\n- `block_comment`: Enables `/* */` for block comment operations\n- Links to the `autohotkey` grammar from extension.toml",
@@ -56,7 +56,7 @@
         "updatedAt": "2025-12-25T20:05:11.091Z"
       },
       {
-        "id": "5",
+        "id": 5,
         "title": "Create syntax highlighting queries (highlights.scm)",
         "description": "Create the Tree-sitter query file that maps parsed syntax nodes to Zed theme highlight groups for comments.",
         "details": "Create `languages/autohotkey/highlights.scm`:\n```scheme\n; Comments\n(comment) @comment\n(block_comment) @comment\n```\n\nThis minimal query:\n- Maps `comment` nodes (line comments) to the `@comment` highlight group\n- Maps `block_comment` nodes to the same `@comment` group\n- Zed themes define colors for `@comment` (typically gray/italic)\n\nNote: The node names must exactly match what grammar.js defines (case-sensitive).",
@@ -71,7 +71,7 @@
         "updatedAt": "2025-12-25T20:05:59.144Z"
       },
       {
-        "id": "6",
+        "id": 6,
         "title": "Build grammar and install as Zed dev extension",
         "description": "Generate the parser, then install the extension locally in Zed to verify the MVP comment functionality works.",
         "details": "1. Generate parser: `npm run generate`\n   - Creates `src/parser.c`, `src/tree_sitter/parser.h`\n   - May create binding files\n\n2. Install as dev extension in Zed:\n   - Open Zed\n   - Open Command Palette (Cmd+Shift+P or Ctrl+Shift+P)\n   - Type \"Extensions: Install Dev Extension\"\n   - Navigate to `C:\\Users\\Alfredo\\Documents\\GitHub\\tree-sitter-autohotkey`\n   - Select the folder\n\n3. Reload Zed if necessary\n\n4. Open any `.ahk` file - should now have:\n   - Language detected as \"AutoHotkey\"\n   - Comments highlighted\n   - `gcc` (vim mode) toggles `;` comments\n   - `Ctrl+/` toggles `;` comments",
@@ -85,7 +85,7 @@
         "updatedAt": "2025-12-25T21:08:20.627Z"
       },
       {
-        "id": "7",
+        "id": 7,
         "title": "Add string and number parsing to grammar",
         "description": "Extend grammar.js to parse string literals (double and single quoted) and numbers (integers, hex, floats).",
         "details": "Update `grammar.js` to add string and number rules:\n```javascript\nmodule.exports = grammar({\n  name: 'autohotkey',\n\n  extras: $ => [/\\s/],\n\n  rules: {\n    source_file: $ => repeat($._statement),\n\n    _statement: $ => choice(\n      $.comment,\n      $.block_comment,\n      $.string,\n      $.number,\n      $._text,\n    ),\n\n    comment: $ => seq(';', /.*/),\n\n    block_comment: $ => seq(\n      '/*',\n      /[^*]*\\*+([^/*][^*]*\\*+)*/,\n      '/'\n    ),\n\n    string: $ => choice(\n      seq('\"', /[^\"]*/, '\"'),   // Double-quoted\n      seq(\"'\", /[^']*/, \"'\")    // Single-quoted\n    ),\n\n    number: $ => choice(\n      /0[xX][0-9a-fA-F]+/,       // Hex: 0xFF\n      /\\d+\\.\\d+/,                // Float: 3.14\n      /\\d+/                       // Integer: 123\n    ),\n\n    _text: $ => /[^;\\s\\/\"'0-9][^\\n]*/,\n  }\n});\n```\n\nUpdate `languages/autohotkey/highlights.scm`:\n```scheme\n(comment) @comment\n(block_comment) @comment\n(string) @string\n(number) @number\n```",
@@ -99,7 +99,7 @@
         "updatedAt": "2025-12-25T21:17:45.732Z"
       },
       {
-        "id": "8",
+        "id": 8,
         "title": "Add keyword recognition to grammar",
         "description": "Extend grammar.js to recognize AHK v1 keywords like if, else, while, loop, return, class, global, local, break, continue.",
         "details": "Update `grammar.js` to add keyword rules:\n```javascript\nmodule.exports = grammar({\n  name: 'autohotkey',\n\n  extras: $ => [/\\s/],\n  \n  word: $ => $.identifier,\n\n  rules: {\n    source_file: $ => repeat($._statement),\n\n    _statement: $ => choice(\n      $.comment,\n      $.block_comment,\n      $.string,\n      $.number,\n      $.keyword,\n      $.identifier,\n      $._text,\n    ),\n\n    // ... existing rules ...\n\n    keyword: $ => choice(\n      'if', 'else', 'while', 'loop', 'for',\n      'return', 'break', 'continue',\n      'class', 'extends',\n      'global', 'local', 'static',\n      'try', 'catch', 'finally', 'throw',\n      'new', 'true', 'false'\n    ),\n\n    identifier: $ => /[a-zA-Z_][a-zA-Z0-9_]*/,\n    \n    _text: $ => /[^;\\s\\/\"'a-zA-Z0-9_][^\\n]*/,\n  }\n});\n```\n\nUpdate `languages/autohotkey/highlights.scm`:\n```scheme\n(comment) @comment\n(block_comment) @comment\n(string) @string\n(number) @number\n(keyword) @keyword\n(identifier) @variable\n```",
@@ -113,7 +113,7 @@
         "updatedAt": "2025-12-25T21:20:54.035Z"
       },
       {
-        "id": "9",
+        "id": 9,
         "title": "Add function and label parsing to grammar",
         "description": "Extend grammar.js to parse function definitions, function calls, labels, and hotkeys.",
         "details": "Update `grammar.js` with function/label rules:\n```javascript\nrules: {\n  // ... existing rules ...\n\n  _statement: $ => choice(\n    $.comment,\n    $.block_comment,\n    $.function_definition,\n    $.function_call,\n    $.label,\n    $.hotkey,\n    $.directive,\n    $.string,\n    $.number,\n    $.keyword,\n    $.identifier,\n    $._text,\n  ),\n\n  function_definition: $ => seq(\n    field('name', $.identifier),\n    '(',\n    optional($.parameter_list),\n    ')',\n    '{',\n    repeat($._statement),\n    '}'\n  ),\n\n  function_call: $ => seq(\n    field('name', $.identifier),\n    '(',\n    optional($.argument_list),\n    ')'\n  ),\n\n  parameter_list: $ => seq(\n    $.identifier,\n    repeat(seq(',', $.identifier))\n  ),\n\n  argument_list: $ => seq(\n    $._expression,\n    repeat(seq(',', $._expression))\n  ),\n\n  _expression: $ => choice(\n    $.string,\n    $.number,\n    $.identifier\n  ),\n\n  label: $ => seq(\n    field('name', $.identifier),\n    ':',\n    /\\n/\n  ),\n\n  hotkey: $ => seq(\n    /[#!^+<>*~$]+/,\n    /[a-zA-Z0-9]+/,\n    '::'\n  ),\n\n  directive: $ => seq(\n    '#',\n    choice('Include', 'NoEnv', 'SingleInstance', 'Persistent')\n  ),\n}\n```\n\nUpdate `highlights.scm`:\n```scheme\n(function_definition name: (identifier) @function)\n(function_call name: (identifier) @function.call)\n(label name: (identifier) @label)\n(hotkey) @keyword.special\n(directive) @keyword.directive\n```",
@@ -127,7 +127,7 @@
         "updatedAt": "2025-12-25T21:25:06.029Z"
       },
       {
-        "id": "12",
+        "id": 12,
         "title": "Add doc-style block comments to grammar",
         "description": "Add support for documentation-style block comments (/** ... */) that are commonly used for function/class documentation.",
         "details": "Update `grammar.js` to add doc_comment rule:\n\n```javascript\ndoc_comment: $ => seq(\n  '/**',\n  /[^*]*\\*+([^/*][^*]*\\*+)*/,\n  '/'\n),\n```\n\nAdd to `_statement` choice before `block_comment`.\n\nUpdate `highlights.scm`:\n```scheme\n(doc_comment) @comment.documentation\n```\n\nNote: `@comment.documentation` may render differently in some themes (often bold or different color).",
@@ -141,7 +141,7 @@
         "updatedAt": "2025-12-25T22:30:00.000Z"
       },
       {
-        "id": "13",
+        "id": 13,
         "title": "Add operators to grammar with highlighting",
         "description": "Parse operators as distinct tokens instead of generic punctuation. Includes assignment (:=), comparison (==, !=, <, >), arithmetic (+, -, *, /), and logical (&&, ||, !).",
         "details": "Update `grammar.js`:\n\n```javascript\noperator: $ => choice(\n  // Assignment\n  ':=', '+=', '-=', '*=', '/=', '.=',\n  // Comparison\n  '==', '!=', '<>', '>', '<', '>=', '<=',\n  // Arithmetic\n  '+', '-', '*', '/', '//', '**',\n  // Logical\n  '&&', '||', '!',\n  // Bitwise\n  '&', '|', '^', '~', '>>', '<<',\n  // Other\n  '.', '?', ':',\n),\n```\n\nRemove operators from `_punctuation` rule.\n\nUpdate `highlights.scm`:\n```scheme\n(operator) @operator\n```",
@@ -155,7 +155,7 @@
         "updatedAt": "2025-12-25T23:00:00.000Z"
       },
       {
-        "id": "14",
+        "id": 14,
         "title": "Add built-in commands to grammar",
         "description": "Recognize AHK v1 built-in commands like MsgBox, Send, Sleep, Run, WinActivate, etc. with proper highlighting.",
         "details": "Update `grammar.js` with command rule:\n\n```javascript\ncommand: $ => seq(\n  field('name', $.command_name),\n  optional(seq(',', $.command_args))\n),\n\ncommand_name: $ => choice(\n  'MsgBox', 'Send', 'SendInput', 'SendRaw',\n  'Sleep', 'Run', 'RunWait',\n  'WinActivate', 'WinWait', 'WinClose', 'WinExist',\n  'SetTimer', 'Gosub', 'Goto',\n  'FileRead', 'FileAppend', 'FileDelete',\n  'RegRead', 'RegWrite',\n  'InputBox', 'ToolTip', 'TrayTip',\n  'Reload', 'ExitApp', 'Suspend', 'Pause',\n  // Add more as needed\n),\n\ncommand_args: $ => /[^\\n]*/,\n```\n\nUpdate `highlights.scm`:\n```scheme\n(command_name) @function.builtin\n```",
@@ -234,7 +234,7 @@
         "updatedAt": "2025-12-26T15:04:03.498Z"
       },
       {
-        "id": "15",
+        "id": 15,
         "title": "Add built-in variables to grammar",
         "description": "Recognize AHK built-in variables (A_ScriptDir, A_Now, A_TickCount, etc.) with distinct highlighting.",
         "details": "Update `grammar.js`:\n\n```javascript\nbuiltin_variable: $ => token(seq(\n  'A_',\n  choice(\n    'ScriptDir', 'ScriptFullPath', 'ScriptName',\n    'WorkingDir', 'Desktop', 'MyDocuments', 'AppData',\n    'Now', 'NowUTC', 'TickCount', 'TimeIdle',\n    'Cursor', 'CaretX', 'CaretY',\n    'ScreenWidth', 'ScreenHeight',\n    'ThisHotkey', 'PriorHotkey', 'TimeSinceThisHotkey',\n    'LoopField', 'LoopFileName', 'LoopFileFullPath', 'Index',\n    'Clipboard', 'ErrorLevel', 'LastError',\n    // Add more as needed\n  )\n)),\n```\n\nUpdate `highlights.scm`:\n```scheme\n(builtin_variable) @variable.builtin\n```",
@@ -248,7 +248,7 @@
         "updatedAt": "2025-12-26T02:39:41.734Z"
       },
       {
-        "id": "16",
+        "id": 16,
         "title": "Add object/method syntax to grammar",
         "description": "Parse object property access (obj.property) and method calls (obj.method()) with appropriate highlighting.",
         "details": "Update `grammar.js`:\n\n```javascript\nmember_expression: $ => seq(\n  field('object', choice($.identifier, $.member_expression)),\n  '.',\n  field('property', $.identifier)\n),\n\nmethod_call: $ => seq(\n  field('object', choice($.identifier, $.member_expression)),\n  '.',\n  field('method', $.identifier),\n  token.immediate('('),\n  optional($.argument_list),\n  ')'\n),\n```\n\nAdd to `_expression` choice.\n\nUpdate `highlights.scm`:\n```scheme\n(member_expression property: (identifier) @property)\n(method_call method: (identifier) @function.method)\n```",
@@ -326,7 +326,7 @@
         "updatedAt": "2025-12-26T15:04:03.592Z"
       },
       {
-        "id": "17",
+        "id": 17,
         "title": "Add array syntax to grammar",
         "description": "Parse array literals ([1, 2, 3]) and array access (arr[index]) with highlighting.",
         "details": "Update `grammar.js`:\n\n```javascript\narray_literal: $ => seq(\n  '[',\n  optional(seq(\n    $._expression,\n    repeat(seq(',', $._expression))\n  )),\n  ']'\n),\n\nindex_expression: $ => seq(\n  field('object', choice($.identifier, $.member_expression, $.index_expression)),\n  '[',\n  field('index', $._expression),\n  ']'\n),\n```\n\nAdd to `_expression` choice.\n\nUpdate `highlights.scm`:\n```scheme\n(array_literal \"[\" @punctuation.bracket)\n(array_literal \"]\" @punctuation.bracket)\n(index_expression \"[\" @punctuation.bracket)\n(index_expression \"]\" @punctuation.bracket)\n```",
@@ -340,7 +340,7 @@
         "updatedAt": "2025-12-26T03:14:31.820Z"
       },
       {
-        "id": "18",
+        "id": 18,
         "title": "Add escape sequences in strings to grammar",
         "description": "Parse AHK escape sequences (`n, `t, `r, ``, etc.) within strings with distinct highlighting.",
         "details": "Update `grammar.js` string rule to capture escape sequences:\n\n```javascript\nstring: $ => choice(\n  seq('\"', repeat(choice($.escape_sequence, /[^\"``]+/)), '\"'),\n  seq(\"'\", repeat(choice($.escape_sequence, /[^'``]+/)), \"'\"),\n),\n\nescape_sequence: $ => token(seq(\n  '`',\n  choice(\n    'n',   // newline\n    't',   // tab\n    'r',   // carriage return\n    'b',   // backspace\n    'v',   // vertical tab\n    'a',   // bell\n    'f',   // form feed\n    '`',   // literal backtick\n    ';',   // literal semicolon\n    ':',   // literal colon\n    's',   // space\n    '\"',   // literal quote\n    \"'\",   // literal single quote\n  )\n)),\n```\n\nUpdate `highlights.scm`:\n```scheme\n(escape_sequence) @string.escape\n```",
@@ -354,7 +354,7 @@
         "updatedAt": "2025-12-26T04:29:20.046Z"
       },
       {
-        "id": "19",
+        "id": 19,
         "title": "Add outline.scm for document symbols",
         "description": "Create outline.scm to enable document outline panel and go-to-symbol (Cmd+Shift+O) for functions, labels, hotkeys, and classes.",
         "details": "Create `languages/autohotkey/outline.scm`:\n\n```scheme\n(function_definition\n  name: (identifier) @name) @item\n\n(label\n  name: (identifier) @name) @item\n\n(hotkey) @name @item\n\n(directive) @name @item\n```\n\nThis enables:\n- Outline panel showing all functions, labels, hotkeys\n- Go-to-symbol navigation (Cmd+Shift+O / Ctrl+Shift+O)\n- Breadcrumbs in the editor",
@@ -368,7 +368,7 @@
         "updatedAt": "2025-12-26T05:34:30.171Z"
       },
       {
-        "id": "20",
+        "id": 20,
         "title": "Add indents.scm for auto-indentation",
         "description": "Create indents.scm to enable automatic indentation after opening braces, if/else, loops, etc.",
         "details": "Create `languages/autohotkey/indents.scm`:\n\n```scheme\n; Indent after opening brace\n\"{\" @indent\n\"}\" @outdent\n\n; Indent after control structures\n(function_definition) @indent\n```\n\nThis enables:\n- Auto-indent when pressing Enter after `{`\n- Auto-outdent when typing `}`\n- Proper indentation in function bodies",
@@ -382,7 +382,7 @@
         "updatedAt": "2025-12-26T05:46:36.275Z"
       },
       {
-        "id": "21",
+        "id": 21,
         "title": "Add textobjects.scm for vim motions",
         "description": "Create textobjects.scm to enable vim text objects like `vaf` (select around function), `vif` (select inside function), and `]m` (next function).",
         "details": "Create `languages/autohotkey/textobjects.scm`:\n\n```scheme\n; Function text object\n(function_definition) @function.around\n(function_definition\n  body: (_) @function.inside)\n\n; Class text object (if we add class support)\n; (class_definition) @class.around\n```\n\nThis enables:\n- `vaf` - select around function\n- `vif` - select inside function\n- `daf` - delete around function\n- `]m` / `[m` - jump to next/previous function",
@@ -396,7 +396,7 @@
         "updatedAt": "2025-12-26T06:03:57.116Z"
       },
       {
-        "id": "22",
+        "id": 22,
         "title": "Add runnables.scm for running AHK scripts",
         "description": "Create runnables.scm to add a 'Run' button in the gutter for executing AutoHotkey scripts directly from Zed.",
         "details": "Create `languages/autohotkey/runnables.scm`:\n\n```scheme\n; Add run button at start of file\n(source_file . (_) @run)\n```\n\nAlso need to document task configuration in README:\n```json\n// .zed/tasks.json\n{\n  \"label\": \"Run AHK Script\",\n  \"command\": \"AutoHotkey.exe\",\n  \"args\": [\"$ZED_FILE\"]\n}\n```\n\nRequires AutoHotkey to be installed and in PATH.",
@@ -409,7 +409,7 @@
         "subtasks": []
       },
       {
-        "id": "10",
+        "id": 10,
         "title": "Add tree-sitter test suite and finalize grammar",
         "description": "Create proper tree-sitter test cases to validate grammar correctness and ensure future modifications don't break parsing.",
         "details": "Create `test/corpus/` directory with test files:\n\n1. `test/corpus/comments.txt`:\n```\n==================\nLine comment\n==================\n; This is a comment\n---\n(source_file\n  (comment))\n\n==================\nBlock comment\n==================\n/* Multi\nline */\n---\n(source_file\n  (block_comment))\n```\n\n2. `test/corpus/literals.txt`:\n```\n==================\nString literals\n==================\n\"double quoted\"\n'single quoted'\n---\n(source_file\n  (string)\n  (string))\n\n==================\nNumbers\n==================\n123\n0xFF\n3.14\n---\n(source_file\n  (number)\n  (number)\n  (number))\n```\n\n3. `test/corpus/functions.txt`:\n```\n==================\nFunction definition\n==================\nMyFunc() {\n}\n---\n(source_file\n  (function_definition\n    name: (identifier)))\n```\n\nRun tests with `npm test` or `npx tree-sitter test`.",
@@ -429,7 +429,7 @@
         "updatedAt": "2025-12-26T15:04:03.678Z"
       },
       {
-        "id": "11",
+        "id": 11,
         "title": "Fix Windows dev extension installation for Zed",
         "description": "Troubleshoot and resolve the Zed dev extension installation issue on Windows, ensuring the AutoHotkey extension can be successfully installed and recognized by Zed.",
         "status": "done",
@@ -481,7 +481,7 @@
         "updatedAt": "2025-12-25T21:08:53.075Z"
       },
       {
-        "id": "23",
+        "id": 23,
         "title": "Add class definition syntax to grammar",
         "description": "Parse AHK v1 class definitions including class declarations, constructors (__New), methods, properties with initializers, inheritance (extends), and the 'this' keyword with proper syntax highlighting.",
         "details": "Update `grammar.js` to add class definition rules:\n\n```javascript\n// Add class_definition rule (similar precedence to function_definition)\nclass_definition: $ => prec(2, seq(\n  'class',\n  field('name', $.identifier),\n  optional(seq('extends', field('superclass', $.identifier))),\n  '{',\n  repeat($._class_body_item),\n  '}'\n)),\n\n// Class body can contain methods, properties, and nested classes\n_class_body_item: $ => choice(\n  $.class_method,\n  $.class_property,\n  $.class_definition,  // Nested classes\n  $.comment,\n  $.doc_comment,\n  $.block_comment,\n),\n\n// Class methods (including __New constructor, __Delete destructor, __Get/__Set/__Call meta-functions)\nclass_method: $ => prec(2, seq(\n  optional('static'),\n  field('name', $.identifier),\n  token.immediate('('),\n  optional($.parameter_list),\n  ')',\n  '{',\n  repeat($._statement),\n  '}'\n)),\n\n// Class properties with optional initializers\nclass_property: $ => seq(\n  optional('static'),\n  field('name', $.identifier),\n  optional(seq(':=', $._expression))\n),\n\n// Add 'this' as a special identifier (high precedence like builtin_variable)\nthis_expression: $ => token(prec(3, 'this')),\n```\n\nAdd to `_statement` choice:\n```javascript\n_statement: $ => choice(\n  // ... existing choices ...\n  $.class_definition,\n  $.this_expression,\n  // ...\n),\n```\n\nAdd `this_expression` to `_expression` choice:\n```javascript\n_expression: $ => choice(\n  // ... existing choices ...\n  $.this_expression,\n  // ...\n),\n```\n\nUpdate `highlights.scm`:\n```scheme\n; Class definitions\n(class_definition . (identifier) @type)\n(class_definition superclass: (identifier) @type)\n\n; Class methods\n(class_method name: (identifier) @function.method)\n\n; Class properties\n(class_property name: (identifier) @property)\n\n; Constructor and special methods\n((class_method name: (identifier) @constructor)\n (#match? @constructor \"^__New$\"))\n\n; Destructor\n((class_method name: (identifier) @function.special)\n (#match? @function.special \"^__Delete$\"))\n\n; Meta-functions\n((class_method name: (identifier) @function.special)\n (#match? @function.special \"^__(Get|Set|Call)$\"))\n\n; 'this' keyword\n(this_expression) @variable.builtin\n\n; Static keyword in class context\n(class_method \"static\" @keyword)\n(class_property \"static\" @keyword)\n```\n\nKey implementation considerations:\n1. The 'class' and 'extends' keywords already exist in the keyword rule - they'll need special handling so they parse as part of class_definition rather than standalone keywords\n2. Consider using `prec()` to ensure class_definition takes precedence over other statement types when 'class' is encountered\n3. The `__New` constructor is just a method with a special name - use highlight queries with `#match?` predicate to style it differently\n4. Properties without initializers are valid: `class Foo { bar }` should parse `bar` as a class_property\n5. 'this' should be recognized in expressions: `this.value`, `this.Method()`, `return this`",
@@ -499,7 +499,7 @@
         "updatedAt": "2025-12-26T17:40:23.824Z"
       },
       {
-        "id": "24",
+        "id": 24,
         "title": "Add hotstring syntax to grammar",
         "description": "Parse AHK v1 hotstrings like `::btw::by the way` and `:*:btw::by the way` with support for trigger text, options (*, ?, C, etc.), and replacement text.",
         "details": "Update `grammar.js` to add hotstring parsing:\n\n```javascript\n// Add to _statement choice (after hotkey for similar grouping):\n$.hotstring_definition,\n\n// Hotstring definition: :options:trigger::replacement\nhotstring_definition: $ => seq(\n  ':',\n  optional(field('options', $.hotstring_options)),\n  ':',\n  field('trigger', $.hotstring_trigger),\n  '::',\n  optional(field('replacement', $.hotstring_replacement))\n),\n\n// Options between first colons: *, ?, C, C1, O, R, SI, SE, SP, T, X, Z, B0, etc.\nhotstring_options: $ => token(/[*?CORZTXB0-9SIEP]+/i),\n\n// Trigger text: the abbreviation to expand (until ::)\nhotstring_trigger: $ => token(/[^:\\n]+/),\n\n// Replacement text: everything after :: until end of line\nhotstring_replacement: $ => token(/[^\\n]+/),\n```\n\n**Key design decisions:**\n1. Use `token()` for trigger and replacement to capture as single nodes without splitting on spaces\n2. Options are case-insensitive (both `C` and `c` work in AHK)\n3. Replacement is optional - some hotstrings use `X` option to execute code instead\n4. The `::` separator between trigger and replacement is a distinct token for reliable parsing\n\n**Grammar ordering:**\n- Place `hotstring_definition` before `hotkey` in `_statement` choice since both start with `:` patterns\n- The hotstring pattern (`:...:..::`) is more specific than hotkey (`...::`)\n\nUpdate `languages/autohotkey/highlights.scm`:\n```scheme\n; Hotstrings\n(hotstring_definition \":\" @punctuation.delimiter)\n(hotstring_trigger) @string.special\n(hotstring_options) @attribute\n(hotstring_replacement) @string\n```\n\n**Note:** Use `@string.special` for trigger (as specified) since it's a special kind of string literal - the abbreviation being defined. The replacement uses regular `@string` since it's the literal text that will be typed.",
@@ -513,7 +513,7 @@
         "updatedAt": "2025-12-26T17:40:25.856Z"
       },
       {
-        "id": "25",
+        "id": 25,
         "title": "Add control flow block structures to grammar",
         "description": "Parse if/else/while/loop/for statements with proper body blocks, enabling structured syntax trees that support proper indentation and text objects in editors.",
         "details": "Update `grammar.js` to add control flow statement rules that parse keywords with their conditions and body blocks. Currently keywords like `if`, `while`, `loop`, `for` are recognized but their bodies are not structured.\n\n**New Grammar Rules:**\n\n```javascript\n// Add to _statement choice (order matters - before $.keyword):\n$.if_statement,\n$.while_statement,\n$.loop_statement,\n$.for_statement,\n\n// If statement with optional else clause\nif_statement: $ => seq(\n  'if',\n  field('condition', $.parenthesized_expression),\n  field('body', $.block),\n  optional(field('alternative', $.else_clause))\n),\n\nelse_clause: $ => seq(\n  'else',\n  choice(\n    field('body', $.block),\n    field('if', $.if_statement)  // else if chains\n  )\n),\n\n// While statement\nwhile_statement: $ => seq(\n  'while',\n  field('condition', $.parenthesized_expression),\n  field('body', $.block)\n),\n\n// Loop statement - supports multiple AHK v1 variants\n// Loop, Loop N, Loop Parse, Loop Read, Loop Files\nloop_statement: $ => seq(\n  'loop',\n  optional(choice(\n    field('count', $._expression),\n    seq(\n      choice('parse', 'read', 'files', 'reg'),\n      optional($.loop_parameters)\n    )\n  )),\n  field('body', $.block)\n),\n\nloop_parameters: $ => seq(\n  ',',\n  repeat1(choice(\n    $.variable_ref,\n    $.string,\n    $.identifier,\n    ',',\n  ))\n),\n\n// For statement (for k, v in obj)\nfor_statement: $ => seq(\n  'for',\n  field('key', $.identifier),\n  optional(seq(',', field('value', $.identifier))),\n  'in',\n  field('object', $._expression),\n  field('body', $.block)\n),\n\n// Parenthesized expression for conditions\nparenthesized_expression: $ => seq(\n  '(',\n  $._expression,\n  ')'\n),\n\n// Block - reuse existing brace matching, but named\nblock: $ => seq(\n  '{',\n  repeat($._statement),\n  '}'\n),\n```\n\n**Key Implementation Notes:**\n\n1. **Remove overlapping keyword matches**: Update the `keyword` rule to remove `if`, `else`, `while`, `loop`, `for` since they now have dedicated statement rules\n\n2. **Precedence considerations**: Use `prec()` appropriately to ensure control flow statements match before falling back to generic keyword parsing\n\n3. **Handle OTB (One True Brace) style**: AHK v1 allows brace on same line or next line. The grammar should handle both:\n   ```ahk\n   if (x) {    ; OTB style\n       y := 1\n   }\n   \n   if (x)      ; Traditional style\n   {\n       y := 1\n   }\n   ```\n\n4. **Loop variants to support**:\n   - `Loop` - infinite loop\n   - `Loop, N` - count-based loop\n   - `Loop, Parse, InputVar, Delimiters` - parse loop\n   - `Loop, Read, InputFile` - file read loop\n   - `Loop, Files, FilePattern` - file loop\n   - `Loop, Reg, RootKey, Key` - registry loop\n\n5. **Conflicts array**: May need to add new conflicts if ambiguities arise between control flow statements and other rules\n\n6. **Update highlights.scm** to highlight control flow keywords and blocks:\n   ```scheme\n   (if_statement \"if\" @keyword.control)\n   (else_clause \"else\" @keyword.control)\n   (while_statement \"while\" @keyword.control)\n   (loop_statement \"loop\" @keyword.control)\n   (for_statement \"for\" @keyword.control)\n   (for_statement \"in\" @keyword.control)\n   (block \"{\" @punctuation.bracket)\n   (block \"}\" @punctuation.bracket)\n   ```\n\n7. **Add to _statement in correct order**: Place control flow statements before `$.keyword` in the choice to ensure they take precedence",
@@ -528,7 +528,7 @@
         "updatedAt": "2025-12-26T14:54:35.736Z"
       },
       {
-        "id": "26",
+        "id": 26,
         "title": "Add try/catch/finally block structures to grammar",
         "description": "Parse error handling with try_statement containing try block, optional catch clause with exception variable binding, and optional finally clause. Example: try { risky() } catch e { handle(e) } finally { cleanup() }",
         "details": "Update `grammar.js` to add try_statement rule with proper structure:\n\n```javascript\n// Add to _statement choice (high priority so it takes precedence over loose keywords)\ntry_statement: $ => prec(5, seq(\n  'try',\n  $.block,\n  optional($.catch_clause),\n  optional($.finally_clause)\n)),\n\ncatch_clause: $ => seq(\n  'catch',\n  optional(field('exception', $.identifier)),  // Exception variable binding (optional in AHK v1)\n  $.block\n),\n\nfinally_clause: $ => seq(\n  'finally',\n  $.block\n),\n\n// Reusable block rule (also useful for future control flow structures)\nblock: $ => seq(\n  '{',\n  repeat($._statement),\n  '}'\n),\n```\n\n**Important implementation considerations:**\n\n1. **Precedence**: Use `prec(5, ...)` for `try_statement` to ensure it takes precedence over the standalone `keyword` matches for `try`, `catch`, and `finally`. Without this, the parser may match them as loose keywords.\n\n2. **Remove from keyword rule**: Keep `try`, `catch`, `finally`, `throw` in the keyword rule for standalone occurrences, but `try_statement` with higher precedence will match complete blocks.\n\n3. **Block reuse**: The `block` rule should be designed for reuse with future control flow (if/while/for statements).\n\n4. **Exception variable**: In AHK v1, the catch clause can optionally bind the exception: `catch e` or just `catch`. Make the identifier optional with `optional(field('exception', $.identifier))`.\n\n5. **Conflict resolution**: May need to add `[$.try_statement, $.keyword]` to the conflicts array if ambiguity arises between standalone keywords and structured statements.\n\n**Update `highlights.scm`:**\n\n```scheme\n; Try/catch/finally blocks\n(try_statement \"try\" @keyword)\n(catch_clause \"catch\" @keyword)\n(catch_clause exception: (identifier) @variable.parameter)\n(finally_clause \"finally\" @keyword)\n\n; Block braces\n(block \"{\" @punctuation.bracket)\n(block \"}\" @punctuation.bracket)\n```\n\n**Update `_statement` choice** to include `try_statement` before `keyword`:\n```javascript\n_statement: $ => choice(\n  $.comment,\n  $.doc_comment,\n  $.block_comment,\n  $.directive,\n  $.hotkey,\n  $.label,\n  $.function_definition,\n  $.try_statement,  // Add here, before keyword\n  // ... rest of choices\n  $.keyword,\n  // ...\n),\n```",
@@ -543,7 +543,7 @@
         "updatedAt": "2025-12-26T17:39:30.978Z"
       },
       {
-        "id": "27",
+        "id": 27,
         "title": "Add object literal syntax to grammar",
         "description": "Parse AHK object literals `{ key: value, key2: value2 }` as distinct from function/block bodies. Implement `object_literal` rule with key-value pairs supporting identifier or string keys, expression values, and shorthand `{ key }` syntax.",
         "details": "Update `grammar.js` to add object literal rules:\n\n```javascript\n// Add to _statement and _expression choices\nobject_literal: $ => prec(2, seq(\n  '{',\n  optional(seq(\n    $.object_property,\n    repeat(seq(',', $.object_property))\n  )),\n  '}'\n)),\n\nobject_property: $ => choice(\n  // Full syntax: key: value\n  seq(\n    field('key', choice($.identifier, $.string)),\n    ':',\n    field('value', $._expression)\n  ),\n  // Shorthand syntax: { key } equivalent to { key: key }\n  field('key', $.identifier)\n),\n```\n\n**Key implementation considerations:**\n\n1. **Disambiguation from function blocks**: Use `prec(2, ...)` to give object literals higher precedence. Function definitions already use `prec.dynamic(10, ...)` and require `name(params) {`, so the opening `{` alone should disambiguate correctly.\n\n2. **Colon conflict with labels**: Labels use `identifier:` at statement level. Object properties use `key: value` inside braces. The structural context (inside `{...}`) prevents ambiguity.\n\n3. **Add to `_expression` choice**: Object literals should be valid expressions:\n```javascript\n_expression: $ => choice(\n  $.string,\n  $.number,\n  prec(3, $.builtin_variable),\n  $.array_literal,\n  $.object_literal,  // Add here\n  $.index_expression,\n  $.member_expression,\n  $.method_call,\n  $.identifier,\n  $.function_call,\n),\n```\n\n4. **Add to `_statement` choice** (for standalone object literals):\n```javascript\n_statement: $ => choice(\n  // ... existing choices ...\n  $.object_literal,\n  // ... rest ...\n),\n```\n\n5. **Update `_punctuation` rule**: Remove `{` and `}` from the catch-all since they now have semantic meaning in object literals:\n```javascript\n_punctuation: $ => /[.,@$\\\\]+/,\n```\n\n**Update `highlights.scm`**:\n```scheme\n; Object literals\n(object_literal \"{\" @punctuation.bracket)\n(object_literal \"}\" @punctuation.bracket)\n(object_property key: (identifier) @property)\n(object_property key: (string) @property)\n(object_property \":\" @punctuation.delimiter)\n```\n\n**Conflict handling**: May need to add conflict resolution if the parser has trouble distinguishing `{ identifier }` (shorthand object) from a block containing just an identifier:\n```javascript\nconflicts: $ => [\n  [$.parameter, $._expression],\n  [$.command],\n  [$.object_property],  // May be needed for shorthand syntax\n],\n```",
@@ -558,7 +558,7 @@
         "updatedAt": "2025-12-26T17:43:19.935Z"
       },
       {
-        "id": "28",
+        "id": 28,
         "title": "Add continuation section syntax to grammar",
         "description": "Parse AHK continuation sections where expressions/strings span multiple lines using parentheses. Support Join, LTrim, RTrim, and Comment options in the opening parenthesis line.",
         "details": "Update `grammar.js` to add continuation section rules:\n\n```javascript\n// Continuation section: multiline string/expression in parens\n// Format: var := (LTrim Join`n\n//   line1\n//   line2\n// )\ncontinuation_section: $ => seq(\n  '(',\n  optional($.continuation_options),\n  /\\n/,\n  $.continuation_body,\n  ')'\n),\n\n// Options on the opening paren line: LTrim, RTrim, Join, Comments, etc.\ncontinuation_options: $ => repeat1(choice(\n  $.continuation_option_ltrim,\n  $.continuation_option_rtrim,\n  $.continuation_option_join,\n  $.continuation_option_comments,\n  // Literal text options\n  /[^\\n)]+/\n)),\n\ncontinuation_option_ltrim: $ => token(prec(2, /LTrim/i)),\ncontinuation_option_rtrim: $ => token(prec(2, /RTrim/i)),\ncontinuation_option_join: $ => token(prec(2, seq(/Join/i, optional(/[^\\s)]+/)))),  // Join or Join`n, Join%A_Tab%, etc.\ncontinuation_option_comments: $ => token(prec(2, /Comments?/i)),\n\n// Body captures all lines until closing paren\ncontinuation_body: $ => repeat1(choice(\n  $.continuation_line,\n  $.comment,  // Allow comments if Comments option enabled\n)),\n\ncontinuation_line: $ => /[^\\n)][^\\n]*/,\n```\n\n**Key considerations:**\n\n1. **Continuation sections start with `(`** - This conflicts with expression grouping. Use `prec()` and ensure the newline after `(` distinguishes continuation from expression grouping.\n\n2. **Options are case-insensitive** - Use `/LTrim/i` pattern for case-insensitivity.\n\n3. **Join can have a custom separator** - `Join` alone means no separator, `Join\\`n` means newline, etc.\n\n4. **Add to _statement and _expression** - Per TREE_SITTER_NOTES.md, rules need to be in both for proper parsing at all levels.\n\nUpdate `_statement` and `_expression`:\n```javascript\n_statement: $ => choice(\n  $.continuation_section,  // Add before string\n  // ... existing choices\n),\n\n_expression: $ => choice(\n  $.continuation_section,  // Add here too\n  // ... existing choices\n),\n```\n\n**Conflicts to handle:**\n- Add `[$.continuation_section]` to conflicts if needed to resolve `(` ambiguity with function calls and expression grouping.\n- The newline requirement after `(` helps distinguish: `MyFunc(` expects args, `(\\n` starts continuation.\n\nUpdate `highlights.scm`:\n```scheme\n; Continuation sections\n(continuation_section \"(\" @punctuation.bracket)\n(continuation_section \")\" @punctuation.bracket)\n(continuation_option_ltrim) @keyword\n(continuation_option_rtrim) @keyword\n(continuation_option_join) @keyword\n(continuation_option_comments) @keyword\n(continuation_line) @string\n```\n\n**Alternative simpler approach** if full parsing is too complex:\n\n```javascript\n// Simpler: treat entire continuation as one token\ncontinuation_section: $ => token(seq(\n  '(',\n  optional(/[^\\n)]*/),  // options\n  /\\n/,\n  /([^)]*\\n)*/,  // body lines\n  ')'\n)),\n```\n\nThis captures the whole section without internal structure, which may be sufficient for syntax highlighting purposes.",
@@ -572,7 +572,7 @@
         "subtasks": []
       },
       {
-        "id": "29",
+        "id": 29,
         "title": "Add query file validation to CI",
         "description": "Validate highlights.scm, brackets.scm, and other query files in CI to catch syntax errors and invalid node references before merge.",
         "status": "done",
@@ -584,7 +584,7 @@
         "updatedAt": "2025-12-26T17:41:32.038Z"
       },
       {
-        "id": "30",
+        "id": 30,
         "title": "Add sample AHK file parsing to CI",
         "description": "Parse real-world AHK scripts in CI to ensure grammar handles actual code without errors or unexpected parse failures.",
         "status": "cancelled",
@@ -596,7 +596,7 @@
         "updatedAt": "2025-12-26T17:42:59.285Z"
       },
       {
-        "id": "31",
+        "id": 31,
         "title": "Add Node.js version matrix to CI",
         "description": "Test across Node 18, 20, and 22 to ensure compatibility with all current LTS and latest versions.",
         "details": "Update CI workflow to use a matrix strategy for Node.js versions.\n\nImplementation in .github/workflows/ci.yml:\n```yaml\njobs:\n  test:\n    runs-on: ubuntu-latest\n    strategy:\n      matrix:\n        node-version: [18, 20, 22]\n    steps:\n      - uses: actions/checkout@v4\n      - uses: actions/setup-node@v4\n        with:\n          node-version: ${{ matrix.node-version }}\n          cache: 'npm'\n      # ... rest of steps\n```\n\nThis is free on public repos and catches version-specific issues early. Node 18 is current LTS, 20 is active LTS, 22 is latest.",
@@ -608,7 +608,7 @@
         "updatedAt": "2025-12-26T17:41:10.455Z"
       },
       {
-        "id": "32",
+        "id": 32,
         "title": "Add Dependabot for dependency updates",
         "description": "Configure Dependabot to automatically create PRs when tree-sitter-cli and other dependencies have updates.",
         "status": "done",
@@ -620,7 +620,7 @@
         "updatedAt": "2025-12-26T17:43:40.590Z"
       },
       {
-        "id": "33",
+        "id": 33,
         "title": "Add automated GitHub releases on version tags",
         "description": "Create GitHub releases automatically when version tags are pushed, including changelog generation and release notes.",
         "details": "Add release workflow that triggers on version tags (v*) and creates GitHub releases.\n\nImplementation in .github/workflows/release.yml:\n```yaml\nname: Release\n\non:\n  push:\n    tags:\n      - 'v*'\n\njobs:\n  release:\n    runs-on: ubuntu-latest\n    permissions:\n      contents: write\n    steps:\n      - uses: actions/checkout@v4\n        with:\n          fetch-depth: 0\n\n      - name: Generate changelog\n        id: changelog\n        uses: orhun/git-cliff-action@v3\n        with:\n          args: --latest --strip header\n\n      - name: Create GitHub Release\n        uses: softprops/action-gh-release@v1\n        with:\n          body: ${{ steps.changelog.outputs.content }}\n          generate_release_notes: true\n```\n\nAlternative simpler approach without changelog tool:\n```yaml\n      - name: Create GitHub Release\n        uses: softprops/action-gh-release@v1\n        with:\n          generate_release_notes: true\n```\n\nThis uses GitHub's auto-generated release notes based on PR titles.\n\nNote: This is for later when publishing to Zed extension store becomes relevant.",
@@ -631,7 +631,7 @@
         "subtasks": []
       },
       {
-        "id": "34",
+        "id": 34,
         "title": "Add binary expression support to grammar",
         "description": "Add binary_expression rule to properly parse comparison and arithmetic expressions like `a > 0`, `x == 1`, `a + b`. Currently these produce ERROR nodes inside parenthesized_expression conditions.",
         "details": "The grammar currently has operators defined but no binary_expression rule to combine them with operands. Expressions like `if (a > 0)` parse the condition as `(identifier) (ERROR (operator) (number))`.\n\nNeed to add:\n```javascript\nbinary_expression: $ => prec.left(seq(\n  field('left', $._expression),\n  field('operator', $.operator),\n  field('right', $._expression)\n)),\n```\n\nConsider operator precedence levels for proper parsing of complex expressions like `a + b * c`.",
@@ -645,7 +645,7 @@
         "updatedAt": "2025-12-26T17:43:37.785Z"
       },
       {
-        "id": "35",
+        "id": 35,
         "title": "Add comma-style loop variants to grammar",
         "description": "Extend loop_statement to support AHK v1 comma-style loop variants: Loop Parse, Loop Files, Loop Read, Loop Reg.",
         "details": "Currently loop_statement only supports simple forms: `loop { }`, `loop N { }`, `loop expr { }`.\n\nAdd support for comma-style variants:\n- `loop, parse, InputVar, Delimiters` - parse loop\n- `loop, files, FilePattern` - file loop  \n- `loop, read, InputFile` - file read loop\n- `loop, reg, RootKey, Key` - registry loop\n\nGrammar addition:\n```javascript\nloop_statement: $ => seq(\n  'loop',\n  optional(choice(\n    field('count', choice($.number, $.identifier, $.parenthesized_expression)),\n    seq(',', $.loop_type, optional($.loop_arguments))\n  )),\n  field('body', $.statement_block)\n),\n\nloop_type: $ => choice('parse', 'files', 'file', 'read', 'reg'),\n\nloop_arguments: $ => repeat1(choice(',', $.identifier, $.string, /[^\\s{}\\n]+/)),\n```",
@@ -656,6 +656,19 @@
         ],
         "priority": "low",
         "subtasks": []
+      },
+      {
+        "id": 36,
+        "title": "Add braceless control flow support",
+        "description": "Allow if/else/while/loop/for statements to have single-statement bodies without braces by changing body requirements from `statement_block` to `choice(statement_block, _statement)`.",
+        "details": "## Implementation Steps\n\n### 1. Modify grammar.js control flow rules\n\nChange each control flow statement to accept either a braced block or a single statement:\n\n**if_statement (line 111-116):**\n```javascript\nif_statement: $ => prec.right(seq(\n  'if',\n  field('condition', $.parenthesized_expression),\n  field('consequence', choice($.statement_block, $._statement)),\n  optional(field('alternative', $.else_clause))\n)),\n```\n\n**else_clause (line 118-121):**\n```javascript\nelse_clause: $ => seq(\n  'else',\n  choice($.if_statement, $.statement_block, $._statement)\n),\n```\n\n**while_statement (line 123-127):**\n```javascript\nwhile_statement: $ => seq(\n  'while',\n  field('condition', $.parenthesized_expression),\n  field('body', choice($.statement_block, $._statement))\n),\n```\n\n**loop_statement (line 129-133):**\n```javascript\nloop_statement: $ => seq(\n  'loop',\n  optional(field('count', choice($.number, $.identifier))),\n  field('body', choice($.statement_block, $._statement))\n),\n```\n\n**for_statement (line 135-142):**\n```javascript\nfor_statement: $ => seq(\n  'for',\n  field('key', $.identifier),\n  optional(seq(',', field('value', $.identifier))),\n  'in',\n  field('collection', $._expression),\n  field('body', choice($.statement_block, $._statement))\n),\n```\n\n### 2. Handle dangling else ambiguity\n\nThe existing `prec.right` on `if_statement` should handle the classic dangling else problem by associating `else` with the nearest `if`. However, verify this with test cases. If conflicts arise, add to the conflicts array:\n\n```javascript\nconflicts: $ => [\n  [$.parameter, $._expression],\n  [$.if_statement],  // May need this for dangling else\n],\n```\n\n### 3. Consider try/catch/finally\n\nFor consistency, apply the same pattern to try/catch/finally (lines 144-160):\n\n```javascript\ntry_statement: $ => seq(\n  'try',\n  field('body', choice($.statement_block, $._statement)),\n  optional($.catch_clause),\n  optional($.finally_clause)\n),\n\ncatch_clause: $ => seq(\n  'catch',\n  optional(field('exception', $.identifier)),\n  field('body', choice($.statement_block, $._statement))\n),\n\nfinally_clause: $ => seq(\n  'finally',\n  field('body', choice($.statement_block, $._statement))\n),\n```\n\n### 4. Potential issues to watch for\n\n1. **Parser size increase**: Adding more choices increases parser states. Monitor with `wc -l src/parser.c`\n2. **Ambiguity with expressions**: Single statements like `x := 1` after `if (cond)` should parse correctly since `_statement` includes `assignment_expression`\n3. **Newline handling**: AHK traditionally uses newlines as statement terminators. The `extras: [/\\s/]` allows whitespace between keywords and bodies, but ensure braceless statements parse correctly across newlines\n4. **Indents.scm**: The current indents.scm uses `statement_block` for indentation. Single statements won't auto-indent without additional rules",
+        "testStrategy": "## Test Strategy\n\n### 1. Generate parser and verify no conflicts\n\n```bash\nnpm run generate\n```\n\nCheck for conflict warnings in output. If conflicts appear, add appropriate entries to the `conflicts` array.\n\n### 2. Add test cases to test/corpus/control_flow.txt\n\nAdd these test cases after the existing ones:\n\n```\n================================================================================\nBraceless if statement\n================================================================================\n\nif (x)\n    y := 1\n\n--------------------------------------------------------------------------------\n\n(source_file\n  (if_statement\n    condition: (parenthesized_expression\n      (identifier))\n    consequence: (assignment_expression\n      left: (identifier)\n      right: (number))))\n\n================================================================================\nBraceless if-else statement\n================================================================================\n\nif (x)\n    a := 1\nelse\n    b := 2\n\n--------------------------------------------------------------------------------\n\n(source_file\n  (if_statement\n    condition: (parenthesized_expression\n      (identifier))\n    consequence: (assignment_expression\n      left: (identifier)\n      right: (number))\n    alternative: (else_clause\n      (assignment_expression\n        left: (identifier)\n        right: (number)))))\n\n================================================================================\nBraceless while statement\n================================================================================\n\nwhile (running)\n    DoWork()\n\n--------------------------------------------------------------------------------\n\n(source_file\n  (while_statement\n    condition: (parenthesized_expression\n      (identifier))\n    body: (function_call\n      name: (identifier))))\n\n================================================================================\nBraceless loop statement\n================================================================================\n\nloop 5\n    count += 1\n\n--------------------------------------------------------------------------------\n\n(source_file\n  (loop_statement\n    count: (number)\n    body: (assignment_expression\n      left: (identifier)\n      right: (number))))\n\n================================================================================\nBraceless for statement\n================================================================================\n\nfor item in collection\n    Process(item)\n\n--------------------------------------------------------------------------------\n\n(source_file\n  (for_statement\n    key: (identifier)\n    collection: (identifier)\n    body: (function_call\n      name: (identifier)\n      (argument_list\n        (identifier)))))\n\n================================================================================\nDangling else associates with nearest if\n================================================================================\n\nif (a)\n    if (b)\n        x := 1\n    else\n        x := 2\n\n--------------------------------------------------------------------------------\n\n(source_file\n  (if_statement\n    condition: (parenthesized_expression\n      (identifier))\n    consequence: (if_statement\n      condition: (parenthesized_expression\n        (identifier))\n      consequence: (assignment_expression\n        left: (identifier)\n        right: (number))\n      alternative: (else_clause\n        (assignment_expression\n          left: (identifier)\n          right: (number))))))\n\n================================================================================\nMixed braced and braceless\n================================================================================\n\nif (x) {\n    a := 1\n} else\n    b := 2\n\n--------------------------------------------------------------------------------\n\n(source_file\n  (if_statement\n    condition: (parenthesized_expression\n      (identifier))\n    consequence: (statement_block\n      (block\n        (assignment_expression\n          left: (identifier)\n          right: (number))))\n    alternative: (else_clause\n      (assignment_expression\n        left: (identifier)\n        right: (number)))))\n```\n\n### 3. Run tree-sitter tests\n\n```bash\nnpm run test\n```\n\nAll existing tests should continue to pass, and new braceless tests should pass.\n\n### 4. Manual parsing verification\n\nCreate a test file and parse it:\n\n```bash\necho 'if (x)\n    y := 1\nelse if (z)\n    y := 2\nelse\n    y := 3' > test_braceless.ahk\n\nnpx tree-sitter parse test_braceless.ahk\n```\n\n### 5. Verify highlighting in Zed\n\nAfter pushing changes and updating `rev` in extension.toml:\n1. Reinstall dev extension in Zed\n2. Open an AHK file with braceless control flow\n3. Verify keywords (`if`, `else`, `while`, etc.) highlight correctly\n4. Verify body statements highlight correctly",
+        "status": "pending",
+        "dependencies": [
+          25
+        ],
+        "priority": "medium",
+        "subtasks": []
       }
     ],
     "metadata": {
@@ -665,7 +678,10 @@
       "completedCount": 30,
       "tags": [
         "master"
-      ]
+      ],
+      "created": "2025-12-26T20:04:24.480Z",
+      "description": "Tasks for master context",
+      "updated": "2025-12-26T20:05:39.699Z"
     }
   }
 }
