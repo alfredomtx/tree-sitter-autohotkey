@@ -141,9 +141,22 @@ module.exports = grammar({
 
     loop_statement: $ => prec.right(seq(
       'loop',
-      optional(field('count', choice($.number, $.identifier))),
+      optional(choice(
+        // Comma-style variant: loop, parse, ...
+        seq(
+          ',',
+          field('type', $.loop_type),
+          optional(field('arguments', $.loop_arguments))
+        ),
+        // Count-based: loop 10 or loop count
+        field('count', choice($.number, $.identifier))
+      )),
       field('body', choice($.statement_block, $._statement))
     )),
+
+    loop_type: $ => choice('parse', 'files', 'read', 'reg'),
+
+    loop_arguments: $ => /[^\r\n{]+/,
 
     for_statement: $ => seq(
       'for',

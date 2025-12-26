@@ -90,6 +90,27 @@ loop iterations {
     DoWork()
 }
 
+; Loop variants (comma-style)
+loop, parse, InputVar, `,
+{
+    result .= A_LoopField
+}
+
+loop, files, C:\*.txt, R
+{
+    FileRead, content, %A_LoopFileFullPath%
+}
+
+loop, read, input.txt
+{
+    line := A_LoopReadLine
+}
+
+loop, reg, HKEY_LOCAL_MACHINE\SOFTWARE
+{
+    RegRead, val, %A_LoopRegKey%, %A_LoopRegName%
+}
+
 ; For-in with single variable
 for item in collection {
     Process(item)

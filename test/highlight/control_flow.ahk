@@ -18,3 +18,20 @@ for item in collection Process(item)
 if (x) a := 1 else b := 2
 ; <- keyword
 ;             ^^^^ keyword
+
+; Loop variants with comma syntax
+loop, parse, InputVar
+; <- keyword
+;     ^^^^^ keyword
+
+loop, files, *.txt
+; <- keyword
+;     ^^^^^ keyword
+
+loop, read, input.txt
+; <- keyword
+;     ^^^^ keyword
+
+loop, reg, HKEY_LOCAL_MACHINE
+; <- keyword
+;     ^^^ keyword

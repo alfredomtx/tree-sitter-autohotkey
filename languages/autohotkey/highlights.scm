@@ -29,6 +29,8 @@
 (else_clause "else" @keyword)
 (while_statement "while" @keyword)
 (loop_statement "loop" @keyword)
+(loop_statement "," @punctuation.delimiter)
+(loop_type) @keyword
 (for_statement "for" @keyword)
 (for_statement "in" @keyword)
 (try_statement "try" @keyword)

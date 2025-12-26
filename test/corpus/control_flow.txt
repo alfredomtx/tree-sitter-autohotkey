@@ -370,3 +370,104 @@ if (x) {
       (assignment_expression
         left: (identifier)
         right: (number)))))
+
+================================================================================
+Loop parse variant
+================================================================================
+
+loop, parse, InputVar
+{
+    result .= field
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (loop_statement
+    type: (loop_type)
+    arguments: (loop_arguments)
+    body: (statement_block
+      (block
+        (assignment_expression
+          left: (identifier)
+          right: (identifier))))))
+
+================================================================================
+Loop files variant
+================================================================================
+
+loop, files, *.txt
+{
+    count += 1
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (loop_statement
+    type: (loop_type)
+    arguments: (loop_arguments)
+    body: (statement_block
+      (block
+        (assignment_expression
+          left: (identifier)
+          right: (number))))))
+
+================================================================================
+Loop read variant
+================================================================================
+
+loop, read, input.txt
+{
+    result .= line
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (loop_statement
+    type: (loop_type)
+    arguments: (loop_arguments)
+    body: (statement_block
+      (block
+        (assignment_expression
+          left: (identifier)
+          right: (identifier))))))
+
+================================================================================
+Loop reg variant
+================================================================================
+
+loop, reg, HKEY_LOCAL_MACHINE
+{
+    count += 1
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (loop_statement
+    type: (loop_type)
+    arguments: (loop_arguments)
+    body: (statement_block
+      (block
+        (assignment_expression
+          left: (identifier)
+          right: (number))))))
+
+================================================================================
+Loop parse braceless
+================================================================================
+
+loop, parse, text
+    result .= field
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (loop_statement
+    type: (loop_type)
+    arguments: (loop_arguments)
+    body: (assignment_expression
+      left: (identifier)
+      right: (identifier))))
