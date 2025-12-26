@@ -20,6 +20,7 @@ module.exports = grammar({
       $.directive,
       $.hotkey,
       $.label,
+      $.class_definition,
       $.function_definition,
       // Control flow statements (before keyword!)
       $.if_statement,
@@ -150,6 +151,45 @@ module.exports = grammar({
       '}'
     )),
 
+    class_definition: $ => prec.dynamic(10, seq(
+      'class',
+      field('name', $.identifier),
+      optional(seq('extends', field('parent', $.identifier))),
+      field('body', $.class_body)
+    )),
+
+    class_body: $ => seq(
+      '{',
+      repeat($.class_member),
+      '}'
+    ),
+
+    class_member: $ => choice(
+      $.comment,
+      $.doc_comment,
+      $.block_comment,
+      $.class_definition,
+      $.method_definition,
+      $.class_property,
+    ),
+
+    method_definition: $ => prec.dynamic(10, seq(
+      optional('static'),
+      field('name', $.identifier),
+      token.immediate('('),
+      optional($.parameter_list),
+      ')',
+      '{',
+      optional(field('body', $.block)),
+      '}'
+    )),
+
+    class_property: $ => seq(
+      optional('static'),
+      field('name', $.identifier),
+      optional(seq(':=', field('value', $._expression)))
+    ),
+
     function_call: $ => prec(2, seq(
       field('name', $.identifier),
       token.immediate('('),
@@ -158,13 +198,13 @@ module.exports = grammar({
     )),
 
     member_expression: $ => prec.left(1, seq(
-      field('object', choice($.identifier, $.member_expression)),
+      field('object', choice($.identifier, $.member_expression, $.this_expression, $.base_expression)),
       token.immediate('.'),
       field('property', $.identifier)
     )),
 
     method_call: $ => prec(3, prec.left(2, seq(
-      field('object', choice($.identifier, $.member_expression)),
+      field('object', choice($.identifier, $.member_expression, $.this_expression, $.base_expression)),
       token.immediate('.'),
       field('method', $.identifier),
       token.immediate('('),
@@ -223,6 +263,8 @@ module.exports = grammar({
     ),
 
     _expression: $ => choice(
+      $.this_expression,
+      $.base_expression,
       $.string,
       $.number,
       prec(3, $.builtin_variable),
@@ -234,6 +276,9 @@ module.exports = grammar({
       $.function_call,
       $.parenthesized_expression,
     ),
+
+    this_expression: $ => 'this',
+    base_expression: $ => 'base',
 
     array_literal: $ => prec(2, seq(
       '[',
@@ -269,8 +314,8 @@ module.exports = grammar({
 
     keyword: $ => choice(
       // Control flow keywords (if, else, while, loop, for) now have dedicated rules
+      // Class keywords (class, extends) now have dedicated rules
       'return', 'break', 'continue', 'goto', 'gosub',
-      'class', 'extends',
       'global', 'local', 'static',
       'throw',
       'new', 'true', 'false',

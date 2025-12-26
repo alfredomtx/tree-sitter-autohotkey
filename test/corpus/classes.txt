@@ -1,164 +1,239 @@
 ================================================================================
-Return keyword
+Simple class definition
 ================================================================================
 
-return
+class MyClass {
+}
 
 --------------------------------------------------------------------------------
 
 (source_file
-  (keyword))
+  (class_definition
+    name: (identifier)
+    body: (class_body)))
 
 ================================================================================
-Break keyword
+Class with inheritance
 ================================================================================
 
-break
+class Child extends Parent {
+}
 
 --------------------------------------------------------------------------------
 
 (source_file
-  (keyword))
+  (class_definition
+    name: (identifier)
+    parent: (identifier)
+    body: (class_body)))
 
 ================================================================================
-Continue keyword
+Class with method
 ================================================================================
 
-continue
+class MyClass {
+    DoSomething() {
+    }
+}
 
 --------------------------------------------------------------------------------
 
 (source_file
-  (keyword))
+  (class_definition
+    name: (identifier)
+    body: (class_body
+      (class_member
+        (method_definition
+          name: (identifier))))))
 
 ================================================================================
-Goto keyword
+Class with constructor
 ================================================================================
 
-goto
+class MyClass {
+    __New() {
+    }
+}
 
 --------------------------------------------------------------------------------
 
 (source_file
-  (keyword))
+  (class_definition
+    name: (identifier)
+    body: (class_body
+      (class_member
+        (method_definition
+          name: (identifier))))))
 
 ================================================================================
-Gosub keyword (not command)
+Class with property and initializer
 ================================================================================
 
-gosub
+class MyClass {
+    value := 10
+}
 
 --------------------------------------------------------------------------------
 
 (source_file
-  (keyword))
+  (class_definition
+    name: (identifier)
+    body: (class_body
+      (class_member
+        (class_property
+          name: (identifier)
+          value: (number))))))
 
 ================================================================================
-Global keyword
+Class with bare property (no initializer)
 ================================================================================
 
-global
+class MyClass {
+    bar
+}
 
 --------------------------------------------------------------------------------
 
 (source_file
-  (keyword))
+  (class_definition
+    name: (identifier)
+    body: (class_body
+      (class_member
+        (class_property
+          name: (identifier))))))
 
 ================================================================================
-Local keyword
+Class with static method
 ================================================================================
 
-local
+class MyClass {
+    static GetInstance() {
+    }
+}
 
 --------------------------------------------------------------------------------
 
 (source_file
-  (keyword))
+  (class_definition
+    name: (identifier)
+    body: (class_body
+      (class_member
+        (method_definition
+          name: (identifier))))))
 
 ================================================================================
-Static keyword
+Class with static property
 ================================================================================
 
-static
+class MyClass {
+    static count := 0
+}
 
 --------------------------------------------------------------------------------
 
 (source_file
-  (keyword))
+  (class_definition
+    name: (identifier)
+    body: (class_body
+      (class_member
+        (class_property
+          name: (identifier)
+          value: (number))))))
 
 ================================================================================
-Throw keyword
+Nested class
 ================================================================================
 
-throw
+class Outer {
+    class Inner {
+    }
+}
 
 --------------------------------------------------------------------------------
 
 (source_file
-  (keyword))
+  (class_definition
+    name: (identifier)
+    body: (class_body
+      (class_member
+        (class_definition
+          name: (identifier)
+          body: (class_body))))))
 
 ================================================================================
-True literal
+Method with parameters
 ================================================================================
 
-true
+class MyClass {
+    Add(a, b) {
+    }
+}
 
 --------------------------------------------------------------------------------
 
 (source_file
-  (keyword))
+  (class_definition
+    name: (identifier)
+    body: (class_body
+      (class_member
+        (method_definition
+          name: (identifier)
+          (parameter_list
+            (parameter
+              (identifier))
+            (parameter
+              (identifier))))))))
 
 ================================================================================
-False literal
+this in member expression
 ================================================================================
 
-false
+this.value
 
 --------------------------------------------------------------------------------
 
 (source_file
-  (keyword))
+  (member_expression
+    object: (this_expression)
+    property: (identifier)))
 
 ================================================================================
-And keyword
+this in method call
 ================================================================================
 
-and
+this.DoWork()
 
 --------------------------------------------------------------------------------
 
 (source_file
-  (keyword))
+  (method_call
+    object: (this_expression)
+    method: (identifier)))
 
 ================================================================================
-Or keyword
+base in method call
 ================================================================================
 
-or
+base.__New()
 
 --------------------------------------------------------------------------------
 
 (source_file
-  (keyword))
+  (method_call
+    object: (base_expression)
+    method: (identifier)))
 
 ================================================================================
-Not keyword
+Chained this expression
 ================================================================================
 
-not
+this.data.value
 
 --------------------------------------------------------------------------------
 
 (source_file
-  (keyword))
-
-================================================================================
-New keyword
-================================================================================
-
-new
-
---------------------------------------------------------------------------------
-
-(source_file
-  (keyword))
+  (member_expression
+    object: (member_expression
+      object: (this_expression)
+      property: (identifier))
+    property: (identifier)))

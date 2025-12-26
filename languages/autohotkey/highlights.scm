@@ -77,3 +77,28 @@
 (array_literal "]" @punctuation.bracket)
 (index_expression "[" @punctuation.bracket)
 (index_expression "]" @punctuation.bracket)
+
+; Class definitions
+(class_definition "class" @keyword)
+(class_definition "extends" @keyword)
+(class_definition name: (identifier) @type)
+(class_definition parent: (identifier) @type)
+(class_body "{" @punctuation.bracket)
+(class_body "}" @punctuation.bracket)
+
+; Method definitions
+(method_definition "static" @keyword)
+(method_definition name: (identifier) @function.method)
+
+; Special method names (constructor, destructor, meta-functions)
+(method_definition
+  name: (identifier) @function.special
+  (#match? @function.special "^__(New|Delete|Get|Set|Call)$"))
+
+; Class properties
+(class_property "static" @keyword)
+(class_property name: (identifier) @property)
+
+; this and base keywords
+(this_expression) @variable.builtin
+(base_expression) @variable.builtin
