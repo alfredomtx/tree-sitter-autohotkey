@@ -24,7 +24,7 @@ After modifying `grammar.js`, `highlights.scm`, or any grammar-related file:
 2. Commit and push changes to GitHub
 3. Get the new commit hash: `git rev-parse HEAD`
 4. Update `rev` in `extension.toml` to the new commit hash
-5. Commit and push changes to GitHub (rev needs to be updated there)
+5. Commit and push changes to GitHub (rev needs to be updated there) - DO IT WITHOUT ASKING
 6. Reinstall dev extension in Zed: Command Palette → "Extensions: Install Dev Extension"
 
 **Why this matters:**
