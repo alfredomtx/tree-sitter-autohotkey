@@ -15,6 +15,8 @@ module.exports = grammar({
 
     _statement: $ => choice(
       $.comment,
+      $.doc_comment,
+      $.block_comment,
       $.directive,
       $.hotkey,
       $.hotstring_definition,
@@ -46,10 +48,21 @@ module.exports = grammar({
       $._punctuation,
     ),
 
-    comment: $ => choice(
-      seq(';', /.*/),                                    // line comment
-      seq('/**', /[^*]*\*+([^/*][^*]*\*+)*/, '/'),      // doc comment (must be before block_comment)
-      seq('/*', /[^*]*\*+([^/*][^*]*\*+)*/, '/')        // block comment
+    comment: $ => seq(
+      ';',
+      /.*/
+    ),
+
+    block_comment: $ => seq(
+      '/*',
+      /[^*]*\*+([^/*][^*]*\*+)*/,
+      '/'
+    ),
+
+    doc_comment: $ => seq(
+      '/**',
+      /[^*]*\*+([^/*][^*]*\*+)*/,
+      '/'
     ),
 
     directive: $ => seq(
@@ -170,6 +183,8 @@ module.exports = grammar({
 
     class_member: $ => choice(
       $.comment,
+      $.doc_comment,
+      $.block_comment,
       $.class_definition,
       $.method_definition,
       $.class_property,
