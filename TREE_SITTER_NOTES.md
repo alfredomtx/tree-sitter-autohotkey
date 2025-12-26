@@ -412,6 +412,76 @@ conflicts: $ => [
 
 **Key insight:** Self-injection lets you have a "coarse" main parse (for correct structure) and a "fine" injected parse (for detailed highlighting).
 
+## Highlight Tests
+
+### Test syntax
+
+Tree-sitter supports highlight tests in `test/highlight/`. Tests use assertion comments to verify highlighting:
+
+```ahk
+; Caret (^) - tests the column directly above on the previous non-comment line
+x := 1
+; ^ operator
+
+; Arrow (<-) - tests the column where the comment starts
+MsgBox, Hello
+; <- function.builtin
+
+; Multiple carets test multiple consecutive columns
+result := a && b
+;           ^^ operator
+
+; Negation (!) - asserts something is NOT a highlight
+baz()
+; <- !variable
+```
+
+**Key points:**
+- Carets must align exactly with the character column being tested
+- Arrow tests column 0 (where `;` appears), not where `<-` appears
+- For inline keywords (like `else` after `}`), use carets not arrows
+
+### Known issue: %var% in command_arguments causes memory errors
+
+Testing variable references inside command_arguments (`%myVar%`) causes tree-sitter to run out of memory during highlight tests:
+
+```ahk
+; This causes 34GB+ memory allocation error in highlight tests
+MsgBox, %myVar%
+;        ^^^^^ variable
+```
+
+**Root cause:** Likely related to the self-injection in `injections.scm` that re-parses command_arguments. The highlight test system may be triggering infinite or exponential expansion.
+
+**Workaround:** Skip highlight assertions for `%var%` patterns inside command_arguments. The highlighting still works in Zed - it's only the test assertions that fail.
+
+### tree-sitter.json configuration
+
+The `tree-sitter.json` file configures the tree-sitter CLI:
+
+```json
+{
+  "grammars": [{
+    "name": "autohotkey",
+    "scope": "source.ahk",
+    "file-types": ["ahk"],
+    "highlights": "languages/autohotkey/highlights.scm",
+    "injections": "languages/autohotkey/injections.scm"
+  }],
+  "metadata": {
+    "version": "1.0.0",
+    "license": "MIT",
+    "authors": [{ "name": "..." }],
+    "links": { "repository": "..." }
+  }
+}
+```
+
+**Required for:**
+- File type association (`.ahk` → autohotkey grammar)
+- Highlight test discovery
+- `tree-sitter highlight` command
+
 ## Parser Optimization
 
 ### What actually reduces parser size

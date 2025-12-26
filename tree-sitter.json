@@ -1,0 +1,26 @@
+{
+  "grammars": [
+    {
+      "name": "autohotkey",
+      "camelcase": "AutoHotkey",
+      "scope": "source.ahk",
+      "path": ".",
+      "file-types": ["ahk"],
+      "highlights": "languages/autohotkey/highlights.scm",
+      "injections": "languages/autohotkey/injections.scm"
+    }
+  ],
+  "metadata": {
+    "version": "1.0.0",
+    "license": "MIT",
+    "description": "Tree-sitter grammar for AutoHotkey v1",
+    "authors": [
+      {
+        "name": "Alfredo Menezes"
+      }
+    ],
+    "links": {
+      "repository": "https://github.com/alfredomtx/tree-sitter-autohotkey"
+    }
+  }
+}

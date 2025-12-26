@@ -11,7 +11,7 @@ Tree-sitter grammar for AutoHotkey v1, packaged as a Zed editor extension. Provi
 ```bash
 npm run generate   # Generate parser from grammar.js (creates src/parser.c)
 npm run build      # Alias for generate
-npm run test       # Run tree-sitter test suite (tests in test/corpus/)
+npm run test       # Run tree-sitter test suite (corpus + highlight tests)
 npm run parse <file>  # Parse a file and show AST
 ```
 
@@ -38,12 +38,14 @@ After modifying `grammar.js`, `highlights.scm`, or any grammar-related file:
 
 ```
 ├── grammar.js                      # Tree-sitter grammar rules (the source of truth)
+├── tree-sitter.json                # Tree-sitter CLI configuration (grammar metadata, file associations)
 ├── extension.toml                  # Zed extension manifest
 ├── languages/autohotkey/
 │   ├── config.toml                 # Language settings (file associations, comment syntax)
 │   └── highlights.scm              # Syntax highlighting queries (maps nodes to @highlight groups)
 ├── src/                            # Generated files (parser.c, grammar.json, node-types.json)
-└── test/corpus/                    # Tree-sitter test cases
+├── test/corpus/                    # Tree-sitter grammar tests (parse tree validation)
+└── test/highlight/                 # Tree-sitter highlight tests (syntax highlighting validation)
 ```
 
 **Key relationships:**

@@ -1,0 +1,75 @@
+; Function definitions
+MyFunc() {
+; <- function
+}
+
+MyFunc(x, y) {
+; <- function
+}
+
+; Function calls
+result := MyFunc()
+;         ^^^^^^ function
+
+result := MyFunc(42)
+;         ^^^^^^ function
+
+result := MyFunc(a, b)
+;         ^^^^^^ function
+
+; Nested function calls
+result := Outer(Inner())
+;         ^^^^^ function
+;               ^^^^^ function
+
+; Method calls
+obj.method()
+;   ^^^^^^ function.method
+
+obj.method(arg)
+;   ^^^^^^ function.method
+
+obj.prop.method()
+;        ^^^^^^ function.method
+
+; Builtin commands
+MsgBox, Hello
+; <- function.builtin
+
+Sleep, 1000
+; <- function.builtin
+
+Run, notepad.exe
+; <- function.builtin
+
+Send, Hello
+; <- function.builtin
+
+SetTimer, MyLabel, 1000
+; <- function.builtin
+
+Gosub, MyLabel
+; <- function.builtin
+
+; Special methods in class
+class Example {
+    __New() {
+;   ^^^^^ function.special
+    }
+
+    __Delete() {
+;   ^^^^^^^^ function.special
+    }
+
+    __Get(key) {
+;   ^^^^^ function.special
+    }
+
+    __Set(key, value) {
+;   ^^^^^ function.special
+    }
+
+    __Call(method, args*) {
+;   ^^^^^^ function.special
+    }
+}
