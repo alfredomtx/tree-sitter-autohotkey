@@ -139,16 +139,147 @@
 ; Method calls
 (method_call method: (identifier) @function.method)
 
-; Built-in commands
-(command_name) @function.builtin
+; Command names (identifier in command position gets highlighted as function)
+(command name: (identifier) @function)
 
-; Built-in variables
-(builtin_variable) @variable.special
+; Built-in commands (known AHK commands highlighted as function.builtin via #match?)
+; GUI/Dialog commands
+((command name: (identifier) @function.builtin)
+ (#match? @function.builtin "^(?i)(MsgBox|InputBox|ToolTip|TrayTip|Progress|Gui|GuiControl|GuiControlGet|Menu)$"))
+
+; Input/Output commands
+((command name: (identifier) @function.builtin)
+ (#match? @function.builtin "^(?i)(Send|SendInput|SendRaw|SendEvent|SendPlay|SendLevel|Click|MouseClick|MouseClickDrag|MouseGetPos|MouseMove|KeyWait|Input|Hotkey)$"))
+
+; Flow control commands
+((command name: (identifier) @function.builtin)
+ (#match? @function.builtin "^(?i)(Sleep|SetTimer|Pause|Suspend|Thread|Run|RunWait|RunAs|Reload|ExitApp|Exit|Shutdown)$"))
+
+; Window management commands
+((command name: (identifier) @function.builtin)
+ (#match? @function.builtin "^(?i)(WinActivate|WinActivateBottom|WinWait|WinWaitActive|WinWaitClose|WinClose|WinKill|WinMinimize|WinMaximize|WinRestore)$"))
+
+((command name: (identifier) @function.builtin)
+ (#match? @function.builtin "^(?i)(WinMinimizeAll|WinMinimizeAllUndo|WinHide|WinShow|WinMove|WinSet|WinSetTitle|WinMenuSelectItem)$"))
+
+; Control commands
+((command name: (identifier) @function.builtin)
+ (#match? @function.builtin "^(?i)(Control|ControlClick|ControlFocus|ControlGet|ControlGetFocus|ControlGetPos|ControlGetText|ControlMove|ControlSend|ControlSendRaw|ControlSetText)$"))
+
+; File operations commands
+((command name: (identifier) @function.builtin)
+ (#match? @function.builtin "^(?i)(FileRead|FileReadLine|FileAppend|FileDelete|FileCopy|FileMove|FileCopyDir|FileMoveDir|FileCreateDir|FileRemoveDir)$"))
+
+((command name: (identifier) @function.builtin)
+ (#match? @function.builtin "^(?i)(FileCreateShortcut|FileGetShortcut|FileGetAttrib|FileSetAttrib|FileGetSize|FileGetTime|FileGetVersion|FileSetTime)$"))
+
+((command name: (identifier) @function.builtin)
+ (#match? @function.builtin "^(?i)(FileSelectFile|FileSelectFolder|FileRecycle|FileRecycleEmpty)$"))
+
+; Registry and INI commands
+((command name: (identifier) @function.builtin)
+ (#match? @function.builtin "^(?i)(RegRead|RegWrite|RegDelete|IniRead|IniWrite|IniDelete)$"))
+
+; String manipulation commands (legacy)
+((command name: (identifier) @function.builtin)
+ (#match? @function.builtin "^(?i)(StringCaseSense|StringGetPos|StringLeft|StringRight|StringMid|StringLower|StringUpper|StringLen|StringReplace|StringSplit|StringTrimLeft|StringTrimRight)$"))
+
+; Legacy conditional commands
+((command name: (identifier) @function.builtin)
+ (#match? @function.builtin "^(?i)(IfEqual|IfNotEqual|IfLess|IfLessOrEqual|IfGreater|IfGreaterOrEqual|IfExist|IfNotExist|IfInString|IfNotInString|IfMsgBox)$"))
+
+((command name: (identifier) @function.builtin)
+ (#match? @function.builtin "^(?i)(IfWinExist|IfWinNotExist|IfWinActive|IfWinNotActive)$"))
+
+; Configuration commands
+((command name: (identifier) @function.builtin)
+ (#match? @function.builtin "^(?i)(SetWorkingDir|CoordMode|SetFormat|SetBatchLines|SetDefaultMouseSpeed|SetWinDelay|SetControlDelay|SetKeyDelay|SetMouseDelay)$"))
+
+((command name: (identifier) @function.builtin)
+ (#match? @function.builtin "^(?i)(SetTitleMatchMode|SetRegView|SetStoreCapsLockMode|SetCapsLockState|SetNumLockState|SetScrollLockState|AutoTrim|DetectHiddenWindows|DetectHiddenText)$"))
+
+; Sound commands
+((command name: (identifier) @function.builtin)
+ (#match? @function.builtin "^(?i)(SoundBeep|SoundGet|SoundPlay|SoundSet)$"))
+
+; Group commands
+((command name: (identifier) @function.builtin)
+ (#match? @function.builtin "^(?i)(GroupActivate|GroupAdd|GroupClose|GroupDeactivate)$"))
+
+; Other commands
+((command name: (identifier) @function.builtin)
+ (#match? @function.builtin "^(?i)(BlockInput|Drive|DriveGet|DriveSpaceFree|Edit|KeyHistory|ListHotkeys|ListLines|ListVars)$"))
+
+((command name: (identifier) @function.builtin)
+ (#match? @function.builtin "^(?i)(Process|Random|Sort|Transform|UrlDownloadToFile|ClipWait|EnvGet|EnvSet|EnvUpdate|FormatTime)$"))
+
+((command name: (identifier) @function.builtin)
+ (#match? @function.builtin "^(?i)(SplitPath|StatusBarGetText|StatusBarWait|SysGet|WinGet|WinGetActiveStats|WinGetActiveTitle|WinGetClass|WinGetPos|WinGetText|WinGetTitle)$"))
+
+((command name: (identifier) @function.builtin)
+ (#match? @function.builtin "^(?i)(PostMessage|SendMessage|OnMessage|DllCall|NumGet|NumPut|VarSetCapacity)$"))
+
+((command name: (identifier) @function.builtin)
+ (#match? @function.builtin "^(?i)(ComObjCreate|ComObjGet|ComObjConnect|ComObjError|ObjAddRef|ObjRelease|ObjBindMethod|ObjRawSet)$"))
 
 ; Variable references in commands
 (variable_ref (identifier) @variable)
-(variable_ref (builtin_variable) @variable.special)
 (variable_ref "%" @punctuation.special)
+
+; Built-in variables (via #match? - highlights identifiers matching A_* patterns)
+; Script properties
+((identifier) @variable.special
+ (#match? @variable.special "^(?i)A_(ScriptDir|ScriptName|ScriptFullPath|ScriptHwnd|WorkingDir|InitialWorkingDir|Args|LineNumber|LineFile|ThisFunc|ThisLabel|AhkVersion|AhkPath|IsUnicode|IsCompiled|ExitReason)$"))
+
+; Date and time
+((identifier) @variable.special
+ (#match? @variable.special "^(?i)A_(Now|NowUTC|YYYY|MM|DD|MMMM|MMM|DDDD|DDD|WDay|YDay|YWeek|Hour|Min|Sec|MSec|TickCount)$"))
+
+; Script settings
+((identifier) @variable.special
+ (#match? @variable.special "^(?i)A_(IsSuspended|IsPaused|IsCritical|BatchLines|ListLines|TitleMatchMode|TitleMatchModeSpeed|DetectHiddenWindows|DetectHiddenText|AutoTrim|StringCaseSense|FileEncoding|FormatInteger|FormatFloat)$"))
+
+((identifier) @variable.special
+ (#match? @variable.special "^(?i)A_(SendMode|SendLevel|StoreCapsLockMode|KeyDelay|KeyDuration|KeyDelayPlay|KeyDurationPlay|WinDelay|ControlDelay|MouseDelay|MouseDelayPlay|DefaultMouseSpeed)$"))
+
+((identifier) @variable.special
+ (#match? @variable.special "^(?i)A_(CoordModeToolTip|CoordModePixel|CoordModeMouse|CoordModeCaret|CoordModeMenu|RegView|IconHidden|IconTip|IconFile|IconNumber)$"))
+
+; User idle time
+((identifier) @variable.special
+ (#match? @variable.special "^(?i)A_(TimeIdle|TimeIdlePhysical|TimeIdleKeyboard|TimeIdleMouse)$"))
+
+; GUI windows
+((identifier) @variable.special
+ (#match? @variable.special "^(?i)A_(DefaultGui|DefaultListView|DefaultTreeView|Gui|GuiControl|GuiWidth|GuiHeight|GuiX|GuiY|GuiEvent|GuiControlEvent|EventInfo)$"))
+
+; Hotkeys, hotstrings, menus
+((identifier) @variable.special
+ (#match? @variable.special "^(?i)A_(ThisMenuItem|ThisMenu|ThisMenuItemPos|ThisHotkey|PriorHotkey|PriorKey|TimeSinceThisHotkey|TimeSincePriorHotkey|EndChar)$"))
+
+; OS and user info
+((identifier) @variable.special
+ (#match? @variable.special "^(?i)(A_ComSpec|ComSpec|A_Temp|A_OSType|A_OSVersion|A_Is64bitOS|A_PtrSize|A_Language|A_ComputerName|A_UserName|A_WinDir|A_ProgramFiles)$"))
+
+((identifier) @variable.special
+ (#match? @variable.special "^(?i)A_(AppData|AppDataCommon|Desktop|DesktopCommon|StartMenu|StartMenuCommon|Programs|ProgramsCommon|Startup|StartupCommon|MyDocuments|IsAdmin)$"))
+
+((identifier) @variable.special
+ (#match? @variable.special "^(?i)A_(ScreenWidth|ScreenHeight|ScreenDPI|IPAddress1|IPAddress2|IPAddress3|IPAddress4)$"))
+
+; Special characters and misc
+((identifier) @variable.special
+ (#match? @variable.special "^(?i)(A_Space|A_Tab|A_Cursor|A_CaretX|A_CaretY|A_Clipboard|Clipboard|ClipboardAll|A_LastError|True|False|ErrorLevel)$"))
+
+; Loop variables
+((identifier) @variable.special
+ (#match? @variable.special "^(?i)A_(Index|LoopFileName|LoopFileExt|LoopFileFullPath|LoopFileLongPath|LoopFileShortPath|LoopFileShortName|LoopFileDir)$"))
+
+((identifier) @variable.special
+ (#match? @variable.special "^(?i)A_(LoopFileTimeModified|LoopFileTimeCreated|LoopFileTimeAccessed|LoopFileAttrib|LoopFileSize|LoopFileSizeKB|LoopFileSizeMB)$"))
+
+((identifier) @variable.special
+ (#match? @variable.special "^(?i)A_(LoopRegName|LoopRegType|LoopRegKey|LoopRegSubKey|LoopRegTimeModified|LoopReadLine|LoopField)$"))
 
 ; Labels
 (label . (identifier) @label)

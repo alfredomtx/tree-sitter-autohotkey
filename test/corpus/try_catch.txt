@@ -119,7 +119,7 @@ try {
       body: (statement_block
         (block
           (command
-            name: (command_name)
+            name: (identifier)
             (command_arguments)))))))
 
 ================================================================================

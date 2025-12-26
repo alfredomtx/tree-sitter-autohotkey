@@ -509,6 +509,45 @@ The `tree-sitter.json` file configures the tree-sitter CLI:
 
 5. **Splitting optional() into choice() doesn't help.** Replacing `optional($.block)` with `choice($.empty_block, $.populated_block)` slightly increased parser size.
 
+### Use #match? queries instead of grammar tokens for pure highlighting
+
+**Problem:** Adding 159 builtin variables and 192 commands to the grammar via `token(choice(...))` caused the parser to grow from 55K to 127K lines (+131%). WASM compilation took minutes and used 5GB+ RAM.
+
+**Root cause:** Tree-sitter builds an LR parser. Token alternatives multiply with parser states, especially when the token appears in multiple grammar locations (like `_statement` AND `_expression`).
+
+**Solution:** Move highlighting-only patterns from grammar.js to highlights.scm using `#match?` predicates:
+
+```javascript
+// BEFORE (in grammar.js) - causes parser bloat
+builtin_variable: $ => token(prec(3, choice(
+  /A_ScriptDir|A_WorkingDir|.../,
+  // ... 159 variables total
+))),
+```
+
+```scheme
+; AFTER (in highlights.scm) - zero parser impact
+((identifier) @variable.special
+ (#match? @variable.special "^(?i)A_(ScriptDir|WorkingDir|...)$"))
+```
+
+**Results:**
+| Approach | Parser Size | Reduction |
+|----------|-------------|-----------|
+| All builtins in grammar | 127,475 lines | baseline |
+| Builtins moved to #match? | 124,084 lines | -2.7% |
+| Commands also moved to #match? | 69,927 lines | **-45%** |
+
+**Trade-offs:**
+- Pro: Unlimited patterns with zero parser impact
+- Pro: Case-insensitive matching via `(?i)` regex flag
+- Con: No distinct node type in parse tree (builtins parse as `identifier`)
+- Con: Highlighting is query-time, not parse-time (minimal performance impact)
+
+**When to use each approach:**
+- **Grammar tokens:** When parsing behavior depends on the pattern (e.g., `command_name` + comma distinguishes commands from function calls)
+- **#match? queries:** When the pattern is only for highlighting (e.g., builtin variables are just identifiers with special colors)
+
 ### Monitoring parser complexity
 
 ```bash
@@ -516,6 +555,7 @@ The `tree-sitter.json` file configures the tree-sitter CLI:
 wc -l src/parser.c
 
 # Baseline expectations for this grammar:
-# - With word token: ~25,000 lines
-# - Without word token: ~42,000 lines
+# - Minimal grammar with word token: ~25,000 lines
+# - Current grammar (builtins/commands in #match?): ~70,000 lines
+# - Grammar with builtins in tokens: ~127,000 lines (avoid!)
 ```

@@ -127,14 +127,6 @@
         },
         {
           "type": "PREC",
-          "value": 3,
-          "content": {
-            "type": "SYMBOL",
-            "name": "builtin_variable"
-          }
-        },
-        {
-          "type": "PREC",
           "value": 4,
           "content": {
             "type": "SYMBOL",
@@ -1464,13 +1456,8 @@
             "type": "FIELD",
             "name": "name",
             "content": {
-              "type": "ALIAS",
-              "content": {
-                "type": "SYMBOL",
-                "name": "_command_name_pattern"
-              },
-              "named": true,
-              "value": "command_name"
+              "type": "SYMBOL",
+              "name": "identifier"
             }
           },
           {
@@ -1488,229 +1475,6 @@
                 "type": "BLANK"
               }
             ]
-          }
-        ]
-      }
-    },
-    "_command_name_pattern": {
-      "type": "TOKEN",
-      "content": {
-        "type": "CHOICE",
-        "members": [
-          {
-            "type": "PATTERN",
-            "value": "MsgBox|InputBox|ToolTip|TrayTip|Progress",
-            "flags": "i"
-          },
-          {
-            "type": "PATTERN",
-            "value": "Gui|GuiControl|GuiControlGet|Menu",
-            "flags": "i"
-          },
-          {
-            "type": "PATTERN",
-            "value": "Send|SendInput|SendRaw|SendEvent|SendPlay|SendLevel",
-            "flags": "i"
-          },
-          {
-            "type": "PATTERN",
-            "value": "Click|MouseClick|MouseClickDrag|MouseGetPos|MouseMove",
-            "flags": "i"
-          },
-          {
-            "type": "PATTERN",
-            "value": "KeyWait|Input|Hotkey",
-            "flags": "i"
-          },
-          {
-            "type": "PATTERN",
-            "value": "Sleep|SetTimer|Pause|Suspend|Thread",
-            "flags": "i"
-          },
-          {
-            "type": "PATTERN",
-            "value": "Run|RunWait|RunAs|Reload|ExitApp|Exit|Shutdown",
-            "flags": "i"
-          },
-          {
-            "type": "PATTERN",
-            "value": "WinActivate|WinActivateBottom|WinWait|WinWaitActive|WinWaitClose",
-            "flags": "i"
-          },
-          {
-            "type": "PATTERN",
-            "value": "WinClose|WinKill|WinMinimize|WinMaximize|WinRestore",
-            "flags": "i"
-          },
-          {
-            "type": "PATTERN",
-            "value": "WinMinimizeAll|WinMinimizeAllUndo|WinHide|WinShow|WinMove",
-            "flags": "i"
-          },
-          {
-            "type": "PATTERN",
-            "value": "WinSet|WinSetTitle|WinMenuSelectItem",
-            "flags": "i"
-          },
-          {
-            "type": "PATTERN",
-            "value": "Control|ControlClick|ControlFocus|ControlGet|ControlGetFocus",
-            "flags": "i"
-          },
-          {
-            "type": "PATTERN",
-            "value": "ControlGetPos|ControlGetText|ControlMove|ControlSend|ControlSendRaw|ControlSetText",
-            "flags": "i"
-          },
-          {
-            "type": "PATTERN",
-            "value": "FileRead|FileReadLine|FileAppend|FileDelete|FileCopy|FileMove",
-            "flags": "i"
-          },
-          {
-            "type": "PATTERN",
-            "value": "FileCopyDir|FileMoveDir|FileCreateDir|FileRemoveDir",
-            "flags": "i"
-          },
-          {
-            "type": "PATTERN",
-            "value": "FileCreateShortcut|FileGetShortcut|FileGetAttrib|FileSetAttrib",
-            "flags": "i"
-          },
-          {
-            "type": "PATTERN",
-            "value": "FileGetSize|FileGetTime|FileGetVersion|FileSetTime",
-            "flags": "i"
-          },
-          {
-            "type": "PATTERN",
-            "value": "FileSelectFile|FileSelectFolder|FileRecycle|FileRecycleEmpty",
-            "flags": "i"
-          },
-          {
-            "type": "PATTERN",
-            "value": "RegRead|RegWrite|RegDelete|IniRead|IniWrite|IniDelete",
-            "flags": "i"
-          },
-          {
-            "type": "PATTERN",
-            "value": "StringCaseSense|StringGetPos|StringLeft|StringRight|StringMid",
-            "flags": "i"
-          },
-          {
-            "type": "PATTERN",
-            "value": "StringLower|StringUpper|StringLen|StringReplace|StringSplit",
-            "flags": "i"
-          },
-          {
-            "type": "PATTERN",
-            "value": "StringTrimLeft|StringTrimRight",
-            "flags": "i"
-          },
-          {
-            "type": "PATTERN",
-            "value": "IfEqual|IfNotEqual|IfLess|IfLessOrEqual|IfGreater|IfGreaterOrEqual",
-            "flags": "i"
-          },
-          {
-            "type": "PATTERN",
-            "value": "IfExist|IfNotExist|IfInString|IfNotInString|IfMsgBox",
-            "flags": "i"
-          },
-          {
-            "type": "PATTERN",
-            "value": "IfWinExist|IfWinNotExist|IfWinActive|IfWinNotActive",
-            "flags": "i"
-          },
-          {
-            "type": "PATTERN",
-            "value": "SetWorkingDir|CoordMode|SetFormat|SetBatchLines",
-            "flags": "i"
-          },
-          {
-            "type": "PATTERN",
-            "value": "SetDefaultMouseSpeed|SetWinDelay|SetControlDelay|SetKeyDelay|SetMouseDelay",
-            "flags": "i"
-          },
-          {
-            "type": "PATTERN",
-            "value": "SetTitleMatchMode|SetRegView|SetStoreCapsLockMode",
-            "flags": "i"
-          },
-          {
-            "type": "PATTERN",
-            "value": "SetCapsLockState|SetNumLockState|SetScrollLockState",
-            "flags": "i"
-          },
-          {
-            "type": "PATTERN",
-            "value": "AutoTrim|DetectHiddenWindows|DetectHiddenText",
-            "flags": "i"
-          },
-          {
-            "type": "PATTERN",
-            "value": "SoundBeep|SoundGet|SoundPlay|SoundSet",
-            "flags": "i"
-          },
-          {
-            "type": "PATTERN",
-            "value": "GroupActivate|GroupAdd|GroupClose|GroupDeactivate",
-            "flags": "i"
-          },
-          {
-            "type": "PATTERN",
-            "value": "BlockInput|Drive|DriveGet|DriveSpaceFree",
-            "flags": "i"
-          },
-          {
-            "type": "PATTERN",
-            "value": "Edit|KeyHistory|ListHotkeys|ListLines|ListVars",
-            "flags": "i"
-          },
-          {
-            "type": "PATTERN",
-            "value": "Process|Random|Sort|Transform|UrlDownloadToFile",
-            "flags": "i"
-          },
-          {
-            "type": "PATTERN",
-            "value": "ClipWait|EnvGet|EnvSet|EnvUpdate|FormatTime",
-            "flags": "i"
-          },
-          {
-            "type": "PATTERN",
-            "value": "SplitPath|StatusBarGetText|StatusBarWait",
-            "flags": "i"
-          },
-          {
-            "type": "PATTERN",
-            "value": "SysGet|WinGet|WinGetActiveStats|WinGetActiveTitle",
-            "flags": "i"
-          },
-          {
-            "type": "PATTERN",
-            "value": "WinGetClass|WinGetPos|WinGetText|WinGetTitle",
-            "flags": "i"
-          },
-          {
-            "type": "PATTERN",
-            "value": "PostMessage|SendMessage|OnMessage",
-            "flags": "i"
-          },
-          {
-            "type": "PATTERN",
-            "value": "DllCall|NumGet|NumPut|VarSetCapacity",
-            "flags": "i"
-          },
-          {
-            "type": "PATTERN",
-            "value": "ComObjCreate|ComObjGet|ComObjConnect|ComObjError",
-            "flags": "i"
-          },
-          {
-            "type": "PATTERN",
-            "value": "ObjAddRef|ObjRelease|ObjBindMethod|ObjRawSet",
-            "flags": "i"
           }
         ]
       }
@@ -1734,21 +1498,8 @@
           "value": "%"
         },
         {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "PREC",
-              "value": 3,
-              "content": {
-                "type": "SYMBOL",
-                "name": "builtin_variable"
-              }
-            },
-            {
-              "type": "SYMBOL",
-              "name": "identifier"
-            }
-          ]
+          "type": "SYMBOL",
+          "name": "identifier"
         },
         {
           "type": "STRING",
@@ -1878,14 +1629,6 @@
         {
           "type": "SYMBOL",
           "name": "boolean"
-        },
-        {
-          "type": "PREC",
-          "value": 3,
-          "content": {
-            "type": "SYMBOL",
-            "name": "builtin_variable"
-          }
         },
         {
           "type": "SYMBOL",
@@ -3074,87 +2817,8 @@
       ]
     },
     "identifier": {
-      "type": "TOKEN",
-      "content": {
-        "type": "PREC",
-        "value": -1,
-        "content": {
-          "type": "PATTERN",
-          "value": "[a-zA-Z_][a-zA-Z0-9_]*"
-        }
-      }
-    },
-    "builtin_variable": {
-      "type": "TOKEN",
-      "content": {
-        "type": "PREC",
-        "value": 3,
-        "content": {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "PATTERN",
-              "value": "A_ScriptDir|A_ScriptName|A_ScriptFullPath|A_ScriptHwnd|A_WorkingDir|A_InitialWorkingDir|A_Args|A_LineNumber|A_LineFile|A_ThisFunc|A_ThisLabel|A_AhkVersion|A_AhkPath|A_IsUnicode|A_IsCompiled|A_ExitReason"
-            },
-            {
-              "type": "PATTERN",
-              "value": "A_Now|A_NowUTC|A_YYYY|A_MM|A_DD|A_MMMM|A_MMM|A_DDDD|A_DDD|A_WDay|A_YDay|A_YWeek|A_Hour|A_Min|A_Sec|A_MSec|A_TickCount"
-            },
-            {
-              "type": "PATTERN",
-              "value": "A_IsSuspended|A_IsPaused|A_IsCritical|A_BatchLines|A_ListLines|A_TitleMatchMode|A_TitleMatchModeSpeed|A_DetectHiddenWindows|A_DetectHiddenText|A_AutoTrim|A_StringCaseSense|A_FileEncoding|A_FormatInteger|A_FormatFloat"
-            },
-            {
-              "type": "PATTERN",
-              "value": "A_SendMode|A_SendLevel|A_StoreCapsLockMode|A_KeyDelay|A_KeyDuration|A_KeyDelayPlay|A_KeyDurationPlay|A_WinDelay|A_ControlDelay|A_MouseDelay|A_MouseDelayPlay|A_DefaultMouseSpeed"
-            },
-            {
-              "type": "PATTERN",
-              "value": "A_CoordModeToolTip|A_CoordModePixel|A_CoordModeMouse|A_CoordModeCaret|A_CoordModeMenu|A_RegView|A_IconHidden|A_IconTip|A_IconFile|A_IconNumber"
-            },
-            {
-              "type": "PATTERN",
-              "value": "A_TimeIdle|A_TimeIdlePhysical|A_TimeIdleKeyboard|A_TimeIdleMouse"
-            },
-            {
-              "type": "PATTERN",
-              "value": "A_DefaultGui|A_DefaultListView|A_DefaultTreeView|A_Gui|A_GuiControl|A_GuiWidth|A_GuiHeight|A_GuiX|A_GuiY|A_GuiEvent|A_GuiControlEvent|A_EventInfo"
-            },
-            {
-              "type": "PATTERN",
-              "value": "A_ThisMenuItem|A_ThisMenu|A_ThisMenuItemPos|A_ThisHotkey|A_PriorHotkey|A_PriorKey|A_TimeSinceThisHotkey|A_TimeSincePriorHotkey|A_EndChar"
-            },
-            {
-              "type": "PATTERN",
-              "value": "A_ComSpec|ComSpec|A_Temp|A_OSType|A_OSVersion|A_Is64bitOS|A_PtrSize|A_Language|A_ComputerName|A_UserName|A_WinDir|A_ProgramFiles"
-            },
-            {
-              "type": "PATTERN",
-              "value": "A_AppData|A_AppDataCommon|A_Desktop|A_DesktopCommon|A_StartMenu|A_StartMenuCommon|A_Programs|A_ProgramsCommon|A_Startup|A_StartupCommon|A_MyDocuments|A_IsAdmin"
-            },
-            {
-              "type": "PATTERN",
-              "value": "A_ScreenWidth|A_ScreenHeight|A_ScreenDPI|A_IPAddress1|A_IPAddress2|A_IPAddress3|A_IPAddress4"
-            },
-            {
-              "type": "PATTERN",
-              "value": "A_Space|A_Tab|A_Cursor|A_CaretX|A_CaretY|A_Clipboard|Clipboard|ClipboardAll|A_LastError|True|False|ErrorLevel"
-            },
-            {
-              "type": "PATTERN",
-              "value": "A_Index|A_LoopFileName|A_LoopFileExt|A_LoopFileFullPath|A_LoopFileLongPath|A_LoopFileShortPath|A_LoopFileShortName|A_LoopFileDir"
-            },
-            {
-              "type": "PATTERN",
-              "value": "A_LoopFileTimeModified|A_LoopFileTimeCreated|A_LoopFileTimeAccessed|A_LoopFileAttrib|A_LoopFileSize|A_LoopFileSizeKB|A_LoopFileSizeMB"
-            },
-            {
-              "type": "PATTERN",
-              "value": "A_LoopRegName|A_LoopRegType|A_LoopRegKey|A_LoopRegSubKey|A_LoopRegTimeModified|A_LoopReadLine|A_LoopField"
-            }
-          ]
-        }
-      }
+      "type": "PATTERN",
+      "value": "[a-zA-Z_][a-zA-Z0-9_]*"
     },
     "_punctuation": {
       "type": "PATTERN",

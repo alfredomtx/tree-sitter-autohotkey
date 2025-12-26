@@ -585,12 +585,12 @@ switch x {
       values: (number)
       (block
         (command
-          name: (command_name)
+          name: (identifier)
           (command_arguments))))
     (default_clause
       (block
         (command
-          name: (command_name)
+          name: (identifier)
           (command_arguments))))))
 
 ================================================================================
@@ -637,14 +637,14 @@ switch x {
       values: (number)
       (block
         (command
-          name: (command_name)
+          name: (identifier)
           (command_arguments))))
     (case_clause
       values: (number)
       values: (number)
       (block
         (command
-          name: (command_name)
+          name: (identifier)
           (command_arguments))))))
 
 ================================================================================
@@ -678,5 +678,5 @@ switch action {
     (default_clause
       (block
         (command
-          name: (command_name)
+          name: (identifier)
           (command_arguments))))))

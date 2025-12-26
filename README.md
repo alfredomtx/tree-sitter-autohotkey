@@ -40,22 +40,24 @@ To enable the "Run" button in the gutter, add a task configuration:
 | Comments | Line (`;`), block (`/* */`), doc (`/** */`) |
 | Literals | Strings, numbers (int, hex, float), arrays |
 | Operators | Assignment, comparison, arithmetic, logical, bitwise |
-| Keywords | `if`, `else`, `while`, `loop`, `for`, `return`, `class`, `try`, `catch`, etc. |
+| Keywords | `if`, `else`, `while`, `loop`, `for`, `switch`, `case`, `try`, `catch`, `throw`, `return`, `class`, `new`, etc. |
 | Functions | Definitions, calls, parameters with defaults |
-| Commands | 30+ built-in commands (`MsgBox`, `Send`, `Sleep`, `Run`, etc.) |
-| Variables | Regular, built-in (`A_ScriptDir`, `A_Now`, etc.), `%var%` dereferencing |
+| Commands | 38 built-in commands (`MsgBox`, `Send`, `Sleep`, `Run`, `Gui`, etc.) |
+| Variables | Regular, built-in (`A_ScriptDir`, `A_Now`, `A_TickCount`, `Clipboard`, `ErrorLevel`, etc.), `%var%` dereferencing |
 | Objects | Property access, method calls, array indexing |
 | Hotkeys | Modifier combinations (`^!+#`) |
 | Directives | `#Include`, `#NoEnv`, `#SingleInstance`, etc. |
 | Escape sequences | `` `n ``, `` `t ``, `` `r ``, etc. |
 
-### Not Yet Implemented
+### Advanced Syntax
 
-- Hotstrings (`::\btw::by the way`)
-- Structured control flow blocks (if/else/while bodies)
-- Class definitions
-- Object literals (`{key: value}`)
-- Try/catch/finally blocks
+- **Hotstrings:** `:options:trigger::replacement` syntax with option parsing
+- **Classes:** Full OOP with `extends`, static members, magic methods (`__New`, `__Delete`, `__Get`, `__Set`, `__Call`)
+- **Object literals:** `{key: value}` syntax with identifier, string, and numeric keys
+- **Exception handling:** `try`/`catch`/`finally` blocks with `throw`
+- **Switch statements:** `switch`/`case`/`default` control flow
+- **Ternary expressions:** `condition ? value1 : value2`
+- **Control flow:** `for...in` loops, `break`/`continue`, labeled statements
 
 ## Installation
 

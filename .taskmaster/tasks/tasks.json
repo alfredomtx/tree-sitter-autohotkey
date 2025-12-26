@@ -405,8 +405,9 @@
         "dependencies": [
           "17"
         ],
-        "status": "pending",
-        "subtasks": []
+        "status": "done",
+        "subtasks": [],
+        "updatedAt": "2025-12-26T22:50:36.020Z"
       },
       {
         "id": "10",
@@ -626,10 +627,11 @@
         "description": "Create GitHub releases automatically when version tags are pushed, including changelog generation and release notes.",
         "details": "Add release workflow that triggers on version tags (v*) and creates GitHub releases.\n\nImplementation in .github/workflows/release.yml:\n```yaml\nname: Release\n\non:\n  push:\n    tags:\n      - 'v*'\n\njobs:\n  release:\n    runs-on: ubuntu-latest\n    permissions:\n      contents: write\n    steps:\n      - uses: actions/checkout@v4\n        with:\n          fetch-depth: 0\n\n      - name: Generate changelog\n        id: changelog\n        uses: orhun/git-cliff-action@v3\n        with:\n          args: --latest --strip header\n\n      - name: Create GitHub Release\n        uses: softprops/action-gh-release@v1\n        with:\n          body: ${{ steps.changelog.outputs.content }}\n          generate_release_notes: true\n```\n\nAlternative simpler approach without changelog tool:\n```yaml\n      - name: Create GitHub Release\n        uses: softprops/action-gh-release@v1\n        with:\n          generate_release_notes: true\n```\n\nThis uses GitHub's auto-generated release notes based on PR titles.\n\nNote: This is for later when publishing to Zed extension store becomes relevant.",
         "testStrategy": "1. Create .github/workflows/release.yml\n2. Commit and push to master\n3. Create and push a test tag: `git tag v0.1.0-test && git push origin v0.1.0-test`\n4. Verify GitHub Actions runs release workflow\n5. Check Releases page for new release with notes\n6. Delete test release and tag if desired",
-        "status": "pending",
+        "status": "done",
         "dependencies": [],
         "priority": "low",
-        "subtasks": []
+        "subtasks": [],
+        "updatedAt": "2025-12-26T22:49:39.592Z"
       },
       {
         "id": "34",
@@ -687,13 +689,25 @@
         "priority": "medium",
         "subtasks": [],
         "updatedAt": "2025-12-26T21:15:18.709Z"
+      },
+      {
+        "id": "38",
+        "title": "Publish extension to Zed extension store",
+        "description": "Submit the AutoHotkey extension to the official Zed extension registry by opening a PR to zed-industries/extensions.",
+        "details": "## Prerequisites (already met)\n- extension.toml configured correctly\n- MIT LICENSE file at root (accepted by Zed)\n- Public GitHub repository\n\n## Steps to publish\n\n1. Fork https://github.com/zed-industries/extensions to personal GitHub account (not organization - allows Zed staff to push fixes)\n\n2. Clone the fork locally\n\n3. Add extension as git submodule (HTTPS URL required, not SSH):\n   ```bash\n   git submodule add https://github.com/alfredomtx/tree-sitter-autohotkey extensions/autohotkey\n   ```\n\n4. Add entry to top-level `extensions.toml`:\n   ```toml\n   [autohotkey]\n   submodule = \"extensions/autohotkey\"\n   version = \"0.1.0\"\n   ```\n\n5. Run `pnpm sort-extensions` to ensure proper file ordering\n\n6. Commit and push to fork\n\n7. Open PR to zed-industries/extensions\n\n## CI Validation\nThe PR will be validated for:\n- Valid license file (MIT ✓)\n- Version consistency between extension.toml and extensions.toml\n- HTTPS submodule URL\n- Proper file sorting\n\n## References\n- https://zed.dev/docs/extensions/developing-extensions\n- https://github.com/zed-industries/extensions",
+        "testStrategy": "1. Verify PR passes CI checks\n2. After merge, search for \"AutoHotkey\" in Zed's extension panel\n3. Install from store and verify syntax highlighting works",
+        "status": "done",
+        "dependencies": [],
+        "priority": "high",
+        "subtasks": [],
+        "updatedAt": "2025-12-26T23:09:12.847Z"
       }
     ],
     "metadata": {
       "version": "1.0.0",
-      "lastModified": "2025-12-26T22:46:18.607Z",
-      "taskCount": 37,
-      "completedCount": 34,
+      "lastModified": "2025-12-26T23:09:12.849Z",
+      "taskCount": 38,
+      "completedCount": 37,
       "tags": [
         "master"
       ]

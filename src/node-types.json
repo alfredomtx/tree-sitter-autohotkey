@@ -28,10 +28,6 @@
           "named": true
         },
         {
-          "type": "builtin_variable",
-          "named": true
-        },
-        {
           "type": "function_call",
           "named": true
         },
@@ -112,10 +108,6 @@
         },
         {
           "type": "boolean",
-          "named": true
-        },
-        {
-          "type": "builtin_variable",
           "named": true
         },
         {
@@ -250,10 +242,6 @@
             "named": true
           },
           {
-            "type": "builtin_variable",
-            "named": true
-          },
-          {
             "type": "continuation_section",
             "named": true
           },
@@ -342,10 +330,6 @@
             "named": true
           },
           {
-            "type": "builtin_variable",
-            "named": true
-          },
-          {
             "type": "function_call",
             "named": true
           },
@@ -421,10 +405,6 @@
           },
           {
             "type": "boolean",
-            "named": true
-          },
-          {
-            "type": "builtin_variable",
             "named": true
           },
           {
@@ -505,10 +485,6 @@
         },
         {
           "type": "boolean",
-          "named": true
-        },
-        {
-          "type": "builtin_variable",
           "named": true
         },
         {
@@ -657,10 +633,6 @@
             "named": true
           },
           {
-            "type": "builtin_variable",
-            "named": true
-          },
-          {
             "type": "function_call",
             "named": true
           },
@@ -748,10 +720,6 @@
           },
           {
             "type": "boolean",
-            "named": true
-          },
-          {
-            "type": "builtin_variable",
             "named": true
           },
           {
@@ -997,10 +965,6 @@
             "named": true
           },
           {
-            "type": "builtin_variable",
-            "named": true
-          },
-          {
             "type": "function_call",
             "named": true
           },
@@ -1065,7 +1029,7 @@
         "required": true,
         "types": [
           {
-            "type": "command_name",
+            "type": "identifier",
             "named": true
           }
         ]
@@ -1144,10 +1108,6 @@
         },
         {
           "type": "boolean",
-          "named": true
-        },
-        {
-          "type": "builtin_variable",
           "named": true
         },
         {
@@ -1279,10 +1239,6 @@
           },
           {
             "type": "boolean",
-            "named": true
-          },
-          {
-            "type": "builtin_variable",
             "named": true
           },
           {
@@ -1418,10 +1374,6 @@
             "named": true
           },
           {
-            "type": "builtin_variable",
-            "named": true
-          },
-          {
             "type": "class_definition",
             "named": true
           },
@@ -1549,10 +1501,6 @@
           },
           {
             "type": "boolean",
-            "named": true
-          },
-          {
-            "type": "builtin_variable",
             "named": true
           },
           {
@@ -1790,10 +1738,6 @@
             "named": true
           },
           {
-            "type": "builtin_variable",
-            "named": true
-          },
-          {
             "type": "class_definition",
             "named": true
           },
@@ -1930,10 +1874,6 @@
             "named": true
           },
           {
-            "type": "builtin_variable",
-            "named": true
-          },
-          {
             "type": "function_call",
             "named": true
           },
@@ -2060,10 +2000,6 @@
           },
           {
             "type": "boolean",
-            "named": true
-          },
-          {
-            "type": "builtin_variable",
             "named": true
           },
           {
@@ -2392,10 +2328,6 @@
             "named": true
           },
           {
-            "type": "builtin_variable",
-            "named": true
-          },
-          {
             "type": "function_call",
             "named": true
           },
@@ -2482,10 +2414,6 @@
         },
         {
           "type": "boolean",
-          "named": true
-        },
-        {
-          "type": "builtin_variable",
           "named": true
         },
         {
@@ -2587,10 +2515,6 @@
           "named": true
         },
         {
-          "type": "builtin_variable",
-          "named": true
-        },
-        {
           "type": "function_call",
           "named": true
         },
@@ -2668,10 +2592,6 @@
         },
         {
           "type": "boolean",
-          "named": true
-        },
-        {
-          "type": "builtin_variable",
           "named": true
         },
         {
@@ -2836,10 +2756,6 @@
             "named": true
           },
           {
-            "type": "builtin_variable",
-            "named": true
-          },
-          {
             "type": "function_call",
             "named": true
           },
@@ -2938,10 +2854,6 @@
             "named": true
           },
           {
-            "type": "builtin_variable",
-            "named": true
-          },
-          {
             "type": "function_call",
             "named": true
           },
@@ -3017,10 +2929,6 @@
           },
           {
             "type": "boolean",
-            "named": true
-          },
-          {
-            "type": "builtin_variable",
             "named": true
           },
           {
@@ -3102,10 +3010,6 @@
             "named": true
           },
           {
-            "type": "builtin_variable",
-            "named": true
-          },
-          {
             "type": "function_call",
             "named": true
           },
@@ -3183,10 +3087,6 @@
           },
           {
             "type": "boolean",
-            "named": true
-          },
-          {
-            "type": "builtin_variable",
             "named": true
           },
           {
@@ -3340,10 +3240,6 @@
           "named": true
         },
         {
-          "type": "builtin_variable",
-          "named": true
-        },
-        {
           "type": "function_call",
           "named": true
         },
@@ -3407,10 +3303,6 @@
       "required": true,
       "types": [
         {
-          "type": "builtin_variable",
-          "named": true
-        },
-        {
           "type": "identifier",
           "named": true
         }
@@ -3439,10 +3331,6 @@
           },
           {
             "type": "boolean",
-            "named": true
-          },
-          {
-            "type": "builtin_variable",
             "named": true
           },
           {
@@ -3740,10 +3628,6 @@
     "named": true
   },
   {
-    "type": "builtin_variable",
-    "named": true
-  },
-  {
     "type": "case",
     "named": false
   },
@@ -3757,10 +3641,6 @@
   },
   {
     "type": "command_arguments",
-    "named": true
-  },
-  {
-    "type": "command_name",
     "named": true
   },
   {

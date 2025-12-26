@@ -80,5 +80,5 @@ MsgBox, hello
     options: (hotstring_options)
     trigger: (hotstring_trigger))
   (command
-    name: (command_name)
+    name: (identifier)
     (command_arguments)))
