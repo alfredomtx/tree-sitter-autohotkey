@@ -29,7 +29,7 @@ module.exports = grammar({
       $.number,
       $.keyword,
       $.operator,
-      $.builtin_variable,
+      prec(3, $.builtin_variable),
       $.identifier,
       $._punctuation,
     ),
@@ -119,7 +119,7 @@ module.exports = grammar({
       /[^\s,\n%"']+/,
     ))),
 
-    variable_ref: $ => seq('%', choice($.builtin_variable, $.identifier), '%'),
+    variable_ref: $ => seq('%', choice(prec(3, $.builtin_variable), $.identifier), '%'),
 
     parameter_list: $ => seq(
       $.parameter,
@@ -139,7 +139,7 @@ module.exports = grammar({
     _expression: $ => choice(
       $.string,
       $.number,
-      $.builtin_variable,
+      prec(3, $.builtin_variable),
       $.identifier,
       $.function_call,
     ),

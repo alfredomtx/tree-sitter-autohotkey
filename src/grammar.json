@@ -65,8 +65,12 @@
           "name": "operator"
         },
         {
-          "type": "SYMBOL",
-          "name": "builtin_variable"
+          "type": "PREC",
+          "value": 3,
+          "content": {
+            "type": "SYMBOL",
+            "name": "builtin_variable"
+          }
         },
         {
           "type": "SYMBOL",
@@ -511,8 +515,12 @@
           "type": "CHOICE",
           "members": [
             {
-              "type": "SYMBOL",
-              "name": "builtin_variable"
+              "type": "PREC",
+              "value": 3,
+              "content": {
+                "type": "SYMBOL",
+                "name": "builtin_variable"
+              }
             },
             {
               "type": "SYMBOL",
@@ -618,8 +626,12 @@
           "name": "number"
         },
         {
-          "type": "SYMBOL",
-          "name": "builtin_variable"
+          "type": "PREC",
+          "value": 3,
+          "content": {
+            "type": "SYMBOL",
+            "name": "builtin_variable"
+          }
         },
         {
           "type": "SYMBOL",
