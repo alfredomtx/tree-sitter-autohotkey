@@ -15,9 +15,9 @@ MyFunc(param1, param2) {
     return param1 + param2
 }
 
-test(text)
+test()
 {
-    return text
+    return false
 }
 
 emptyFunc()
@@ -26,6 +26,9 @@ emptyFunc()
 
 result := MyFunc(1, 2)
 emptyFunc()
+
+goto, MyLabel
+gosub, MyLabel
 
 MyLabel:
     test("Hello")
@@ -297,3 +300,4 @@ Gui, MyGui:Add, Text,, % LANGUAGE = "EN-US" ? "Hi" : "Bonjour"
 Gui, MyGui:Show, NoActivate,
 
 global VAR := true
+global VAR := false
