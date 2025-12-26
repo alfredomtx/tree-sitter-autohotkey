@@ -87,6 +87,21 @@ module.exports = grammar({
       ')'
     ),
 
+    member_expression: $ => prec.left(1, seq(
+      field('object', choice($.identifier, $.member_expression)),
+      token.immediate('.'),
+      field('property', $.identifier)
+    )),
+
+    method_call: $ => prec.left(2, seq(
+      field('object', choice($.identifier, $.member_expression)),
+      token.immediate('.'),
+      field('method', $.identifier),
+      token.immediate('('),
+      optional($.argument_list),
+      ')'
+    )),
+
     command: $ => prec(2, seq(
       field('name', $.command_name),
       optional(seq(
@@ -140,6 +155,8 @@ module.exports = grammar({
       $.string,
       $.number,
       prec(3, $.builtin_variable),
+      $.member_expression,
+      $.method_call,
       $.identifier,
       $.function_call,
     ),

@@ -29,6 +29,12 @@
 (function_definition . (identifier) @function)
 (function_call . (identifier) @function)
 
+; Member expressions - property access
+(member_expression property: (identifier) @property)
+
+; Method calls
+(method_call method: (identifier) @function.method)
+
 ; Built-in commands
 (command_name) @function.builtin
 
