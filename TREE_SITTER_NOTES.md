@@ -77,12 +77,6 @@ When adding new commands or rules:
 3. Add more in small batches
 4. If it breaks, you know which batch caused it
 
-### The grammars/ folder is Zed's cache
-
-- It's a git clone from GitHub at the specified `rev`
-- Delete it to force Zed to re-fetch
-- Your local grammar.js changes have NO effect until pushed and rev updated
-
 ## Troubleshooting Extension Installation Failures
 
 ### "Failed to install dev extension: failed to compile grammar"
@@ -132,3 +126,45 @@ If installation hangs, check Task Manager for `clang.exe` processes. Multiple cl
 | `%LOCALAPPDATA%\Zed\extensions\installed\` | Installed extensions |
 | `%LOCALAPPDATA%\Zed\extensions\build\wasi-sdk\` | WASM SDK for compilation |
 | `%LOCALAPPDATA%\Zed\logs\Zed.log` | Main log file |
+
+## Known Issues
+
+### builtin_variable highlighting not working (UNSOLVED)
+
+**Status:** Blocked - needs further investigation
+
+**Problem:** `builtin_variable` nodes don't highlight in Zed, but `command_name` nodes do (same grammar pattern).
+
+**Symptoms:**
+- `A_ScriptDir`, `A_Now`, `Clipboard`, `ErrorLevel` show same color as regular identifiers
+- `MsgBox`, `Run` (command_name) highlight correctly
+- Grammar generates without errors, extension installs successfully
+- highlights.scm has correct query: `(builtin_variable) @variable.builtin`
+
+**Attempted fixes (all failed):**
+
+1. **Added `prec(3)` to builtin_variable** - Same pattern as working command_name
+   ```javascript
+   builtin_variable: $ => token(prec(3, /A_ScriptDir|A_Now|.../)),
+   ```
+   Result: No change
+
+2. **Added explicit `prec(-1)` to identifier** - To ensure builtin_variable wins lexer conflict
+   ```javascript
+   identifier: $ => token(prec(-1, /[a-zA-Z_][a-zA-Z0-9_]*/)),
+   ```
+   Result: No change
+
+**Key differences between working command_name and broken builtin_variable:**
+
+| Aspect | command_name (works) | builtin_variable (broken) |
+|--------|---------------------|---------------------------|
+| Structure | `choice()` of multiple `token(prec(3,...))` | Single `token(prec(3,...))` |
+| Usage | Inside `command` rule with `prec(2)` | Direct in `_expression`/`_statement` |
+| Wrapper | Has outer rule with field and precedence | No wrapper, bare choice |
+
+**Theories to investigate:**
+1. Parser creating `identifier` nodes instead of `builtin_variable` (lexer not respecting precedence)
+2. May need `choice()` wrapper structure like command_name
+3. May need outer rule with precedence wrapping builtin_variable usage
+4. Possible Zed/tree-sitter-wasm specific bug with token precedence
