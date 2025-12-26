@@ -254,6 +254,10 @@
             "named": true
           },
           {
+            "type": "continuation_section",
+            "named": true
+          },
+          {
             "type": "function_call",
             "named": true
           },
@@ -3457,6 +3461,10 @@
   },
   {
     "type": "command_name",
+    "named": true
+  },
+  {
+    "type": "continuation_section",
     "named": true
   },
   {

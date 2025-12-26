@@ -9,6 +9,9 @@
 ; Strings
 (string) @string
 
+; Continuation sections - multiline string content
+(continuation_section) @string
+
 ; Escape sequences within strings
 (escape_sequence) @string.escape
 

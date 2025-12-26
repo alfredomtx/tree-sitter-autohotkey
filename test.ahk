@@ -46,9 +46,8 @@ pi := 3.14
 
 ; === Control Flow ===
 ; If statement
-if (enabled) {
+if (enabled)
     DoSomething()
-}
 
 ; If-else
 if (condition) {
@@ -301,3 +300,24 @@ Gui, MyGui:Show, NoActivate,
 
 global VAR := true
 global VAR := false
+
+; === Continuation Sections ===
+; Simple continuation
+message := (
+  This is a multi-line
+  message that spans
+  several lines
+)
+
+; With LTrim option
+sql := (LTrim
+  SELECT *
+  FROM users
+  WHERE active = 1
+)
+
+; With nested parens
+query := (
+  SELECT (id, name)
+  FROM users
+)

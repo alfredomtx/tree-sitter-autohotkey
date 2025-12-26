@@ -2080,8 +2080,17 @@
             "type": "FIELD",
             "name": "right",
             "content": {
-              "type": "SYMBOL",
-              "name": "_expression"
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "continuation_section"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "_expression"
+                }
+              ]
             }
           }
         ]
@@ -2628,6 +2637,13 @@
     "_punctuation": {
       "type": "PATTERN",
       "value": "[.,@$\\\\]+"
+    },
+    "continuation_section": {
+      "type": "TOKEN",
+      "content": {
+        "type": "PATTERN",
+        "value": "\\((?:[ \\t]*[^ \\t)\\n][^\\n]*\\n|[ \\t]*\\n)+[ \\t]*\\)"
+      }
     }
   },
   "extras": [

@@ -346,10 +346,11 @@ module.exports = grammar({
     )),
 
     // Assignment expression - prec(1) ensures higher precedence than identifier's prec(-1)
+    // continuation_section first in choice to match multiline parens before parenthesized_expression
     assignment_expression: $ => prec.right(1, seq(
       field('left', choice($.identifier, $.member_expression, $.index_expression)),
       field('operator', choice(':=', '+=', '-=', '*=', '/=', '.=')),
-      field('right', $._expression)
+      field('right', choice($.continuation_section, $._expression))
     )),
 
     this_expression: $ => 'this',
@@ -441,5 +442,13 @@ module.exports = grammar({
 
     // Remaining punctuation - NOT parens/brackets/braces which have semantic meaning
     _punctuation: $ => /[.,@$\\]+/,
+
+    // Continuation section: multiline content in parens
+    // Pattern matches lines that are NOT just "whitespace + )" (the closing line)
+    // Line types matched by the repeat:
+    //   - Content lines: whitespace + non-whitespace-non-) + rest of line + newline
+    //   - Empty lines: just whitespace + newline (or just newline)
+    // The closing ) must be on its own line (whitespace + ))
+    continuation_section: $ => token(/\((?:[ \t]*[^ \t)\n][^\n]*\n|[ \t]*\n)+[ \t]*\)/),
   }
 });
