@@ -283,6 +283,39 @@ If installation hangs, check Task Manager for `clang.exe` processes. Multiple cl
 
 ## Zed indents.scm Uses Different Pattern Than Helix
 
+### Query for tokens in the node that DIRECTLY contains them
+
+**Problem:** Language fails to load with "Impossible pattern" error in indents.scm.
+
+**Error in Zed logs:**
+```
+ERROR [language::language_registry] failed to load language AutoHotkey:
+Error loading indents query
+    Query error at 5:19. Impossible pattern:
+```
+
+**Root Cause:** Tree-sitter queries can only match tokens that are DIRECT children of a node. If the token is inside a nested child, the query fails silently with "Impossible pattern".
+
+**Example:** Given this grammar structure:
+```javascript
+if_statement: $ => seq('if', $.parenthesized_expression, $.statement_block, ...)
+statement_block: $ => seq('{', optional($.block), '}')  // braces are HERE
+```
+
+The `}` is a direct child of `statement_block`, NOT `if_statement`.
+
+```scheme
+; WRONG - if_statement doesn't directly contain }
+(if_statement "}" @end) @indent
+
+; CORRECT - statement_block directly contains }
+(statement_block "}" @end) @indent
+```
+
+**Debugging tip:** When you get "Impossible pattern", check if the token you're querying actually exists as a direct child of the node. Use `tree-sitter parse` to see the actual tree structure.
+
+**Bonus:** Using `statement_block` is simpler anyway - one rule covers all control flow (if/else/while/loop/for) instead of repeating for each.
+
 ### Use `@indent` on the node, `@end` on closing delimiter
 
 **Problem:** Indentation doesn't work - pressing Enter after `{` puts cursor at column 1.
