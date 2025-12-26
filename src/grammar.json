@@ -219,8 +219,8 @@
       ]
     },
     "function_definition": {
-      "type": "PREC",
-      "value": 2,
+      "type": "PREC_DYNAMIC",
+      "value": 10,
       "content": {
         "type": "SEQ",
         "members": [
@@ -432,33 +432,25 @@
             "type": "FIELD",
             "name": "name",
             "content": {
-              "type": "SYMBOL",
-              "name": "command_name"
+              "type": "ALIAS",
+              "content": {
+                "type": "SYMBOL",
+                "name": "_command_name_pattern"
+              },
+              "named": true,
+              "value": "command_name"
             }
+          },
+          {
+            "type": "STRING",
+            "value": ","
           },
           {
             "type": "CHOICE",
             "members": [
               {
-                "type": "SEQ",
-                "members": [
-                  {
-                    "type": "STRING",
-                    "value": ","
-                  },
-                  {
-                    "type": "CHOICE",
-                    "members": [
-                      {
-                        "type": "SYMBOL",
-                        "name": "command_arguments"
-                      },
-                      {
-                        "type": "BLANK"
-                      }
-                    ]
-                  }
-                ]
+                "type": "SYMBOL",
+                "name": "command_arguments"
               },
               {
                 "type": "BLANK"
@@ -468,142 +460,61 @@
         ]
       }
     },
-    "command_name": {
-      "type": "CHOICE",
-      "members": [
-        {
-          "type": "TOKEN",
-          "content": {
-            "type": "PREC",
-            "value": 3,
-            "content": {
-              "type": "PATTERN",
-              "value": "MsgBox|InputBox|ToolTip|TrayTip"
-            }
+    "_command_name_pattern": {
+      "type": "TOKEN",
+      "content": {
+        "type": "CHOICE",
+        "members": [
+          {
+            "type": "PATTERN",
+            "value": "MsgBox|InputBox|ToolTip|TrayTip"
+          },
+          {
+            "type": "PATTERN",
+            "value": "Send|SendInput|SendRaw|SendEvent|SendPlay"
+          },
+          {
+            "type": "PATTERN",
+            "value": "Sleep|SetTimer|Pause|Suspend"
+          },
+          {
+            "type": "PATTERN",
+            "value": "Run|RunWait|Reload|ExitApp"
+          },
+          {
+            "type": "PATTERN",
+            "value": "WinActivate|WinWait|WinClose|WinMinimize|WinMaximize"
+          },
+          {
+            "type": "PATTERN",
+            "value": "FileRead|FileAppend|FileDelete|FileCopy|FileMove"
+          },
+          {
+            "type": "PATTERN",
+            "value": "RegRead|RegWrite|RegDelete"
+          },
+          {
+            "type": "PATTERN",
+            "value": "IniRead|IniWrite"
+          },
+          {
+            "type": "PATTERN",
+            "value": "Gui|GuiControl"
+          },
+          {
+            "type": "PATTERN",
+            "value": "SetWorkingDir|CoordMode|SetFormat|SetBatchLines"
+          },
+          {
+            "type": "PATTERN",
+            "value": "SetDefaultMouseSpeed|SetWinDelay|SetControlDelay"
+          },
+          {
+            "type": "PATTERN",
+            "value": "Gosub|Goto"
           }
-        },
-        {
-          "type": "TOKEN",
-          "content": {
-            "type": "PREC",
-            "value": 3,
-            "content": {
-              "type": "PATTERN",
-              "value": "Send|SendInput|SendRaw|SendEvent|SendPlay"
-            }
-          }
-        },
-        {
-          "type": "TOKEN",
-          "content": {
-            "type": "PREC",
-            "value": 3,
-            "content": {
-              "type": "PATTERN",
-              "value": "Sleep|SetTimer|Pause|Suspend"
-            }
-          }
-        },
-        {
-          "type": "TOKEN",
-          "content": {
-            "type": "PREC",
-            "value": 3,
-            "content": {
-              "type": "PATTERN",
-              "value": "Run|RunWait|Reload|ExitApp"
-            }
-          }
-        },
-        {
-          "type": "TOKEN",
-          "content": {
-            "type": "PREC",
-            "value": 3,
-            "content": {
-              "type": "PATTERN",
-              "value": "WinActivate|WinWait|WinClose|WinMinimize|WinMaximize"
-            }
-          }
-        },
-        {
-          "type": "TOKEN",
-          "content": {
-            "type": "PREC",
-            "value": 3,
-            "content": {
-              "type": "PATTERN",
-              "value": "FileRead|FileAppend|FileDelete|FileCopy|FileMove"
-            }
-          }
-        },
-        {
-          "type": "TOKEN",
-          "content": {
-            "type": "PREC",
-            "value": 3,
-            "content": {
-              "type": "PATTERN",
-              "value": "RegRead|RegWrite|RegDelete"
-            }
-          }
-        },
-        {
-          "type": "TOKEN",
-          "content": {
-            "type": "PREC",
-            "value": 3,
-            "content": {
-              "type": "PATTERN",
-              "value": "IniRead|IniWrite"
-            }
-          }
-        },
-        {
-          "type": "TOKEN",
-          "content": {
-            "type": "PREC",
-            "value": 3,
-            "content": {
-              "type": "PATTERN",
-              "value": "Gui|GuiControl"
-            }
-          }
-        },
-        {
-          "type": "TOKEN",
-          "content": {
-            "type": "PREC",
-            "value": 3,
-            "content": {
-              "type": "PATTERN",
-              "value": "SetWorkingDir|CoordMode|SetFormat|SetBatchLines"
-            }
-          }
-        },
-        {
-          "type": "TOKEN",
-          "content": {
-            "type": "PREC",
-            "value": 3,
-            "content": {
-              "type": "PATTERN",
-              "value": "SetDefaultMouseSpeed|SetWinDelay|SetControlDelay"
-            }
-          }
-        },
-        {
-          "type": "TOKEN",
-          "content": {
-            "type": "PREC",
-            "value": 3,
-            "content": {
-              "type": "PATTERN",
-              "value": "Gosub|Goto"
-            }
-          }
-        }
-      ]
+        ]
+      }
     },
     "command_arguments": {
       "type": "PREC_LEFT",

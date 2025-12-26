@@ -74,7 +74,7 @@ module.exports = grammar({
       token.immediate(':')
     ),
 
-    function_definition: $ => prec(2, seq(
+    function_definition: $ => prec.dynamic(10, seq(
       field('name', $.identifier),
       token.immediate('('),
       optional($.parameter_list),
@@ -106,29 +106,30 @@ module.exports = grammar({
       ')'
     ))),
 
+    // Commands use comma syntax: MsgBox, args
+    // Function calls use parens: MsgBox("args")
+    // The comma after the name distinguishes command from function call
     command: $ => prec(2, seq(
-      field('name', $.command_name),
-      optional(seq(
-        ',',
-        optional($.command_arguments)
-      ))
+      field('name', alias($._command_name_pattern, $.command_name)),
+      ',',
+      optional($.command_arguments)
     )),
 
-    // Split into multiple token() groups to avoid regex length limit in tree-sitter-wasm
-    command_name: $ => choice(
-      token(prec(3, /MsgBox|InputBox|ToolTip|TrayTip/)),
-      token(prec(3, /Send|SendInput|SendRaw|SendEvent|SendPlay/)),
-      token(prec(3, /Sleep|SetTimer|Pause|Suspend/)),
-      token(prec(3, /Run|RunWait|Reload|ExitApp/)),
-      token(prec(3, /WinActivate|WinWait|WinClose|WinMinimize|WinMaximize/)),
-      token(prec(3, /FileRead|FileAppend|FileDelete|FileCopy|FileMove/)),
-      token(prec(3, /RegRead|RegWrite|RegDelete/)),
-      token(prec(3, /IniRead|IniWrite/)),
-      token(prec(3, /Gui|GuiControl/)),
-      token(prec(3, /SetWorkingDir|CoordMode|SetFormat|SetBatchLines/)),
-      token(prec(3, /SetDefaultMouseSpeed|SetWinDelay|SetControlDelay/)),
-      token(prec(3, /Gosub|Goto/)),
-    ),
+    // Internal pattern for command names - only used within command rule
+    _command_name_pattern: $ => token(choice(
+      /MsgBox|InputBox|ToolTip|TrayTip/,
+      /Send|SendInput|SendRaw|SendEvent|SendPlay/,
+      /Sleep|SetTimer|Pause|Suspend/,
+      /Run|RunWait|Reload|ExitApp/,
+      /WinActivate|WinWait|WinClose|WinMinimize|WinMaximize/,
+      /FileRead|FileAppend|FileDelete|FileCopy|FileMove/,
+      /RegRead|RegWrite|RegDelete/,
+      /IniRead|IniWrite/,
+      /Gui|GuiControl/,
+      /SetWorkingDir|CoordMode|SetFormat|SetBatchLines/,
+      /SetDefaultMouseSpeed|SetWinDelay|SetControlDelay/,
+      /Gosub|Goto/,
+    )),
 
     command_arguments: $ => prec.left(1, repeat1(choice(
       $.variable_ref,

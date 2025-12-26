@@ -153,11 +153,6 @@
     }
   },
   {
-    "type": "command_name",
-    "named": true,
-    "fields": {}
-  },
-  {
     "type": "comment",
     "named": true,
     "fields": {}
@@ -836,6 +831,10 @@
   {
     "type": "class",
     "named": false
+  },
+  {
+    "type": "command_name",
+    "named": true
   },
   {
     "type": "continue",
