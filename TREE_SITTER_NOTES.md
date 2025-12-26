@@ -4,22 +4,24 @@ Technical details, pitfalls, and lessons learned while developing this tree-sitt
 
 ## Pitfalls
 
-### DO NOT use `word` rule with token-based command matching
+### Use `word` token for major parser optimization
 
-**Problem:** The `word: $ => $.identifier` rule enables tree-sitter's keyword extraction, which interferes with `token()` rules. When enabled, only SOME alternatives in a regex pattern will match - the rest silently fail to highlight.
+**Background:** The `word: $ => $.identifier` declaration enables tree-sitter's keyword extraction optimization. Early experiments showed interference with `token()` rules using `choice()` of string literals.
 
-**Solution:** This grammar intentionally OMITS the `word` rule. Commands use internal patterns with `alias()` instead of `choice()` of string literals.
+**Current solution:** Use `word` with regex-based token patterns (not string literal choices):
 
 ```javascript
-// WRONG - keyword extraction breaks this
-word: $ => $.identifier,
-command_name: $ => choice('MsgBox', 'Sleep', 'Run'),
+// This grammar uses:
+word: $ => $.identifier,  // Enables keyword extraction - 41% parser size reduction!
 
-// CORRECT - no word rule, use internal pattern with alias
-// (no word rule)
-_command_name_pattern: $ => token(choice(/MsgBox|Sleep|Run/)),
+// Commands use regex patterns, not string literal choices
+_command_name_pattern: $ => token(
+  /MsgBox|InputBox|ToolTip|.../  // Single regex, not choice('MsgBox', 'Sleep', ...)
+),
 command: $ => seq(alias($._command_name_pattern, $.command_name), ...),
 ```
+
+**Key insight:** The `word` rule interferes with `choice('literal1', 'literal2', ...)` patterns, but works fine with `token(/regex/)` patterns. Using regex-based patterns for commands allows us to keep the `word` optimization.
 
 ### Use `prec.dynamic()` for function_definition to beat function_call
 
@@ -351,3 +353,41 @@ The `}` is a direct child of `statement_block`, NOT `if_statement`.
 | `@indent.ignore` | Skip indentation for this node |
 
 **Reference:** [Zed Language Extensions Documentation](https://zed.dev/docs/extensions/languages)
+
+## Parser Optimization
+
+### What actually reduces parser size
+
+**Tested optimizations and results (starting from 42,633 lines):**
+
+| Technique | Result | Recommendation |
+|-----------|--------|----------------|
+| `word: $ => $.identifier` | **-41% (→ 25,044 lines)** | **USE THIS** |
+| Consolidate tokens into single regex | Minor (~1-2%) | Worth doing |
+| Split binary_expression into hidden rules | **+16% (worse!)** | Don't do this |
+| Named precedences (`precedences: [...]`) | Conflicts with numeric prec | Avoid mixing |
+| Split statement_block into variants | +0.6% (worse) | Don't do this |
+| `inline: [...]` for token rules | Error - tokens can't be inlined | N/A |
+
+**Key findings:**
+
+1. **`word` token is the big win.** Enables tree-sitter's keyword extraction optimization. Single biggest impact.
+
+2. **Hidden rules don't help expression parsing.** Splitting `binary_expression` into `_logical_or_expr`, `_bitwise_and_expr`, etc. INCREASED parser size by 16%. Tree-sitter expands hidden rules during LR state generation anyway.
+
+3. **Token consolidation helps marginally.** Merging multiple `token(prec(3, /pattern1/)), token(prec(3, /pattern2/))` into a single `token(prec(3, /pattern1|pattern2/))` provides small improvements.
+
+4. **Named precedences (`precedences: [...]`) don't infer transitive relationships.** If you define `['a', 'b']` and `['b', 'c']`, tree-sitter does NOT infer `a > c`. Stick with numeric precedences for expression parsing.
+
+5. **Splitting optional() into choice() doesn't help.** Replacing `optional($.block)` with `choice($.empty_block, $.populated_block)` slightly increased parser size.
+
+### Monitoring parser complexity
+
+```bash
+# Check parser size after changes
+wc -l src/parser.c
+
+# Baseline expectations for this grammar:
+# - With word token: ~25,000 lines
+# - Without word token: ~42,000 lines
+```
