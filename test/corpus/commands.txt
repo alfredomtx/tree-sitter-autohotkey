@@ -103,7 +103,7 @@ SetTimer, MyLabel
     (command_arguments)))
 
 ================================================================================
-Gosub command
+Gosub keyword form
 ================================================================================
 
 Gosub, MyLabel
@@ -111,9 +111,8 @@ Gosub, MyLabel
 --------------------------------------------------------------------------------
 
 (source_file
-  (command
-    name: (command_name)
-    (command_arguments)))
+  (keyword)
+  (identifier))
 
 ================================================================================
 Gui command with colon-pair in arguments

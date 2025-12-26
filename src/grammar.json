@@ -1496,7 +1496,8 @@
       "type": "TOKEN",
       "content": {
         "type": "PATTERN",
-        "value": "MsgBox|InputBox|ToolTip|TrayTip|Send|SendInput|SendRaw|SendEvent|SendPlay|Sleep|SetTimer|Pause|Suspend|Run|RunWait|Reload|ExitApp|WinActivate|WinWait|WinClose|WinMinimize|WinMaximize|FileRead|FileAppend|FileDelete|FileCopy|FileMove|RegRead|RegWrite|RegDelete|IniRead|IniWrite|Gui|GuiControl|SetWorkingDir|CoordMode|SetFormat|SetBatchLines|SetDefaultMouseSpeed|SetWinDelay|SetControlDelay|Gosub|Goto"
+        "value": "MsgBox|InputBox|ToolTip|TrayTip|Send|SendInput|SendRaw|SendEvent|SendPlay|Sleep|SetTimer|Pause|Suspend|Run|RunWait|Reload|ExitApp|WinActivate|WinWait|WinClose|WinMinimize|WinMaximize|FileRead|FileAppend|FileDelete|FileCopy|FileMove|RegRead|RegWrite|RegDelete|IniRead|IniWrite|Gui|GuiControl|SetWorkingDir|CoordMode|SetFormat|SetBatchLines|SetDefaultMouseSpeed|SetWinDelay|SetControlDelay",
+        "flags": "i"
       }
     },
     "command_arguments": {
@@ -2677,44 +2678,54 @@
       "type": "CHOICE",
       "members": [
         {
-          "type": "STRING",
-          "value": "return"
+          "type": "PATTERN",
+          "value": "return",
+          "flags": "i"
         },
         {
-          "type": "STRING",
-          "value": "break"
+          "type": "PATTERN",
+          "value": "break",
+          "flags": "i"
         },
         {
-          "type": "STRING",
-          "value": "continue"
+          "type": "PATTERN",
+          "value": "continue",
+          "flags": "i"
         },
         {
-          "type": "STRING",
-          "value": "goto"
+          "type": "PATTERN",
+          "value": "goto",
+          "flags": "i"
         },
         {
-          "type": "STRING",
-          "value": "gosub"
+          "type": "PATTERN",
+          "value": "gosub",
+          "flags": "i"
         },
         {
-          "type": "STRING",
-          "value": "global"
+          "type": "PATTERN",
+          "value": "global",
+          "flags": "i"
         },
         {
-          "type": "STRING",
-          "value": "local"
+          "type": "PATTERN",
+          "value": "local",
+          "flags": "i"
         },
         {
-          "type": "STRING",
-          "value": "static"
+          "type": "PATTERN",
+          "value": "static",
+          "flags": "i"
         },
         {
-          "type": "STRING",
-          "value": "throw"
+          "type": "PATTERN",
+          "value": "throw",
+          "flags": "i"
         },
         {
-          "type": "STRING",
-          "value": "new"
+          "type": "PATTERN",
+          "value": "new",
+          "flags": "i"
         }
       ]
     },

@@ -12,11 +12,11 @@ Label123:
 
 ; Label used with Goto
 Goto, MyLabel
-; <- function.builtin
+; <- keyword
 
 ; Label used with Gosub
 Gosub, MyLabel
-; <- function.builtin
+; <- keyword
 
 ; Label at end of script
 ExitLabel:

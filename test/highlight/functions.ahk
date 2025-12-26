@@ -49,7 +49,7 @@ SetTimer, MyLabel, 1000
 ; <- function.builtin
 
 Gosub, MyLabel
-; <- function.builtin
+; <- keyword
 
 ; Special methods in class
 class Example {

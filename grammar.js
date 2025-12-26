@@ -292,8 +292,10 @@ module.exports = grammar({
     )),
 
     // Internal pattern for command names - only used within command rule
+    // Case-insensitive (/i) because AutoHotkey is case-insensitive
+    // Note: Goto and Gosub excluded - they're handled by the keyword rule since they work without comma
     _command_name_pattern: $ => token(
-      /MsgBox|InputBox|ToolTip|TrayTip|Send|SendInput|SendRaw|SendEvent|SendPlay|Sleep|SetTimer|Pause|Suspend|Run|RunWait|Reload|ExitApp|WinActivate|WinWait|WinClose|WinMinimize|WinMaximize|FileRead|FileAppend|FileDelete|FileCopy|FileMove|RegRead|RegWrite|RegDelete|IniRead|IniWrite|Gui|GuiControl|SetWorkingDir|CoordMode|SetFormat|SetBatchLines|SetDefaultMouseSpeed|SetWinDelay|SetControlDelay|Gosub|Goto/
+      /MsgBox|InputBox|ToolTip|TrayTip|Send|SendInput|SendRaw|SendEvent|SendPlay|Sleep|SetTimer|Pause|Suspend|Run|RunWait|Reload|ExitApp|WinActivate|WinWait|WinClose|WinMinimize|WinMaximize|FileRead|FileAppend|FileDelete|FileCopy|FileMove|RegRead|RegWrite|RegDelete|IniRead|IniWrite|Gui|GuiControl|SetWorkingDir|CoordMode|SetFormat|SetBatchLines|SetDefaultMouseSpeed|SetWinDelay|SetControlDelay/i
     ),
 
     // Single-line token to prevent commands from spanning lines
@@ -452,10 +454,11 @@ module.exports = grammar({
       // Control flow keywords (if, else, while, loop, for) now have dedicated rules
       // Class keywords (class, extends) now have dedicated rules
       // Logical keywords (and, or, not) now handled in binary/unary expressions
-      'return', 'break', 'continue', 'goto', 'gosub',
-      'global', 'local', 'static',
-      'throw',
-      'new',
+      // Case-insensitive because AutoHotkey is case-insensitive
+      /return/i, /break/i, /continue/i, /goto/i, /gosub/i,
+      /global/i, /local/i, /static/i,
+      /throw/i,
+      /new/i,
     ),
 
     operator: $ => choice(

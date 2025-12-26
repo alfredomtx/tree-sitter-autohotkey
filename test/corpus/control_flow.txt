@@ -491,9 +491,8 @@ if (x != 5) && (y != 1)
       (binary_expression
         left: (identifier)
         right: (number)))
-    consequence: (command
-      name: (command_name)
-      (command_arguments))))
+    consequence: (keyword))
+  (identifier))
 
 ================================================================================
 If with chained OR conditions

@@ -3740,10 +3740,6 @@
     "named": true
   },
   {
-    "type": "break",
-    "named": false
-  },
-  {
     "type": "builtin_variable",
     "named": true
   },
@@ -3770,10 +3766,6 @@
   {
     "type": "continuation_section",
     "named": true
-  },
-  {
-    "type": "continue",
-    "named": false
   },
   {
     "type": "default",
@@ -3808,18 +3800,6 @@
     "named": false
   },
   {
-    "type": "global",
-    "named": false
-  },
-  {
-    "type": "gosub",
-    "named": false
-  },
-  {
-    "type": "goto",
-    "named": false
-  },
-  {
     "type": "hotkey",
     "named": true
   },
@@ -3848,20 +3828,12 @@
     "named": false
   },
   {
-    "type": "local",
-    "named": false
-  },
-  {
     "type": "loop",
     "named": false
   },
   {
     "type": "loop_arguments",
     "named": true
-  },
-  {
-    "type": "new",
-    "named": false
   },
   {
     "type": "not",
@@ -3884,10 +3856,6 @@
     "named": false
   },
   {
-    "type": "return",
-    "named": false
-  },
-  {
     "type": "static",
     "named": false
   },
@@ -3898,10 +3866,6 @@
   {
     "type": "this_expression",
     "named": true
-  },
-  {
-    "type": "throw",
-    "named": false
   },
   {
     "type": "true",
