@@ -548,13 +548,14 @@
         "description": "Parse AHK object literals `{ key: value, key2: value2 }` as distinct from function/block bodies. Implement `object_literal` rule with key-value pairs supporting identifier or string keys, expression values, and shorthand `{ key }` syntax.",
         "details": "Update `grammar.js` to add object literal rules:\n\n```javascript\n// Add to _statement and _expression choices\nobject_literal: $ => prec(2, seq(\n  '{',\n  optional(seq(\n    $.object_property,\n    repeat(seq(',', $.object_property))\n  )),\n  '}'\n)),\n\nobject_property: $ => choice(\n  // Full syntax: key: value\n  seq(\n    field('key', choice($.identifier, $.string)),\n    ':',\n    field('value', $._expression)\n  ),\n  // Shorthand syntax: { key } equivalent to { key: key }\n  field('key', $.identifier)\n),\n```\n\n**Key implementation considerations:**\n\n1. **Disambiguation from function blocks**: Use `prec(2, ...)` to give object literals higher precedence. Function definitions already use `prec.dynamic(10, ...)` and require `name(params) {`, so the opening `{` alone should disambiguate correctly.\n\n2. **Colon conflict with labels**: Labels use `identifier:` at statement level. Object properties use `key: value` inside braces. The structural context (inside `{...}`) prevents ambiguity.\n\n3. **Add to `_expression` choice**: Object literals should be valid expressions:\n```javascript\n_expression: $ => choice(\n  $.string,\n  $.number,\n  prec(3, $.builtin_variable),\n  $.array_literal,\n  $.object_literal,  // Add here\n  $.index_expression,\n  $.member_expression,\n  $.method_call,\n  $.identifier,\n  $.function_call,\n),\n```\n\n4. **Add to `_statement` choice** (for standalone object literals):\n```javascript\n_statement: $ => choice(\n  // ... existing choices ...\n  $.object_literal,\n  // ... rest ...\n),\n```\n\n5. **Update `_punctuation` rule**: Remove `{` and `}` from the catch-all since they now have semantic meaning in object literals:\n```javascript\n_punctuation: $ => /[.,@$\\\\]+/,\n```\n\n**Update `highlights.scm`**:\n```scheme\n; Object literals\n(object_literal \"{\" @punctuation.bracket)\n(object_literal \"}\" @punctuation.bracket)\n(object_property key: (identifier) @property)\n(object_property key: (string) @property)\n(object_property \":\" @punctuation.delimiter)\n```\n\n**Conflict handling**: May need to add conflict resolution if the parser has trouble distinguishing `{ identifier }` (shorthand object) from a block containing just an identifier:\n```javascript\nconflicts: $ => [\n  [$.parameter, $._expression],\n  [$.command],\n  [$.object_property],  // May be needed for shorthand syntax\n],\n```",
         "testStrategy": "1. Run `npm run generate` - verify no grammar conflicts\n\n2. Create test file `test/corpus/objects.txt`:\n```\n================================================================================\nEmpty object literal\n================================================================================\n\nobj := {}\n\n--------------------------------------------------------------------------------\n\n(source_file\n  (identifier)\n  (operator)\n  (object_literal))\n\n================================================================================\nObject with single property\n================================================================================\n\nobj := {name: \"test\"}\n\n--------------------------------------------------------------------------------\n\n(source_file\n  (identifier)\n  (operator)\n  (object_literal\n    (object_property\n      key: (identifier)\n      value: (string))))\n\n================================================================================\nObject with multiple properties\n================================================================================\n\nobj := {name: \"test\", value: 42}\n\n--------------------------------------------------------------------------------\n\n(source_file\n  (identifier)\n  (operator)\n  (object_literal\n    (object_property\n      key: (identifier)\n      value: (string))\n    (object_property\n      key: (identifier)\n      value: (number))))\n\n================================================================================\nObject with string keys\n================================================================================\n\nobj := {\"my-key\": 1, \"another\": 2}\n\n--------------------------------------------------------------------------------\n\n(source_file\n  (identifier)\n  (operator)\n  (object_literal\n    (object_property\n      key: (string)\n      value: (number))\n    (object_property\n      key: (string)\n      value: (number))))\n\n================================================================================\nObject with shorthand property\n================================================================================\n\nobj := {name}\n\n--------------------------------------------------------------------------------\n\n(source_file\n  (identifier)\n  (operator)\n  (object_literal\n    (object_property\n      key: (identifier))))\n\n================================================================================\nNested object literal\n================================================================================\n\nobj := {outer: {inner: 1}}\n\n--------------------------------------------------------------------------------\n\n(source_file\n  (identifier)\n  (operator)\n  (object_literal\n    (object_property\n      key: (identifier)\n      value: (object_literal\n        (object_property\n          key: (identifier)\n          value: (number))))))\n\n================================================================================\nObject with array value\n================================================================================\n\nobj := {items: [1, 2, 3]}\n\n--------------------------------------------------------------------------------\n\n(source_file\n  (identifier)\n  (operator)\n  (object_literal\n    (object_property\n      key: (identifier)\n      value: (array_literal\n        (number)\n        (number)\n        (number)))))\n```\n\n3. Run `npm run test` - all tests should pass\n\n4. Verify object literals don't break function definitions:\n```ahk\nMyFunc() {\n    return 1\n}\n```\n\n5. Commit, push, update `rev` in `extension.toml`, delete `grammars/`, reinstall dev extension\n\n6. Test highlighting in Zed - verify:\n   - Object keys highlight as `@property`\n   - Colons and braces have appropriate highlighting\n   - Values inside objects highlight correctly (strings, numbers, identifiers)",
-        "status": "pending",
+        "status": "done",
         "dependencies": [
           "16",
           "9"
         ],
         "priority": "medium",
-        "subtasks": []
+        "subtasks": [],
+        "updatedAt": "2025-12-26T17:43:19.935Z"
       },
       {
         "id": "28",
@@ -586,12 +587,13 @@
         "id": "30",
         "title": "Add sample AHK file parsing to CI",
         "description": "Parse real-world AHK scripts in CI to ensure grammar handles actual code without errors or unexpected parse failures.",
-        "status": "pending",
+        "status": "cancelled",
         "dependencies": [],
         "priority": "medium",
         "details": "Create test/samples/ directory with representative AHK v1 scripts and add CI step to parse them.\n\nImplementation:\n1. Create test/samples/ directory\n2. Add 3-5 sample .ahk files covering different features:\n   - simple.ahk: basic hotkeys, functions, variables\n   - commands.ahk: common AHK commands (MsgBox, Send, etc.)\n   - complex.ahk: nested structures, expressions, edge cases\n3. Add CI step: `npx tree-sitter parse test/samples/*.ahk --quiet`\n4. The --quiet flag only outputs errors, making CI output clean\n\nThe parse command exits non-zero if parsing fails, which fails CI appropriately.",
         "testStrategy": "1. Create test/samples/ with sample files\n2. Run `npm run parse test/samples/*.ahk` locally - verify all parse\n3. Introduce syntax the grammar doesn't handle in a sample file\n4. Verify CI would fail (parse command exits non-zero)\n5. Fix or remove problematic syntax",
-        "subtasks": []
+        "subtasks": [],
+        "updatedAt": "2025-12-26T17:42:59.285Z"
       },
       {
         "id": "31",
@@ -609,12 +611,13 @@
         "id": "32",
         "title": "Add Dependabot for dependency updates",
         "description": "Configure Dependabot to automatically create PRs when tree-sitter-cli and other dependencies have updates.",
-        "status": "pending",
+        "status": "done",
         "dependencies": [],
         "priority": "low",
         "details": "Create .github/dependabot.yml to enable automatic dependency update PRs.\n\nImplementation:\n```yaml\nversion: 2\nupdates:\n  - package-ecosystem: \"npm\"\n    directory: \"/\"\n    schedule:\n      interval: \"weekly\"\n    commit-message:\n      prefix: \"chore(deps)\"\n    labels:\n      - \"dependencies\"\n```\n\nBenefits:\n- Automatic PRs when tree-sitter-cli updates (new features, bug fixes)\n- Security updates for any vulnerable dependencies\n- Easy to review and merge or dismiss\n\nOptional: Add GitHub Actions ecosystem to also update action versions:\n```yaml\n  - package-ecosystem: \"github-actions\"\n    directory: \"/\"\n    schedule:\n      interval: \"weekly\"\n```",
         "testStrategy": "1. Create .github/dependabot.yml with config\n2. Commit and push to master\n3. Wait for Dependabot to activate (may take up to a day)\n4. Check repository Settings > Code security > Dependabot to verify enabled\n5. When first PR arrives, verify it updates correctly and CI passes",
-        "subtasks": []
+        "subtasks": [],
+        "updatedAt": "2025-12-26T17:43:40.590Z"
       },
       {
         "id": "33",
@@ -633,12 +636,13 @@
         "description": "Add binary_expression rule to properly parse comparison and arithmetic expressions like `a > 0`, `x == 1`, `a + b`. Currently these produce ERROR nodes inside parenthesized_expression conditions.",
         "details": "The grammar currently has operators defined but no binary_expression rule to combine them with operands. Expressions like `if (a > 0)` parse the condition as `(identifier) (ERROR (operator) (number))`.\n\nNeed to add:\n```javascript\nbinary_expression: $ => prec.left(seq(\n  field('left', $._expression),\n  field('operator', $.operator),\n  field('right', $._expression)\n)),\n```\n\nConsider operator precedence levels for proper parsing of complex expressions like `a + b * c`.",
         "testStrategy": "",
-        "status": "pending",
+        "status": "done",
         "dependencies": [
           "25"
         ],
         "priority": "medium",
-        "subtasks": []
+        "subtasks": [],
+        "updatedAt": "2025-12-26T17:43:37.785Z"
       },
       {
         "id": "35",
@@ -656,9 +660,9 @@
     ],
     "metadata": {
       "version": "1.0.0",
-      "lastModified": "2025-12-26T17:41:32.040Z",
+      "lastModified": "2025-12-26T17:43:40.591Z",
       "taskCount": 35,
-      "completedCount": 27,
+      "completedCount": 30,
       "tags": [
         "master"
       ]
