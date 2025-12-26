@@ -133,9 +133,9 @@ module.exports = grammar({
     command_arguments: $ => prec.left(1, repeat1(choice(
       $.variable_ref,
       $.string,
-      $.number,
+      alias(token(prec(3, /\d+\.?\d*|0[xX][0-9a-fA-F]+/)), $.number),  // Inline number with high precedence
       ',',
-      /[^\s,\n%"'][^\s,\n%"']*/,  // Generic catch-all for text
+      /[^\s,\n%"'0-9][^\s,\n%"']*/,  // Exclude leading digits so numbers match above
     ))),
 
     variable_ref: $ => seq('%', choice(prec(3, $.builtin_variable), $.identifier), '%'),

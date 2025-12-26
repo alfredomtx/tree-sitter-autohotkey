@@ -79,7 +79,8 @@ Sleep, 1000
 (source_file
   (command
     name: (command_name)
-    (command_arguments)))
+    (command_arguments
+      (number))))
 
 ================================================================================
 Run command
