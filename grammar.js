@@ -22,6 +22,7 @@ module.exports = grammar({
       $.directive,
       $.hotkey,
       $.hotstring_definition,
+      $._colon_pair,  // Before label - matches "MyGui:Add" to prevent false label matches
       $.label,
       $.class_definition,
       $.function_definition,
@@ -96,11 +97,16 @@ module.exports = grammar({
     hotstring_trigger: $ => token(/[^:\r\n]+/),
     hotstring_replacement: $ => token.immediate(/[^\r\n]+/),
 
-    // Label: identifier followed by single colon at end of meaningful content
+    // Label: identifier followed by single colon
     label: $ => seq(
       field('name', $.identifier),
       token.immediate(':')
     ),
+
+    // Colon pair (like MyGui:Add) - higher precedence than label to prevent
+    // "MyGui:Add" from being parsed as label + identifier during injection
+    // Uses single token to ensure no whitespace between colon and next identifier
+    _colon_pair: $ => token(prec(10, /[a-zA-Z_#@$][a-zA-Z0-9_#@$]*:[a-zA-Z_#@$][a-zA-Z0-9_#@$]*/)),
 
     block: $ => repeat1($._statement),
 
