@@ -90,7 +90,7 @@ module.exports = grammar({
 
     hotstring_options: $ => token(/[*?CORZTXB0-9SIEPK]+/i),
     hotstring_trigger: $ => token(/[^:\r\n]+/),
-    hotstring_replacement: $ => token(/[^\r\n]+/),
+    hotstring_replacement: $ => token.immediate(/[^\r\n]+/),
 
     // Label: identifier followed by single colon at end of meaningful content
     label: $ => seq(

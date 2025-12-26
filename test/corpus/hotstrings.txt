@@ -65,3 +65,20 @@ Hotstring without replacement (X option)
   (hotstring_definition
     options: (hotstring_options)
     trigger: (hotstring_trigger)))
+
+================================================================================
+Multi-line hotstring does not capture next line
+================================================================================
+
+:X:now::
+MsgBox, hello
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (hotstring_definition
+    options: (hotstring_options)
+    trigger: (hotstring_trigger))
+  (command
+    name: (command_name)
+    (command_arguments)))

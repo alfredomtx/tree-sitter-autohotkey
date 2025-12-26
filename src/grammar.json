@@ -303,7 +303,7 @@
       }
     },
     "hotstring_replacement": {
-      "type": "TOKEN",
+      "type": "IMMEDIATE_TOKEN",
       "content": {
         "type": "PATTERN",
         "value": "[^\\r\\n]+"
