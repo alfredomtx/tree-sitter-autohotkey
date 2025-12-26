@@ -221,6 +221,14 @@
           "named": true
         },
         {
+          "type": "member_expression",
+          "named": true
+        },
+        {
+          "type": "method_call",
+          "named": true
+        },
+        {
           "type": "number",
           "named": true
         },
@@ -449,6 +457,14 @@
         },
         {
           "type": "label",
+          "named": true
+        },
+        {
+          "type": "member_expression",
+          "named": true
+        },
+        {
+          "type": "method_call",
           "named": true
         },
         {

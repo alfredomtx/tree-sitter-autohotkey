@@ -23,6 +23,8 @@ module.exports = grammar({
       $.hotkey,
       $.label,
       $.function_definition,
+      $.method_call,
+      $.member_expression,
       $.function_call,
       $.command,
       $.string,
