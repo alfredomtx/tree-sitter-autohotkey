@@ -11,8 +11,3 @@
 
 ; Hotkeys (like ^a::)
 (hotkey) @name @item
-
-; Directives (like #NoEnv)
-(directive
-  "#" @context
-  (identifier) @name) @item
