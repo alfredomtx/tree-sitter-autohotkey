@@ -1170,48 +1170,8 @@
       }
     },
     "command_arguments": {
-      "type": "PREC_LEFT",
-      "value": 1,
-      "content": {
-        "type": "REPEAT1",
-        "content": {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "SYMBOL",
-              "name": "variable_ref"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "string"
-            },
-            {
-              "type": "ALIAS",
-              "content": {
-                "type": "TOKEN",
-                "content": {
-                  "type": "PREC",
-                  "value": 3,
-                  "content": {
-                    "type": "PATTERN",
-                    "value": "\\d+\\.?\\d*|0[xX][0-9a-fA-F]+"
-                  }
-                }
-              },
-              "named": true,
-              "value": "number"
-            },
-            {
-              "type": "STRING",
-              "value": ","
-            },
-            {
-              "type": "PATTERN",
-              "value": "[^\\s,\\n%\"'0-9][^\\s,\\n%\"']*"
-            }
-          ]
-        }
-      }
+      "type": "PATTERN",
+      "value": "[^\\r\\n]+"
     },
     "variable_ref": {
       "type": "SEQ",
@@ -2565,9 +2525,6 @@
     [
       "parameter",
       "_expression"
-    ],
-    [
-      "command"
     ]
   ],
   "precedences": [],

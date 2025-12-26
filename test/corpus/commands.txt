@@ -22,8 +22,7 @@ MsgBox, "Hello World"
 (source_file
   (command
     name: (command_name)
-    (command_arguments
-      (string))))
+    (command_arguments)))
 
 ================================================================================
 Command with variable reference
@@ -36,9 +35,7 @@ MsgBox, %myVar%
 (source_file
   (command
     name: (command_name)
-    (command_arguments
-      (variable_ref
-        (identifier)))))
+    (command_arguments)))
 
 ================================================================================
 Command with builtin variable reference
@@ -51,9 +48,7 @@ MsgBox, %A_ScriptDir%
 (source_file
   (command
     name: (command_name)
-    (command_arguments
-      (variable_ref
-        (builtin_variable)))))
+    (command_arguments)))
 
 ================================================================================
 Send command
@@ -79,8 +74,7 @@ Sleep, 1000
 (source_file
   (command
     name: (command_name)
-    (command_arguments
-      (number))))
+    (command_arguments)))
 
 ================================================================================
 Run command

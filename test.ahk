@@ -292,4 +292,8 @@ test := LANGUAGE = "EN-US" ? "How are you?" : "Comment allez-vous?"
 
 return
 
+Gui, MyGui:-Caption +Border +Toolwindow +AlwaysOnTop
+Gui, MyGui:Add, Text,, % LANGUAGE = "EN-US" ? "Hi" : "Bonjour"
+Gui, MyGui:Show, NoActivate,
+
 global VAR := true

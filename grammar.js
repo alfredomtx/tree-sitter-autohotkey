@@ -9,7 +9,6 @@ module.exports = grammar({
 
   conflicts: $ => [
     [$.parameter, $._expression],
-    [$.command],
   ],
 
   rules: {
@@ -245,13 +244,9 @@ module.exports = grammar({
       /MsgBox|InputBox|ToolTip|TrayTip|Send|SendInput|SendRaw|SendEvent|SendPlay|Sleep|SetTimer|Pause|Suspend|Run|RunWait|Reload|ExitApp|WinActivate|WinWait|WinClose|WinMinimize|WinMaximize|FileRead|FileAppend|FileDelete|FileCopy|FileMove|RegRead|RegWrite|RegDelete|IniRead|IniWrite|Gui|GuiControl|SetWorkingDir|CoordMode|SetFormat|SetBatchLines|SetDefaultMouseSpeed|SetWinDelay|SetControlDelay|Gosub|Goto/
     ),
 
-    command_arguments: $ => prec.left(1, repeat1(choice(
-      $.variable_ref,
-      $.string,
-      alias(token(prec(3, /\d+\.?\d*|0[xX][0-9a-fA-F]+/)), $.number),  // Inline number with high precedence
-      ',',
-      /[^\s,\n%"'0-9][^\s,\n%"']*/,  // Exclude leading digits so numbers match above
-    ))),
+    // Single-line token to prevent commands from spanning lines
+    // Internal structure (variable_ref, string, number) is handled via highlights.scm
+    command_arguments: $ => /[^\r\n]+/,
 
     variable_ref: $ => seq('%', choice(prec(3, $.builtin_variable), $.identifier), '%'),
 
