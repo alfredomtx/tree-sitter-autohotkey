@@ -8,7 +8,8 @@
     "build": "tree-sitter generate",
     "test": "tree-sitter test",
     "parse": "tree-sitter parse",
-    "validate-queries": "bash scripts/validate-queries.sh"
+    "validate-queries": "bash scripts/validate-queries.sh",
+    "release": "bash scripts/release.sh"
   },
   "keywords": [
     "autohotkey",

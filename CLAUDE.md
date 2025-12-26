@@ -13,6 +13,7 @@ npm run generate   # Generate parser from grammar.js (creates src/parser.c)
 npm run build      # Alias for generate
 npm run test       # Run tree-sitter test suite (corpus + highlight tests)
 npm run parse <file>  # Parse a file and show AST
+npm run release    # Create and push version tag (triggers GitHub Action)
 ```
 
 ## Development Workflow
@@ -33,6 +34,27 @@ After modifying `grammar.js`, `highlights.scm`, or any grammar-related file:
 - Zed clones the grammar from GitHub at the specified `rev`, ignoring ALL local files
 - Local changes to `grammar.js`, `highlights.scm`, etc. have NO effect until pushed and rev updated
 - The `grammars/` folder contains Zed's git clone - delete it to force re-fetch
+
+## Releasing to Zed Extension Store
+
+To publish a new version to the Zed extension registry:
+
+1. Make your changes and run tests
+2. Bump `version` in `extension.toml` (e.g., `0.1.0` → `0.2.0`)
+3. Commit and push:
+   ```bash
+   git add . && git commit -m "feat: description of changes" && git push
+   ```
+4. Release:
+   ```bash
+   npm run release
+   ```
+
+The `release` script reads the version from `extension.toml`, creates a matching git tag (`v0.2.0`), and pushes it. This triggers the GitHub Action which:
+- Creates a GitHub Release with auto-generated notes
+- Opens a PR to `zed-industries/extensions` to update the extension
+
+After the Zed team merges the PR, the new version appears in Zed's extension panel.
 
 ## Architecture
 
