@@ -10,7 +10,7 @@ class Animal {
     }
 
     Speak() {
-        MsgBox, %this.name% says hello
+        MsgBox, % this.name " says hello"
     }
 }
 
@@ -30,7 +30,7 @@ class Dog extends Animal {
     }
 
     Speak() {
-        MsgBox, %this.name% barks
+        MsgBox, % this.name " barks"
     }
 
     static GetCount() {
