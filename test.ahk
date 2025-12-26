@@ -112,3 +112,11 @@ if (ErrorLevel)
 ; Should NOT match as builtins (regular identifiers)
 A_CustomVar := 1
 myA_Var := 2
+
+; === Object/Method Syntax ===
+obj := {}
+obj.name := "test"
+obj.nested.value := 1
+result := obj.GetValue()
+obj.nested.Method(arg1, arg2)
+x := obj.a.b.c
