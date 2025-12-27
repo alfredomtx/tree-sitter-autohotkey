@@ -68,7 +68,7 @@ module.exports = grammar({
       // NOTE: parenthesized_expression removed from _statement to reduce state count
       // It's still in _expression for conditions
       $.keyword,
-      // Note: gui_option_flag removed from _statement to allow gui_options_spaced to match
+      // Note: gui_option_flag NOT in _statement - would cause label + gui_option_flag to beat gui_options/gui_options_spaced
       // Standalone +Option in command args parses as operator + identifier, with identifier
       // getting @constant highlighting via #match? rule on option names
       $.operator,
@@ -195,8 +195,12 @@ module.exports = grammar({
     )),
 
     // GUI options (like MyGui:-Caption or MyGui:+Border) - for window options
-    // Single token to ensure it matches before label can complete
-    gui_options: $ => token(prec(11, /[a-zA-Z_][a-zA-Z0-9_]*:[+-]/)),
+    // Structured node with gui_name and option fields for proper highlighting
+    gui_options: $ => prec(11, seq(
+      field('gui_name', $.identifier),
+      token.immediate(':'),
+      field('option', alias(token.immediate(/[+-][a-zA-Z_][a-zA-Z0-9_]*/), $.gui_option_flag))
+    )),
 
     // GUI options with space (like "MyGui: +Border" or "MyGui: -Caption")
     // Structured node like gui_action_spaced - requires known option to distinguish from label

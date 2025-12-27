@@ -322,9 +322,9 @@
 (drive_letter) @string.special
 
 ; GUI options highlighting (e.g., MyGui:-Caption in Gui, MyGui:-Caption)
-; Note: gui_options only captures "GuiName:+/-", not the option name
-; The option name after it is parsed as identifier and matched below
-(gui_options) @constant
+; Structured node with gui_name and option fields
+(gui_options gui_name: (identifier) @string.special)
+(gui_options option: (gui_option_flag) @constant)
 
 ; GUI options with space highlighting (e.g., MyGui: +Border in Gui, MyGui: +Border)
 (gui_options_spaced gui_name: (identifier) @string.special)

@@ -1941,6 +1941,32 @@
     }
   },
   {
+    "type": "gui_options",
+    "named": true,
+    "fields": {
+      "gui_name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "option": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "gui_option_flag",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "gui_options_spaced",
     "named": true,
     "fields": {
@@ -4507,10 +4533,6 @@
   },
   {
     "type": "gui_option_flag",
-    "named": true
-  },
-  {
-    "type": "gui_options",
     "named": true
   },
   {

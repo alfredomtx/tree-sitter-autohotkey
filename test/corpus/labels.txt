@@ -118,8 +118,9 @@ MyGui:-Caption
 --------------------------------------------------------------------------------
 
 (source_file
-  (gui_options)
-  (identifier))
+  (gui_options
+    gui_name: (identifier)
+    option: (gui_option_flag)))
 
 ================================================================================
 Colon followed by space and +/- is gui_options_spaced (not a label)
