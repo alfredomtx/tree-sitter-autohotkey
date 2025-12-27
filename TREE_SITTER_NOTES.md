@@ -585,3 +585,98 @@ wc -l src/parser.c
 # - Current grammar (builtins/commands in #match?): ~70,000 lines
 # - Grammar with builtins in tokens: ~127,000 lines (avoid!)
 ```
+
+## Directive and Conditional Parsing
+
+### Use `token.immediate()` to prevent extras from consuming content across lines
+
+**Problem:** A rule like `directive_arguments: $ => /[^\s;][^;\n]*/` was matching content from the NEXT line because `extras: [/\s/]` consumes newlines between tokens.
+
+```javascript
+// WRONG - extras consumes newline, then regex matches next line's content
+directive: $ => seq('#', $.identifier, optional($.directive_arguments)),
+directive_arguments: $ => /[^\s;][^;\n]*/,
+```
+
+With input:
+```
+#NoEnv
+#SingleInstance force
+```
+
+The parser would match `#NoEnv` then skip the newline (via extras), then match `#SingleInstance force` as `directive_arguments` of `#NoEnv`.
+
+**Solution:** Use `token.immediate()` which prevents ANY whitespace (including newlines from extras) between tokens:
+
+```javascript
+// CORRECT - token.immediate requires content immediately after identifier
+directive_arguments: $ => token.immediate(/[, \t]+[^\s;][^;\n]*/),
+```
+
+**Key insight:** When you need content to stay on the same line as a preceding token, use `token.immediate()`. The regex inside can require leading whitespace (like `/[ \t]+.../`) but the `token.immediate()` ensures no newlines sneak in.
+
+### Case-insensitive keywords can't be highlighted by string literal in queries
+
+**Problem:** Changing `'or'` to `/or/i` for case-insensitivity breaks highlight queries that reference `"or"`.
+
+```javascript
+// Grammar change for case-insensitivity
+binary_expression: $ => choice(
+  prec.left(2, seq($._expression, choice('||', /or/i), $._expression)),  // /or/i instead of 'or'
+  ...
+),
+```
+
+```scheme
+; This highlight query STOPS WORKING after the change
+(binary_expression "or" @keyword.operator)
+```
+
+**Root cause:** Tree-sitter queries match against node types and literal token strings. When you use a regex like `/or/i`, it creates an anonymous pattern that can't be referenced by the string `"or"` in queries.
+
+**Solutions:**
+1. **Accept no specific highlighting** - Remove the highlight rule; the expression still parses correctly
+2. **Use alias()** - `alias(/or/i, 'or')` to give it a name (but this doesn't work for anonymous inline patterns)
+3. **Keep case-sensitive in grammar, use #match? for highlighting** - If highlighting is important, keep `'or'` in grammar and add `#match?` patterns for `OR`, `Or` variants
+
+**Current approach:** We removed the highlight rules for `or`/`and`/`not` since the expressions parse correctly and the surrounding context provides visual structure.
+
+### Use `prec.right()` for optional trailing content
+
+**Problem:** Rules with optional trailing content can cause conflicts about whether to consume the content or leave it empty.
+
+```javascript
+// Conflict: should the condition be consumed or left empty?
+if_directive: $ => prec(5, seq(
+  '#', token.immediate(/if/i),
+  optional(field('condition', $._expression))
+)),
+```
+
+**Solution:** Use `prec.right()` to prefer consuming the optional content (greedy matching):
+
+```javascript
+// CORRECT - prec.right ensures condition is consumed when present
+if_directive: $ => prec.right(5, seq(
+  '#', token.immediate(/if/i),
+  optional(field('condition', $._expression))
+)),
+```
+
+### Exclude leading special characters from catch-all patterns
+
+**Problem:** A catch-all pattern like `/[^,\r\n]+/` matches quoted strings before `$.string` can, because it starts matching from the current position (including the `"` character).
+
+```javascript
+// WRONG - regex matches `"hello"` as plain text before $.string can match
+_if_win_title: $ => choice($.string, /[^,\r\n]+/),
+```
+
+**Solution:** Exclude leading quote/space characters from the catch-all so `extras` can consume whitespace and `$.string` can match quoted content:
+
+```javascript
+// CORRECT - catch-all excludes leading quotes and whitespace
+_if_win_title: $ => choice($.string, /[^,\r\n"' \t][^,\r\n]*/),
+```
+
+**Key insight:** When using `choice($.specific_rule, /catch-all/)`, make sure the catch-all pattern can't match the starting character of the specific rule.
