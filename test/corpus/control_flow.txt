@@ -771,6 +771,45 @@ return
   (return_statement))
 
 ================================================================================
+Return followed by command
+================================================================================
+
+return
+PostMessage, 0xA1, 2
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (return_statement)
+  (command
+    name: (identifier)
+    (command_arguments)))
+
+================================================================================
+Return followed by command inside function
+================================================================================
+
+MyFunc() {
+    if (condition)
+        return
+    PostMessage, 0xA1, 2
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (function_definition
+    name: (identifier)
+    body: (block
+      (if_statement
+        condition: (parenthesized_expression
+          (identifier))
+        consequence: (return_statement))
+      (command
+        name: (identifier)
+        (command_arguments)))))
+
+================================================================================
 Return followed by consecutive labels
 ================================================================================
 
