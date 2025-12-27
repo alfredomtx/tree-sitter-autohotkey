@@ -102,7 +102,7 @@ module.exports = grammar({
     // Directive arguments - captures text after directive name up to ; or EOL
     // Handles both space syntax (#Include path) and comma syntax (#SingleInstance, Force)
     // token.immediate prevents whitespace (including newlines from extras) between name and args
-    directive_arguments: $ => token.immediate(/[, \t]+[^\s;][^;\n]*/),
+    directive_arguments: $ => token.immediate(prec(5, /[, \t]+[^\s;][^;\n]*/)),
 
     // #if directive with expression parsing for proper syntax highlighting
     // prec.right ensures condition is consumed greedily (not left empty)

@@ -37,6 +37,32 @@ Include directive
     arguments: (directive_arguments)))
 
 ================================================================================
+Include with absolute Windows path
+================================================================================
+
+#Include C:\Users\Alfredo\Documents\lib.ahk
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (directive
+    name: (identifier)
+    arguments: (directive_arguments)))
+
+================================================================================
+Include with relative path containing backslashes
+================================================================================
+
+#Include __Files\Labels\Cavebot\labels.ahk
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (directive
+    name: (identifier)
+    arguments: (directive_arguments)))
+
+================================================================================
 Multiple directives
 ================================================================================
 

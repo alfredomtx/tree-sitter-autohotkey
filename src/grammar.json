@@ -262,8 +262,12 @@
     "directive_arguments": {
       "type": "IMMEDIATE_TOKEN",
       "content": {
-        "type": "PATTERN",
-        "value": "[, \\t]+[^\\s;][^;\\n]*"
+        "type": "PREC",
+        "value": 5,
+        "content": {
+          "type": "PATTERN",
+          "value": "[, \\t]+[^\\s;][^;\\n]*"
+        }
       }
     },
     "if_directive": {
