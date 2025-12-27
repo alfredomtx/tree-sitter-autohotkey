@@ -548,6 +548,10 @@
           "named": true
         },
         {
+          "type": "gui_action_spaced",
+          "named": true
+        },
+        {
           "type": "gui_option_flag",
           "named": true
         },
@@ -816,6 +820,10 @@
           },
           {
             "type": "gui_action",
+            "named": true
+          },
+          {
+            "type": "gui_action_spaced",
             "named": true
           },
           {
@@ -1278,6 +1286,10 @@
           "named": true
         },
         {
+          "type": "gui_action_spaced",
+          "named": true
+        },
+        {
           "type": "gui_option_flag",
           "named": true
         },
@@ -1438,6 +1450,10 @@
           },
           {
             "type": "gui_action",
+            "named": true
+          },
+          {
+            "type": "gui_action_spaced",
             "named": true
           },
           {
@@ -1602,6 +1618,10 @@
           },
           {
             "type": "gui_action",
+            "named": true
+          },
+          {
+            "type": "gui_action_spaced",
             "named": true
           },
           {
@@ -1895,6 +1915,32 @@
     }
   },
   {
+    "type": "gui_action_spaced",
+    "named": true,
+    "fields": {
+      "action": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "gui_name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "gui_target",
     "named": true,
     "fields": {
@@ -2140,6 +2186,10 @@
           },
           {
             "type": "gui_action",
+            "named": true
+          },
+          {
+            "type": "gui_action_spaced",
             "named": true
           },
           {
@@ -2515,6 +2565,10 @@
           },
           {
             "type": "gui_action",
+            "named": true
+          },
+          {
+            "type": "gui_action_spaced",
             "named": true
           },
           {
@@ -3245,6 +3299,10 @@
           "named": true
         },
         {
+          "type": "gui_action_spaced",
+          "named": true
+        },
+        {
           "type": "gui_option_flag",
           "named": true
         },
@@ -3788,6 +3846,10 @@
             "named": true
           },
           {
+            "type": "gui_action_spaced",
+            "named": true
+          },
+          {
             "type": "gui_option_flag",
             "named": true
           },
@@ -4065,6 +4127,10 @@
           },
           {
             "type": "gui_action",
+            "named": true
+          },
+          {
+            "type": "gui_action_spaced",
             "named": true
           },
           {

@@ -31,8 +31,9 @@ module.exports = grammar({
       $.directive,
       $.hotkey,
       $.hotstring_definition,
-      $.gui_action,   // Before label - matches "GuiName:SubCommand" patterns like "MyGui:Add"
-      $.gui_options,  // Before label - matches "GuiName:+/-Option" patterns like "MyGui:-Caption"
+      $.gui_action,         // Before label - matches "GuiName:SubCommand" patterns like "MyGui:Add"
+      $.gui_action_spaced,  // Before label - matches "GuiName: SubCommand" patterns (with space)
+      $.gui_options,        // Before label - matches "GuiName:+/-Option" patterns like "MyGui:-Caption"
       $.gui_target,   // Before label - matches "GuiName:," to prevent false labels in injection
       $.drive_letter, // Before label - matches "X:" drive letters to prevent false labels
       $.label,
@@ -170,6 +171,18 @@ module.exports = grammar({
       field('gui_name', $.identifier),
       token.immediate(':'),
       field('action', alias(token.immediate(/[a-zA-Z_][a-zA-Z0-9_]*/), $.identifier))
+    )),
+
+    // GUI action with space between colon and subcommand (like "MyGui: Color" or "MyGui: Font")
+    // Requires known GUI subcommand to distinguish from regular labels
+    // token.immediate for both colon and action to prevent newline from extras
+    gui_action_spaced: $ => prec(10, seq(
+      field('gui_name', $.identifier),
+      token.immediate(':'),
+      field('action', alias(
+        token.immediate(/[ \t]+(Add|Show|Submit|Cancel|Hide|Destroy|Font|Color|Margin|Menu|Minimize|Maximize|Restore|Flash|Default|New|Options)/i),
+        $.identifier
+      ))
     )),
 
     // GUI options (like MyGui:-Caption or MyGui:+Border) - for window options

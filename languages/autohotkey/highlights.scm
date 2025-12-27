@@ -334,6 +334,14 @@
 ((gui_action action: (identifier) @function.builtin)
  (#match? @function.builtin "^(?i)(Add|Show|Submit|Cancel|Hide|Destroy|Font|Color|Margin|Menu|Minimize|Maximize|Restore|Flash|Default|New)$"))
 
+; GUI action with space highlighting (e.g., MyGui: Color in Gui, MyGui: Color)
+(gui_action_spaced gui_name: (identifier) @string.special)
+
+; GUI sub-commands in spaced actions - highlight known sub-commands as function.builtin
+; Note: The action includes leading whitespace from the token
+((gui_action_spaced action: (identifier) @function.builtin)
+ (#match? @function.builtin "^(?i)[ \\t]*(Add|Show|Submit|Cancel|Hide|Destroy|Font|Color|Margin|Menu|Minimize|Maximize|Restore|Flash|Default|New|Options)$"))
+
 ; GUI option flags (+Option or -Option) - only highlight recognized options
 ; Token includes +/- prefix, so regex accounts for it
 ((gui_option_flag) @constant

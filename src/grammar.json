@@ -51,6 +51,10 @@
         },
         {
           "type": "SYMBOL",
+          "name": "gui_action_spaced"
+        },
+        {
+          "type": "SYMBOL",
           "name": "gui_options"
         },
         {
@@ -633,6 +637,47 @@
                 "content": {
                   "type": "PATTERN",
                   "value": "[a-zA-Z_][a-zA-Z0-9_]*"
+                }
+              },
+              "named": true,
+              "value": "identifier"
+            }
+          }
+        ]
+      }
+    },
+    "gui_action_spaced": {
+      "type": "PREC",
+      "value": 10,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "FIELD",
+            "name": "gui_name",
+            "content": {
+              "type": "SYMBOL",
+              "name": "identifier"
+            }
+          },
+          {
+            "type": "IMMEDIATE_TOKEN",
+            "content": {
+              "type": "STRING",
+              "value": ":"
+            }
+          },
+          {
+            "type": "FIELD",
+            "name": "action",
+            "content": {
+              "type": "ALIAS",
+              "content": {
+                "type": "IMMEDIATE_TOKEN",
+                "content": {
+                  "type": "PATTERN",
+                  "value": "[ \\t]+(Add|Show|Submit|Cancel|Hide|Destroy|Font|Color|Margin|Menu|Minimize|Maximize|Restore|Flash|Default|New|Options)",
+                  "flags": "i"
                 }
               },
               "named": true,

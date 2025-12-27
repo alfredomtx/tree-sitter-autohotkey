@@ -71,6 +71,45 @@ MyGui:Add
     action: (identifier)))
 
 ================================================================================
+Colon followed by space and known subcommand is gui_action_spaced (not a label)
+================================================================================
+
+MyGui: Color
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (gui_action_spaced
+    gui_name: (identifier)
+    action: (identifier)))
+
+================================================================================
+Colon followed by space and Font subcommand is gui_action_spaced
+================================================================================
+
+AboutGUI: Font
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (gui_action_spaced
+    gui_name: (identifier)
+    action: (identifier)))
+
+================================================================================
+Colon followed by space and unknown word is label (not gui_action_spaced)
+================================================================================
+
+MyLabel: something
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (label
+    name: (identifier))
+  (identifier))
+
+================================================================================
 Colon followed by +/- is gui_options (not a label)
 ================================================================================
 
