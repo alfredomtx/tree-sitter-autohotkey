@@ -289,6 +289,10 @@
 ((identifier) @variable.special
  (#match? @variable.special "^(?i)A_(LoopRegName|LoopRegType|LoopRegKey|LoopRegSubKey|LoopRegTimeModified|LoopReadLine|LoopField)$"))
 
+; Window matching criteria (WinTitle parameters)
+((identifier) @constant.builtin
+ (#match? @constant.builtin "^(?i)ahk_(id|class|exe|pid|group)$"))
+
 ; Labels
 (label . (identifier) @label)
 
