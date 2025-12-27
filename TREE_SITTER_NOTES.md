@@ -38,6 +38,49 @@ function_definition: $ => prec(3, seq(...)),
 function_definition: $ => prec.dynamic(10, seq(...)),
 ```
 
+### Use GLR conflict for function call vs definition with `:=` arguments
+
+**Problem:** `MyFunc(x := 10)` was parsed as ERROR because tree-sitter committed to `function_definition` (expecting `{` after `)`) instead of falling back to `function_call`.
+
+**Root cause:** The syntax `x := 10` is ambiguous:
+- In `parameter` (for function_definition): `identifier + optional(:= expression)`
+- In `assignment_expression` (for function_call): `left := right`
+
+Tree-sitter was choosing `parameter` by default, committing to `function_definition`, then failing when no `{` was found.
+
+**Solution:** Use GLR conflict with equal precedence to explore both paths in parallel:
+
+```javascript
+// Add explicit conflict between parameter and assignment_expression
+conflicts: $ => [
+  [$.parameter, $.assignment_expression],  // func(x := 10) could be def or call
+],
+
+// Use dynamic precedence on both rules
+function_definition: $ => prec.dynamic(10, seq(...)),  // Higher precedence
+function_call: $ => prec.dynamic(5, seq(...)),         // Lower precedence
+
+// Give parameter's := same precedence as assignment_expression
+parameter: $ => seq(
+  $.identifier,
+  optional(prec.right(1, seq(':=', $._expression)))  // Same as assignment_expression
+),
+
+assignment_expression: $ => prec.right(1, seq(...)),  // Already has prec.right(1)
+```
+
+**How it works:**
+1. Parser sees `MyFunc(x := 10)`
+2. GLR explores BOTH paths in parallel:
+   - Path A: `parameter` → `parameter_list` → `function_definition`
+   - Path B: `assignment_expression` → `argument_list` → `function_call`
+3. After `)`, parser checks what follows:
+   - If `{`: Path A (function_definition) completes successfully
+   - If no `{`: Path B (function_call) completes, Path A fails
+4. Dynamic precedence ensures function_definition wins when BOTH are valid (rare case where function call is followed by `{ }` on next line)
+
+**Key insight:** The conflict declaration is what enables GLR parsing. Without it, tree-sitter commits to one path early and doesn't backtrack. The equal static precedence (`prec.right(1)`) on both parameter and assignment_expression is what triggers tree-sitter to see the conflict.
+
 ### Commands must require comma to distinguish from function calls
 
 **Problem:** `MsgBox("Hello")` looks like a function call but `MsgBox` is a command name. If command_name has high token precedence, it steals the identifier from function_call, breaking function definitions that contain such calls.

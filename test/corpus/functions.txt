@@ -142,3 +142,19 @@ Outer(Inner(x))
         name: (identifier)
         (argument_list
           (identifier))))))
+
+================================================================================
+Function call with assignment-like argument
+================================================================================
+
+MyFunc(x := 10)
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (function_call
+    name: (identifier)
+    (argument_list
+      (assignment_expression
+        left: (identifier)
+        right: (number)))))

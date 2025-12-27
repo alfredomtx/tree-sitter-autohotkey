@@ -1667,8 +1667,8 @@
       ]
     },
     "function_call": {
-      "type": "PREC",
-      "value": 2,
+      "type": "PREC_DYNAMIC",
+      "value": 5,
       "content": {
         "type": "SEQ",
         "members": [
@@ -1937,8 +1937,8 @@
           "type": "CHOICE",
           "members": [
             {
-              "type": "PREC",
-              "value": 5,
+              "type": "PREC_RIGHT",
+              "value": 1,
               "content": {
                 "type": "SEQ",
                 "members": [
@@ -3481,6 +3481,10 @@
     [
       "parameter",
       "_expression"
+    ],
+    [
+      "parameter",
+      "assignment_expression"
     ],
     [
       "variable_ref",

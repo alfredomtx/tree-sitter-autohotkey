@@ -9,6 +9,7 @@ module.exports = grammar({
 
   conflicts: $ => [
     [$.parameter, $._expression],
+    [$.parameter, $.assignment_expression],  // func(x := 10) could be def or call
     [$.variable_ref, $.operator],
     [$.variable_ref, $._expression],   // %var% in expressions
     [$.loop_statement, $._statement],  // loop identifier: count vs braceless body
@@ -357,7 +358,7 @@ module.exports = grammar({
       optional(seq(':=', field('value', $._expression)))
     ),
 
-    function_call: $ => prec(2, seq(
+    function_call: $ => prec.dynamic(5, seq(
       field('name', $.identifier),
       token.immediate('('),
       optional($.argument_list),
@@ -404,7 +405,7 @@ module.exports = grammar({
 
     parameter: $ => seq(
       $.identifier,
-      optional(prec(5, seq(':=', $._expression)))
+      optional(prec.right(1, seq(':=', $._expression)))  // Same precedence as assignment_expression
     ),
 
     // Arguments in function/method calls can contain string-identifier concatenation
