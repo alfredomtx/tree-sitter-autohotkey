@@ -59,6 +59,10 @@
         },
         {
           "type": "SYMBOL",
+          "name": "drive_letter"
+        },
+        {
+          "type": "SYMBOL",
           "name": "label"
         },
         {
@@ -678,6 +682,17 @@
             }
           }
         ]
+      }
+    },
+    "drive_letter": {
+      "type": "TOKEN",
+      "content": {
+        "type": "PREC",
+        "value": 4,
+        "content": {
+          "type": "PATTERN",
+          "value": "[A-Za-z]:"
+        }
       }
     },
     "gui_option_flag": {

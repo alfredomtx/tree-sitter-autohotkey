@@ -528,6 +528,10 @@
           "named": true
         },
         {
+          "type": "drive_letter",
+          "named": true
+        },
+        {
           "type": "for_statement",
           "named": true
         },
@@ -792,6 +796,10 @@
           },
           {
             "type": "doc_comment",
+            "named": true
+          },
+          {
+            "type": "drive_letter",
             "named": true
           },
           {
@@ -1250,6 +1258,10 @@
           "named": true
         },
         {
+          "type": "drive_letter",
+          "named": true
+        },
+        {
           "type": "for_statement",
           "named": true
         },
@@ -1406,6 +1418,10 @@
           },
           {
             "type": "doc_comment",
+            "named": true
+          },
+          {
+            "type": "drive_letter",
             "named": true
           },
           {
@@ -1566,6 +1582,10 @@
           },
           {
             "type": "doc_comment",
+            "named": true
+          },
+          {
+            "type": "drive_letter",
             "named": true
           },
           {
@@ -2103,6 +2123,10 @@
             "named": true
           },
           {
+            "type": "drive_letter",
+            "named": true
+          },
+          {
             "type": "for_statement",
             "named": true
           },
@@ -2471,6 +2495,10 @@
           },
           {
             "type": "doc_comment",
+            "named": true
+          },
+          {
+            "type": "drive_letter",
             "named": true
           },
           {
@@ -3197,6 +3225,10 @@
           "named": true
         },
         {
+          "type": "drive_letter",
+          "named": true
+        },
+        {
           "type": "for_statement",
           "named": true
         },
@@ -3736,6 +3768,10 @@
             "named": true
           },
           {
+            "type": "drive_letter",
+            "named": true
+          },
+          {
             "type": "for_statement",
             "named": true
           },
@@ -4009,6 +4045,10 @@
           },
           {
             "type": "doc_comment",
+            "named": true
+          },
+          {
+            "type": "drive_letter",
             "named": true
           },
           {
@@ -4339,6 +4379,10 @@
   },
   {
     "type": "directive_arguments",
+    "named": true
+  },
+  {
+    "type": "drive_letter",
     "named": true
   },
   {

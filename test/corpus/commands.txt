@@ -347,3 +347,16 @@ WinGetTitle, title, A
   (command
     name: (identifier)
     (command_arguments)))
+
+================================================================================
+DriveGet command with drive letter
+================================================================================
+
+DriveGet, userSerial, Serial, C:
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (command
+    name: (identifier)
+    (command_arguments)))

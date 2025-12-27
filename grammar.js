@@ -34,6 +34,7 @@ module.exports = grammar({
       $.gui_action,   // Before label - matches "GuiName:SubCommand" patterns like "MyGui:Add"
       $.gui_options,  // Before label - matches "GuiName:+/-Option" patterns like "MyGui:-Caption"
       $.gui_target,   // Before label - matches "GuiName:," to prevent false labels in injection
+      $.drive_letter, // Before label - matches "X:" drive letters to prevent false labels
       $.label,
       $.class_definition,
       $.function_definition,
@@ -183,6 +184,12 @@ module.exports = grammar({
       token.immediate(':'),
       token.immediate(',')
     )),
+
+    // Drive letter reference (like "C:" in DriveGet commands)
+    // Single token pattern - precedence must be < hotkey (5) so "a::" parses as hotkey
+    // This prevents "C:" from being parsed as a label during injection
+    // Note: won't match "x:=" because := is tokenized as a unit (operator)
+    drive_letter: $ => token(prec(4, /[A-Za-z]:/)),
 
     // GUI option flag (like +Caption or -Border) - standalone options in command arguments
     // Single token with high precedence to win over operator + identifier

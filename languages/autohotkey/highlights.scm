@@ -317,6 +317,10 @@
 ; This matches "identifier:," patterns that would otherwise parse as labels during injection
 (gui_target gui_name: (identifier) @string.special)
 
+; Drive letter highlighting (e.g., C: in DriveGet commands)
+; This matches "X:" patterns that would otherwise parse as labels during injection
+(drive_letter) @string.special
+
 ; GUI options highlighting (e.g., MyGui:-Caption in Gui, MyGui:-Caption)
 ; Note: gui_options only captures "GuiName:+/-", not the option name
 ; The option name after it is parsed as identifier and matched below
