@@ -26,7 +26,7 @@ module.exports = grammar({
       $.directive,
       $.hotkey,
       $.hotstring_definition,
-      $._colon_pair,  // Before label - matches "MyGui:Add" to prevent false label matches
+      $.gui_action,   // Before label - matches "GuiName:SubCommand" patterns like "MyGui:Add"
       $.label,
       $.class_definition,
       $.function_definition,
@@ -107,10 +107,15 @@ module.exports = grammar({
       token.immediate(':')
     ),
 
-    // Colon pair (like MyGui:Add or MyGui:-Caption) - higher precedence than label
+    // GUI action (like MyGui:Add or MyGui:Show) - higher precedence than label
     // to prevent "MyGui:Add" from being parsed as label + identifier during injection
-    // Matches identifier: followed by non-whitespace, non-colon (excludes :: hotkey syntax)
-    _colon_pair: $ => token(prec(10, /[a-zA-Z_#@$][a-zA-Z0-9_#@$]*:[^:\s]+/)),
+    // Captures GUI name and sub-command as separate fields for highlighting
+    // Both : and action must be immediate (no whitespace) to distinguish from label + newline + code
+    gui_action: $ => prec(10, seq(
+      field('gui_name', $.identifier),
+      token.immediate(':'),
+      field('action', alias(token.immediate(/[a-zA-Z_][a-zA-Z0-9_]*/), $.identifier))
+    )),
 
     block: $ => repeat1($._statement),
 

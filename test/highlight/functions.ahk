@@ -73,3 +73,17 @@ class Example {
 ;   ^^^^^^ function.special
     }
 }
+
+; GUI action (GuiName:SubCommand pattern)
+; When parsed at top level (e.g., via injection)
+MyGui:Add
+; <- label
+;     ^^^ function.builtin
+
+TestGui:Show
+; <- label
+;       ^^^^ function.builtin
+
+Window:Destroy
+; <- label
+;      ^^^^^^^ function.builtin

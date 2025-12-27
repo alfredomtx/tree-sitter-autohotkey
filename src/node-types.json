@@ -520,6 +520,10 @@
           "named": true
         },
         {
+          "type": "gui_action",
+          "named": true
+        },
+        {
           "type": "hotkey",
           "named": true
         },
@@ -752,6 +756,10 @@
           },
           {
             "type": "function_definition",
+            "named": true
+          },
+          {
+            "type": "gui_action",
             "named": true
           },
           {
@@ -1143,6 +1151,10 @@
           "named": true
         },
         {
+          "type": "gui_action",
+          "named": true
+        },
+        {
           "type": "hotkey",
           "named": true
         },
@@ -1271,6 +1283,10 @@
           },
           {
             "type": "function_definition",
+            "named": true
+          },
+          {
+            "type": "gui_action",
             "named": true
           },
           {
@@ -1403,6 +1419,10 @@
           },
           {
             "type": "function_definition",
+            "named": true
+          },
+          {
+            "type": "gui_action",
             "named": true
           },
           {
@@ -1642,6 +1662,32 @@
     }
   },
   {
+    "type": "gui_action",
+    "named": true,
+    "fields": {
+      "action": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "gui_name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "hotstring_definition",
     "named": true,
     "fields": {
@@ -1767,6 +1813,10 @@
           },
           {
             "type": "function_definition",
+            "named": true
+          },
+          {
+            "type": "gui_action",
             "named": true
           },
           {
@@ -2032,6 +2082,10 @@
           },
           {
             "type": "function_definition",
+            "named": true
+          },
+          {
+            "type": "gui_action",
             "named": true
           },
           {
@@ -2627,6 +2681,10 @@
           "named": true
         },
         {
+          "type": "gui_action",
+          "named": true
+        },
+        {
           "type": "hotkey",
           "named": true
         },
@@ -3122,6 +3180,10 @@
             "named": true
           },
           {
+            "type": "gui_action",
+            "named": true
+          },
+          {
             "type": "hotkey",
             "named": true
           },
@@ -3363,6 +3425,10 @@
           },
           {
             "type": "function_definition",
+            "named": true
+          },
+          {
+            "type": "gui_action",
             "named": true
           },
           {

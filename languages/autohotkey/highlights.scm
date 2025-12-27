@@ -284,6 +284,13 @@
 ; Labels
 (label . (identifier) @label)
 
+; GUI action highlighting (e.g., MyGui:Add in Gui, MyGui:Add)
+(gui_action gui_name: (identifier) @label)
+
+; GUI sub-commands - highlight known sub-commands as function.builtin
+((gui_action action: (identifier) @function.builtin)
+ (#match? @function.builtin "^(?i)(Add|Show|Submit|Cancel|Hide|Destroy|Font|Color|Margin|Menu|Minimize|Maximize|Restore|Flash|Default|New)$"))
+
 ; Arrays
 (array_literal "[" @punctuation.bracket)
 (array_literal "]" @punctuation.bracket)

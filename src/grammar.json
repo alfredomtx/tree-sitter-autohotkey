@@ -39,7 +39,7 @@
         },
         {
           "type": "SYMBOL",
-          "name": "_colon_pair"
+          "name": "gui_action"
         },
         {
           "type": "SYMBOL",
@@ -342,15 +342,44 @@
         }
       ]
     },
-    "_colon_pair": {
-      "type": "TOKEN",
+    "gui_action": {
+      "type": "PREC",
+      "value": 10,
       "content": {
-        "type": "PREC",
-        "value": 10,
-        "content": {
-          "type": "PATTERN",
-          "value": "[a-zA-Z_#@$][a-zA-Z0-9_#@$]*:[^:\\s]+"
-        }
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "FIELD",
+            "name": "gui_name",
+            "content": {
+              "type": "SYMBOL",
+              "name": "identifier"
+            }
+          },
+          {
+            "type": "IMMEDIATE_TOKEN",
+            "content": {
+              "type": "STRING",
+              "value": ":"
+            }
+          },
+          {
+            "type": "FIELD",
+            "name": "action",
+            "content": {
+              "type": "ALIAS",
+              "content": {
+                "type": "IMMEDIATE_TOKEN",
+                "content": {
+                  "type": "PATTERN",
+                  "value": "[a-zA-Z_][a-zA-Z0-9_]*"
+                }
+              },
+              "named": true,
+              "value": "identifier"
+            }
+          }
+        ]
       }
     },
     "block": {

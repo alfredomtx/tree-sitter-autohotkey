@@ -58,21 +58,28 @@ MyLabel: ; this is a comment
   (comment))
 
 ================================================================================
-Colon followed by identifier is not a label
+Colon followed by identifier is gui_action (not a label)
 ================================================================================
 
 MyGui:Add
 
 --------------------------------------------------------------------------------
 
-(source_file)
+(source_file
+  (gui_action
+    gui_name: (identifier)
+    action: (identifier)))
 
 ================================================================================
-Colon followed by non-identifier is not a label
+Colon followed by non-identifier is a label (not gui_action)
 ================================================================================
 
 MyGui:-Caption
 
 --------------------------------------------------------------------------------
 
-(source_file)
+(source_file
+  (label
+    name: (identifier))
+  (operator)
+  (identifier))
