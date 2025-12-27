@@ -188,8 +188,8 @@ SafeCall() {
         (catch_clause
           body: (statement_block
             (block
-              (keyword)
-              (boolean)))))
-      (keyword)
-      (boolean))))
+              (return_statement
+                (boolean))))))
+      (return_statement
+        (boolean)))))
 

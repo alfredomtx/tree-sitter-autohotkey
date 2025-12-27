@@ -82,7 +82,7 @@ MyFunc() {
       (assignment_expression
         left: (identifier)
         right: (number))
-      (keyword))))
+      (return_statement))))
 
 ================================================================================
 Simple function call

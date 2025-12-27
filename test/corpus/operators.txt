@@ -317,3 +317,76 @@ test2 := y = "b" ? "true" : "false"
         right: (string))
       consequence: (string)
       alternative: (string))))
+
+================================================================================
+Implicit concatenation - function call and string
+================================================================================
+
+x := a() "b"
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (assignment_expression
+    left: (identifier)
+    right: (concatenation_expression
+      (function_call
+        name: (identifier))
+      (string))))
+
+================================================================================
+Implicit concatenation - method call string and parenthesized
+================================================================================
+
+x := obj.method() "|" (a ? b : c)
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (assignment_expression
+    left: (identifier)
+    right: (concatenation_expression
+      (concatenation_expression
+        (method_call
+          object: (identifier)
+          method: (identifier))
+        (string))
+      (parenthesized_expression
+        (ternary_expression
+          condition: (identifier)
+          consequence: (identifier)
+          alternative: (identifier))))))
+
+================================================================================
+Implicit concatenation - multiple strings
+================================================================================
+
+x := "hello" " " "world"
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (assignment_expression
+    left: (identifier)
+    right: (concatenation_expression
+      (concatenation_expression
+        (string)
+        (string))
+      (string))))
+
+================================================================================
+Implicit concatenation with concat-assign
+================================================================================
+
+options .= listOption.getName() "|"
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (assignment_expression
+    left: (identifier)
+    right: (concatenation_expression
+      (method_call
+        object: (identifier)
+        method: (identifier))
+      (string))))

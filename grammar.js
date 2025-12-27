@@ -15,6 +15,8 @@ module.exports = grammar({
     [$.catch_clause, $._statement],    // catch identifier: exception vs braceless body
     [$.else_clause, $._statement],     // else if_statement: else body vs separate statement
     [$._if_directive_condition, $._expression],  // parenthesized_expression in both
+    [$._if_directive_condition, $._expression, $._concatenatable],  // 3-way conflict for #if
+    [$._expression, $._concatenatable],  // shared expression types
   ],
 
   rules: {
@@ -42,6 +44,7 @@ module.exports = grammar({
       $.for_statement,
       $.try_statement,
       $.switch_statement,
+      $.return_statement,
       // Expressions that can appear at statement level
       $.assignment_expression,
       $.method_call,
@@ -384,6 +387,7 @@ module.exports = grammar({
     ),
 
     _expression: $ => choice(
+      $.concatenation_expression,  // Implicit concatenation of adjacent expressions
       $.ternary_expression,
       $.binary_expression,
       $.unary_expression,
@@ -403,6 +407,30 @@ module.exports = grammar({
       $.function_call,
       $.parenthesized_expression,
     ),
+
+    // Expression types that can participate in implicit concatenation
+    // These are "complete" expressions that can't start a new statement
+    // Notably EXCLUDES:
+    // - bare identifier: would cause cross-line concatenation (identifiers followed by := consumed)
+    // - member_expression: would cause cross-line concatenation (this.foo on next line consumed)
+    // - index_expression: similar cross-line issues
+    _concatenatable: $ => choice(
+      $.string,
+      $.number,
+      $.variable_ref,
+      $.function_call,
+      $.method_call,
+      $.parenthesized_expression,
+    ),
+
+    // Implicit concatenation: adjacent expressions are concatenated
+    // e.g., a() "b" (c ? d : e) becomes a() . "b" . (c ? d : e)
+    // prec.left(10) matches explicit . concatenation precedence
+    // Uses recursive definition to ensure all adjacent elements are captured
+    concatenation_expression: $ => prec.left(10, seq(
+      choice($._concatenatable, $.concatenation_expression),
+      $._concatenatable
+    )),
 
     // Ternary expression: condition ? consequence : alternative
     ternary_expression: $ => prec.right(1, seq(
@@ -512,12 +540,19 @@ module.exports = grammar({
       /\d+/,
     ),
 
+    // Return statement with optional expression
+    // prec.right ensures expression is consumed greedily (not left empty)
+    return_statement: $ => prec.right(seq(
+      /return/i,
+      optional($._expression)
+    )),
+
     keyword: $ => choice(
       // Control flow keywords (if, else, while, loop, for) now have dedicated rules
       // Class keywords (class, extends) now have dedicated rules
       // Logical keywords (and, or, not) now handled in binary/unary expressions
       // Case-insensitive because AutoHotkey is case-insensitive
-      /return/i, /break/i, /continue/i, /goto/i, /gosub/i,
+      /break/i, /continue/i, /goto/i, /gosub/i,
       /global/i, /local/i, /static/i,
       /throw/i,
       /new/i,

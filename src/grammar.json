@@ -95,6 +95,10 @@
         },
         {
           "type": "SYMBOL",
+          "name": "return_statement"
+        },
+        {
+          "type": "SYMBOL",
           "name": "assignment_expression"
         },
         {
@@ -1917,6 +1921,10 @@
       "members": [
         {
           "type": "SYMBOL",
+          "name": "concatenation_expression"
+        },
+        {
+          "type": "SYMBOL",
           "name": "ternary_expression"
         },
         {
@@ -1988,6 +1996,61 @@
           "name": "parenthesized_expression"
         }
       ]
+    },
+    "_concatenatable": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "string"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "number"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "variable_ref"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "function_call"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "method_call"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "parenthesized_expression"
+        }
+      ]
+    },
+    "concatenation_expression": {
+      "type": "PREC_LEFT",
+      "value": 10,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "_concatenatable"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "concatenation_expression"
+              }
+            ]
+          },
+          {
+            "type": "SYMBOL",
+            "name": "_concatenatable"
+          }
+        ]
+      }
     },
     "ternary_expression": {
       "type": "PREC_RIGHT",
@@ -2956,14 +3019,35 @@
         }
       ]
     },
+    "return_statement": {
+      "type": "PREC_RIGHT",
+      "value": 0,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "PATTERN",
+            "value": "return",
+            "flags": "i"
+          },
+          {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "_expression"
+              },
+              {
+                "type": "BLANK"
+              }
+            ]
+          }
+        ]
+      }
+    },
     "keyword": {
       "type": "CHOICE",
       "members": [
-        {
-          "type": "PATTERN",
-          "value": "return",
-          "flags": "i"
-        },
         {
           "type": "PATTERN",
           "value": "break",
@@ -3190,6 +3274,15 @@
     [
       "_if_directive_condition",
       "_expression"
+    ],
+    [
+      "_if_directive_condition",
+      "_expression",
+      "_concatenatable"
+    ],
+    [
+      "_expression",
+      "_concatenatable"
     ]
   ],
   "precedences": [],

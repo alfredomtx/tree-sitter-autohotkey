@@ -28,6 +28,10 @@
           "named": true
         },
         {
+          "type": "concatenation_expression",
+          "named": true
+        },
+        {
           "type": "function_call",
           "named": true
         },
@@ -108,6 +112,10 @@
         },
         {
           "type": "boolean",
+          "named": true
+        },
+        {
+          "type": "concatenation_expression",
           "named": true
         },
         {
@@ -242,6 +250,10 @@
             "named": true
           },
           {
+            "type": "concatenation_expression",
+            "named": true
+          },
+          {
             "type": "continuation_section",
             "named": true
           },
@@ -330,6 +342,10 @@
             "named": true
           },
           {
+            "type": "concatenation_expression",
+            "named": true
+          },
+          {
             "type": "function_call",
             "named": true
           },
@@ -405,6 +421,10 @@
           },
           {
             "type": "boolean",
+            "named": true
+          },
+          {
+            "type": "concatenation_expression",
             "named": true
           },
           {
@@ -592,6 +612,10 @@
           "named": true
         },
         {
+          "type": "return_statement",
+          "named": true
+        },
+        {
           "type": "string",
           "named": true
         },
@@ -654,6 +678,10 @@
           },
           {
             "type": "boolean",
+            "named": true
+          },
+          {
+            "type": "concatenation_expression",
             "named": true
           },
           {
@@ -851,6 +879,10 @@
             "named": true
           },
           {
+            "type": "return_statement",
+            "named": true
+          },
+          {
             "type": "statement_block",
             "named": true
           },
@@ -998,6 +1030,10 @@
             "named": true
           },
           {
+            "type": "concatenation_expression",
+            "named": true
+          },
+          {
             "type": "function_call",
             "named": true
           },
@@ -1083,6 +1119,45 @@
     "type": "comment",
     "named": true,
     "fields": {}
+  },
+  {
+    "type": "concatenation_expression",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "concatenation_expression",
+          "named": true
+        },
+        {
+          "type": "function_call",
+          "named": true
+        },
+        {
+          "type": "method_call",
+          "named": true
+        },
+        {
+          "type": "number",
+          "named": true
+        },
+        {
+          "type": "parenthesized_expression",
+          "named": true
+        },
+        {
+          "type": "string",
+          "named": true
+        },
+        {
+          "type": "variable_ref",
+          "named": true
+        }
+      ]
+    }
   },
   {
     "type": "default_clause",
@@ -1259,6 +1334,10 @@
           "named": true
         },
         {
+          "type": "return_statement",
+          "named": true
+        },
+        {
           "type": "statement_block",
           "named": true
         },
@@ -1411,6 +1490,10 @@
           },
           {
             "type": "operator",
+            "named": true
+          },
+          {
+            "type": "return_statement",
             "named": true
           },
           {
@@ -1570,6 +1653,10 @@
             "named": true
           },
           {
+            "type": "return_statement",
+            "named": true
+          },
+          {
             "type": "statement_block",
             "named": true
           },
@@ -1617,6 +1704,10 @@
           },
           {
             "type": "boolean",
+            "named": true
+          },
+          {
+            "type": "concatenation_expression",
             "named": true
           },
           {
@@ -1868,6 +1959,10 @@
             "named": true
           },
           {
+            "type": "concatenation_expression",
+            "named": true
+          },
+          {
             "type": "function_call",
             "named": true
           },
@@ -2092,6 +2187,10 @@
             "named": true
           },
           {
+            "type": "return_statement",
+            "named": true
+          },
+          {
             "type": "statement_block",
             "named": true
           },
@@ -2211,6 +2310,10 @@
           },
           {
             "type": "boolean",
+            "named": true
+          },
+          {
+            "type": "concatenation_expression",
             "named": true
           },
           {
@@ -2444,6 +2547,10 @@
           },
           {
             "type": "operator",
+            "named": true
+          },
+          {
+            "type": "return_statement",
             "named": true
           },
           {
@@ -2692,6 +2799,10 @@
             "named": true
           },
           {
+            "type": "concatenation_expression",
+            "named": true
+          },
+          {
             "type": "function_call",
             "named": true
           },
@@ -2778,6 +2889,10 @@
         },
         {
           "type": "boolean",
+          "named": true
+        },
+        {
+          "type": "concatenation_expression",
           "named": true
         },
         {
@@ -2876,6 +2991,97 @@
         },
         {
           "type": "boolean",
+          "named": true
+        },
+        {
+          "type": "concatenation_expression",
+          "named": true
+        },
+        {
+          "type": "function_call",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "index_expression",
+          "named": true
+        },
+        {
+          "type": "member_expression",
+          "named": true
+        },
+        {
+          "type": "method_call",
+          "named": true
+        },
+        {
+          "type": "number",
+          "named": true
+        },
+        {
+          "type": "object_literal",
+          "named": true
+        },
+        {
+          "type": "parenthesized_expression",
+          "named": true
+        },
+        {
+          "type": "string",
+          "named": true
+        },
+        {
+          "type": "ternary_expression",
+          "named": true
+        },
+        {
+          "type": "this_expression",
+          "named": true
+        },
+        {
+          "type": "unary_expression",
+          "named": true
+        },
+        {
+          "type": "variable_ref",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "return_statement",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "array_literal",
+          "named": true
+        },
+        {
+          "type": "assignment_expression",
+          "named": true
+        },
+        {
+          "type": "base_expression",
+          "named": true
+        },
+        {
+          "type": "binary_expression",
+          "named": true
+        },
+        {
+          "type": "boolean",
+          "named": true
+        },
+        {
+          "type": "concatenation_expression",
           "named": true
         },
         {
@@ -3063,6 +3269,10 @@
           "named": true
         },
         {
+          "type": "return_statement",
+          "named": true
+        },
+        {
           "type": "string",
           "named": true
         },
@@ -3141,6 +3351,10 @@
           },
           {
             "type": "boolean",
+            "named": true
+          },
+          {
+            "type": "concatenation_expression",
             "named": true
           },
           {
@@ -3242,6 +3456,10 @@
             "named": true
           },
           {
+            "type": "concatenation_expression",
+            "named": true
+          },
+          {
             "type": "function_call",
             "named": true
           },
@@ -3320,6 +3538,10 @@
             "named": true
           },
           {
+            "type": "concatenation_expression",
+            "named": true
+          },
+          {
             "type": "function_call",
             "named": true
           },
@@ -3395,6 +3617,10 @@
           },
           {
             "type": "boolean",
+            "named": true
+          },
+          {
+            "type": "concatenation_expression",
             "named": true
           },
           {
@@ -3582,6 +3808,10 @@
             "named": true
           },
           {
+            "type": "return_statement",
+            "named": true
+          },
+          {
             "type": "statement_block",
             "named": true
           },
@@ -3649,6 +3879,10 @@
         },
         {
           "type": "boolean",
+          "named": true
+        },
+        {
+          "type": "concatenation_expression",
           "named": true
         },
         {
@@ -3847,6 +4081,10 @@
           },
           {
             "type": "operator",
+            "named": true
+          },
+          {
+            "type": "return_statement",
             "named": true
           },
           {

@@ -185,6 +185,52 @@ command_arguments: $ => repeat1(choice(
 
 **Bonus:** Also exclude leading digits from the catch-all pattern to ensure numbers can only match via the number rule.
 
+### Implicit concatenation must exclude statement-starting expressions
+
+**Problem:** AutoHotkey v1 supports implicit string concatenation where adjacent expressions are automatically concatenated:
+```ahk
+options .= listOption.getName() "|" (isSelected ? "|" : "")
+```
+
+**Challenge:** Tree-sitter's `extras: [/\s/]` consumes all whitespace including newlines, so the parser can't distinguish between "expressions on separate lines" and "expressions in same statement being concatenated."
+
+**Initial (broken) approach:**
+```javascript
+// ALL expression types in _concatenatable
+_concatenatable: $ => choice(
+  $.string, $.number, $.identifier, $.member_expression, ...
+),
+concatenation_expression: $ => prec.left(10, seq(
+  choice($._concatenatable, $.concatenation_expression),
+  $._concatenatable
+)),
+```
+
+This caused cross-line concatenation:
+```ahk
+a := 1
+b := 2  ; b was being concatenated with 1 above!
+```
+
+**Solution:** Exclude expression types that can start new statements (identifier, member_expression, index_expression):
+```javascript
+_concatenatable: $ => choice(
+  $.string,
+  $.number,
+  $.variable_ref,     // %var% syntax - clearly not a new statement
+  $.function_call,    // func() - complete expression
+  $.method_call,      // obj.method() - complete expression
+  $.parenthesized_expression,  // (...) - clearly part of current expr
+),
+```
+
+**Key insight:** Include only "complete" expressions that can't possibly start a new statement:
+- Strings/numbers: literals are never statement starters
+- function_call/method_call: include trailing parens, so clearly complete
+- parenthesized_expression: starts with `(`, can't be confused with statement
+- Exclude identifier: could be followed by `:=` on next line
+- Exclude member_expression: `this.foo` on next line looks like concatenation
+
 ## Debugging Tips
 
 ### Verify Zed is using the correct grammar

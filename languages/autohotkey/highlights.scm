@@ -21,6 +21,9 @@
 ; Keywords
 (keyword) @keyword
 
+; Return statement
+(return_statement) @keyword
+
 ; Boolean literals
 (boolean) @constant.builtin
 
