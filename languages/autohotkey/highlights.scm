@@ -70,9 +70,9 @@
 
 ; Binary operators - Logical
 (binary_expression "||" @operator)
-(binary_expression "or" @keyword.operator)
 (binary_expression "&&" @operator)
-(binary_expression "and" @keyword.operator)
+; Note: 'or', 'and', 'not' are case-insensitive regex patterns in the grammar
+; and cannot be matched by literal string in queries
 
 ; Binary operators - Bitwise
 (binary_expression "|" @operator)
@@ -107,7 +107,6 @@
 
 ; Unary operators
 (unary_expression "!" @operator)
-(unary_expression "not" @keyword.operator)
 (unary_expression "~" @operator)
 (unary_expression "-" @operator)
 
@@ -127,7 +126,19 @@
 
 ; Directives - use @attribute instead of @preproc
 (directive) @attribute
-(directive . (identifier) @attribute)
+(directive name: (identifier) @attribute)
+(directive_arguments) @string.special
+
+; Conditional directives (#if)
+; The #if keyword is highlighted as attribute, inner expressions use standard rules
+(if_directive) @attribute
+
+; Window conditional directives (#IfWinActive, #IfWinExist, etc.)
+(if_win_directive) @attribute
+(if_win_directive (if_win_type) @attribute)
+(if_win_directive (if_win_title) @string.special)
+(if_win_directive (if_win_title (string) @string))
+(if_win_directive (if_win_text) @string.special)
 
 ; Functions
 (function_definition . (identifier) @function)

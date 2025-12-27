@@ -14,6 +14,7 @@ module.exports = grammar({
     [$.loop_statement, $._statement],  // loop identifier: count vs braceless body
     [$.catch_clause, $._statement],    // catch identifier: exception vs braceless body
     [$.else_clause, $._statement],     // else if_statement: else body vs separate statement
+    [$._if_directive_condition, $._expression],  // parenthesized_expression in both
   ],
 
   rules: {
@@ -23,6 +24,8 @@ module.exports = grammar({
       $.comment,
       $.doc_comment,
       $.block_comment,
+      $.if_directive,      // Before directive - conditional #if
+      $.if_win_directive,  // Before directive - conditional #IfWin*
       $.directive,
       $.hotkey,
       $.hotstring_definition,
@@ -77,11 +80,55 @@ module.exports = grammar({
       '/'
     ),
 
+    // Generic directive: #Name args (for #Include, #SingleInstance, etc.)
+    // Conditional directives (#if, #ifWin*) have dedicated rules with higher precedence
     directive: $ => seq(
       '#',
-      $.identifier,
-      optional(/[^;\n]*/)
+      field('name', $.identifier),
+      optional(field('arguments', $.directive_arguments))
     ),
+
+    // Directive arguments - captures text after directive name up to ; or EOL
+    // Handles both space syntax (#Include path) and comma syntax (#SingleInstance, Force)
+    // token.immediate prevents whitespace (including newlines from extras) between name and args
+    directive_arguments: $ => token.immediate(/[, \t]+[^\s;][^;\n]*/),
+
+    // #if directive with expression parsing for proper syntax highlighting
+    // prec.right ensures condition is consumed greedily (not left empty)
+    if_directive: $ => prec.right(5, seq(
+      '#',
+      token.immediate(/if/i),
+      optional(field('condition', $._if_directive_condition))
+    )),
+
+    // Condition expression for #if - supports logical operators between expressions
+    // prec.left ensures left-to-right associativity for chained conditions
+    _if_directive_condition: $ => prec.left(choice(
+      // Chained parenthesized expressions: (expr) && (expr) OR (expr)
+      seq(
+        $.parenthesized_expression,
+        repeat(seq(choice('&&', '||', /and/i, /or/i), $.parenthesized_expression))
+      ),
+      // Single function call: WinActive("...")
+      $.function_call,
+      // Other expressions
+      $._expression
+    )),
+
+    // #IfWinActive, #IfWinExist, #IfWinNotActive, #IfWinNotExist
+    // prec.right ensures title/text are consumed greedily
+    if_win_directive: $ => prec.right(5, seq(
+      '#',
+      field('type', alias($._if_win_directive_type, $.if_win_type)),
+      optional(field('title', alias($._if_win_title, $.if_win_title))),
+      optional(seq(',', field('text', alias($._if_win_text, $.if_win_text))))
+    )),
+
+    _if_win_directive_type: $ => token.immediate(/IfWin(Not)?(Active|Exist)/i),
+    // Title can be a quoted string or unquoted text (not starting with quote)
+    // Exclude leading space so extras can consume whitespace first
+    _if_win_title: $ => choice($.string, /[^,\r\n"' \t][^,\r\n]*/),
+    _if_win_text: $ => choice($.string, /[^\r\n"' \t][^\r\n]*/),
 
     // Hotkey: modifiers + key + ::
     // Higher precedence than gui_option_flag to ensure +a:: parses as hotkey, not gui_option_flag + ERROR
@@ -372,10 +419,10 @@ module.exports = grammar({
 
     // Binary expressions with operator precedence
     binary_expression: $ => choice(
-      // Logical OR (precedence 2)
-      prec.left(2, seq(field('left', $._expression), choice('||', 'or'), field('right', $._expression))),
-      // Logical AND (precedence 3)
-      prec.left(3, seq(field('left', $._expression), choice('&&', 'and'), field('right', $._expression))),
+      // Logical OR (precedence 2) - case-insensitive for AutoHotkey
+      prec.left(2, seq(field('left', $._expression), choice('||', /or/i), field('right', $._expression))),
+      // Logical AND (precedence 3) - case-insensitive for AutoHotkey
+      prec.left(3, seq(field('left', $._expression), choice('&&', /and/i), field('right', $._expression))),
       // Bitwise OR (precedence 4)
       prec.left(4, seq(field('left', $._expression), '|', field('right', $._expression))),
       // Bitwise XOR (precedence 5)
@@ -401,7 +448,7 @@ module.exports = grammar({
     // Unary expressions
     unary_expression: $ => prec(13, choice(
       seq('!', $._expression),
-      seq('not', $._expression),
+      seq(/not/i, $._expression),
       seq('~', $._expression),
       seq('-', $._expression),
     )),

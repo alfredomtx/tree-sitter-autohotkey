@@ -47,17 +47,15 @@ result := a || b
 ;           ^^ operator
 
 result := a and b
-;           ^^^ keyword.operator
+; Note: 'and', 'or', 'not' are case-insensitive and not specifically highlighted
 
 result := a or b
-;           ^^ keyword.operator
 
 ; Unary operators
 result := !x
 ;         ^ operator
 
 result := not x
-;         ^^^ keyword.operator
 
 result := ~x
 ;         ^ operator

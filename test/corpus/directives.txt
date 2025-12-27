@@ -8,7 +8,7 @@ Simple directive
 
 (source_file
   (directive
-    (identifier)))
+    name: (identifier)))
 
 ================================================================================
 Directive with argument
@@ -20,7 +20,8 @@ Directive with argument
 
 (source_file
   (directive
-    (identifier)))
+    name: (identifier)
+    arguments: (directive_arguments)))
 
 ================================================================================
 Include directive
@@ -32,7 +33,8 @@ Include directive
 
 (source_file
   (directive
-    (identifier)))
+    name: (identifier)
+    arguments: (directive_arguments)))
 
 ================================================================================
 Multiple directives
@@ -46,8 +48,108 @@ Multiple directives
 
 (source_file
   (directive
-    (identifier))
+    name: (identifier))
   (directive
-    (identifier))
+    name: (identifier)
+    arguments: (directive_arguments))
   (directive
-    (identifier)))
+    name: (identifier)))
+
+================================================================================
+#if with simple condition
+================================================================================
+
+#if (myVar)
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (if_directive
+    condition: (parenthesized_expression
+      (identifier))))
+
+================================================================================
+#if with complex condition
+================================================================================
+
+#if (var = true) && (WinActive("test"))
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (if_directive
+    condition: (binary_expression
+      left: (parenthesized_expression
+        (binary_expression
+          left: (identifier)
+          right: (boolean)))
+      right: (parenthesized_expression
+        (function_call
+          name: (identifier)
+          (argument_list
+            (string)))))))
+
+================================================================================
+#if with single function call
+================================================================================
+
+#if WinActive("ahk_class Notepad")
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (if_directive
+    condition: (function_call
+      name: (identifier)
+      (argument_list
+        (string)))))
+
+================================================================================
+Empty #if (closes context)
+================================================================================
+
+#if
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (if_directive))
+
+================================================================================
+#IfWinActive with title
+================================================================================
+
+#IfWinActive ahk_class Notepad
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (if_win_directive
+    type: (if_win_type)
+    title: (if_win_title)))
+
+================================================================================
+#IfWinExist with quoted title
+================================================================================
+
+#IfWinExist "Untitled - Notepad"
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (if_win_directive
+    type: (if_win_type)
+    title: (if_win_title
+      (string))))
+
+================================================================================
+Empty #IfWinActive (closes context)
+================================================================================
+
+#IfWinActive
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (if_win_directive
+    type: (if_win_type)))
