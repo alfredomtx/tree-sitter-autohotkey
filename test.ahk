@@ -1,6 +1,8 @@
 #NoEnv
 #SingleInstance, Force
 
+msgbox, test
+
 ; This is a comment
 /* Block
 comment */
@@ -364,15 +366,8 @@ message := (
   several lines
 )
 
-; With LTrim option
-sql := (LTrim
-  SELECT *
-  FROM users
-  WHERE active = 1
-)
-
-; With nested parens
-query := (
+; With LTrim option and nested parens
+query := (LTrim
   SELECT (id, name)
   FROM users
 )

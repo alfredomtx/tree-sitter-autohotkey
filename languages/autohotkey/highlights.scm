@@ -285,7 +285,7 @@
 (label . (identifier) @label)
 
 ; GUI action highlighting (e.g., MyGui:Add in Gui, MyGui:Add)
-(gui_action gui_name: (identifier) @label)
+(gui_action gui_name: (identifier) @type)
 
 ; GUI sub-commands - highlight known sub-commands as function.builtin
 ((gui_action action: (identifier) @function.builtin)
