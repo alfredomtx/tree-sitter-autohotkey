@@ -1688,8 +1688,17 @@
             "type": "FIELD",
             "name": "property",
             "content": {
-              "type": "SYMBOL",
-              "name": "identifier"
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "identifier"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "number"
+                }
+              ]
             }
           }
         ]
@@ -1891,12 +1900,37 @@
         }
       ]
     },
+    "_argument": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "PREC",
+          "value": 11,
+          "content": {
+            "type": "SYMBOL",
+            "name": "_string_identifier_concat"
+          }
+        },
+        {
+          "type": "PREC",
+          "value": 11,
+          "content": {
+            "type": "SYMBOL",
+            "name": "_identifier_string_concat"
+          }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_expression"
+        }
+      ]
+    },
     "argument_list": {
       "type": "SEQ",
       "members": [
         {
           "type": "SYMBOL",
-          "name": "_expression"
+          "name": "_argument"
         },
         {
           "type": "REPEAT",
@@ -1909,7 +1943,7 @@
               },
               {
                 "type": "SYMBOL",
-                "name": "_expression"
+                "name": "_argument"
               }
             ]
           }
@@ -1997,7 +2031,7 @@
         }
       ]
     },
-    "_concatenatable": {
+    "_concat_element": {
       "type": "CHOICE",
       "members": [
         {
@@ -2037,7 +2071,7 @@
             "members": [
               {
                 "type": "SYMBOL",
-                "name": "_concatenatable"
+                "name": "_concat_element"
               },
               {
                 "type": "SYMBOL",
@@ -2046,8 +2080,91 @@
             ]
           },
           {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "string"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "number"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "variable_ref"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "parenthesized_expression"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "_string_identifier_concat": {
+      "type": "PREC_LEFT",
+      "value": 10,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
             "type": "SYMBOL",
-            "name": "_concatenatable"
+            "name": "string"
+          },
+          {
+            "type": "REPEAT",
+            "content": {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "_concat_element"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "identifier"
+                }
+              ]
+            }
+          },
+          {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        ]
+      }
+    },
+    "_identifier_string_concat": {
+      "type": "PREC_LEFT",
+      "value": 10,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "SYMBOL",
+            "name": "identifier"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "string"
+          },
+          {
+            "type": "REPEAT",
+            "content": {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "_concat_element"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "identifier"
+                }
+              ]
+            }
           }
         ]
       }
@@ -2895,8 +3012,21 @@
             "type": "FIELD",
             "name": "index",
             "content": {
-              "type": "SYMBOL",
-              "name": "_expression"
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "_string_identifier_concat"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "_identifier_string_concat"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "_expression"
+                }
+              ]
             }
           },
           {
@@ -3286,11 +3416,11 @@
     [
       "_if_directive_condition",
       "_expression",
-      "_concatenatable"
+      "_concat_element"
     ],
     [
       "_expression",
-      "_concatenatable"
+      "_concat_element"
     ]
   ],
   "precedences": [],

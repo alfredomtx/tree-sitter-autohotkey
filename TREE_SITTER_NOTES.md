@@ -231,6 +231,33 @@ _concatenatable: $ => choice(
 - Exclude identifier: could be followed by `:=` on next line
 - Exclude member_expression: `this.foo` on next line looks like concatenation
 
+### Implicit concat with identifier works in contained contexts only
+
+**The limitation:** Implicit concatenation of strings with identifiers (like `" w" w`) works inside function calls and index expressions, but NOT in general expressions like ternary branches.
+
+**Works:**
+```ahk
+test(" w" w)           ; Function call - identifier is clearly an argument
+x := arr[" w" w]       ; Index expression - identifier is clearly part of index
+log(prefix ": " msg)   ; Multiple concat elements in argument list
+```
+
+**Doesn't work:**
+```ahk
+w ? " w" w : ""        ; Ternary - "w" after string causes ERROR
+guiOptions .= w ? " w" w : ""  ; Same issue in ternary branch
+```
+
+**Why:** Tree-sitter's `extras: [/\s/]` consumes all whitespace including newlines. There's no way to distinguish same-line `" w" w` from cross-line `"str"\nid` without fundamental changes to whitespace handling.
+
+**Workaround:** Use explicit concatenation operator `.` in expressions:
+```ahk
+w ? " w" . w : ""      ; Works - explicit concat operator
+guiOptions .= w ? " w" . w : ""  ; Works
+```
+
+**Implementation:** The `_string_identifier_concat` and `_identifier_string_concat` patterns are used in `argument_list` and `index_expression` via the `_argument` rule, giving them higher precedence than individual expressions. These contexts are naturally bounded (by `()` or `[]`), so cross-line issues don't apply.
+
 ## Debugging Tips
 
 ### Verify Zed is using the correct grammar

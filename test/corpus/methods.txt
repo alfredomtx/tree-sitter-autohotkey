@@ -100,3 +100,33 @@ obj.value := 10
       object: (identifier)
       property: (identifier))
     right: (number)))
+
+================================================================================
+Numeric member access (array-like)
+================================================================================
+
+pos.1
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (member_expression
+    object: (identifier)
+    property: (number)))
+
+================================================================================
+Chained numeric member access
+================================================================================
+
+results.items.0.name
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (member_expression
+    object: (member_expression
+      object: (member_expression
+        object: (identifier)
+        property: (identifier))
+      property: (number))
+    property: (identifier)))

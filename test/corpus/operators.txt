@@ -390,3 +390,34 @@ options .= listOption.getName() "|"
         object: (identifier)
         method: (identifier))
       (string))))
+
+================================================================================
+Implicit concat with identifier in function call
+================================================================================
+
+test(" w" w)
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (function_call
+    name: (identifier)
+    (argument_list
+      (string)
+      (identifier))))
+
+================================================================================
+Implicit concat identifier-string in function call
+================================================================================
+
+log(prefix ": " message)
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (function_call
+    name: (identifier)
+    (argument_list
+      (identifier)
+      (string)
+      (identifier))))

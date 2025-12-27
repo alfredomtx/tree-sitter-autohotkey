@@ -15,8 +15,8 @@ module.exports = grammar({
     [$.catch_clause, $._statement],    // catch identifier: exception vs braceless body
     [$.else_clause, $._statement],     // else if_statement: else body vs separate statement
     [$._if_directive_condition, $._expression],  // parenthesized_expression in both
-    [$._if_directive_condition, $._expression, $._concatenatable],  // 3-way conflict for #if
-    [$._expression, $._concatenatable],  // shared expression types
+    [$._if_directive_condition, $._expression, $._concat_element],  // 3-way conflict for #if
+    [$._expression, $._concat_element],  // shared expression types
   ],
 
   rules: {
@@ -339,10 +339,11 @@ module.exports = grammar({
       ')'
     )),
 
+    // Member expression with identifier or number property (for pos.1, pos.2 syntax)
     member_expression: $ => prec.left(1, seq(
       field('object', choice($.identifier, $.member_expression, $.this_expression, $.base_expression)),
       token.immediate('.'),
-      field('property', $.identifier)
+      field('property', choice($.identifier, $.number))
     )),
 
     method_call: $ => prec(3, prec.left(2, seq(
@@ -381,9 +382,17 @@ module.exports = grammar({
       optional(prec(5, seq(':=', $._expression)))
     ),
 
+    // Arguments in function/method calls can contain string-identifier concatenation
+    // These patterns have higher precedence to match before bare expression
+    _argument: $ => choice(
+      prec(11, $._string_identifier_concat),
+      prec(11, $._identifier_string_concat),
+      $._expression
+    ),
+
     argument_list: $ => seq(
-      $._expression,
-      repeat(seq(',', $._expression))
+      $._argument,
+      repeat(seq(',', $._argument))
     ),
 
     _expression: $ => choice(
@@ -408,13 +417,8 @@ module.exports = grammar({
       $.parenthesized_expression,
     ),
 
-    // Expression types that can participate in implicit concatenation
-    // These are "complete" expressions that can't start a new statement
-    // Notably EXCLUDES:
-    // - bare identifier: would cause cross-line concatenation (identifiers followed by := consumed)
-    // - member_expression: would cause cross-line concatenation (this.foo on next line consumed)
-    // - index_expression: similar cross-line issues
-    _concatenatable: $ => choice(
+    // Elements that can participate in concatenation
+    _concat_element: $ => choice(
       $.string,
       $.number,
       $.variable_ref,
@@ -426,10 +430,27 @@ module.exports = grammar({
     // Implicit concatenation: adjacent expressions are concatenated
     // e.g., a() "b" (c ? d : e) becomes a() . "b" . (c ? d : e)
     // prec.left(10) matches explicit . concatenation precedence
-    // Uses recursive definition to ensure all adjacent elements are captured
+    // EXCLUDES function_call/method_call on right to prevent cross-line grabs
     concatenation_expression: $ => prec.left(10, seq(
-      choice($._concatenatable, $.concatenation_expression),
-      $._concatenatable
+      choice($._concat_element, $.concatenation_expression),
+      choice($.string, $.number, $.variable_ref, $.parenthesized_expression)
+    )),
+
+    // String-identifier concatenation for contained contexts
+    // Used in argument_list and index_expression where cross-line issues don't apply
+    // Examples: "+Resize +MaxSize" width "x" height
+    _string_identifier_concat: $ => prec.left(10, seq(
+      $.string,
+      repeat(choice($._concat_element, $.identifier)),
+      $.identifier
+    )),
+
+    // Identifier-string-identifier concatenation for contained contexts
+    // Example: command " " extra
+    _identifier_string_concat: $ => prec.left(10, seq(
+      $.identifier,
+      $.string,
+      repeat(choice($._concat_element, $.identifier))
     )),
 
     // Ternary expression: condition ? consequence : alternative
@@ -520,7 +541,7 @@ module.exports = grammar({
     index_expression: $ => prec.left(1, seq(
       field('object', choice($.identifier, $.member_expression, $.index_expression, $.this_expression, $.base_expression)),
       token.immediate('['),
-      field('index', $._expression),
+      field('index', choice($._string_identifier_concat, $._identifier_string_concat, $._expression)),
       ']'
     )),
 
