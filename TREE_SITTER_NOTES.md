@@ -732,6 +732,50 @@ directive_arguments: $ => token.immediate(/[, \t]+[^\s;][^;\n]*/),
 
 **Key insight:** When you need content to stay on the same line as a preceding token, use `token.immediate()`. The regex inside can require leading whitespace (like `/[ \t]+.../`) but the `token.immediate()` ensures no newlines sneak in.
 
+### Include required whitespace in the token when using structured rules
+
+**Problem:** Using `optional(seq(token.immediate(/[ \t]+/), $.rule))` doesn't work because `extras` are consumed BEFORE the `optional` evaluates, so the immediate whitespace token finds nothing to match.
+
+```javascript
+// WRONG - extras consume the space before token.immediate sees it
+if_directive: $ => seq(
+  '#',
+  token.immediate(/if/i),
+  optional(seq(
+    token.immediate(/[ \t]+/),  // Space already consumed by extras!
+    field('condition', $._expression)
+  ))
+)),
+```
+
+With `#if WinActive("test")`, the space between `if` and `WinActive` is consumed by `extras` before the `optional` branch evaluates, so `token.immediate(/[ \t]+/)` fails to match.
+
+**Solution:** Include the required whitespace IN the preceding token pattern:
+
+```javascript
+// CORRECT - split into two alternatives with whitespace in the token
+if_directive: $ => choice(
+  // #if with condition - whitespace is part of the token
+  prec.right(6, seq(
+    '#',
+    token.immediate(/if[ \t]+/i),  // Whitespace included!
+    field('condition', $._if_directive_condition)
+  )),
+  // Bare #if - no whitespace, no condition
+  prec.right(5, seq(
+    '#',
+    token.immediate(/if/i)
+  ))
+),
+```
+
+This ensures:
+- `#if WinActive()` - matches first alternative (with whitespace in token)
+- `#if` alone - matches second alternative (bare form)
+- `#if\nLabel:` - matches second alternative, `Label:` parses separately as label
+
+**Key insight:** When you have structured rules (like `$.function_call`) that can't be wrapped in `token.immediate()`, include the required same-line whitespace in the PRECEDING token pattern instead.
+
 ### Case-insensitive keywords can't be highlighted by string literal in queries
 
 **Problem:** Changing `'or'` to `/or/i` for case-insensitivity breaks highlight queries that reference `"or"`.

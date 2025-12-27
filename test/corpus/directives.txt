@@ -142,6 +142,31 @@ Empty #if (closes context)
   (if_directive))
 
 ================================================================================
+Empty #if followed by label
+================================================================================
+
+#if WinActive("test")
+return
+#if
+
+MyLabel:
+return
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (if_directive
+    condition: (function_call
+      name: (identifier)
+      (argument_list
+        (string))))
+  (return_statement)
+  (if_directive)
+  (label
+    name: (identifier))
+  (return_statement))
+
+================================================================================
 #IfWinActive with title
 ================================================================================
 

@@ -108,12 +108,21 @@ module.exports = grammar({
     directive_arguments: $ => token.immediate(prec(5, /[, \t]+[^\s;][^;\n]*/)),
 
     // #if directive with expression parsing for proper syntax highlighting
-    // prec.right ensures condition is consumed greedily (not left empty)
-    if_directive: $ => prec.right(5, seq(
-      '#',
-      token.immediate(/if/i),
-      optional(field('condition', $._if_directive_condition))
-    )),
+    // Two forms: bare "#if" (terminates context) and "#if <condition>" (starts context)
+    // Including whitespace in the token prevents extras from consuming it across lines
+    if_directive: $ => choice(
+      // #if with condition - whitespace is part of the token to prevent cross-line matching
+      prec.right(6, seq(
+        '#',
+        token.immediate(/if[ \t]+/i),
+        field('condition', $._if_directive_condition)
+      )),
+      // Bare #if - terminates conditional context
+      prec.right(5, seq(
+        '#',
+        token.immediate(/if/i)
+      ))
+    ),
 
     // Condition expression for #if - supports logical operators between expressions
     // prec.left ensures left-to-right associativity for chained conditions
