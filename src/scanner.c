@@ -94,10 +94,10 @@ bool tree_sitter_autohotkey_external_scanner_scan(
     lexer->advance(lexer, true);
   }
 
-  // Check if followed immediately by a colon (label syntax)
-  if (lexer->lookahead == ':') {
-    // This looks like a label - emit STATEMENT_END at the marked position
-    // to terminate the previous statement before the label
+  // Check if followed by colon (label) or comma (command)
+  if (lexer->lookahead == ':' || lexer->lookahead == ',') {
+    // This looks like a label or command - emit STATEMENT_END at the marked position
+    // to terminate the previous statement
     lexer->result_symbol = STATEMENT_END;
     return true;
   }
