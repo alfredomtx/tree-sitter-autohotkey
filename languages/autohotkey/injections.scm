@@ -1,7 +1,6 @@
-; Inject AutoHotkey into command_arguments ONLY when they contain %var% patterns
-; Conditional injection prevents false label matches (e.g., "Carregando:" in GuiControl)
-; Without this filter, "GuiControl, Carregando:, MyProgress" would parse "Carregando:"
-; as a label during injection, polluting the symbol picker
+; Inject AutoHotkey into command_arguments to enable sub-token highlighting
+; This allows %var% patterns, gui_action (MyGui:Add), gui_options (MyGui:-Caption),
+; and gui_target (MyGui:,) to be parsed and highlighted within command arguments
+; Note: gui_target rule in grammar.js prevents "MyGui:," from becoming a false labelMyGui:MyGui:MyGui:
 ((command_arguments) @injection.content
- (#match? @injection.content "%[^%]+%")
  (#set! injection.language "autohotkey"))

@@ -412,25 +412,31 @@ conflicts: $ => [
 
 **Key insight:** Self-injection lets you have a "coarse" main parse (for correct structure) and a "fine" injected parse (for detailed highlighting).
 
-### Use conditional injection to avoid false symbol matches
+### Use grammar rules to prevent false labels in injected content
 
-**Problem:** Self-injection of `command_arguments` causes false labels to appear in the symbol picker. For example, `GuiControl, Carregando:, MyProgress` parses `Carregando:` as a label during injection, polluting Zed's symbol picker (Ctrl+Shift+O).
+**Problem:** Self-injection of `command_arguments` causes false labels to appear in the symbol picker. For example, `GuiControl, MyGui:, MyProgress` parses `MyGui:` as a label during injection, polluting Zed's symbol picker (Ctrl+Shift+O).
 
-**Root cause:** During injection, the entire `command_arguments` content is re-parsed as AutoHotkey. Any `identifier:` pattern matches the `label` rule, and `outline.scm` registers labels as symbol picker items.
+**Root cause:** During injection, the entire `command_arguments` content is re-parsed as AutoHotkey. The pattern `identifier:,` matches the `label` rule, and `outline.scm` registers labels as symbol picker items.
 
-**Solution:** Make the injection conditional using `#match?` predicate:
-```scheme
-; Only inject when command_arguments contains %var% patterns
-((command_arguments) @injection.content
- (#match? @injection.content "%[^%]+%")
- (#set! injection.language "autohotkey"))
+**Solution:** Add a grammar rule that matches `identifier:,` with higher precedence than label:
+```javascript
+// GUI target reference (like "MyGui:," in GuiControl, MyGui:, Control)
+// Matches identifier + colon + comma as a unit with higher precedence than label
+gui_target: $ => prec(10, seq(
+  field('gui_name', $.identifier),
+  token.immediate(':'),
+  token.immediate(',')
+)),
 ```
 
 **Why this works:**
-- `GuiControl, Carregando:, MyProgress` → No `%`, no injection, no false label
-- `Send, %myVar%` → Contains `%`, injection happens, `%myVar%` highlighted
+- The `gui_target` rule has precedence 10, same as `gui_action`
+- It matches `identifier:,` as a unit before `label` can match `identifier:`
+- `gui_target` is NOT in `outline.scm`, so it doesn't pollute the symbol picker
+- Full injection is preserved, so `%var%`, `gui_action`, `gui_options` all still work
 
-**Trade-off:** Commands without `%var%` patterns won't have any sub-token highlighting. This is acceptable because the primary purpose of injection was `%var%` highlighting anyway.
+**Why conditional injection didn't work:**
+Conditional injection (only inject when `%var%` exists) broke highlighting for GUI patterns like `MyGui:Add` and `MyGui:-Caption` in commands without variable references.
 
 ## Highlight Tests
 

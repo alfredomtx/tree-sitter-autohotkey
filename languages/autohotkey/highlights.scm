@@ -299,6 +299,10 @@
 ; GUI action highlighting (e.g., MyGui:Add in Gui, MyGui:Add)
 (gui_action gui_name: (identifier) @string.special)
 
+; GUI target highlighting (e.g., MyGui: in GuiControl, MyGui:, Control)
+; This matches "identifier:," patterns that would otherwise parse as labels during injection
+(gui_target gui_name: (identifier) @string.special)
+
 ; GUI options highlighting (e.g., MyGui:-Caption in Gui, MyGui:-Caption)
 ; Note: gui_options only captures "GuiName:+/-", not the option name
 ; The option name after it is parsed as identifier and matched below

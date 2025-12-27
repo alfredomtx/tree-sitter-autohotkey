@@ -532,6 +532,10 @@
           "named": true
         },
         {
+          "type": "gui_target",
+          "named": true
+        },
+        {
           "type": "hotkey",
           "named": true
         },
@@ -776,6 +780,10 @@
           },
           {
             "type": "gui_options",
+            "named": true
+          },
+          {
+            "type": "gui_target",
             "named": true
           },
           {
@@ -1179,6 +1187,10 @@
           "named": true
         },
         {
+          "type": "gui_target",
+          "named": true
+        },
+        {
           "type": "hotkey",
           "named": true
         },
@@ -1319,6 +1331,10 @@
           },
           {
             "type": "gui_options",
+            "named": true
+          },
+          {
+            "type": "gui_target",
             "named": true
           },
           {
@@ -1463,6 +1479,10 @@
           },
           {
             "type": "gui_options",
+            "named": true
+          },
+          {
+            "type": "gui_target",
             "named": true
           },
           {
@@ -1728,6 +1748,22 @@
     }
   },
   {
+    "type": "gui_target",
+    "named": true,
+    "fields": {
+      "gui_name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "hotstring_definition",
     "named": true,
     "fields": {
@@ -1865,6 +1901,10 @@
           },
           {
             "type": "gui_options",
+            "named": true
+          },
+          {
+            "type": "gui_target",
             "named": true
           },
           {
@@ -2142,6 +2182,10 @@
           },
           {
             "type": "gui_options",
+            "named": true
+          },
+          {
+            "type": "gui_target",
             "named": true
           },
           {
@@ -2749,6 +2793,10 @@
           "named": true
         },
         {
+          "type": "gui_target",
+          "named": true
+        },
+        {
           "type": "hotkey",
           "named": true
         },
@@ -3256,6 +3304,10 @@
             "named": true
           },
           {
+            "type": "gui_target",
+            "named": true
+          },
+          {
             "type": "hotkey",
             "named": true
           },
@@ -3509,6 +3561,10 @@
           },
           {
             "type": "gui_options",
+            "named": true
+          },
+          {
+            "type": "gui_target",
             "named": true
           },
           {

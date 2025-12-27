@@ -28,6 +28,7 @@ module.exports = grammar({
       $.hotstring_definition,
       $.gui_action,   // Before label - matches "GuiName:SubCommand" patterns like "MyGui:Add"
       $.gui_options,  // Before label - matches "GuiName:+/-Option" patterns like "MyGui:-Caption"
+      $.gui_target,   // Before label - matches "GuiName:," to prevent false labels in injection
       $.label,
       $.class_definition,
       $.function_definition,
@@ -123,6 +124,15 @@ module.exports = grammar({
     // GUI options (like MyGui:-Caption or MyGui:+Border) - for window options
     // Single token to ensure it matches before label can complete
     gui_options: $ => token(prec(11, /[a-zA-Z_][a-zA-Z0-9_]*:[+-]/)),
+
+    // GUI target reference (like "MyGui:," in GuiControl, MyGui:, Control)
+    // Matches identifier + colon + comma as a unit with higher precedence than label
+    // This prevents "MyGui:," from being parsed as a label during injection
+    gui_target: $ => prec(10, seq(
+      field('gui_name', $.identifier),
+      token.immediate(':'),
+      token.immediate(',')
+    )),
 
     // GUI option flag (like +Caption or -Border) - standalone options in command arguments
     // Single token with high precedence to win over operator + identifier
