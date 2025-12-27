@@ -79,7 +79,7 @@ module.exports = grammar({
     directive: $ => seq(
       '#',
       $.identifier,
-      optional(/[^\n]*/)
+      optional(/[^;\n]*/)
     ),
 
     // Hotkey: modifiers + key + ::

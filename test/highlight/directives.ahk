@@ -2,6 +2,11 @@
 #Include somefile.ahk
 ; <- attribute
 
+; Include with inline comment
+#Include test.ahk ; with comment
+; <- attribute
+;                 ^ comment
+
 ; Include with path
 #Include <Library>
 ; <- attribute
