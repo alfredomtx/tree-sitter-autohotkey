@@ -19,6 +19,11 @@ module.exports = grammar({
     [$._expression, $._concat_element],  // shared expression types
   ],
 
+  // External scanner for detecting statement boundaries before labels
+  externals: $ => [
+    $._statement_end,
+  ],
+
   rules: {
     source_file: $ => repeat($._statement),
 
@@ -592,10 +597,12 @@ module.exports = grammar({
     ),
 
     // Return statement with optional expression
-    // prec.right ensures expression is consumed greedily (not left empty)
-    return_statement: $ => prec.right(seq(
-      /return/i,
-      optional($._expression)
+    // Uses external scanner to detect when next line is a label
+    // to prevent consuming the label's identifier as return value
+    return_statement: $ => prec.right(choice(
+      seq(/return/i, $._statement_end),  // Bare return before label
+      seq(/return/i, $._expression),      // Return with expression
+      /return/i,                          // Bare return (fallback)
     )),
 
     keyword: $ => choice(

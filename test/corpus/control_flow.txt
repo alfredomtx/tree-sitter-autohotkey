@@ -748,3 +748,47 @@ if (x) {
       (block
         (return_statement
           (identifier))))))
+
+================================================================================
+Return followed by label
+================================================================================
+
+return
+
+MyLabel:
+    MsgBox, Hello
+return
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (return_statement)
+  (label
+    name: (identifier))
+  (command
+    name: (identifier)
+    (command_arguments))
+  (return_statement))
+
+================================================================================
+Return followed by consecutive labels
+================================================================================
+
+return
+
+FirstLabel:
+SecondLabel:
+    DoSomething()
+return
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (return_statement)
+  (label
+    name: (identifier))
+  (label
+    name: (identifier))
+  (function_call
+    name: (identifier))
+  (return_statement))

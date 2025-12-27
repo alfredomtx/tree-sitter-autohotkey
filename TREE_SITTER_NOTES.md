@@ -754,3 +754,47 @@ _if_win_title: $ => choice($.string, /[^,\r\n"' \t][^,\r\n]*/),
 ```
 
 **Key insight:** When using `choice($.specific_rule, /catch-all/)`, make sure the catch-all pattern can't match the starting character of the specific rule.
+
+## External Scanner for Statement Termination
+
+### Use external scanner to prevent return from consuming labels
+
+**Problem:** `return_statement` with `optional($._expression)` consumes identifiers from subsequent lines because `extras: [/\s/]` makes newlines invisible to the grammar.
+
+```ahk
+return
+
+MyLabel:  ; Gets consumed as return value instead of parsed as label
+```
+
+The parser sees `return`, skips whitespace (including newlines via extras), finds `MyLabel` (valid identifier/expression), and commits to that parse before seeing the `:` that would indicate a label.
+
+**Why other solutions don't work:**
+- `prec.dynamic()` doesn't help because there's no ambiguity at the decision point - `identifier` is a valid expression
+- Restructuring `_expression` to exclude identifiers would break valid `return myVar` syntax
+- GLR conflicts only resolve ambiguity when rules start at the same position
+
+**Solution:** External scanner (`src/scanner.c`) that detects `identifier:` patterns after newlines:
+
+```c
+// In src/scanner.c
+bool tree_sitter_autohotkey_external_scanner_scan(...) {
+  // Skip to newline, then look ahead for "identifier:" pattern
+  // If found, emit STATEMENT_END token to terminate return statement
+}
+```
+
+```javascript
+// In grammar.js
+externals: $ => [$._statement_end],
+
+return_statement: $ => prec.right(choice(
+  seq(/return/i, $._statement_end),  // Bare return before label
+  seq(/return/i, $._expression),      // Return with expression
+  /return/i,                          // Bare return (fallback)
+)),
+```
+
+The scanner looks ahead (without consuming) for label-like patterns. When found, it emits a zero-width `_statement_end` token that matches the first alternative, terminating the return statement before the label.
+
+**Key insight:** External scanners can perform lookahead that regular grammar rules cannot, enabling context-sensitive decisions about statement boundaries.
