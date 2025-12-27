@@ -110,3 +110,50 @@ x := obj.items[0]
         object: (identifier)
         property: (identifier))
       index: (number))))
+
+================================================================================
+this_expression with index access
+================================================================================
+
+x := this["key"]
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (assignment_expression
+    left: (identifier)
+    right: (index_expression
+      object: (this_expression)
+      index: (string))))
+
+================================================================================
+base_expression with index access
+================================================================================
+
+x := base["key"]
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (assignment_expression
+    left: (identifier)
+    right: (index_expression
+      object: (base_expression)
+      index: (string))))
+
+================================================================================
+this_expression with dynamic index
+================================================================================
+
+x := this["_" . prop]
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (assignment_expression
+    left: (identifier)
+    right: (index_expression
+      object: (this_expression)
+      index: (binary_expression
+        left: (string)
+        right: (identifier)))))

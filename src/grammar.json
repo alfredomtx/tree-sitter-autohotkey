@@ -2872,6 +2872,14 @@
                 {
                   "type": "SYMBOL",
                   "name": "index_expression"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "this_expression"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "base_expression"
                 }
               ]
             }

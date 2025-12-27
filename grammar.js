@@ -518,7 +518,7 @@ module.exports = grammar({
     ),
 
     index_expression: $ => prec.left(1, seq(
-      field('object', choice($.identifier, $.member_expression, $.index_expression)),
+      field('object', choice($.identifier, $.member_expression, $.index_expression, $.this_expression, $.base_expression)),
       token.immediate('['),
       field('index', $._expression),
       ']'

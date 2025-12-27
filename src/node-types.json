@@ -2375,6 +2375,10 @@
         "required": true,
         "types": [
           {
+            "type": "base_expression",
+            "named": true
+          },
+          {
             "type": "identifier",
             "named": true
           },
@@ -2384,6 +2388,10 @@
           },
           {
             "type": "member_expression",
+            "named": true
+          },
+          {
+            "type": "this_expression",
             "named": true
           }
         ]
