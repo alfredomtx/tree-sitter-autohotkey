@@ -326,7 +326,10 @@
 ; The option name after it is parsed as identifier and matched below
 (gui_options) @constant
 
-; GUI option names as identifiers (for option names that follow gui_options)
+; GUI options with space highlighting (e.g., MyGui: +Border in Gui, MyGui: +Border)
+(gui_options_spaced) @constant
+
+; GUI option names as identifiers (for option names that follow gui_options/gui_options_spaced)
 ((identifier) @constant
  (#match? @constant "^(?i)(AlwaysOnTop|Border|Caption|Delimiter|Disabled|DPIScale|Hwnd|Label|LastFound|LastFoundExist|MaximizeBox|MinimizeBox|MinSize|MaxSize|OwnDialogs|Owner|Parent|Resize|SysMenu|Theme|ToolWindow)$"))
 

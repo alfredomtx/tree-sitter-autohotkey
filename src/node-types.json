@@ -560,6 +560,10 @@
           "named": true
         },
         {
+          "type": "gui_options_spaced",
+          "named": true
+        },
+        {
           "type": "gui_target",
           "named": true
         },
@@ -832,6 +836,10 @@
           },
           {
             "type": "gui_options",
+            "named": true
+          },
+          {
+            "type": "gui_options_spaced",
             "named": true
           },
           {
@@ -1298,6 +1306,10 @@
           "named": true
         },
         {
+          "type": "gui_options_spaced",
+          "named": true
+        },
+        {
           "type": "gui_target",
           "named": true
         },
@@ -1462,6 +1474,10 @@
           },
           {
             "type": "gui_options",
+            "named": true
+          },
+          {
+            "type": "gui_options_spaced",
             "named": true
           },
           {
@@ -1630,6 +1646,10 @@
           },
           {
             "type": "gui_options",
+            "named": true
+          },
+          {
+            "type": "gui_options_spaced",
             "named": true
           },
           {
@@ -2201,6 +2221,10 @@
             "named": true
           },
           {
+            "type": "gui_options_spaced",
+            "named": true
+          },
+          {
             "type": "gui_target",
             "named": true
           },
@@ -2577,6 +2601,10 @@
           },
           {
             "type": "gui_options",
+            "named": true
+          },
+          {
+            "type": "gui_options_spaced",
             "named": true
           },
           {
@@ -3311,6 +3339,10 @@
           "named": true
         },
         {
+          "type": "gui_options_spaced",
+          "named": true
+        },
+        {
           "type": "gui_target",
           "named": true
         },
@@ -3858,6 +3890,10 @@
             "named": true
           },
           {
+            "type": "gui_options_spaced",
+            "named": true
+          },
+          {
             "type": "gui_target",
             "named": true
           },
@@ -4139,6 +4175,10 @@
           },
           {
             "type": "gui_options",
+            "named": true
+          },
+          {
+            "type": "gui_options_spaced",
             "named": true
           },
           {
@@ -4485,6 +4525,10 @@
   },
   {
     "type": "gui_options",
+    "named": true
+  },
+  {
+    "type": "gui_options_spaced",
     "named": true
   },
   {

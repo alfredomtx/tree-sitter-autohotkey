@@ -40,6 +40,7 @@ module.exports = grammar({
       $.gui_action,         // Before label - matches "GuiName:SubCommand" patterns like "MyGui:Add"
       $.gui_action_spaced,  // Before label - matches "GuiName: SubCommand" patterns (with space)
       $.gui_options,        // Before label - matches "GuiName:+/-Option" patterns like "MyGui:-Caption"
+      $.gui_options_spaced, // Before label - matches "GuiName: +/-Option" patterns with space
       $.gui_target,   // Before label - matches "GuiName:," to prevent false labels in injection
       $.drive_letter, // Before label - matches "X:" drive letters to prevent false labels
       $.label,
@@ -194,6 +195,10 @@ module.exports = grammar({
     // GUI options (like MyGui:-Caption or MyGui:+Border) - for window options
     // Single token to ensure it matches before label can complete
     gui_options: $ => token(prec(11, /[a-zA-Z_][a-zA-Z0-9_]*:[+-]/)),
+
+    // GUI options with space (like "MyGui: +Border" or "MyGui: -Caption")
+    // Parallel to gui_options but with space allowed after colon
+    gui_options_spaced: $ => token(prec(11, /[a-zA-Z_][a-zA-Z0-9_]*:[ \t]+[+-]/)),
 
     // GUI target reference (like "MyGui:," in GuiControl, MyGui:, Control)
     // Matches identifier + colon + comma as a unit with higher precedence than label

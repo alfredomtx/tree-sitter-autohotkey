@@ -59,6 +59,10 @@
         },
         {
           "type": "SYMBOL",
+          "name": "gui_options_spaced"
+        },
+        {
+          "type": "SYMBOL",
           "name": "gui_target"
         },
         {
@@ -699,6 +703,17 @@
         "content": {
           "type": "PATTERN",
           "value": "[a-zA-Z_][a-zA-Z0-9_]*:[+-]"
+        }
+      }
+    },
+    "gui_options_spaced": {
+      "type": "TOKEN",
+      "content": {
+        "type": "PREC",
+        "value": 11,
+        "content": {
+          "type": "PATTERN",
+          "value": "[a-zA-Z_][a-zA-Z0-9_]*:[ \\t]+[+-]"
         }
       }
     },
