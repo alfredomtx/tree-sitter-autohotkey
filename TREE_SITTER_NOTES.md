@@ -233,30 +233,31 @@ _concatenatable: $ => choice(
 
 ### Implicit concat with identifier works in contained contexts only
 
-**The limitation:** Implicit concatenation of strings with identifiers (like `" w" w`) works inside function calls and index expressions, but NOT in general expressions like ternary branches.
+**The limitation:** Implicit concatenation of strings with identifiers works in specific contexts, with some patterns supported and others not.
 
 **Works:**
 ```ahk
 test(" w" w)           ; Function call - identifier is clearly an argument
 x := arr[" w" w]       ; Index expression - identifier is clearly part of index
 log(prefix ": " msg)   ; Multiple concat elements in argument list
+w ? value "" extra : w ; Ternary - identifier-string-identifier pattern works
 ```
 
 **Doesn't work:**
 ```ahk
-w ? " w" w : ""        ; Ternary - "w" after string causes ERROR
-guiOptions .= w ? " w" w : ""  ; Same issue in ternary branch
+w ? "a" value : ""     ; Ternary - string-identifier pattern causes cross-line issues
 ```
 
 **Why:** Tree-sitter's `extras: [/\s/]` consumes all whitespace including newlines. There's no way to distinguish same-line `" w" w` from cross-line `"str"\nid` without fundamental changes to whitespace handling.
 
-**Workaround:** Use explicit concatenation operator `.` in expressions:
+**Ternary support:** The `_ternary_branch` rule supports `_identifier_string_concat` (e.g., `value "" extra`) but NOT `_string_identifier_concat` (e.g., `"a" value`). The string-first pattern would grab identifiers from subsequent lines, breaking consecutive ternary statements.
+
+**Workaround for unsupported patterns:** Use explicit concatenation operator `.`:
 ```ahk
-w ? " w" . w : ""      ; Works - explicit concat operator
-guiOptions .= w ? " w" . w : ""  ; Works
+w ? "a" . value : ""   ; Works - explicit concat operator
 ```
 
-**Implementation:** The `_string_identifier_concat` and `_identifier_string_concat` patterns are used in `argument_list` and `index_expression` via the `_argument` rule, giving them higher precedence than individual expressions. These contexts are naturally bounded (by `()` or `[]`), so cross-line issues don't apply.
+**Implementation:** The `_string_identifier_concat` and `_identifier_string_concat` patterns are used in `argument_list` and `index_expression` via the `_argument` rule. Ternary expressions use `_ternary_branch` which only includes `_identifier_string_concat` to avoid cross-line issues.
 
 ## Debugging Tips
 

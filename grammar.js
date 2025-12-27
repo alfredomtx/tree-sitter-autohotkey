@@ -453,13 +453,23 @@ module.exports = grammar({
       repeat(choice($._concat_element, $.identifier))
     )),
 
+    // Ternary branch expression - allows identifier-string concatenation
+    // Only _identifier_string_concat is safe here; _string_identifier_concat
+    // would grab identifiers from the next line due to extras consuming newlines.
+    // Supports: value "" extra (identifier string identifier)
+    // Does NOT support: "a" value (string identifier) - use explicit . operator
+    _ternary_branch: $ => choice(
+      prec(11, $._identifier_string_concat),
+      $._expression
+    ),
+
     // Ternary expression: condition ? consequence : alternative
     ternary_expression: $ => prec.right(1, seq(
       field('condition', $._expression),
       '?',
-      field('consequence', $._expression),
+      field('consequence', $._ternary_branch),
       ':',
-      field('alternative', $._expression)
+      field('alternative', $._ternary_branch)
     )),
 
     // Binary expressions with operator precedence

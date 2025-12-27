@@ -2169,6 +2169,23 @@
         ]
       }
     },
+    "_ternary_branch": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "PREC",
+          "value": 11,
+          "content": {
+            "type": "SYMBOL",
+            "name": "_identifier_string_concat"
+          }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_expression"
+        }
+      ]
+    },
     "ternary_expression": {
       "type": "PREC_RIGHT",
       "value": 1,
@@ -2192,7 +2209,7 @@
             "name": "consequence",
             "content": {
               "type": "SYMBOL",
-              "name": "_expression"
+              "name": "_ternary_branch"
             }
           },
           {
@@ -2204,7 +2221,7 @@
             "name": "alternative",
             "content": {
               "type": "SYMBOL",
-              "name": "_expression"
+              "name": "_ternary_branch"
             }
           }
         ]
