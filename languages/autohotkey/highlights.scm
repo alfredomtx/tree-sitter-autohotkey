@@ -157,7 +157,7 @@
 
 ; Standalone flow control (highlighted as keywords like return/break)
 ((identifier) @keyword
- (#match? @keyword "^(?i)(Reload|Exit|ExitApp|Pause|Suspend)$"))
+ (#match? @keyword "^(?i)(Reload|Exit|ExitApp|Pause|Suspend|Critical|Thread)$"))
 
 ; Standalone debug commands (highlighted as function.builtin)
 ((identifier) @function.builtin
