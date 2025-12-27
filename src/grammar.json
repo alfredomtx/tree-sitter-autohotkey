@@ -154,14 +154,6 @@
           "name": "keyword"
         },
         {
-          "type": "PREC",
-          "value": 2,
-          "content": {
-            "type": "SYMBOL",
-            "name": "gui_option_flag"
-          }
-        },
-        {
           "type": "SYMBOL",
           "name": "operator"
         },
@@ -707,14 +699,44 @@
       }
     },
     "gui_options_spaced": {
-      "type": "TOKEN",
+      "type": "PREC_DYNAMIC",
+      "value": 10,
       "content": {
-        "type": "PREC",
-        "value": 11,
-        "content": {
-          "type": "PATTERN",
-          "value": "[a-zA-Z_][a-zA-Z0-9_]*:[ \\t]+[+-]"
-        }
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "FIELD",
+            "name": "gui_name",
+            "content": {
+              "type": "SYMBOL",
+              "name": "identifier"
+            }
+          },
+          {
+            "type": "IMMEDIATE_TOKEN",
+            "content": {
+              "type": "STRING",
+              "value": ":"
+            }
+          },
+          {
+            "type": "FIELD",
+            "name": "option",
+            "content": {
+              "type": "ALIAS",
+              "content": {
+                "type": "IMMEDIATE_TOKEN",
+                "content": {
+                  "type": "PATTERN",
+                  "value": "[ \\t]+(\\+AlwaysOnTop|\\-AlwaysOnTop|\\+Border|\\-Border|\\+Caption|\\-Caption|\\+Delimiter|\\-Delimiter|\\+Disabled|\\-Disabled|\\+DPIScale|\\-DPIScale|\\+Hwnd|\\-Hwnd|\\+Label|\\-Label|\\+LastFound|\\-LastFound|\\+LastFoundExist|\\-LastFoundExist|\\+MaximizeBox|\\-MaximizeBox|\\+MinimizeBox|\\-MinimizeBox|\\+MinSize|\\-MinSize|\\+MaxSize|\\-MaxSize|\\+OwnDialogs|\\-OwnDialogs|\\+Owner|\\-Owner|\\+Parent|\\-Parent|\\+Resize|\\-Resize|\\+SysMenu|\\-SysMenu|\\+Theme|\\-Theme|\\+ToolWindow|\\-ToolWindow)",
+                  "flags": "i"
+                }
+              },
+              "named": true,
+              "value": "gui_option_flag"
+            }
+          }
+        ]
       }
     },
     "gui_target": {

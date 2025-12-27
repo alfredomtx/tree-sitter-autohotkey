@@ -327,9 +327,10 @@
 (gui_options) @constant
 
 ; GUI options with space highlighting (e.g., MyGui: +Border in Gui, MyGui: +Border)
-(gui_options_spaced) @constant
+(gui_options_spaced gui_name: (identifier) @string.special)
+(gui_options_spaced option: (gui_option_flag) @constant)
 
-; GUI option names as identifiers (for option names that follow gui_options/gui_options_spaced)
+; GUI option names as identifiers (for option names that follow gui_options - no space variant)
 ((identifier) @constant
  (#match? @constant "^(?i)(AlwaysOnTop|Border|Caption|Delimiter|Disabled|DPIScale|Hwnd|Label|LastFound|LastFoundExist|MaximizeBox|MinimizeBox|MinSize|MaxSize|OwnDialogs|Owner|Parent|Resize|SysMenu|Theme|ToolWindow)$"))
 

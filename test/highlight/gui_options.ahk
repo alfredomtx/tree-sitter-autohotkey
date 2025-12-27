@@ -1,43 +1,57 @@
 ; GUI option flags at top level (parsed via injection in command_arguments)
+; Without gui_option_flag in _statement, options parse as operator + identifier
+; The identifier gets @constant via #match? rule, +/- gets @operator
 
-; Single option flag - whole token including +/- is highlighted
+; Single option flag - +/- as operator, option name as constant
 +Caption
-; <- constant
+; <- operator
+;  ^^^^^^^ constant
 
 -Border
-; <- constant
+; <- operator
+;  ^^^^^ constant
 
 +AlwaysOnTop
-; <- constant
+; <- operator
+;  ^^^^^^^^^^ constant
 
-; Case insensitivity
+; Case insensitivity (option names via #match?)
 +CAPTION
-; <- constant
+; <- operator
+;  ^^^^^^^ constant
 
 +caption
-; <- constant
+; <- operator
+;  ^^^^^^^ constant
 
 ; Various options
 +ToolWindow
-; <- constant
+; <- operator
+;  ^^^^^^^^^^ constant
 
 -SysMenu
-; <- constant
+; <- operator
+;  ^^^^^^^ constant
 
 +Resize
-; <- constant
+; <- operator
+;  ^^^^^^ constant
 
 +MaximizeBox
-; <- constant
+; <- operator
+;  ^^^^^^^^^^^ constant
 
 +MinimizeBox
-; <- constant
+; <- operator
+;  ^^^^^^^^^^^ constant
 
 +Disabled
-; <- constant
+; <- operator
+;  ^^^^^^^^ constant
 
 +Owner
-; <- constant
+; <- operator
+;  ^^^^^ constant
 
 ; Invalid options should NOT highlight (typo detection)
-; +Cpation would NOT get @constant - it's just a gui_option_flag without the match
+; +Cpation - + is operator, Cpation is just identifier (no @constant)

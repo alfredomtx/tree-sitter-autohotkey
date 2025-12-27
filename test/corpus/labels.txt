@@ -130,8 +130,9 @@ VideoGUI: +LastFound
 --------------------------------------------------------------------------------
 
 (source_file
-  (gui_options_spaced)
-  (identifier))
+  (gui_options_spaced
+    gui_name: (identifier)
+    option: (gui_option_flag)))
 
 ================================================================================
 Single letter followed by colon is drive_letter (not a label)

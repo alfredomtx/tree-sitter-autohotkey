@@ -68,7 +68,9 @@ module.exports = grammar({
       // NOTE: parenthesized_expression removed from _statement to reduce state count
       // It's still in _expression for conditions
       $.keyword,
-      prec(2, $.gui_option_flag),
+      // Note: gui_option_flag removed from _statement to allow gui_options_spaced to match
+      // Standalone +Option in command args parses as operator + identifier, with identifier
+      // getting @constant highlighting via #match? rule on option names
       $.operator,
       prec(4, $.variable_ref),
       $.identifier,
@@ -197,8 +199,16 @@ module.exports = grammar({
     gui_options: $ => token(prec(11, /[a-zA-Z_][a-zA-Z0-9_]*:[+-]/)),
 
     // GUI options with space (like "MyGui: +Border" or "MyGui: -Caption")
-    // Parallel to gui_options but with space allowed after colon
-    gui_options_spaced: $ => token(prec(11, /[a-zA-Z_][a-zA-Z0-9_]*:[ \t]+[+-]/)),
+    // Structured node like gui_action_spaced - requires known option to distinguish from label
+    // Higher dynamic precedence than label to win when both match
+    gui_options_spaced: $ => prec.dynamic(10, seq(
+      field('gui_name', $.identifier),
+      token.immediate(':'),
+      field('option', alias(
+        token.immediate(/[ \t]+(\+AlwaysOnTop|\-AlwaysOnTop|\+Border|\-Border|\+Caption|\-Caption|\+Delimiter|\-Delimiter|\+Disabled|\-Disabled|\+DPIScale|\-DPIScale|\+Hwnd|\-Hwnd|\+Label|\-Label|\+LastFound|\-LastFound|\+LastFoundExist|\-LastFoundExist|\+MaximizeBox|\-MaximizeBox|\+MinimizeBox|\-MinimizeBox|\+MinSize|\-MinSize|\+MaxSize|\-MaxSize|\+OwnDialogs|\-OwnDialogs|\+Owner|\-Owner|\+Parent|\-Parent|\+Resize|\-Resize|\+SysMenu|\-SysMenu|\+Theme|\-Theme|\+ToolWindow|\-ToolWindow)/i),
+        $.gui_option_flag
+      ))
+    )),
 
     // GUI target reference (like "MyGui:," in GuiControl, MyGui:, Control)
     // Matches identifier + colon + comma as a unit with higher precedence than label
