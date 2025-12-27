@@ -162,7 +162,7 @@ module.exports = grammar({
       optional(field('replacement', $.hotstring_replacement))
     ),
 
-    hotstring_options: $ => token(/[*?CORZTXB0-9SIEPK]+/i),
+    hotstring_options: $ => token.immediate(/[*?CORZTXB0-9SIEPK]+/i),
     hotstring_trigger: $ => token(/[^:\r\n]+/),
     hotstring_replacement: $ => token.immediate(/[^\r\n]+/),
 

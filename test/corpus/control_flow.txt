@@ -831,3 +831,24 @@ return
   (function_call
     name: (identifier))
   (return_statement))
+
+================================================================================
+Identifier containing hotstring option characters after case
+================================================================================
+
+switch x {
+    case 1:
+        creatureName := "test"
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (switch_statement
+    value: (identifier)
+    (case_clause
+      values: (number)
+      (block
+        (assignment_expression
+          left: (identifier)
+          right: (string))))))

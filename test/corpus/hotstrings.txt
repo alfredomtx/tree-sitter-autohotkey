@@ -82,3 +82,17 @@ MsgBox, hello
   (command
     name: (identifier)
     (command_arguments)))
+
+================================================================================
+Hotstring with cre options (case, raw, execute)
+================================================================================
+
+:cre:abc::def
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (hotstring_definition
+    options: (hotstring_options)
+    trigger: (hotstring_trigger)
+    replacement: (hotstring_replacement)))

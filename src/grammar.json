@@ -565,7 +565,7 @@
       ]
     },
     "hotstring_options": {
-      "type": "TOKEN",
+      "type": "IMMEDIATE_TOKEN",
       "content": {
         "type": "PATTERN",
         "value": "[*?CORZTXB0-9SIEPK]+",
