@@ -298,14 +298,10 @@ module.exports = grammar({
       'class',
       field('name', $.identifier),
       optional(seq('extends', field('parent', $.identifier))),
-      field('body', $.class_body)
-    )),
-
-    class_body: $ => seq(
       '{',
       repeat($.class_member),
       '}'
-    ),
+    )),
 
     class_member: $ => choice(
       $.comment,

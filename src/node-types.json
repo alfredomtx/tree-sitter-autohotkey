@@ -889,34 +889,9 @@
     }
   },
   {
-    "type": "class_body",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": false,
-      "types": [
-        {
-          "type": "class_member",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
     "type": "class_definition",
     "named": true,
     "fields": {
-      "body": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "class_body",
-            "named": true
-          }
-        ]
-      },
       "name": {
         "multiple": false,
         "required": true,
@@ -937,6 +912,16 @@
           }
         ]
       }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "class_member",
+          "named": true
+        }
+      ]
     }
   },
   {

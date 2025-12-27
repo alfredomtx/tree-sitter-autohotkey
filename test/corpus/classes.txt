@@ -9,8 +9,7 @@ class MyClass {
 
 (source_file
   (class_definition
-    name: (identifier)
-    body: (class_body)))
+    name: (identifier)))
 
 ================================================================================
 Class with inheritance
@@ -24,8 +23,7 @@ class Child extends Parent {
 (source_file
   (class_definition
     name: (identifier)
-    parent: (identifier)
-    body: (class_body)))
+    parent: (identifier)))
 
 ================================================================================
 Class with method
@@ -41,10 +39,9 @@ class MyClass {
 (source_file
   (class_definition
     name: (identifier)
-    body: (class_body
-      (class_member
-        (method_definition
-          name: (identifier))))))
+    (class_member
+      (method_definition
+        name: (identifier)))))
 
 ================================================================================
 Class with constructor
@@ -60,10 +57,9 @@ class MyClass {
 (source_file
   (class_definition
     name: (identifier)
-    body: (class_body
-      (class_member
-        (method_definition
-          name: (identifier))))))
+    (class_member
+      (method_definition
+        name: (identifier)))))
 
 ================================================================================
 Class with property and initializer
@@ -78,11 +74,10 @@ class MyClass {
 (source_file
   (class_definition
     name: (identifier)
-    body: (class_body
-      (class_member
-        (class_property
-          name: (identifier)
-          value: (number))))))
+    (class_member
+      (class_property
+        name: (identifier)
+        value: (number)))))
 
 ================================================================================
 Class with bare property (no initializer)
@@ -97,10 +92,9 @@ class MyClass {
 (source_file
   (class_definition
     name: (identifier)
-    body: (class_body
-      (class_member
-        (class_property
-          name: (identifier))))))
+    (class_member
+      (class_property
+        name: (identifier)))))
 
 ================================================================================
 Class with static method
@@ -116,10 +110,9 @@ class MyClass {
 (source_file
   (class_definition
     name: (identifier)
-    body: (class_body
-      (class_member
-        (method_definition
-          name: (identifier))))))
+    (class_member
+      (method_definition
+        name: (identifier)))))
 
 ================================================================================
 Class with static property
@@ -134,11 +127,10 @@ class MyClass {
 (source_file
   (class_definition
     name: (identifier)
-    body: (class_body
-      (class_member
-        (class_property
-          name: (identifier)
-          value: (number))))))
+    (class_member
+      (class_property
+        name: (identifier)
+        value: (number)))))
 
 ================================================================================
 Nested class
@@ -154,11 +146,9 @@ class Outer {
 (source_file
   (class_definition
     name: (identifier)
-    body: (class_body
-      (class_member
-        (class_definition
-          name: (identifier)
-          body: (class_body))))))
+    (class_member
+      (class_definition
+        name: (identifier)))))
 
 ================================================================================
 Method with parameters
@@ -174,15 +164,48 @@ class MyClass {
 (source_file
   (class_definition
     name: (identifier)
-    body: (class_body
-      (class_member
-        (method_definition
-          name: (identifier)
-          (parameter_list
-            (parameter
-              (identifier))
-            (parameter
-              (identifier))))))))
+    (class_member
+      (method_definition
+        name: (identifier)
+        (parameter_list
+          (parameter
+            (identifier))
+          (parameter
+            (identifier)))))))
+
+================================================================================
+Class with brace on separate line (Allman style)
+================================================================================
+
+class MyClass
+{
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (class_definition
+    name: (identifier)))
+
+================================================================================
+Class with inheritance and brace on separate line
+================================================================================
+
+class Child extends Parent
+{
+    value := 10
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (class_definition
+    name: (identifier)
+    parent: (identifier)
+    (class_member
+      (class_property
+        name: (identifier)
+        value: (number)))))
 
 ================================================================================
 this in member expression

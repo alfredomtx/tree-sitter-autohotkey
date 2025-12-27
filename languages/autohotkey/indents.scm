@@ -5,8 +5,8 @@
 ; Function definition has its own braces (not via statement_block)
 (function_definition "}" @end) @indent
 
-; Class body indentation
-(class_body "}" @end) @indent
+; Class definition indentation
+(class_definition "}" @end) @indent
 
 ; Method definition has its own braces
 (method_definition "}" @end) @indent

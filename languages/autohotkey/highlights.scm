@@ -351,8 +351,8 @@
 (class_definition "extends" @keyword)
 (class_definition name: (identifier) @type)
 (class_definition parent: (identifier) @type)
-(class_body "{" @punctuation.bracket)
-(class_body "}" @punctuation.bracket)
+(class_definition "{" @punctuation.bracket)
+(class_definition "}" @punctuation.bracket)
 
 ; Method definitions
 (method_definition "static" @keyword)
