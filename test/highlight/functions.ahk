@@ -94,3 +94,31 @@ MyGui:-Caption
 
 TestGui:+Border
 ; <- string.special
+
+; Standalone commands (no comma required)
+Reload
+; <- function.builtin
+
+Exit
+; <- function.builtin
+
+ExitApp
+; <- function.builtin
+
+Pause
+; <- function.builtin
+
+Suspend
+; <- function.builtin
+
+KeyHistory
+; <- function.builtin
+
+ListHotkeys
+; <- function.builtin
+
+ListLines
+; <- function.builtin
+
+ListVars
+; <- function.builtin

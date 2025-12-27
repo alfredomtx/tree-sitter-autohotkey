@@ -155,6 +155,10 @@
 ((command name: (identifier) @function.builtin)
  (#match? @function.builtin "^(?i)(Sleep|SetTimer|Pause|Suspend|Thread|Run|RunWait|RunAs|Reload|ExitApp|Exit|Shutdown)$"))
 
+; Standalone commands (can be used without comma at statement level)
+((identifier) @function.builtin
+ (#match? @function.builtin "^(?i)(Reload|Exit|ExitApp|Pause|Suspend|KeyHistory|ListHotkeys|ListLines|ListVars)$"))
+
 ; Window management commands
 ((command name: (identifier) @function.builtin)
  (#match? @function.builtin "^(?i)(WinActivate|WinActivateBottom|WinWait|WinWaitActive|WinWaitClose|WinClose|WinKill|WinMinimize|WinMaximize|WinRestore)$"))
