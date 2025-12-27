@@ -71,7 +71,7 @@ MyGui:Add
     action: (identifier)))
 
 ================================================================================
-Colon followed by non-identifier is a label (not gui_action)
+Colon followed by +/- is gui_options (not a label)
 ================================================================================
 
 MyGui:-Caption
@@ -79,7 +79,5 @@ MyGui:-Caption
 --------------------------------------------------------------------------------
 
 (source_file
-  (label
-    name: (identifier))
-  (operator)
+  (gui_options)
   (identifier))

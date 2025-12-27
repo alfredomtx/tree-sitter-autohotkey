@@ -285,7 +285,11 @@
 (label . (identifier) @label)
 
 ; GUI action highlighting (e.g., MyGui:Add in Gui, MyGui:Add)
-(gui_action gui_name: (identifier) @type)
+(gui_action gui_name: (identifier) @string.special)
+
+; GUI options highlighting (e.g., MyGui:-Caption in Gui, MyGui:-Caption)
+; Entire token gets highlighted since it's a flat match
+(gui_options) @string.special
 
 ; GUI sub-commands - highlight known sub-commands as function.builtin
 ((gui_action action: (identifier) @function.builtin)

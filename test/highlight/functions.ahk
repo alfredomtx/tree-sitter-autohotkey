@@ -77,13 +77,20 @@ class Example {
 ; GUI action (GuiName:SubCommand pattern)
 ; When parsed at top level (e.g., via injection)
 MyGui:Add
-; <- type
+; <- string.special
 ;     ^^^ function.builtin
 
 TestGui:Show
-; <- type
+; <- string.special
 ;       ^^^^ function.builtin
 
 Window:Destroy
-; <- type
+; <- string.special
 ;      ^^^^^^^ function.builtin
+
+; GUI options (GuiName:+/-Option pattern)
+MyGui:-Caption
+; <- string.special
+
+TestGui:+Border
+; <- string.special

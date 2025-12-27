@@ -524,6 +524,10 @@
           "named": true
         },
         {
+          "type": "gui_options",
+          "named": true
+        },
+        {
           "type": "hotkey",
           "named": true
         },
@@ -760,6 +764,10 @@
           },
           {
             "type": "gui_action",
+            "named": true
+          },
+          {
+            "type": "gui_options",
             "named": true
           },
           {
@@ -1155,6 +1163,10 @@
           "named": true
         },
         {
+          "type": "gui_options",
+          "named": true
+        },
+        {
           "type": "hotkey",
           "named": true
         },
@@ -1287,6 +1299,10 @@
           },
           {
             "type": "gui_action",
+            "named": true
+          },
+          {
+            "type": "gui_options",
             "named": true
           },
           {
@@ -1423,6 +1439,10 @@
           },
           {
             "type": "gui_action",
+            "named": true
+          },
+          {
+            "type": "gui_options",
             "named": true
           },
           {
@@ -1820,6 +1840,10 @@
             "named": true
           },
           {
+            "type": "gui_options",
+            "named": true
+          },
+          {
             "type": "hotkey",
             "named": true
           },
@@ -2086,6 +2110,10 @@
           },
           {
             "type": "gui_action",
+            "named": true
+          },
+          {
+            "type": "gui_options",
             "named": true
           },
           {
@@ -2685,6 +2713,10 @@
           "named": true
         },
         {
+          "type": "gui_options",
+          "named": true
+        },
+        {
           "type": "hotkey",
           "named": true
         },
@@ -3184,6 +3216,10 @@
             "named": true
           },
           {
+            "type": "gui_options",
+            "named": true
+          },
+          {
             "type": "hotkey",
             "named": true
           },
@@ -3429,6 +3465,10 @@
           },
           {
             "type": "gui_action",
+            "named": true
+          },
+          {
+            "type": "gui_options",
             "named": true
           },
           {
@@ -3744,6 +3784,10 @@
   {
     "type": "for",
     "named": false
+  },
+  {
+    "type": "gui_options",
+    "named": true
   },
   {
     "type": "hotkey",

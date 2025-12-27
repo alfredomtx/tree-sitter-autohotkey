@@ -27,6 +27,7 @@ module.exports = grammar({
       $.hotkey,
       $.hotstring_definition,
       $.gui_action,   // Before label - matches "GuiName:SubCommand" patterns like "MyGui:Add"
+      $.gui_options,  // Before label - matches "GuiName:+/-Option" patterns like "MyGui:-Caption"
       $.label,
       $.class_definition,
       $.function_definition,
@@ -116,6 +117,10 @@ module.exports = grammar({
       token.immediate(':'),
       field('action', alias(token.immediate(/[a-zA-Z_][a-zA-Z0-9_]*/), $.identifier))
     )),
+
+    // GUI options (like MyGui:-Caption or MyGui:+Border) - for window options
+    // Single token to ensure it matches before label can complete
+    gui_options: $ => token(prec(11, /[a-zA-Z_][a-zA-Z0-9_]*:[+-]/)),
 
     block: $ => repeat1($._statement),
 
