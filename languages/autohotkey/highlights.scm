@@ -155,9 +155,13 @@
 ((command name: (identifier) @function.builtin)
  (#match? @function.builtin "^(?i)(Sleep|SetTimer|Pause|Suspend|Thread|Run|RunWait|RunAs|Reload|ExitApp|Exit|Shutdown)$"))
 
-; Standalone commands (can be used without comma at statement level)
+; Standalone flow control (highlighted as keywords like return/break)
+((identifier) @keyword
+ (#match? @keyword "^(?i)(Reload|Exit|ExitApp|Pause|Suspend)$"))
+
+; Standalone debug commands (highlighted as function.builtin)
 ((identifier) @function.builtin
- (#match? @function.builtin "^(?i)(Reload|Exit|ExitApp|Pause|Suspend|KeyHistory|ListHotkeys|ListLines|ListVars)$"))
+ (#match? @function.builtin "^(?i)(KeyHistory|ListHotkeys|ListLines|ListVars)$"))
 
 ; Window management commands
 ((command name: (identifier) @function.builtin)

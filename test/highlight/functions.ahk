@@ -95,22 +95,23 @@ MyGui:-Caption
 TestGui:+Border
 ; <- string.special
 
-; Standalone commands (no comma required)
+; Standalone flow control (highlighted as keywords)
 Reload
-; <- function.builtin
+; <- keyword
 
 Exit
-; <- function.builtin
+; <- keyword
 
 ExitApp
-; <- function.builtin
+; <- keyword
 
 Pause
-; <- function.builtin
+; <- keyword
 
 Suspend
-; <- function.builtin
+; <- keyword
 
+; Standalone debug commands (highlighted as function.builtin)
 KeyHistory
 ; <- function.builtin
 
