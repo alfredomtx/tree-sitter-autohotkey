@@ -90,10 +90,10 @@ Window:Destroy
 
 ; GUI options (GuiName:+/-Option pattern)
 MyGui:-Caption
-; <- string.special
+; <- property
 
 TestGui:+Border
-; <- string.special
+; <- property
 
 ; Standalone flow control (highlighted as keywords)
 Reload

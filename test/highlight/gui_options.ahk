@@ -2,42 +2,42 @@
 
 ; Single option flag - whole token including +/- is highlighted
 +Caption
-; <- attribute
+; <- property
 
 -Border
-; <- attribute
+; <- property
 
 +AlwaysOnTop
-; <- attribute
+; <- property
 
 ; Case insensitivity
 +CAPTION
-; <- attribute
+; <- property
 
 +caption
-; <- attribute
+; <- property
 
 ; Various options
 +ToolWindow
-; <- attribute
+; <- property
 
 -SysMenu
-; <- attribute
+; <- property
 
 +Resize
-; <- attribute
+; <- property
 
 +MaximizeBox
-; <- attribute
+; <- property
 
 +MinimizeBox
-; <- attribute
+; <- property
 
 +Disabled
-; <- attribute
+; <- property
 
 +Owner
-; <- attribute
+; <- property
 
 ; Invalid options should NOT highlight (typo detection)
-; +Cpation would NOT get @attribute - it's just a gui_option_flag without the match
+; +Cpation would NOT get @property - it's just a gui_option_flag without the match

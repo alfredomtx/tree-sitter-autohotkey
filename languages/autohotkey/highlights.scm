@@ -300,8 +300,13 @@
 (gui_action gui_name: (identifier) @string.special)
 
 ; GUI options highlighting (e.g., MyGui:-Caption in Gui, MyGui:-Caption)
-; Entire token gets highlighted since it's a flat match
-(gui_options) @string.special
+; Note: gui_options only captures "GuiName:+/-", not the option name
+; The option name after it is parsed as identifier and matched below
+(gui_options) @property
+
+; GUI option names as identifiers (for option names that follow gui_options)
+((identifier) @property
+ (#match? @property "^(?i)(AlwaysOnTop|Border|Caption|Delimiter|Disabled|DPIScale|Hwnd|Label|LastFound|LastFoundExist|MaximizeBox|MinimizeBox|MinSize|MaxSize|OwnDialogs|Owner|Parent|Resize|SysMenu|Theme|ToolWindow)$"))
 
 ; GUI sub-commands - highlight known sub-commands as function.builtin
 ((gui_action action: (identifier) @function.builtin)
@@ -309,8 +314,8 @@
 
 ; GUI option flags (+Option or -Option) - only highlight recognized options
 ; Token includes +/- prefix, so regex accounts for it
-((gui_option_flag) @attribute
- (#match? @attribute "^(?i)[+-](AlwaysOnTop|Border|Caption|Delimiter|Disabled|DPIScale|Hwnd|Label|LastFound|LastFoundExist|MaximizeBox|MinimizeBox|MinSize|MaxSize|OwnDialogs|Owner|Parent|Resize|SysMenu|Theme|ToolWindow)$"))
+((gui_option_flag) @property
+ (#match? @property "^(?i)[+-](AlwaysOnTop|Border|Caption|Delimiter|Disabled|DPIScale|Hwnd|Label|LastFound|LastFoundExist|MaximizeBox|MinimizeBox|MinSize|MaxSize|OwnDialogs|Owner|Parent|Resize|SysMenu|Theme|ToolWindow)$"))
 
 ; Arrays
 (array_literal "[" @punctuation.bracket)
