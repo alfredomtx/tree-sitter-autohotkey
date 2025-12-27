@@ -15,23 +15,24 @@ Tree-sitter grammar for AutoHotkey v1, packaged as a Zed editor extension.
 
 ### Running Scripts
 
-To enable the "Run" button in the gutter, add a task configuration:
+To enable the "Run" button in the gutter, add a task to your Zed config:
+*Tip*: Ask AI to do it for you!
 
-1. Create `.zed/tasks.json` in your project:
+1. Open Command Palette → "zed: open tasks"
+2. Add a task with the `ahk-script` tag:
    ```json
    [
      {
-       "label": "Run AHK Script",
-       "command": "AutoHotkey.exe",
+       "label": "Run AutoHotkey Script",
+       "command": "& 'C:\\Program Files\\AutoHotkey\\AutoHotkey.exe'",
        "args": ["$ZED_FILE"],
        "tags": ["ahk-script"]
      }
    ]
    ```
+   > **Note:** The `& '...'` syntax is required for PowerShell when the path contains spaces. Adjust the path to your AutoHotkey installation.
 
-2. Ensure `AutoHotkey.exe` is in your PATH, or use the full path
-
-3. Click the run button in the gutter or use Command Palette → "Run"
+3. Click the run button in the gutter or use Command Palette → "task: spawn" (if you don't see the button, try reopening the IDE).
 
 ### Supported Syntax
 
