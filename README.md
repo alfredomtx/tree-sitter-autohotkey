@@ -16,7 +16,7 @@ Tree-sitter grammar for AutoHotkey v1, packaged as a Zed editor extension.
 ### Running Scripts
 
 To enable the "Run" button in the gutter, add a task to your Zed config:
-*Tip*: Ask AI to do it for you!
+*Tip*: Ask AI to do it for you.
 
 1. Open Command Palette → "zed: open tasks"
 2. Add a task with the `ahk-script` tag:
