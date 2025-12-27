@@ -1,7 +1,13 @@
 #NoEnv
 #SingleInstance, Force
+#Include test.ahk ; with comment
 
 msgbox, test
+
+ExitApp
+Reload
+Pause
+Critical, On
 
 ; This is a comment
 /* Block
@@ -352,8 +358,11 @@ test := LANGUAGE = "EN-US" ? "How are you?" : "Comment allez-vous?"
 return
 
 Gui, MyGui:-Caption +Border +Toolwindow +AlwaysOnTop
-Gui, MyGui:Add, Text,, % LANGUAGE = "EN-US" ? "Hi" : "Bonjour"
+Gui, MyGui:Add, Text, vMyText, % LANGUAGE = "EN-US" ? "Hi" : "Bonjour"
 Gui, MyGui:Show, NoActivate,
+
+GuiControl, MyGui:, MyText, % "test"
+GuiControl, MyGui:, MyText, test
 
 global VAR := true
 global VAR := false
