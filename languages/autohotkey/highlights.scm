@@ -307,6 +307,11 @@
 ((gui_action action: (identifier) @function.builtin)
  (#match? @function.builtin "^(?i)(Add|Show|Submit|Cancel|Hide|Destroy|Font|Color|Margin|Menu|Minimize|Maximize|Restore|Flash|Default|New)$"))
 
+; GUI option flags (+Option or -Option) - only highlight recognized options
+; Token includes +/- prefix, so regex accounts for it
+((gui_option_flag) @attribute
+ (#match? @attribute "^(?i)[+-](AlwaysOnTop|Border|Caption|Delimiter|Disabled|DPIScale|Hwnd|Label|LastFound|LastFoundExist|MaximizeBox|MinimizeBox|MinSize|MaxSize|OwnDialogs|Owner|Parent|Resize|SysMenu|Theme|ToolWindow)$"))
+
 ; Arrays
 (array_literal "[" @punctuation.bracket)
 (array_literal "]" @punctuation.bracket)

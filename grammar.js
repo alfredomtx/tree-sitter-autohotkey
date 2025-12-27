@@ -52,6 +52,7 @@ module.exports = grammar({
       // NOTE: parenthesized_expression removed from _statement to reduce state count
       // It's still in _expression for conditions
       $.keyword,
+      prec(2, $.gui_option_flag),
       $.operator,
       prec(4, $.variable_ref),
       $.identifier,
@@ -82,11 +83,12 @@ module.exports = grammar({
     ),
 
     // Hotkey: modifiers + key + ::
-    hotkey: $ => token(seq(
+    // Higher precedence than gui_option_flag to ensure +a:: parses as hotkey, not gui_option_flag + ERROR
+    hotkey: $ => token(prec(5, seq(
       optional(/[#!^+<>*~$]+/),
       /[a-zA-Z0-9]+/,
       '::'
-    )),
+    ))),
 
     // Hotstring: :options:trigger::replacement
     hotstring_definition: $ => seq(
@@ -121,6 +123,11 @@ module.exports = grammar({
     // GUI options (like MyGui:-Caption or MyGui:+Border) - for window options
     // Single token to ensure it matches before label can complete
     gui_options: $ => token(prec(11, /[a-zA-Z_][a-zA-Z0-9_]*:[+-]/)),
+
+    // GUI option flag (like +Caption or -Border) - standalone options in command arguments
+    // Single token with high precedence to win over operator + identifier
+    // Highlighted with #match? to validate known option names
+    gui_option_flag: $ => token(prec(3, /[+-][a-zA-Z_][a-zA-Z0-9_]*/)),
 
     block: $ => repeat1($._statement),
 

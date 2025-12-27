@@ -524,6 +524,10 @@
           "named": true
         },
         {
+          "type": "gui_option_flag",
+          "named": true
+        },
+        {
           "type": "gui_options",
           "named": true
         },
@@ -764,6 +768,10 @@
           },
           {
             "type": "gui_action",
+            "named": true
+          },
+          {
+            "type": "gui_option_flag",
             "named": true
           },
           {
@@ -1163,6 +1171,10 @@
           "named": true
         },
         {
+          "type": "gui_option_flag",
+          "named": true
+        },
+        {
           "type": "gui_options",
           "named": true
         },
@@ -1299,6 +1311,10 @@
           },
           {
             "type": "gui_action",
+            "named": true
+          },
+          {
+            "type": "gui_option_flag",
             "named": true
           },
           {
@@ -1439,6 +1455,10 @@
           },
           {
             "type": "gui_action",
+            "named": true
+          },
+          {
+            "type": "gui_option_flag",
             "named": true
           },
           {
@@ -1840,6 +1860,10 @@
             "named": true
           },
           {
+            "type": "gui_option_flag",
+            "named": true
+          },
+          {
             "type": "gui_options",
             "named": true
           },
@@ -2110,6 +2134,10 @@
           },
           {
             "type": "gui_action",
+            "named": true
+          },
+          {
+            "type": "gui_option_flag",
             "named": true
           },
           {
@@ -2713,6 +2741,10 @@
           "named": true
         },
         {
+          "type": "gui_option_flag",
+          "named": true
+        },
+        {
           "type": "gui_options",
           "named": true
         },
@@ -3216,6 +3248,10 @@
             "named": true
           },
           {
+            "type": "gui_option_flag",
+            "named": true
+          },
+          {
             "type": "gui_options",
             "named": true
           },
@@ -3465,6 +3501,10 @@
           },
           {
             "type": "gui_action",
+            "named": true
+          },
+          {
+            "type": "gui_option_flag",
             "named": true
           },
           {
@@ -3784,6 +3824,10 @@
   {
     "type": "for",
     "named": false
+  },
+  {
+    "type": "gui_option_flag",
+    "named": true
   },
   {
     "type": "gui_options",
