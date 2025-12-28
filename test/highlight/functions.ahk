@@ -32,6 +32,38 @@ obj.method(arg)
 obj.prop.method()
 ;        ^^^^^^ function.method
 
+; Class references (PascalCase or _PascalCase as object in method calls)
+_Logger.exception()
+; <- type
+;       ^^^^^^^^^ function.method
+
+Database.connect()
+; <- type
+;        ^^^^^^^ function.method
+
+_Config.Settings.load()
+; <- type
+;       ^^^^^^^^ property
+;                ^^^^ function.method
+
+; Class references in member expressions
+_Logger.level
+; <- type
+;       ^^^^^ property
+
+Settings.theme
+; <- type
+;        ^^^^^ property
+
+; Non-class references stay as variable (lowercase start)
+myVar.property
+; <- !type
+;     ^^^^^^^^ property
+
+obj.method()
+; <- !type
+;   ^^^^^^ function.method
+
 ; Builtin commands
 MsgBox, Hello
 ; <- function.builtin
