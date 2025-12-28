@@ -34,34 +34,34 @@ obj.prop.method()
 
 ; Class references (PascalCase or _PascalCase as object in method calls)
 _Logger.exception()
-; <- constructor
+; <- namespace
 ;       ^^^^^^^^^ function.method
 
 Database.connect()
-; <- constructor
+; <- namespace
 ;        ^^^^^^^ function.method
 
 _Config.Settings.load()
-; <- constructor
+; <- namespace
 ;       ^^^^^^^^ property
 ;                ^^^^ function.method
 
 ; Class references in member expressions
 _Logger.level
-; <- constructor
+; <- namespace
 ;       ^^^^^ property
 
 Settings.theme
-; <- constructor
+; <- namespace
 ;        ^^^^^ property
 
 ; Non-class references stay as variable (lowercase start)
 myVar.property
-; <- !constructor
+; <- !namespace
 ;     ^^^^^^^^ property
 
 obj.method()
-; <- !constructor
+; <- !namespace
 ;   ^^^^^^ function.method
 
 ; Builtin commands
