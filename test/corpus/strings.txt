@@ -97,3 +97,67 @@ msg := "line1`rline2"
     left: (identifier)
     right: (string
       (escape_sequence))))
+
+================================================================================
+Implicit concat with member_expression in function call
+================================================================================
+
+FileExist(Config.folder "\" this.file)
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (function_call
+    name: (identifier)
+    (argument_list
+      (member_expression
+        object: (identifier)
+        property: (identifier))
+      (string)
+      (member_expression
+        object: (this_expression)
+        property: (identifier)))))
+
+================================================================================
+Implicit concat member_expression then string then member_expression
+================================================================================
+
+Log(obj.prefix ": " obj.suffix)
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (function_call
+    name: (identifier)
+    (argument_list
+      (member_expression
+        object: (identifier)
+        property: (identifier))
+      (string)
+      (member_expression
+        object: (identifier)
+        property: (identifier)))))
+
+================================================================================
+Implicit concat with nested member_expression
+================================================================================
+
+Show(a.b.c "\" x.y.z)
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (function_call
+    name: (identifier)
+    (argument_list
+      (member_expression
+        object: (member_expression
+          object: (identifier)
+          property: (identifier))
+        property: (identifier))
+      (string)
+      (member_expression
+        object: (member_expression
+          object: (identifier)
+          property: (identifier))
+        property: (identifier)))))

@@ -492,19 +492,19 @@ module.exports = grammar({
 
     // String-identifier concatenation for contained contexts
     // Used in argument_list and index_expression where cross-line issues don't apply
-    // Examples: "+Resize +MaxSize" width "x" height
+    // Examples: "+Resize +MaxSize" width "x" height, ImagesConfig.folder "\" this.file
     _string_identifier_concat: $ => prec.left(10, seq(
-      $.string,
-      repeat(choice($._concat_element, $.identifier)),
-      $.identifier
+      choice($.string, $.member_expression),
+      repeat(choice($._concat_element, $.identifier, $.member_expression)),
+      choice($.identifier, $.member_expression)
     )),
 
     // Identifier-string-identifier concatenation for contained contexts
-    // Example: command " " extra
+    // Examples: command " " extra, this.folder "\" filename
     _identifier_string_concat: $ => prec.left(10, seq(
-      $.identifier,
+      choice($.identifier, $.member_expression),
       $.string,
-      repeat(choice($._concat_element, $.identifier))
+      repeat(choice($._concat_element, $.identifier, $.member_expression))
     )),
 
     // Ternary branch expression - allows identifier-string concatenation
