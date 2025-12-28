@@ -154,11 +154,11 @@
 (method_call method: (identifier) @function.method)
 
 ; Class references (PascalCase or _PascalCase) in method calls and member expressions
-(method_call object: (identifier) @namespace
- (#match? @namespace "^_?[A-Z]"))
+(method_call object: (identifier) @type
+ (#match? @type "^_?[A-Z]"))
 
-(member_expression object: (identifier) @namespace
- (#match? @namespace "^_?[A-Z]"))
+(member_expression object: (identifier) @type
+ (#match? @type "^_?[A-Z]"))
 
 ; Command names (identifier in command position gets highlighted as function)
 (command name: (identifier) @function)
