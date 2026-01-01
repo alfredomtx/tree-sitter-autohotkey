@@ -1,6 +1,6 @@
 {
   "name": "tree-sitter-autohotkey",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "Tree-sitter grammar for AutoHotkey v1 with Zed editor support",
   "main": "bindings/node",
   "scripts": {

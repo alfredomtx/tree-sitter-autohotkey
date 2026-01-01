@@ -1,6 +1,7 @@
 # Tree-sitter AutoHotkey
 
 [![CI](https://github.com/alfredomtx/tree-sitter-autohotkey/actions/workflows/ci.yml/badge.svg)](https://github.com/alfredomtx/tree-sitter-autohotkey/actions/workflows/ci.yml)
+[![Zed](https://img.shields.io/badge/Zed-Extension-blue)](https://zed.dev/extensions?query=autohotkey)
 
 Tree-sitter grammar for AutoHotkey v1, packaged as a Zed editor extension.
 
@@ -16,7 +17,8 @@ Tree-sitter grammar for AutoHotkey v1, packaged as a Zed editor extension.
 ### Running Scripts
 
 To enable the "Run" button in the gutter, add a task to your Zed config:
-*Tip*: Ask AI to do it for you.
+
+**Tip**: Ask AI to do it for you.
 
 1. Open Command Palette → "zed: open tasks"
 2. Add a task with the `ahk-script` tag:
@@ -62,14 +64,19 @@ To enable the "Run" button in the gutter, add a task to your Zed config:
 
 ## Installation
 
-### Zed Editor (Development Extension)
+### From Zed Extensions (Recommended)
+
+1. Open Zed
+2. Open Command Palette (`Ctrl+Shift+P`)
+3. Run "zed: extensions"
+4. Search for "AutoHotkey"
+5. Click Install
+
+### From Source (Development)
 
 1. Clone this repository
-2. In Zed, open Command Palette (`Ctrl+Shift+P`)
-3. Run "Extensions: Install Dev Extension"
-4. Select the cloned folder
-
-> **Note:** This extension is not yet published to the Zed extension store.
+2. Open Command Palette → "Extensions: Install Dev Extension"
+3. Select the cloned folder
 
 ## Development
 
