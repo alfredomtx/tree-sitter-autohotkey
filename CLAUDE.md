@@ -84,7 +84,3 @@ After the Zed team merges the PR, the new version appears in Zed's extension pan
 ## Tree-sitter Technical Details
 
 @TREE_SITTER_NOTES.md
-
-# Taskmaster
-
-@.taskmaster/CLAUDE.md
