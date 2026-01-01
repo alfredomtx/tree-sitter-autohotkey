@@ -1,7 +1,7 @@
 # Tree-sitter AutoHotkey
 
 [![CI](https://github.com/alfredomtx/tree-sitter-autohotkey/actions/workflows/ci.yml/badge.svg)](https://github.com/alfredomtx/tree-sitter-autohotkey/actions/workflows/ci.yml)
-[![Zed](https://img.shields.io/badge/Zed-Extension-blue)](https://zed.dev/extensions?query=autohotkey)
+[![Zed](https://img.shields.io/badge/Zed-Extension-blue)](https://zed.dev/extensions/autohotkey)
 
 Tree-sitter grammar for AutoHotkey v1, packaged as a Zed editor extension.
 
