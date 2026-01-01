@@ -12,10 +12,25 @@ class Animal {
     Speak() {
         MsgBox, % this.name " says hello"
     }
+
+
+    /**
+    * @param string value
+    * @param ?string extra
+    * @return this
+    */
+    option(value, extra := "")
+    {
+        value := extra ? value . "" extra : value
+        this._options["" . value . ""] := true
+
+        return this
+    }
 }
 
 ; Class with inheritance
-class Dog extends Animal {
+class Dog extends Animal
+{
     static count := 0
     breed
 

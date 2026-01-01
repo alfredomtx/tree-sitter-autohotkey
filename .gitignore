@@ -29,14 +29,4 @@ build/
 grammars/
 *.wasm
 
-# Taskmaster
-.taskmaster/state.json
-.taskmaster/config.json
-.taskmaster/templates/example_prd.txt
-.taskmaster/templates/example_prd_rpg.txt
-
-# AI tools
-/.claude
-
-# Others
 nul
