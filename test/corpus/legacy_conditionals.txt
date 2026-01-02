@@ -1,0 +1,423 @@
+================================================================================
+IfEqual simple
+================================================================================
+
+IfEqual, x, 1
+    MsgBox, Match
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (legacy_if_statement
+    command: (legacy_if_command)
+    var: (identifier)
+    value: (number)
+    consequence: (command
+      name: (identifier)
+      (command_arguments))))
+
+================================================================================
+IfNotInString simple
+================================================================================
+
+IfNotInString, varName, value
+    MsgBox, test
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (legacy_if_statement
+    command: (legacy_if_command)
+    var: (identifier)
+    value: (identifier)
+    consequence: (command
+      name: (identifier)
+      (command_arguments))))
+
+================================================================================
+IfEqual with braces
+================================================================================
+
+IfEqual, x, 1
+{
+    MsgBox, Match
+    Sleep, 100
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (legacy_if_statement
+    command: (legacy_if_command)
+    var: (identifier)
+    value: (number)
+    consequence: (statement_block
+      (block
+        (command
+          name: (identifier)
+          (command_arguments))
+        (command
+          name: (identifier)
+          (command_arguments))))))
+
+================================================================================
+IfEqual with else
+================================================================================
+
+IfEqual, x, 1
+    MsgBox, One
+else
+    MsgBox, Other
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (legacy_if_statement
+    command: (legacy_if_command)
+    var: (identifier)
+    value: (number)
+    consequence: (command
+      name: (identifier)
+      (command_arguments))
+    alternative: (legacy_else_clause
+      (command
+        name: (identifier)
+        (command_arguments)))))
+
+================================================================================
+IfEqual with else braced
+================================================================================
+
+IfEqual, x, 1
+{
+    MsgBox, One
+}
+else
+{
+    MsgBox, Other
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (legacy_if_statement
+    command: (legacy_if_command)
+    var: (identifier)
+    value: (number)
+    consequence: (statement_block
+      (block
+        (command
+          name: (identifier)
+          (command_arguments))))
+    alternative: (legacy_else_clause
+      (statement_block
+        (block
+          (command
+            name: (identifier)
+            (command_arguments)))))))
+
+================================================================================
+IfEqual else if chain
+================================================================================
+
+IfEqual, x, 1
+    MsgBox, One
+else IfEqual, x, 2
+    MsgBox, Two
+else
+    MsgBox, Other
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (legacy_if_statement
+    command: (legacy_if_command)
+    var: (identifier)
+    value: (number)
+    consequence: (command
+      name: (identifier)
+      (command_arguments))
+    alternative: (legacy_else_clause
+      (legacy_if_statement
+        command: (legacy_if_command)
+        var: (identifier)
+        value: (number)
+        consequence: (command
+          name: (identifier)
+          (command_arguments))
+        alternative: (legacy_else_clause
+          (command
+            name: (identifier)
+            (command_arguments)))))))
+
+================================================================================
+IfNotEqual case insensitive
+================================================================================
+
+ifnotequal, count, 0
+    DoWork()
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (legacy_if_statement
+    command: (legacy_if_command)
+    var: (identifier)
+    value: (number)
+    consequence: (function_call
+      name: (identifier))))
+
+================================================================================
+IfGreater comparison
+================================================================================
+
+IfGreater, score, 100
+{
+    MsgBox, High score!
+}
+else
+{
+    MsgBox, Keep trying
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (legacy_if_statement
+    command: (legacy_if_command)
+    var: (identifier)
+    value: (number)
+    consequence: (statement_block
+      (block
+        (command
+          name: (identifier)
+          (command_arguments))))
+    alternative: (legacy_else_clause
+      (statement_block
+        (block
+          (command
+            name: (identifier)
+            (command_arguments)))))))
+
+================================================================================
+IfLess comparison
+================================================================================
+
+IfLess, value, max
+    result := "low"
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (legacy_if_statement
+    command: (legacy_if_command)
+    var: (identifier)
+    value: (identifier)
+    consequence: (assignment_expression
+      left: (identifier)
+      operator: (:=)
+      right: (string))))
+
+================================================================================
+IfExist file check
+================================================================================
+
+IfExist, C:\Test.txt
+    FileDelete, C:\Test.txt
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (legacy_if_statement
+    command: (legacy_if_command)
+    var: (identifier)
+    consequence: (command
+      name: (identifier)
+      (command_arguments))))
+
+================================================================================
+IfInString substring check
+================================================================================
+
+IfInString, haystack, needle
+    MsgBox, Found
+else
+    MsgBox, Not found
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (legacy_if_statement
+    command: (legacy_if_command)
+    var: (identifier)
+    value: (identifier)
+    consequence: (command
+      name: (identifier)
+      (command_arguments))
+    alternative: (legacy_else_clause
+      (command
+        name: (identifier)
+        (command_arguments)))))
+
+================================================================================
+Mixed legacy and modern if
+================================================================================
+
+IfEqual, x, 1
+    MsgBox, Legacy
+else if (y > 5)
+    MsgBox, Modern
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (legacy_if_statement
+    command: (legacy_if_command)
+    var: (identifier)
+    value: (number)
+    consequence: (command
+      name: (identifier)
+      (command_arguments))
+    alternative: (legacy_else_clause
+      (if_statement
+        condition: (parenthesized_expression
+          (binary_expression
+            left: (identifier)
+            right: (number)))
+        consequence: (command
+          name: (identifier)
+          (command_arguments))))))
+
+================================================================================
+Modern if else legacy
+================================================================================
+
+if (x > 5)
+    MsgBox, Modern
+else IfEqual, y, 1
+    MsgBox, Legacy
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (if_statement
+    condition: (parenthesized_expression
+      (binary_expression
+        left: (identifier)
+        right: (number)))
+    consequence: (command
+      name: (identifier)
+      (command_arguments))
+    alternative: (else_clause
+      (legacy_if_statement
+        command: (legacy_if_command)
+        var: (identifier)
+        value: (number)
+        consequence: (command
+          name: (identifier)
+          (command_arguments))))))
+
+================================================================================
+Empty value parameter
+================================================================================
+
+IfEqual, myVar,
+    MsgBox, Variable is empty
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (legacy_if_statement
+    command: (legacy_if_command)
+    var: (identifier)
+    consequence: (command
+      name: (identifier)
+      (command_arguments))))
+
+================================================================================
+Variable reference in var parameter
+================================================================================
+
+IfEqual, %myVar%, test
+    DoSomething()
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (legacy_if_statement
+    command: (legacy_if_command)
+    var: (variable_ref
+      (identifier))
+    value: (identifier)
+    consequence: (function_call
+      name: (identifier))))
+
+================================================================================
+All legacy command types
+================================================================================
+
+IfLessOrEqual, a, 10
+    x := 1
+
+IfGreaterOrEqual, b, 20
+    y := 2
+
+IfNotExist, file.txt
+    z := 3
+
+IfWinExist, Notepad
+    w := 4
+
+IfWinActive, ahk_class Notepad
+    v := 5
+
+IfMsgBox, Yes
+    u := 6
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (legacy_if_statement
+    command: (legacy_if_command)
+    var: (identifier)
+    value: (number)
+    consequence: (assignment_expression
+      left: (identifier)
+      operator: (:=)
+      right: (number)))
+  (legacy_if_statement
+    command: (legacy_if_command)
+    var: (identifier)
+    value: (number)
+    consequence: (assignment_expression
+      left: (identifier)
+      operator: (:=)
+      right: (number)))
+  (legacy_if_statement
+    command: (legacy_if_command)
+    var: (identifier)
+    consequence: (assignment_expression
+      left: (identifier)
+      operator: (:=)
+      right: (number)))
+  (legacy_if_statement
+    command: (legacy_if_command)
+    var: (identifier)
+    consequence: (assignment_expression
+      left: (identifier)
+      operator: (:=)
+      right: (number)))
+  (legacy_if_statement
+    command: (legacy_if_command)
+    var: (identifier)
+    consequence: (assignment_expression
+      left: (identifier)
+      operator: (:=)
+      right: (number)))
+  (legacy_if_statement
+    command: (legacy_if_command)
+    var: (identifier)
+    consequence: (assignment_expression
+      left: (identifier)
+      operator: (:=)
+      right: (number))))
