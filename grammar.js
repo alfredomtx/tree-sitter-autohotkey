@@ -253,28 +253,28 @@ module.exports = grammar({
 
     // Control flow statements - support both braced blocks and single statements
     if_statement: $ => prec.right(seq(
-      'if',
+      /if/i,
       field('condition', seq(
         $.parenthesized_expression,
-        repeat(seq(choice('&&', '||', 'and', 'or'), $.parenthesized_expression))
+        repeat(seq(choice('&&', '||', /and/i, /or/i), $.parenthesized_expression))
       )),
       field('consequence', choice($.statement_block, $._statement)),
       optional(field('alternative', $.else_clause))
     )),
 
     else_clause: $ => seq(
-      'else',
+      /else/i,
       choice($.if_statement, $.statement_block, $._statement)
     ),
 
     while_statement: $ => seq(
-      'while',
+      /while/i,
       field('condition', $.parenthesized_expression),
       field('body', choice($.statement_block, $._statement))
     ),
 
     loop_statement: $ => prec.right(seq(
-      'loop',
+      /loop/i,
       optional(choice(
         // Comma-style variant: loop, parse, ...
         seq(
@@ -293,34 +293,34 @@ module.exports = grammar({
     loop_arguments: $ => /[^\r\n{]+/,
 
     for_statement: $ => seq(
-      'for',
+      /for/i,
       field('key', $.identifier),
       optional(seq(',', field('value', $.identifier))),
-      'in',
+      /in/i,
       field('collection', $._expression),
       field('body', choice($.statement_block, $._statement))
     ),
 
     try_statement: $ => prec.right(seq(
-      'try',
+      /try/i,
       field('body', choice($.statement_block, $._statement)),
       optional($.catch_clause),
       optional($.finally_clause)
     )),
 
     catch_clause: $ => seq(
-      'catch',
+      /catch/i,
       optional(field('exception', $.identifier)),
       field('body', choice($.statement_block, $._statement))
     ),
 
     finally_clause: $ => seq(
-      'finally',
+      /finally/i,
       field('body', choice($.statement_block, $._statement))
     ),
 
     switch_statement: $ => seq(
-      'switch',
+      /switch/i,
       field('value', $._expression),
       '{',
       repeat($.case_clause),
@@ -329,14 +329,14 @@ module.exports = grammar({
     ),
 
     case_clause: $ => seq(
-      'case',
+      /case/i,
       field('values', seq($._expression, repeat(seq(',', $._expression)))),
       ':',
       optional($.block)
     ),
 
     default_clause: $ => seq(
-      'default',
+      /default/i,
       ':',
       optional($.block)
     ),
@@ -352,9 +352,9 @@ module.exports = grammar({
     )),
 
     class_definition: $ => prec.dynamic(10, seq(
-      'class',
+      /class/i,
       field('name', $.identifier),
-      optional(seq('extends', field('parent', $.identifier))),
+      optional(seq(/extends/i, field('parent', $.identifier))),
       '{',
       repeat($.class_member),
       '}'
@@ -370,7 +370,7 @@ module.exports = grammar({
     ),
 
     method_definition: $ => prec.dynamic(10, seq(
-      optional('static'),
+      optional(/static/i),
       field('name', $.identifier),
       token.immediate('('),
       optional($.parameter_list),
@@ -381,7 +381,7 @@ module.exports = grammar({
     )),
 
     class_property: $ => seq(
-      optional('static'),
+      optional(/static/i),
       field('name', $.identifier),
       optional(seq(':=', field('value', $._expression)))
     ),

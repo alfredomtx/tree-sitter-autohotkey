@@ -73,3 +73,54 @@ class Example {
 ;   ^^^^^^ keyword
     }
 }
+
+; Uppercase keywords - test case insensitivity
+IF (x) {
+; <- keyword
+}
+
+WHILE (running) {
+; <- keyword
+}
+
+Loop 10 {
+; <- keyword
+}
+
+FOR item IN collection {
+; <- keyword
+;         ^^ keyword
+}
+
+TRY {
+; <- keyword
+} CATCH e {
+; ^^^^^ keyword
+} FINALLY {
+; ^^^^^^^ keyword
+}
+
+Switch var {
+; <- keyword
+    CASE 1:
+        MsgBox, one
+    DEFAULT:
+        MsgBox, other
+}
+
+CLASS UpperClass EXTENDS BaseClass {
+; <- keyword
+;                ^^^^^^^ keyword
+    STATIC count := 0
+;   ^^^^^^ keyword
+
+    STATIC Method() {
+;   ^^^^^^ keyword
+    }
+}
+
+; Mixed case
+If (a OR b AND c) {
+; <- keyword
+    MsgBox, test
+}

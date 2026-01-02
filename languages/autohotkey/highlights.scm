@@ -28,26 +28,29 @@
 (boolean) @constant.builtin
 
 ; Control flow keywords
-(if_statement "if" @keyword)
-(else_clause "else" @keyword)
-(while_statement "while" @keyword)
-(loop_statement "loop" @keyword)
+; Note: if, else, while, loop, for, in, try, catch, finally are case-insensitive regex patterns
+; in the grammar and cannot be matched by literal strings in queries.
+; We highlight the entire statement node instead.
+(if_statement) @keyword
+(else_clause) @keyword
+(while_statement) @keyword
+(loop_statement) @keyword
 (loop_statement "," @punctuation.delimiter)
 (loop_type) @keyword
-(for_statement "for" @keyword)
-(for_statement "in" @keyword)
-(try_statement "try" @keyword)
-(catch_clause "catch" @keyword)
+(for_statement) @keyword
+(try_statement) @keyword
+(catch_clause) @keyword
 (catch_clause exception: (identifier) @variable.parameter)
-(finally_clause "finally" @keyword)
+(finally_clause) @keyword
 
 ; Switch statements
-(switch_statement "switch" @keyword)
+; Note: switch, case, default are case-insensitive regex patterns
+(switch_statement) @keyword
 (switch_statement "{" @punctuation.bracket)
 (switch_statement "}" @punctuation.bracket)
-(case_clause "case" @keyword)
+(case_clause) @keyword
 (case_clause ":" @punctuation.delimiter)
-(default_clause "default" @keyword)
+(default_clause) @keyword
 (default_clause ":" @punctuation.delimiter)
 
 ; Statement blocks
@@ -373,15 +376,15 @@
 (object_property ":" @punctuation.delimiter)
 
 ; Class definitions
-(class_definition "class" @keyword)
-(class_definition "extends" @keyword)
+; Note: class, extends, static are case-insensitive regex patterns
+(class_definition) @keyword
 (class_definition name: (identifier) @type)
 (class_definition parent: (identifier) @type)
 (class_definition "{" @punctuation.bracket)
 (class_definition "}" @punctuation.bracket)
 
 ; Method definitions
-(method_definition "static" @keyword)
+(method_definition) @keyword
 (method_definition name: (identifier) @function.method)
 
 ; Special method names (constructor, destructor, meta-functions)
@@ -390,7 +393,7 @@
   (#match? @function.special "^__(New|Delete|Get|Set|Call)$"))
 
 ; Class properties
-(class_property "static" @keyword)
+(class_property) @keyword
 (class_property name: (identifier) @property)
 
 ; this and base keywords

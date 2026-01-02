@@ -852,3 +852,183 @@ switch x {
         (assignment_expression
           left: (identifier)
           right: (string))))))
+================================================================================
+Uppercase IF statement
+================================================================================
+
+IF (x) {
+    y := 1
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (if_statement
+    condition: (parenthesized_expression
+      (identifier))
+    consequence: (statement_block
+      (block
+        (assignment_expression
+          left: (identifier)
+          right: (number))))))
+
+================================================================================
+Uppercase WHILE loop
+================================================================================
+
+WHILE (running) {
+    count++
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (while_statement
+    condition: (parenthesized_expression
+      (identifier))
+    body: (statement_block
+      (block
+        (identifier)
+        (operator)
+        (operator)))))
+
+================================================================================
+Uppercase LOOP
+================================================================================
+
+Loop 5 {
+    MsgBox, test
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (loop_statement
+    count: (number)
+    body: (statement_block
+      (block
+        (command
+          name: (identifier)
+          (command_arguments))))))
+
+================================================================================
+Uppercase FOR loop
+================================================================================
+
+For key, value In collection {
+    MsgBox, %key%
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (for_statement
+    key: (identifier)
+    value: (identifier)
+    collection: (identifier)
+    body: (statement_block
+      (block
+        (command
+          name: (identifier)
+          (command_arguments))))))
+
+================================================================================
+Uppercase TRY CATCH FINALLY
+================================================================================
+
+Try {
+    action()
+} Catch e {
+    MsgBox, error
+} Finally {
+    cleanup()
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (try_statement
+    body: (statement_block
+      (block
+        (function_call
+          name: (identifier))))
+    (catch_clause
+      exception: (identifier)
+      body: (statement_block
+        (block
+          (command
+            name: (identifier)
+            (command_arguments)))))
+    (finally_clause
+      body: (statement_block
+        (block
+          (function_call
+            name: (identifier)))))))
+
+================================================================================
+Uppercase SWITCH CASE DEFAULT
+================================================================================
+
+Switch var {
+    Case 1:
+        MsgBox, one
+    Default:
+        MsgBox, other
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (switch_statement
+    value: (identifier)
+    (case_clause
+      values: (number)
+      (block
+        (command
+          name: (identifier)
+          (command_arguments))))
+    (default_clause
+      (block
+        (command
+          name: (identifier)
+          (command_arguments))))))
+
+================================================================================
+Uppercase IF with AND OR operators
+================================================================================
+
+If (x > 5 AND y < 10) {
+    MsgBox, test
+}
+
+If (a OR b) {
+    MsgBox, test
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (if_statement
+    condition: (parenthesized_expression
+      (binary_expression
+        left: (binary_expression
+          left: (identifier)
+          right: (number))
+        right: (binary_expression
+          left: (identifier)
+          right: (number))))
+    consequence: (statement_block
+      (block
+        (command
+          name: (identifier)
+          (command_arguments)))))
+  (if_statement
+    condition: (parenthesized_expression
+      (binary_expression
+        left: (identifier)
+        right: (identifier)))
+    consequence: (statement_block
+      (block
+        (command
+          name: (identifier)
+          (command_arguments))))))
