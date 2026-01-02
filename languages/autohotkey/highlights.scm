@@ -144,8 +144,8 @@
 (if_win_directive (if_win_text) @string.special)
 
 ; Functions
-(function_definition . (identifier) @function)
-(function_call . (identifier) @function)
+(function_definition name: (identifier) @function)
+(function_call name: (identifier) @function)
 
 ; Member expressions - property access
 (member_expression property: (identifier) @property)
