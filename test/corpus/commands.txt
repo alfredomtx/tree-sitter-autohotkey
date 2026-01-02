@@ -175,10 +175,9 @@ IfInString, var, _2
 --------------------------------------------------------------------------------
 
 (source_file
-  (legacy_if_statement
-    command: (legacy_if_command)
-    var: (identifier)
-    value: (identifier)))
+  (command
+    name: (identifier)
+    (command_arguments)))
 
 ================================================================================
 StringLeft command
@@ -267,9 +266,9 @@ IfExist, C:\myfile.txt
 --------------------------------------------------------------------------------
 
 (source_file
-  (legacy_if_statement
-    command: (legacy_if_command)
-    var: (identifier)))
+  (command
+    name: (identifier)
+    (command_arguments)))
 
 ================================================================================
 IfWinActive command
@@ -280,9 +279,9 @@ IfWinActive, ahk_class Notepad
 --------------------------------------------------------------------------------
 
 (source_file
-  (legacy_if_statement
-    command: (legacy_if_command)
-    var: (identifier)))
+  (command
+    name: (identifier)
+    (command_arguments)))
 
 ================================================================================
 MouseClick command

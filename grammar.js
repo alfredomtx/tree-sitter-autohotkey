@@ -15,7 +15,6 @@ module.exports = grammar({
     [$.loop_statement, $._statement],  // loop identifier: count vs braceless body
     [$.catch_clause, $._statement],    // catch identifier: exception vs braceless body
     [$.else_clause, $._statement],     // else if_statement: else body vs separate statement
-    [$.legacy_else_clause, $._statement],  // else legacy_if: else body vs separate statement
     [$._if_directive_condition, $._expression],  // parenthesized_expression in both
     [$._if_directive_condition, $._expression, $._concat_element],  // 3-way conflict for #if
     [$._expression, $._concat_element],  // shared expression types
@@ -48,7 +47,6 @@ module.exports = grammar({
       $.class_definition,
       $.function_definition,
       // Control flow statements (before keyword!)
-      $.legacy_if_statement,  // Before if_statement - handles legacy conditional commands
       $.if_statement,
       $.while_statement,
       $.loop_statement,
@@ -253,52 +251,6 @@ module.exports = grammar({
     // Statement block (braces + optional statements) for control flow
     statement_block: $ => seq('{', optional($.block), '}'),
 
-    // Legacy conditional commands with else clause support
-    // Handles both 2-param (IfEqual, var, value) and 1-param (IfExist, path) forms
-    legacy_if_statement: $ => prec.right(seq(
-      field('command', alias($._legacy_if_command, $.legacy_if_command)),
-      ',',
-      field('var', $._legacy_if_arg),
-      optional(seq(',', field('value', $._legacy_if_arg))),  // If comma exists, value is required
-      optional(field('consequence', choice($.statement_block, $._statement))),
-      optional(field('alternative', $.legacy_else_clause))
-    )),
-
-    // Legacy conditional command names (internal pattern)
-    _legacy_if_command: $ => token(choice(
-      /IfEqual/i,
-      /IfNotEqual/i,
-      /IfLess/i,
-      /IfLessOrEqual/i,
-      /IfGreater/i,
-      /IfGreaterOrEqual/i,
-      /IfExist/i,
-      /IfNotExist/i,
-      /IfInString/i,
-      /IfNotInString/i,
-      /IfWinExist/i,
-      /IfWinNotExist/i,
-      /IfWinActive/i,
-      /IfWinNotActive/i,
-      /IfMsgBox/i
-    )),
-
-    // Legacy conditional argument - can be identifier, variable ref, number, string,
-    // or arbitrary text (for paths, multi-word strings, etc.)
-    _legacy_if_arg: $ => choice(
-      $.variable_ref,  // Try variable_ref first (highest priority)
-      $.number,        // Then numbers
-      $.string,        // Then quoted strings
-      $.identifier,    // Then simple identifiers
-      alias(token(/[^\r\n,]+/), $.identifier)  // Finally, catch-all for complex values (paths, etc.)
-    ),
-
-    // Else clause for legacy conditionals - allows chaining with legacy and modern if
-    legacy_else_clause: $ => seq(
-      /else/i,
-      choice($.legacy_if_statement, $.if_statement, $.statement_block, $._statement)
-    ),
-
     // Control flow statements - support both braced blocks and single statements
     if_statement: $ => prec.right(seq(
       'if',
@@ -312,7 +264,7 @@ module.exports = grammar({
 
     else_clause: $ => seq(
       'else',
-      choice($.legacy_if_statement, $.if_statement, $.statement_block, $._statement)
+      choice($.if_statement, $.statement_block, $._statement)
     ),
 
     while_statement: $ => seq(

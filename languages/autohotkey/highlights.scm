@@ -41,11 +41,6 @@
 (catch_clause exception: (identifier) @variable.parameter)
 (finally_clause "finally" @keyword)
 
-; Legacy conditional commands
-(legacy_if_statement command: (legacy_if_command) @keyword)
-(legacy_if_statement "," @punctuation.delimiter)
-(legacy_else_clause "else" @keyword)
-
 ; Switch statements
 (switch_statement "switch" @keyword)
 (switch_statement "{" @punctuation.bracket)
