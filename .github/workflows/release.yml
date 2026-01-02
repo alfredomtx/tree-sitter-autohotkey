@@ -22,7 +22,7 @@ jobs:
           generate_release_notes: true
 
       - name: Bump Zed Extension
-        uses: huacnlee/zed-extension-action@v1
+        uses: huacnlee/zed-extension-action@v2
         with:
           extension-name: autohotkey
           push-to: alfredomtx/extensions
