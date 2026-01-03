@@ -581,7 +581,7 @@
       "type": "IMMEDIATE_TOKEN",
       "content": {
         "type": "PATTERN",
-        "value": "[*?CORZTXBSIEPK0-9]+"
+        "value": "[*?corztxbsiepk0-9]+"
       }
     },
     "hotstring_trigger": {

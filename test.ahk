@@ -73,6 +73,14 @@ if (status) {
     MsgBox, Inactive
 }
 
+; If command
+IfNotInString, varName, value
+{
+    msgbox, test a
+} else {
+    msgbox, test b
+}
+
 ; While loop
 while (running) {
     Process()
@@ -204,6 +212,11 @@ try {
 } catch {
     MsgBox, Something went wrong
 }
+
+try
+    %var% := value
+catch
+    return
 
 ; Nested try blocks
 try {

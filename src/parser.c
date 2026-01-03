@@ -2923,8 +2923,8 @@ static const TSStateId ts_primary_state_ids[STATE_COUNT] = {
 };
 
 static const TSCharacterRange sym_hotstring_options_character_set_1[] = {
-  {'*', '*'}, {'0', '9'}, {'?', '?'}, {'B', 'C'}, {'E', 'E'}, {'I', 'I'}, {'K', 'K'}, {'O', 'P'},
-  {'R', 'T'}, {'X', 'X'}, {'Z', 'Z'},
+  {'*', '*'}, {'0', '9'}, {'?', '?'}, {'b', 'c'}, {'e', 'e'}, {'i', 'i'}, {'k', 'k'}, {'o', 'p'},
+  {'r', 't'}, {'x', 'x'}, {'z', 'z'},
 };
 
 static bool ts_lex(TSLexer *lexer, TSStateId state) {

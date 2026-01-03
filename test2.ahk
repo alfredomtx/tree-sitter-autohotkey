@@ -1,0 +1,5 @@
+
+
+removeSpecialCharacters() {
+    specialChars.Push("`")
+}
