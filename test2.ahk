@@ -1,5 +1,3 @@
+Gui, MyGui:Add, Text, vMyText, % LANGUAGE = "EN-US" ? "Hi" : "Bonjour"
 
-
-removeSpecialCharacters() {
-    specialChars.Push("`")
-}
+GuiControl, MyGui:, MyText, % "test"

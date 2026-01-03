@@ -3033,11 +3033,6 @@ static const TSStateId ts_primary_state_ids[STATE_COUNT] = {
   [1321] = 1118,
 };
 
-static const TSCharacterRange sym_hotstring_options_character_set_1[] = {
-  {'*', '*'}, {'0', '9'}, {'?', '?'}, {'b', 'c'}, {'e', 'e'}, {'i', 'i'}, {'k', 'k'}, {'o', 'p'},
-  {'r', 't'}, {'x', 'x'}, {'z', 'z'},
-};
-
 static const TSCharacterRange aux_sym_command_arguments_token2_character_set_1[] = {
   {0, 0x08}, {0x0b, '\f'}, {0x0e, 0x1f}, {'!', '!'}, {'#', '$'}, {'&', '+'}, {'-', '/'}, {':', '@'},
   {'[', '^'}, {'`', '`'}, {'{', 0x10ffff},
@@ -5010,7 +5005,11 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
       if (lookahead == ':') ADVANCE(428);
       if (('\t' <= lookahead && lookahead <= '\r') ||
           lookahead == ' ') SKIP(143);
-      if (set_contains(sym_hotstring_options_character_set_1, 11, lookahead)) ADVANCE(435);
+      if (lookahead == '*' ||
+          ('0' <= lookahead && lookahead <= '9') ||
+          lookahead == '?' ||
+          ('A' <= lookahead && lookahead <= 'Z') ||
+          ('a' <= lookahead && lookahead <= 'z')) ADVANCE(435);
       END_STATE();
     case 145:
       if (lookahead == ':') ADVANCE(434);
@@ -7567,7 +7566,11 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
       END_STATE();
     case 435:
       ACCEPT_TOKEN(sym_hotstring_options);
-      if (set_contains(sym_hotstring_options_character_set_1, 11, lookahead)) ADVANCE(435);
+      if (lookahead == '*' ||
+          ('0' <= lookahead && lookahead <= '9') ||
+          lookahead == '?' ||
+          ('A' <= lookahead && lookahead <= 'Z') ||
+          ('a' <= lookahead && lookahead <= 'z')) ADVANCE(435);
       END_STATE();
     case 436:
       ACCEPT_TOKEN(sym_hotstring_trigger);
