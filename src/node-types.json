@@ -2057,6 +2057,10 @@
             "named": false
           },
           {
+            "type": "and",
+            "named": false
+          },
+          {
             "type": "array_literal",
             "named": true
           },
@@ -2107,6 +2111,10 @@
           {
             "type": "object_literal",
             "named": true
+          },
+          {
+            "type": "or",
+            "named": false
           },
           {
             "type": "parenthesized_expression",
@@ -4472,6 +4480,10 @@
     "named": true
   },
   {
+    "type": "break",
+    "named": false
+  },
+  {
     "type": "case",
     "named": false
   },
@@ -4490,6 +4502,10 @@
   {
     "type": "continuation_section",
     "named": true
+  },
+  {
+    "type": "continue",
+    "named": false
   },
   {
     "type": "default",
@@ -4532,6 +4548,18 @@
     "named": false
   },
   {
+    "type": "global",
+    "named": false
+  },
+  {
+    "type": "gosub",
+    "named": false
+  },
+  {
+    "type": "goto",
+    "named": false
+  },
+  {
     "type": "gui_option_flag",
     "named": true
   },
@@ -4568,12 +4596,24 @@
     "named": false
   },
   {
+    "type": "local",
+    "named": false
+  },
+  {
     "type": "loop",
     "named": false
   },
   {
     "type": "loop_arguments",
     "named": true
+  },
+  {
+    "type": "new",
+    "named": false
+  },
+  {
+    "type": "not",
+    "named": false
   },
   {
     "type": "or",
@@ -4592,6 +4632,10 @@
     "named": false
   },
   {
+    "type": "return",
+    "named": false
+  },
+  {
     "type": "static",
     "named": false
   },
@@ -4602,6 +4646,10 @@
   {
     "type": "this_expression",
     "named": true
+  },
+  {
+    "type": "throw",
+    "named": false
   },
   {
     "type": "true",

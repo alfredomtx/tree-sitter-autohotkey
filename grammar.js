@@ -114,13 +114,13 @@ module.exports = grammar({
       // #if with condition - whitespace is part of the token to prevent cross-line matching
       prec.right(6, seq(
         '#',
-        token.immediate(/if[ \t]+/i),
+        token.immediate(/if[ \t]+/),
         field('condition', $._if_directive_condition)
       )),
       // Bare #if - terminates conditional context
       prec.right(5, seq(
         '#',
-        token.immediate(/if/i)
+        token.immediate(/if/)
       ))
     ),
 
@@ -130,7 +130,7 @@ module.exports = grammar({
       // Chained parenthesized expressions: (expr) && (expr) OR (expr)
       seq(
         $.parenthesized_expression,
-        repeat(seq(choice('&&', '||', /and/i, /or/i), $.parenthesized_expression))
+        repeat(seq(choice('&&', '||', 'and', 'or'), $.parenthesized_expression))
       ),
       // Single function call: WinActive("...")
       $.function_call,
@@ -147,7 +147,7 @@ module.exports = grammar({
       optional(seq(',', field('text', alias($._if_win_text, $.if_win_text))))
     )),
 
-    _if_win_directive_type: $ => token.immediate(/IfWin(Not)?(Active|Exist)/i),
+    _if_win_directive_type: $ => token.immediate(/IfWin(Not)?(Active|Exist)/),
     // Title can be a quoted string or unquoted text (not starting with quote)
     // Exclude leading space so extras can consume whitespace first
     _if_win_title: $ => choice($.string, /[^,\r\n"' \t][^,\r\n]*/),
@@ -171,7 +171,7 @@ module.exports = grammar({
       optional(field('replacement', $.hotstring_replacement))
     ),
 
-    hotstring_options: $ => token.immediate(/[*?CORZTXB0-9SIEPK]+/i),
+    hotstring_options: $ => token.immediate(/[*?CORZTXBSIEPK0-9]+/),
     hotstring_trigger: $ => token(/[^:\r\n]+/),
     hotstring_replacement: $ => token.immediate(/[^\r\n]+/),
 
@@ -528,10 +528,10 @@ module.exports = grammar({
 
     // Binary expressions with operator precedence
     binary_expression: $ => choice(
-      // Logical OR (precedence 2) - case-insensitive for AutoHotkey
-      prec.left(2, seq(field('left', $._expression), choice('||', /or/i), field('right', $._expression))),
-      // Logical AND (precedence 3) - case-insensitive for AutoHotkey
-      prec.left(3, seq(field('left', $._expression), choice('&&', /and/i), field('right', $._expression))),
+      // Logical OR (precedence 2)
+      prec.left(2, seq(field('left', $._expression), choice('||', 'or'), field('right', $._expression))),
+      // Logical AND (precedence 3)
+      prec.left(3, seq(field('left', $._expression), choice('&&', 'and'), field('right', $._expression))),
       // Bitwise OR (precedence 4)
       prec.left(4, seq(field('left', $._expression), '|', field('right', $._expression))),
       // Bitwise XOR (precedence 5)
@@ -557,7 +557,7 @@ module.exports = grammar({
     // Unary expressions
     unary_expression: $ => prec(13, choice(
       seq('!', $._expression),
-      seq(/not/i, $._expression),
+      seq('not', $._expression),
       seq('~', $._expression),
       seq('-', $._expression),
     )),
@@ -629,20 +629,18 @@ module.exports = grammar({
     // Uses external scanner to detect when next line is a label
     // to prevent consuming the label's identifier as return value
     return_statement: $ => prec.right(choice(
-      seq(/return/i, $._statement_end),  // Bare return before label
-      seq(/return/i, $._expression),      // Return with expression
-      /return/i,                          // Bare return (fallback)
+      seq('return', $._statement_end),  // Bare return before label
+      seq('return', $._expression),      // Return with expression
+      'return',                          // Bare return (fallback)
     )),
 
     keyword: $ => choice(
-      // Control flow keywords (if, else, while, loop, for) now have dedicated rules
-      // Class keywords (class, extends) now have dedicated rules
-      // Logical keywords (and, or, not) now handled in binary/unary expressions
-      // Case-insensitive because AutoHotkey is case-insensitive
-      /break/i, /continue/i, /goto/i, /gosub/i,
-      /global/i, /local/i, /static/i,
-      /throw/i,
-      /new/i,
+      // All keywords are lowercase only to avoid parser bloat
+      // Case-insensitive patterns cause exponential state explosion
+      'break', 'continue', 'goto', 'gosub',
+      'global', 'local', 'static',
+      'throw',
+      'new',
     ),
 
     operator: $ => choice(
