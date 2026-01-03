@@ -895,9 +895,8 @@
         "type": "SEQ",
         "members": [
           {
-            "type": "PATTERN",
-            "value": "if",
-            "flags": "i"
+            "type": "STRING",
+            "value": "if"
           },
           {
             "type": "FIELD",
@@ -926,14 +925,12 @@
                             "value": "||"
                           },
                           {
-                            "type": "PATTERN",
-                            "value": "and",
-                            "flags": "i"
+                            "type": "STRING",
+                            "value": "and"
                           },
                           {
-                            "type": "PATTERN",
-                            "value": "or",
-                            "flags": "i"
+                            "type": "STRING",
+                            "value": "or"
                           }
                         ]
                       },
@@ -987,9 +984,8 @@
       "type": "SEQ",
       "members": [
         {
-          "type": "PATTERN",
-          "value": "else",
-          "flags": "i"
+          "type": "STRING",
+          "value": "else"
         },
         {
           "type": "CHOICE",
@@ -1014,9 +1010,8 @@
       "type": "SEQ",
       "members": [
         {
-          "type": "PATTERN",
-          "value": "while",
-          "flags": "i"
+          "type": "STRING",
+          "value": "while"
         },
         {
           "type": "FIELD",
@@ -1052,9 +1047,8 @@
         "type": "SEQ",
         "members": [
           {
-            "type": "PATTERN",
-            "value": "loop",
-            "flags": "i"
+            "type": "STRING",
+            "value": "loop"
           },
           {
             "type": "CHOICE",
@@ -1168,9 +1162,8 @@
       "type": "SEQ",
       "members": [
         {
-          "type": "PATTERN",
-          "value": "for",
-          "flags": "i"
+          "type": "STRING",
+          "value": "for"
         },
         {
           "type": "FIELD",
@@ -1206,9 +1199,8 @@
           ]
         },
         {
-          "type": "PATTERN",
-          "value": "in",
-          "flags": "i"
+          "type": "STRING",
+          "value": "in"
         },
         {
           "type": "FIELD",
@@ -1244,9 +1236,8 @@
         "type": "SEQ",
         "members": [
           {
-            "type": "PATTERN",
-            "value": "try",
-            "flags": "i"
+            "type": "STRING",
+            "value": "try"
           },
           {
             "type": "FIELD",
@@ -1296,9 +1287,8 @@
       "type": "SEQ",
       "members": [
         {
-          "type": "PATTERN",
-          "value": "catch",
-          "flags": "i"
+          "type": "STRING",
+          "value": "catch"
         },
         {
           "type": "CHOICE",
@@ -1339,9 +1329,8 @@
       "type": "SEQ",
       "members": [
         {
-          "type": "PATTERN",
-          "value": "finally",
-          "flags": "i"
+          "type": "STRING",
+          "value": "finally"
         },
         {
           "type": "FIELD",
@@ -1366,9 +1355,8 @@
       "type": "SEQ",
       "members": [
         {
-          "type": "PATTERN",
-          "value": "switch",
-          "flags": "i"
+          "type": "STRING",
+          "value": "switch"
         },
         {
           "type": "FIELD",
@@ -1411,9 +1399,8 @@
       "type": "SEQ",
       "members": [
         {
-          "type": "PATTERN",
-          "value": "case",
-          "flags": "i"
+          "type": "STRING",
+          "value": "case"
         },
         {
           "type": "FIELD",
@@ -1466,9 +1453,8 @@
       "type": "SEQ",
       "members": [
         {
-          "type": "PATTERN",
-          "value": "default",
-          "flags": "i"
+          "type": "STRING",
+          "value": "default"
         },
         {
           "type": "STRING",
@@ -1559,9 +1545,8 @@
         "type": "SEQ",
         "members": [
           {
-            "type": "PATTERN",
-            "value": "class",
-            "flags": "i"
+            "type": "STRING",
+            "value": "class"
           },
           {
             "type": "FIELD",
@@ -1578,9 +1563,8 @@
                 "type": "SEQ",
                 "members": [
                   {
-                    "type": "PATTERN",
-                    "value": "extends",
-                    "flags": "i"
+                    "type": "STRING",
+                    "value": "extends"
                   },
                   {
                     "type": "FIELD",
@@ -1654,9 +1638,8 @@
             "type": "CHOICE",
             "members": [
               {
-                "type": "PATTERN",
-                "value": "static",
-                "flags": "i"
+                "type": "STRING",
+                "value": "static"
               },
               {
                 "type": "BLANK"
@@ -1728,9 +1711,8 @@
           "type": "CHOICE",
           "members": [
             {
-              "type": "PATTERN",
-              "value": "static",
-              "flags": "i"
+              "type": "STRING",
+              "value": "static"
             },
             {
               "type": "BLANK"

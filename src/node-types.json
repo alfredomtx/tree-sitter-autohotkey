@@ -2163,6 +2163,14 @@
             "named": false
           },
           {
+            "type": "and",
+            "named": false
+          },
+          {
+            "type": "or",
+            "named": false
+          },
+          {
             "type": "parenthesized_expression",
             "named": true
           },
@@ -4456,8 +4464,24 @@
     "named": false
   },
   {
+    "type": "and",
+    "named": false
+  },
+  {
     "type": "base_expression",
     "named": true
+  },
+  {
+    "type": "case",
+    "named": false
+  },
+  {
+    "type": "catch",
+    "named": false
+  },
+  {
+    "type": "class",
+    "named": false
   },
   {
     "type": "command_arguments",
@@ -4468,6 +4492,10 @@
     "named": true
   },
   {
+    "type": "default",
+    "named": false
+  },
+  {
     "type": "directive_arguments",
     "named": true
   },
@@ -4476,8 +4504,16 @@
     "named": true
   },
   {
+    "type": "else",
+    "named": false
+  },
+  {
     "type": "escape_sequence",
     "named": true
+  },
+  {
+    "type": "extends",
+    "named": false
   },
   {
     "type": "false",
@@ -4485,6 +4521,14 @@
   },
   {
     "type": "files",
+    "named": false
+  },
+  {
+    "type": "finally",
+    "named": false
+  },
+  {
+    "type": "for",
     "named": false
   },
   {
@@ -4512,12 +4556,28 @@
     "named": true
   },
   {
+    "type": "if",
+    "named": false
+  },
+  {
     "type": "if_win_type",
     "named": true
   },
   {
+    "type": "in",
+    "named": false
+  },
+  {
+    "type": "loop",
+    "named": false
+  },
+  {
     "type": "loop_arguments",
     "named": true
+  },
+  {
+    "type": "or",
+    "named": false
   },
   {
     "type": "parse",
@@ -4532,11 +4592,27 @@
     "named": false
   },
   {
+    "type": "static",
+    "named": false
+  },
+  {
+    "type": "switch",
+    "named": false
+  },
+  {
     "type": "this_expression",
     "named": true
   },
   {
     "type": "true",
+    "named": false
+  },
+  {
+    "type": "try",
+    "named": false
+  },
+  {
+    "type": "while",
     "named": false
   },
   {

@@ -4,6 +4,22 @@ Technical details, pitfalls, and lessons learned while developing this tree-sitt
 
 ## Pitfalls
 
+### CRITICAL: Avoid case-insensitive regex patterns - causes massive parser bloat
+
+**Problem:** Using `/keyword/i` patterns (even in centralized keyword rule) causes exponential parser size explosion.
+
+**Test results:**
+- Baseline (lowercase string literals): **90,466 lines** ✓
+- Inline `/keyword/i` in statement rules: **281,425 lines** (+211%) ✗
+- `/keyword/i` in keyword rule + string literals in statements: **299,642 lines** (+231%) ✗ WORST
+- caseInsensitive() helper function: **296,410 lines** (+228%) ✗
+
+**Root cause:** Case-insensitive patterns create state explosion regardless of location. Even centralized patterns in the keyword rule cause conflicts with string literals elsewhere.
+
+**Solution:** Use lowercase string literals only. AutoHotkey code must use lowercase keywords (`if`, `while`, `for`, etc.). Uppercase keywords (`IF`, `WHILE`) are not supported.
+
+**Trade-off:** Parser compiles in seconds with <2GB RAM instead of minutes with 14GB RAM. This is the only viable approach for tree-sitter.
+
 ### Use `word` token for major parser optimization
 
 `word: $ => $.identifier` enables keyword extraction - **41% parser size reduction**. Use with regex patterns, not string literal choices:
