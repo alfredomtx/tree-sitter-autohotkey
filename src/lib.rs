@@ -25,11 +25,22 @@ impl zed::Extension for AutoHotkeyExtension {
         // Get shell environment and add NODE_PATH for module resolution
         let mut env = worktree.shell_env();
 
-        // Add lsp-server/node_modules to NODE_PATH so Node.js can find the LSP dependencies
-        // when running server.js from the project root
+        // Construct absolute path to lsp-server/node_modules
+        // NODE_PATH requires absolute paths for Node.js to resolve modules correctly
+        let extension_dir = std::env::current_dir()
+            .map_err(|e| format!("Failed to get current directory: {}", e))?;
+
+        let node_modules_path = extension_dir
+            .join("lsp-server")
+            .join("node_modules");
+
+        // Add absolute path to NODE_PATH
         env.push((
             "NODE_PATH".to_string(),
-            "lsp-server/node_modules".to_string()
+            node_modules_path
+                .to_str()
+                .ok_or("Invalid path encoding")?
+                .to_string()
         ));
 
         Ok(zed::Command {
