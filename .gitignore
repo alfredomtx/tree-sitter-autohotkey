@@ -29,8 +29,10 @@ build/
 grammars/
 *.wasm
 
-nul
 
-# Git worktrees
+# Git
 .worktrees/
+
+# Others
 target/
+nul
