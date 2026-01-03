@@ -436,6 +436,7 @@ module.exports = grammar({
     // All patterns exclude \r\n to ensure command terminates at newline
     // prec.right prefers continuing repeat over ending command_arguments
     command_arguments: $ => prec.right(repeat1(choice(
+      $.force_expression,      // % expr - FIRST so it wins over variable_ref
       $.variable_ref,          // %name% - variable references
       $.string,                // "text" - quoted strings
       $.number,                // 123 - numeric literals
@@ -449,11 +450,19 @@ module.exports = grammar({
       $.identifier,            // word - plain identifiers
       ',',                     // comma separator
       /[ \t]+/,                // whitespace (not newline)
-      /[^a-zA-Z0-9_%," \t\r\n]+/, // other chars (symbols, operators)
+      /[^a-zA-Z0-9_%,:" \t\r\n?+=\-*\/!&|<>^~]+/, // symbols except expression operators
     ))),
 
     // Variable reference: %var% syntax
     variable_ref: $ => seq('%', $.identifier, '%'),
+
+    // Force expression: % <space> followed by content until comma/newline
+    // Used in command arguments to evaluate expressions in expression mode
+    // Examples: % x + 1, % x ? "A" : "B", % func()
+    force_expression: $ => prec(15, seq(
+      '%',
+      token.immediate(/[ \t]+[^,\r\n]+/)  // Space + content as single token
+    )),
 
     parameter_list: $ => seq(
       $.parameter,

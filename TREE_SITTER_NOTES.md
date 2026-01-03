@@ -303,23 +303,65 @@ This is why the original flat token used `/[^\r\n]+/` - to explicitly terminate 
 - **Cleaner architecture** - no special-case injection rules
 - **Parser size**: 88K lines (6% increase from 83K, well under 100K limit)
 
+## Force Expression Support
+
+### Force expressions with terminal token pattern
+
+Force expression syntax (`% expression`) is now supported in command arguments using a terminal token pattern that consumes content until comma or newline.
+
+**Grammar approach:**
+```javascript
+force_expression: $ => prec(15, seq(
+  '%',
+  token.immediate(/[ \t]+[^,\r\n]+/)  // Space + content as single atomic token
+)),
+
+command_arguments: $ => prec.right(repeat1(choice(
+  $.force_expression,      // FIRST - higher precedence wins over variable_ref
+  $.variable_ref,          // %name%
+  ...
+))),
+```
+
+**Key design decisions:**
+1. **Terminal token**: `token.immediate(/[ \t]+[^,\r\n]+/)` consumes entire force expression as atomic unit
+2. **Precedence 15**: Higher than variable_ref, so `% ` pattern wins over `%identifier%` pattern
+3. **First in choice**: Placed first in command_arguments so it's tried before variable_ref
+4. **Pattern**: Matches `% ` (percent + space) followed by any content until comma or newline
+
+**Parse flow:**
+1. Parser sees `%` in command_arguments
+2. Tries force_expression first (precedence 15)
+   - If followed by space: matches `% ` + content as terminal token → force_expression succeeds
+   - If followed by identifier: fails (no space), tries next option
+3. Tries variable_ref (no precedence)
+   - Matches `%identifier%` pattern → variable_ref succeeds
+
+**Examples:**
+```ahk
+MsgBox, % x ? "A" : "B"    ; force_expression (ternary)
+MsgBox, % x + 1             ; force_expression (binary)
+MsgBox, %myVar%             ; variable_ref (unchanged)
+Send, % GetValue()          ; force_expression (function call)
+Gui, Add, Text, , % "test"  ; force_expression in multi-arg command
+```
+
+**Trade-offs:**
+- ✅ Correctly parses all force expression syntaxes (ternary, binary, function calls)
+- ✅ Variable references `%var%` still work correctly
+- ✅ Parser size: 89,241 lines (under 100K threshold)
+- ✅ All corpus tests pass (297 total, 5 new force expression tests)
+- ⚠️ Sub-expression highlighting lost - force_expression is atomic token highlighted as `@string.special`
+- ⚠️ Highlight tests for force_expression cause memory issues in test harness (corpus tests work fine)
+
+**Why terminal token approach:**
+- Initial attempts using GLR conflicts or structured expressions caused exponential state explosion
+- Terminal token eliminates ambiguity - entire force expression consumed as single unit
+- Simpler implementation, no conflicts needed between force_expression and variable_ref
+
 ### Known limitations
 
-1. **Force expression syntax** (`% expression`) not supported:
-   - AutoHotkey's `% x ? "A" : "B"` syntax for evaluating expressions in commands
-   - **Technical limitation**: Tree-sitter's LR parser commits to matching `x` as identifier before seeing the `?` operator that would make it a ternary expression
-   - **Why partial support doesn't work**:
-     - Binary expressions like `% x + 10` could work in theory
-     - But ternary expressions `% x ? "A" : "B"` fail due to precedence/lookahead limitations
-     - Partial support would be confusing to users
-   - **Attempted solutions** (all unsuccessful):
-     - Excluding `?:` from command_arguments catch-all pattern
-     - Using `prec.dynamic()` to prefer ternary over identifier
-     - Creating separate `_force_expr_content` rule with custom precedences
-   - **Trade-off**: Keeping grammar simple and maintainable vs supporting rare edge case
-   - Currently only affects edge cases (1 failing test out of 252)
-
-2. **Empty arguments** (double comma `,,`) cause early termination:
+1. **Empty arguments** (double comma `,,`) cause early termination:
    - Example: `StringReplace, var, old, new,, All` - the `, All` part parsed as separate statement
    - Rare edge case in practice
 

@@ -2003,6 +2003,10 @@
           "members": [
             {
               "type": "SYMBOL",
+              "name": "force_expression"
+            },
+            {
+              "type": "SYMBOL",
               "name": "variable_ref"
             },
             {
@@ -2055,7 +2059,7 @@
             },
             {
               "type": "PATTERN",
-              "value": "[^a-zA-Z0-9_%,\" \\t\\r\\n]+"
+              "value": "[^a-zA-Z0-9_%,:\" \\t\\r\\n?+=\\-*\\/!&|<>^~]+"
             }
           ]
         }
@@ -2077,6 +2081,26 @@
           "value": "%"
         }
       ]
+    },
+    "force_expression": {
+      "type": "PREC",
+      "value": 15,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "STRING",
+            "value": "%"
+          },
+          {
+            "type": "IMMEDIATE_TOKEN",
+            "content": {
+              "type": "PATTERN",
+              "value": "[ \\t]+[^,\\r\\n]+"
+            }
+          }
+        ]
+      }
     },
     "parameter_list": {
       "type": "SEQ",
