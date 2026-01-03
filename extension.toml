@@ -10,3 +10,7 @@ repository = "https://github.com/alfredomtx/tree-sitter-autohotkey"
 repository = "https://github.com/alfredomtx/tree-sitter-autohotkey"
 rev = "df4f8c5c13133cc715b125bf45ab54c27d372519"
 path = "."
+
+[language_servers.autohotkey-lsp]
+name = "AutoHotkey Language Server"
+languages = ["AutoHotkey"]
