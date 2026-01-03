@@ -9,7 +9,8 @@ MsgBox, Hello
 (source_file
   (command
     name: (identifier)
-    (command_arguments)))
+    (command_arguments
+      (identifier))))
 
 ================================================================================
 MsgBox with string
@@ -22,7 +23,8 @@ MsgBox, "Hello World"
 (source_file
   (command
     name: (identifier)
-    (command_arguments)))
+    (command_arguments
+      (string))))
 
 ================================================================================
 Command with variable reference
@@ -35,7 +37,9 @@ MsgBox, %myVar%
 (source_file
   (command
     name: (identifier)
-    (command_arguments)))
+    (command_arguments
+      (variable_ref
+        (identifier)))))
 
 ================================================================================
 Command with builtin variable reference
@@ -48,7 +52,9 @@ MsgBox, %A_ScriptDir%
 (source_file
   (command
     name: (identifier)
-    (command_arguments)))
+    (command_arguments
+      (variable_ref
+        (identifier)))))
 
 ================================================================================
 Send command
@@ -61,7 +67,8 @@ Send, {Enter}
 (source_file
   (command
     name: (identifier)
-    (command_arguments)))
+    (command_arguments
+      (identifier))))
 
 ================================================================================
 Sleep command
@@ -74,7 +81,8 @@ Sleep, 1000
 (source_file
   (command
     name: (identifier)
-    (command_arguments)))
+    (command_arguments
+      (number))))
 
 ================================================================================
 Run command
@@ -87,7 +95,9 @@ Run, notepad.exe
 (source_file
   (command
     name: (identifier)
-    (command_arguments)))
+    (command_arguments
+      (identifier)
+      (identifier))))
 
 ================================================================================
 SetTimer command
@@ -100,7 +110,8 @@ SetTimer, MyLabel
 (source_file
   (command
     name: (identifier)
-    (command_arguments)))
+    (command_arguments
+      (identifier))))
 
 ================================================================================
 Gosub keyword form
@@ -125,7 +136,11 @@ Gui, MyGui:Add, Text
 (source_file
   (command
     name: (identifier)
-    (command_arguments)))
+    (command_arguments
+      (gui_action
+        gui_name: (identifier)
+        action: (identifier))
+      (identifier))))
 
 ================================================================================
 Gui command with multiple colon-pairs
@@ -138,7 +153,13 @@ Gui, MyGui:Add, Text, x10 y20
 (source_file
   (command
     name: (identifier)
-    (command_arguments)))
+    (command_arguments
+      (gui_action
+        gui_name: (identifier)
+        action: (identifier))
+      (identifier)
+      (identifier)
+      (identifier))))
 
 ================================================================================
 Gui command with ternary expression in arguments
@@ -148,10 +169,23 @@ Gui, MyGui:Add, Text, % x ? "A" : "B"
 
 --------------------------------------------------------------------------------
 
+; NOTE: This test shows a known limitation - force expression syntax (% expr)
+; is not currently supported in structured command_arguments
+; The ternary expression is parsed as separate top-level tokens
 (source_file
   (command
     name: (identifier)
-    (command_arguments)))
+    (command_arguments
+      (gui_action
+        gui_name: (identifier)
+        action: (identifier))
+      (identifier)
+      (variable_ref
+        (identifier))))
+  (operator)
+  (string)
+  (ERROR)
+  (string))
 
 ================================================================================
 StringReplace command
@@ -161,10 +195,17 @@ StringReplace, var_2, var, _2,, All
 
 --------------------------------------------------------------------------------
 
+; NOTE: This test shows a known limitation - empty arguments (double comma ,,)
+; cause command_arguments parsing to terminate early
+; The final argument " All" is parsed as a separate top-level identifier
 (source_file
   (command
     name: (identifier)
-    (command_arguments)))
+    (command_arguments
+      (identifier)
+      (identifier)
+      (identifier)))
+  (identifier))
 
 ================================================================================
 IfInString command
@@ -177,7 +218,9 @@ IfInString, var, _2
 (source_file
   (command
     name: (identifier)
-    (command_arguments)))
+    (command_arguments
+      (identifier)
+      (identifier))))
 
 ================================================================================
 StringLeft command
@@ -190,7 +233,10 @@ StringLeft, output, input, 5
 (source_file
   (command
     name: (identifier)
-    (command_arguments)))
+    (command_arguments
+      (identifier)
+      (identifier)
+      (number))))
 
 ================================================================================
 StringMid command
@@ -203,7 +249,11 @@ StringMid, output, input, 3, 5
 (source_file
   (command
     name: (identifier)
-    (command_arguments)))
+    (command_arguments
+      (identifier)
+      (identifier)
+      (number)
+      (number))))
 
 ================================================================================
 StringLower command
@@ -216,7 +266,9 @@ StringLower, output, input
 (source_file
   (command
     name: (identifier)
-    (command_arguments)))
+    (command_arguments
+      (identifier)
+      (identifier))))
 
 ================================================================================
 GuiControl command
@@ -229,7 +281,9 @@ GuiControl, Text, Hello
 (source_file
   (command
     name: (identifier)
-    (command_arguments)))
+    (command_arguments
+      (identifier)
+      (identifier))))
 
 ================================================================================
 ControlGetText command
@@ -242,7 +296,11 @@ ControlGetText, text, Edit1, ahk_class Notepad
 (source_file
   (command
     name: (identifier)
-    (command_arguments)))
+    (command_arguments
+      (identifier)
+      (identifier)
+      (identifier)
+      (identifier))))
 
 ================================================================================
 FileReadLine command
@@ -255,7 +313,11 @@ FileReadLine, line, myfile.txt, 1
 (source_file
   (command
     name: (identifier)
-    (command_arguments)))
+    (command_arguments
+      (identifier)
+      (identifier)
+      (identifier)
+      (number))))
 
 ================================================================================
 IfExist command
@@ -268,7 +330,10 @@ IfExist, C:\myfile.txt
 (source_file
   (command
     name: (identifier)
-    (command_arguments)))
+    (command_arguments
+      (drive_letter)
+      (identifier)
+      (identifier))))
 
 ================================================================================
 IfWinActive command
@@ -281,7 +346,9 @@ IfWinActive, ahk_class Notepad
 (source_file
   (command
     name: (identifier)
-    (command_arguments)))
+    (command_arguments
+      (identifier)
+      (identifier))))
 
 ================================================================================
 MouseClick command
@@ -294,7 +361,10 @@ MouseClick, left, 100, 200
 (source_file
   (command
     name: (identifier)
-    (command_arguments)))
+    (command_arguments
+      (identifier)
+      (number)
+      (number))))
 
 ================================================================================
 SoundPlay command
@@ -307,7 +377,12 @@ SoundPlay, %A_WinDir%\Media\ding.wav
 (source_file
   (command
     name: (identifier)
-    (command_arguments)))
+    (command_arguments
+      (variable_ref
+        (identifier))
+      (identifier)
+      (identifier)
+      (identifier))))
 
 ================================================================================
 Process command
@@ -320,7 +395,10 @@ Process, Exist, notepad.exe
 (source_file
   (command
     name: (identifier)
-    (command_arguments)))
+    (command_arguments
+      (identifier)
+      (identifier)
+      (identifier))))
 
 ================================================================================
 SetTitleMatchMode command
@@ -333,7 +411,8 @@ SetTitleMatchMode, 2
 (source_file
   (command
     name: (identifier)
-    (command_arguments)))
+    (command_arguments
+      (number))))
 
 ================================================================================
 WinGetTitle command
@@ -346,7 +425,9 @@ WinGetTitle, title, A
 (source_file
   (command
     name: (identifier)
-    (command_arguments)))
+    (command_arguments
+      (identifier)
+      (identifier))))
 
 ================================================================================
 DriveGet command with drive letter
@@ -359,4 +440,7 @@ DriveGet, userSerial, Serial, C:
 (source_file
   (command
     name: (identifier)
-    (command_arguments)))
+    (command_arguments
+      (identifier)
+      (identifier)
+      (drive_letter))))

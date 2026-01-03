@@ -1132,6 +1132,61 @@
     }
   },
   {
+    "type": "command_arguments",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "drive_letter",
+          "named": true
+        },
+        {
+          "type": "gui_action",
+          "named": true
+        },
+        {
+          "type": "gui_action_spaced",
+          "named": true
+        },
+        {
+          "type": "gui_option_flag",
+          "named": true
+        },
+        {
+          "type": "gui_options",
+          "named": true
+        },
+        {
+          "type": "gui_options_spaced",
+          "named": true
+        },
+        {
+          "type": "gui_target",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "number",
+          "named": true
+        },
+        {
+          "type": "string",
+          "named": true
+        },
+        {
+          "type": "variable_ref",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "comment",
     "named": true,
     "fields": {}
@@ -4494,10 +4549,6 @@
   {
     "type": "class",
     "named": false
-  },
-  {
-    "type": "command_arguments",
-    "named": true
   },
   {
     "type": "continuation_section",

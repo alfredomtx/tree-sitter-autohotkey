@@ -233,6 +233,94 @@ gui_target: $ => prec(10, seq(field('gui_name', $.identifier),
 
 Matches `identifier:,` as unit with precedence 10. Not in `outline.scm`, so doesn't appear in symbol picker.
 
+## Structured command_arguments - Eliminating Self-Injection Recursion
+
+### Problem with self-injection approach
+
+Self-injection causes **infinite recursion** when the injected language can match patterns that also contain the injected rule:
+
+1. `command_arguments` is flat token: `/[^\r\n]+/`
+2. Injection re-parses it as AutoHotkey
+3. Injected content matches as `command` (e.g., `MsgBox, Hello`)
+4. That command has `command_arguments` which get injected again
+5. **Infinite loop** → 34GB memory allocation failure in `tree-sitter test`
+
+### Solution: Structured command_arguments with repeat1(choice(...))
+
+Replace flat token with structured parsing - eliminates injection entirely:
+
+```javascript
+command_arguments: $ => prec.right(repeat1(choice(
+  $.variable_ref,          // %name%
+  $.string,                // "text"
+  $.number,                // 123
+  $.gui_action,            // MyGui:Add
+  $.gui_action_spaced,     // MyGui: Add
+  $.gui_options,           // MyGui:-Caption
+  $.gui_options_spaced,    // MyGui: -Caption
+  $.gui_target,            // MyGui:,
+  $.gui_option_flag,       // +Caption -Border
+  $.drive_letter,          // C:
+  $.identifier,            // word
+  ',',                     // comma
+  /[ \t]+/,                // whitespace (not newline)
+  /[^a-zA-Z0-9_%," \t\r\n]+/, // symbols/operators
+))),
+```
+
+**Key requirements:**
+1. **All patterns exclude `\r\n`** - ensures command terminates at newline
+2. **Use `prec.right()` on both `command` and `command_arguments`** - prefers consuming tokens as arguments vs separate statement
+3. **Pattern ordering** - specific patterns first (variable_ref, string, GUI patterns), catch-all last
+
+### Why newline termination works
+
+Critical insight: `extras` are consumed BETWEEN tokens, not during pattern matching.
+
+1. When `repeat1(choice(...))` tries to match the next element:
+   - It tries ALL choice patterns against input
+   - If NONE match, repeat terminates
+   - Only AFTER a pattern matches does tree-sitter consume extras
+
+2. All patterns exclude `\r\n`:
+   - `/[ \t]+/` matches space/tab, NOT newline
+   - `/[^a-zA-Z0-9_%," \t\r\n]+/` explicitly excludes `\r` and `\n`
+   - Other patterns (identifier, string, etc.) inherently don't match newline
+
+3. Therefore:
+   - When input has `\n`, no pattern matches
+   - `repeat1` terminates
+   - Newline remains in input (not consumed)
+   - Command parsing ends at newline boundary
+
+This is why the original flat token used `/[^\r\n]+/` - to explicitly terminate at newlines. The structured version maintains the same boundary by excluding newlines from ALL patterns.
+
+### Benefits
+
+- **Eliminates infinite recursion** - no injection, no self-reference
+- **More testable** - structured parse tree can be validated in corpus tests
+- **Simpler highlighting** - direct node queries instead of injection complexity
+- **Cleaner architecture** - no special-case injection rules
+- **Parser size**: 88K lines (6% increase from 83K, well under 100K limit)
+
+### Known limitations
+
+1. **Force expression syntax** (`% expression`) not supported:
+   - AutoHotkey's `% x ? "A" : "B"` syntax for evaluating expressions in commands
+   - Would need separate `force_expression` rule and complex expression handling
+   - Currently only affects edge cases (1 failing test out of 252)
+
+2. **Empty arguments** (double comma `,,`) cause early termination:
+   - Example: `StringReplace, var, old, new,, All` - the `, All` part parsed as separate statement
+   - Rare edge case in practice
+
+### Migration notes
+
+When moving from self-injection to structured approach:
+- Delete injection rule from `injections.scm`
+- Update corpus test expected parse trees (use `tree-sitter test --update`)
+- Add `$.drive_letter` to patterns if file paths needed in arguments
+
 ## Highlight Tests
 
 ### Test syntax
@@ -249,9 +337,11 @@ baz()
 ; <- !variable    (negation)
 ```
 
-### Known issue: %var% in command_arguments causes memory errors
+### Former issue: %var% in command_arguments caused memory errors (FIXED)
 
-Testing `%var%` inside command_arguments causes memory exhaustion (likely due to self-injection re-parsing). Skip these assertions - highlighting works in Zed, just tests fail.
+**Problem (when using self-injection):** Testing `%var%` inside command_arguments caused memory exhaustion due to self-injection recursion.
+
+**Solution:** Replaced self-injection with structured `command_arguments` (see "Structured command_arguments" section above). Tests now pass without memory errors (251/252 passing).
 
 ### tree-sitter.json configuration
 

@@ -1,6 +1,3 @@
-; Inject AutoHotkey into command_arguments to enable sub-token highlighting
-; This allows %var% patterns, gui_action (MyGui:Add), gui_options (MyGui:-Caption),
-; and gui_target (MyGui:,) to be parsed and highlighted within command arguments
-; Note: gui_target rule in grammar.js prevents "MyGui:," from becoming a false label
-((command_arguments) @injection.content
- (#set! injection.language "autohotkey"))
+; Self-injection removed - command_arguments is now structured in grammar
+; No injection needed since grammar directly parses %var%, GUI patterns, etc.
+; This eliminates the infinite recursion problem that caused memory allocation errors

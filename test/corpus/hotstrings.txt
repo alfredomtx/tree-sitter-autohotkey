@@ -81,7 +81,8 @@ MsgBox, hello
     trigger: (hotstring_trigger))
   (command
     name: (identifier)
-    (command_arguments)))
+    (command_arguments
+      (identifier))))
 
 ================================================================================
 Hotstring with cre options (case, raw, execute)

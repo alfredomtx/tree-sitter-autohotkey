@@ -413,16 +413,33 @@ module.exports = grammar({
     // Function calls use parens: MsgBox("args")
     // The comma after the name distinguishes command from function call
     // Command names are highlighted via #match? in highlights.scm
-    command: $ => prec(2, seq(
+    // prec.right prefers consuming tokens as command_arguments vs separate statement
+    command: $ => prec.right(2, seq(
       field('name', $.identifier),
       ',',
       optional($.command_arguments)
     )),
 
-    // Single-line token to prevent commands from spanning lines
-    // prec(15) ensures this wins over _colon_pair (prec 10) for patterns like "Gui, MyGui:Add"
-    // Variable refs (%var%) are highlighted via injection in injections.scm
-    command_arguments: $ => token(prec(15, /[^\r\n]+/)),
+    // Structured command arguments - parses %var%, GUI patterns, strings, etc. directly
+    // No injection needed - eliminates recursion problem
+    // All patterns exclude \r\n to ensure command terminates at newline
+    // prec.right prefers continuing repeat over ending command_arguments
+    command_arguments: $ => prec.right(repeat1(choice(
+      $.variable_ref,          // %name% - variable references
+      $.string,                // "text" - quoted strings
+      $.number,                // 123 - numeric literals
+      $.gui_action,            // MyGui:Add - GUI subcommands (no space)
+      $.gui_action_spaced,     // MyGui: Add - GUI subcommands (with space)
+      $.gui_options,           // MyGui:-Caption - GUI options (no space)
+      $.gui_options_spaced,    // MyGui: -Caption - GUI options (with space)
+      $.gui_target,            // MyGui:, - GUI target reference
+      $.gui_option_flag,       // +Caption -Border - standalone option flags
+      $.drive_letter,          // C: - drive letter (for file paths)
+      $.identifier,            // word - plain identifiers
+      ',',                     // comma separator
+      /[ \t]+/,                // whitespace (not newline)
+      /[^a-zA-Z0-9_%," \t\r\n]+/, // other chars (symbols, operators)
+    ))),
 
     variable_ref: $ => seq('%', $.identifier, '%'),
 

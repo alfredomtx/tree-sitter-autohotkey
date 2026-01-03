@@ -120,7 +120,8 @@ try {
         (block
           (command
             name: (identifier)
-            (command_arguments)))))))
+            (command_arguments
+              (identifier))))))))
 
 ================================================================================
 Nested try blocks
@@ -192,4 +193,3 @@ SafeCall() {
                 (boolean))))))
       (return_statement
         (boolean)))))
-

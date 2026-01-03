@@ -110,4 +110,6 @@ MsgBox, %A_ScriptDir%
 (source_file
   (command
     name: (identifier)
-    (command_arguments)))
+    (command_arguments
+      (variable_ref
+        (identifier)))))

@@ -1923,7 +1923,7 @@
       }
     },
     "command": {
-      "type": "PREC",
+      "type": "PREC_RIGHT",
       "value": 2,
       "content": {
         "type": "SEQ",
@@ -1956,13 +1956,70 @@
       }
     },
     "command_arguments": {
-      "type": "TOKEN",
+      "type": "PREC_RIGHT",
+      "value": 0,
       "content": {
-        "type": "PREC",
-        "value": 15,
+        "type": "REPEAT1",
         "content": {
-          "type": "PATTERN",
-          "value": "[^\\r\\n]+"
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "variable_ref"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "string"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "number"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "gui_action"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "gui_action_spaced"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "gui_options"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "gui_options_spaced"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "gui_target"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "gui_option_flag"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "drive_letter"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "identifier"
+            },
+            {
+              "type": "STRING",
+              "value": ","
+            },
+            {
+              "type": "PATTERN",
+              "value": "[ \\t]+"
+            },
+            {
+              "type": "PATTERN",
+              "value": "[^a-zA-Z0-9_%,\" \\t\\r\\n]+"
+            }
+          ]
         }
       }
     },

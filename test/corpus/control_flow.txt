@@ -586,12 +586,14 @@ switch x {
       (block
         (command
           name: (identifier)
-          (command_arguments))))
+          (command_arguments
+            (identifier)))))
     (default_clause
       (block
         (command
           name: (identifier)
-          (command_arguments))))))
+          (command_arguments
+            (identifier)))))))
 
 ================================================================================
 switch with parenthesized expression
@@ -638,14 +640,16 @@ switch x {
       (block
         (command
           name: (identifier)
-          (command_arguments))))
+          (command_arguments
+            (identifier)))))
     (case_clause
       values: (number)
       values: (number)
       (block
         (command
           name: (identifier)
-          (command_arguments))))))
+          (command_arguments
+            (identifier)))))))
 
 ================================================================================
 switch with string cases
@@ -679,7 +683,8 @@ switch action {
       (block
         (command
           name: (identifier)
-          (command_arguments))))))
+          (command_arguments
+            (identifier)))))))
 
 ================================================================================
 Return without value
@@ -767,7 +772,8 @@ return
     name: (identifier))
   (command
     name: (identifier)
-    (command_arguments))
+    (command_arguments
+      (identifier)))
   (return_statement))
 
 ================================================================================
@@ -783,7 +789,9 @@ PostMessage, 0xA1, 2
   (return_statement)
   (command
     name: (identifier)
-    (command_arguments)))
+    (command_arguments
+      (number)
+      (number))))
 
 ================================================================================
 Return followed by command inside function
@@ -807,7 +815,9 @@ MyFunc() {
         consequence: (return_statement))
       (command
         name: (identifier)
-        (command_arguments)))))
+        (command_arguments
+          (number)
+          (number))))))
 
 ================================================================================
 Return followed by consecutive labels
