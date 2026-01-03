@@ -20,9 +20,11 @@ module.exports = grammar({
     [$._expression, $._concat_element],  // shared expression types
   ],
 
-  // External scanner for detecting statement boundaries before labels
+  // External scanner for detecting statement boundaries and force expression delimiters
   externals: $ => [
     $._statement_end,
+    $._force_expr_start,     // % followed by space/tab
+    $._force_expr_boundary,  // , or newline terminating force expression
   ],
 
   rules: {
@@ -456,12 +458,15 @@ module.exports = grammar({
     // Variable reference: %var% syntax
     variable_ref: $ => seq('%', $.identifier, '%'),
 
-    // Force expression: % <space> followed by content until comma/newline
+    // Force expression: External scanner detects boundaries, grammar parses expression
     // Used in command arguments to evaluate expressions in expression mode
     // Examples: % x + 1, % x ? "A" : "B", % func()
-    force_expression: $ => prec(15, seq(
-      '%',
-      token.immediate(/[ \t]+[^,\r\n]+/)  // Space + content as single token
+    // Scanner emits FORCE_EXPR_START at % <space>, FORCE_EXPR_BOUNDARY at comma/newline
+    // This enables sub-expression highlighting by parsing structure instead of terminal token
+    force_expression: $ => prec.right(15, seq(
+      $._force_expr_start,     // External scanner token
+      $._expression,            // Regular grammar expression parsing with child nodes!
+      $._force_expr_boundary,  // External scanner token
     )),
 
     parameter_list: $ => seq(

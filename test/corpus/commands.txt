@@ -493,7 +493,13 @@ MsgBox, % LANG = "EN" ? "Hi" : "Bye"
   (command
     name: (identifier)
     (command_arguments
-      (force_expression))))
+      (force_expression
+        (ternary_expression
+          condition: (binary_expression
+            left: (identifier)
+            right: (string))
+          consequence: (string)
+          alternative: (string))))))
 
 ================================================================================
 Force expression with binary in command
@@ -507,7 +513,10 @@ MsgBox, % x + 1
   (command
     name: (identifier)
     (command_arguments
-      (force_expression))))
+      (force_expression
+        (binary_expression
+          left: (identifier)
+          right: (number))))))
 
 ================================================================================
 Variable ref still works
@@ -536,13 +545,15 @@ Send, % GetValue()
   (command
     name: (identifier)
     (command_arguments
-      (force_expression))))
+      (force_expression
+        (function_call
+          name: (identifier))))))
 
 ================================================================================
 Force expression in multi-argument command
 ================================================================================
 
-Gui, Add, Text, , % "Value: " x
+Gui, Add, Text, vMyText, % "test"
 
 --------------------------------------------------------------------------------
 
@@ -552,4 +563,6 @@ Gui, Add, Text, , % "Value: " x
     (command_arguments
       (identifier)
       (identifier)
-      (force_expression))))
+      (identifier)
+      (force_expression
+        (string)))))

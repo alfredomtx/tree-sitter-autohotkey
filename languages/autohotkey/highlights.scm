@@ -269,9 +269,8 @@
 (variable_ref (identifier) @variable)
 (variable_ref "%" @punctuation.special)
 
-; Force expression (% <space> expression in commands)
-(force_expression "%" @operator)
-(force_expression) @string.special
+; Force expression - sub-expressions highlighted via their own rules
+; (identifiers, strings, operators, etc. inherit from expression highlighting)
 
 ; Built-in variables (via #match? - highlights identifiers matching A_* patterns)
 ; Script properties
