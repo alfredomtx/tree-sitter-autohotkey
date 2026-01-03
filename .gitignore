@@ -30,3 +30,6 @@ grammars/
 *.wasm
 
 nul
+
+# Git worktrees
+.worktrees/
