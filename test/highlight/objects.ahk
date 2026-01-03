@@ -20,3 +20,11 @@ obj := {a: 1}
 obj := {outer: {inner: 1}}
 ;       ^^^^^ property
 ;               ^^^^^ property
+
+; New expression
+instance := new MyClass()
+;           ^^^ keyword
+
+; New expression with arguments
+obj := new Namespace.ClassName(arg1, arg2)
+;      ^^^ keyword

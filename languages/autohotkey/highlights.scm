@@ -21,6 +21,9 @@
 ; Keywords
 (keyword) @keyword
 
+; New expression
+(new_expression "new" @keyword)
+
 ; Return statement
 (return_statement) @keyword
 

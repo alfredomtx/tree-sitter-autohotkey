@@ -52,6 +52,10 @@
           "named": true
         },
         {
+          "type": "new_expression",
+          "named": true
+        },
+        {
           "type": "number",
           "named": true
         },
@@ -136,6 +140,10 @@
         },
         {
           "type": "method_call",
+          "named": true
+        },
+        {
+          "type": "new_expression",
           "named": true
         },
         {
@@ -278,6 +286,10 @@
             "named": true
           },
           {
+            "type": "new_expression",
+            "named": true
+          },
+          {
             "type": "number",
             "named": true
           },
@@ -366,6 +378,10 @@
             "named": true
           },
           {
+            "type": "new_expression",
+            "named": true
+          },
+          {
             "type": "number",
             "named": true
           },
@@ -445,6 +461,10 @@
           },
           {
             "type": "method_call",
+            "named": true
+          },
+          {
+            "type": "new_expression",
             "named": true
           },
           {
@@ -710,6 +730,10 @@
           },
           {
             "type": "method_call",
+            "named": true
+          },
+          {
+            "type": "new_expression",
             "named": true
           },
           {
@@ -1067,6 +1091,10 @@
           },
           {
             "type": "method_call",
+            "named": true
+          },
+          {
+            "type": "new_expression",
             "named": true
           },
           {
@@ -1826,6 +1854,10 @@
             "named": true
           },
           {
+            "type": "new_expression",
+            "named": true
+          },
+          {
             "type": "number",
             "named": true
           },
@@ -2157,6 +2189,10 @@
           },
           {
             "type": "method_call",
+            "named": true
+          },
+          {
+            "type": "new_expression",
             "named": true
           },
           {
@@ -2523,6 +2559,10 @@
           },
           {
             "type": "method_call",
+            "named": true
+          },
+          {
+            "type": "new_expression",
             "named": true
           },
           {
@@ -2942,6 +2982,36 @@
     }
   },
   {
+    "type": "new_expression",
+    "named": true,
+    "fields": {
+      "arguments": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "argument_list",
+            "named": true
+          }
+        ]
+      },
+      "class": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "member_expression",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "number",
     "named": true,
     "fields": {}
@@ -3029,6 +3099,10 @@
           },
           {
             "type": "method_call",
+            "named": true
+          },
+          {
+            "type": "new_expression",
             "named": true
           },
           {
@@ -3122,6 +3196,10 @@
         },
         {
           "type": "method_call",
+          "named": true
+        },
+        {
+          "type": "new_expression",
           "named": true
         },
         {
@@ -3227,6 +3305,10 @@
           "named": true
         },
         {
+          "type": "new_expression",
+          "named": true
+        },
+        {
           "type": "number",
           "named": true
         },
@@ -3311,6 +3393,10 @@
         },
         {
           "type": "method_call",
+          "named": true
+        },
+        {
+          "type": "new_expression",
           "named": true
         },
         {
@@ -3595,6 +3681,10 @@
             "named": true
           },
           {
+            "type": "new_expression",
+            "named": true
+          },
+          {
             "type": "number",
             "named": true
           },
@@ -3697,6 +3787,10 @@
             "named": true
           },
           {
+            "type": "new_expression",
+            "named": true
+          },
+          {
             "type": "number",
             "named": true
           },
@@ -3779,6 +3873,10 @@
             "named": true
           },
           {
+            "type": "new_expression",
+            "named": true
+          },
+          {
             "type": "number",
             "named": true
           },
@@ -3858,6 +3956,10 @@
           },
           {
             "type": "method_call",
+            "named": true
+          },
+          {
+            "type": "new_expression",
             "named": true
           },
           {
@@ -4128,6 +4230,10 @@
         },
         {
           "type": "method_call",
+          "named": true
+        },
+        {
+          "type": "new_expression",
           "named": true
         },
         {

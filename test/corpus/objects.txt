@@ -158,3 +158,50 @@ obj := {1: "one", "two": 2, name: "test"}
       (object_property
         key: (identifier)
         value: (string)))))
+
+================================================================================
+New expression with function call
+================================================================================
+
+instance := new MyClass()
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (assignment_expression
+    left: (identifier)
+    right: (new_expression
+      class: (identifier))))
+
+================================================================================
+New expression with arguments
+================================================================================
+
+obj := new ClassName(arg1, arg2)
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (assignment_expression
+    left: (identifier)
+    right: (new_expression
+      class: (identifier)
+      arguments: (argument_list
+        (identifier)
+        (identifier)))))
+
+================================================================================
+New expression with member expression
+================================================================================
+
+obj := new Namespace.ClassName()
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (assignment_expression
+    left: (identifier)
+    right: (new_expression
+      class: (member_expression
+        object: (identifier)
+        property: (identifier)))))

@@ -472,6 +472,7 @@ module.exports = grammar({
       $.ternary_expression,
       $.binary_expression,
       $.unary_expression,
+      $.new_expression,
       $.assignment_expression,
       $.this_expression,
       $.base_expression,
@@ -578,6 +579,15 @@ module.exports = grammar({
       seq('not', $._expression),
       seq('~', $._expression),
       seq('-', $._expression),
+    )),
+
+    // New expression for object instantiation
+    new_expression: $ => prec(14, seq(
+      'new',
+      field('class', choice($.identifier, $.member_expression)),
+      token.immediate('('),
+      optional(field('arguments', $.argument_list)),
+      ')'
     )),
 
     // Assignment expression - prec(1) ensures higher precedence than identifier's prec(-1)
