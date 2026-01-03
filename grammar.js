@@ -441,6 +441,7 @@ module.exports = grammar({
       /[^a-zA-Z0-9_%," \t\r\n]+/, // other chars (symbols, operators)
     ))),
 
+    // Variable reference: %var% syntax
     variable_ref: $ => seq('%', $.identifier, '%'),
 
     parameter_list: $ => seq(

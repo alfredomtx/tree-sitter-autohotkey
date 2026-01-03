@@ -307,7 +307,16 @@ This is why the original flat token used `/[^\r\n]+/` - to explicitly terminate 
 
 1. **Force expression syntax** (`% expression`) not supported:
    - AutoHotkey's `% x ? "A" : "B"` syntax for evaluating expressions in commands
-   - Would need separate `force_expression` rule and complex expression handling
+   - **Technical limitation**: Tree-sitter's LR parser commits to matching `x` as identifier before seeing the `?` operator that would make it a ternary expression
+   - **Why partial support doesn't work**:
+     - Binary expressions like `% x + 10` could work in theory
+     - But ternary expressions `% x ? "A" : "B"` fail due to precedence/lookahead limitations
+     - Partial support would be confusing to users
+   - **Attempted solutions** (all unsuccessful):
+     - Excluding `?:` from command_arguments catch-all pattern
+     - Using `prec.dynamic()` to prefer ternary over identifier
+     - Creating separate `_force_expr_content` rule with custom precedences
+   - **Trade-off**: Keeping grammar simple and maintainable vs supporting rare edge case
    - Currently only affects edge cases (1 failing test out of 252)
 
 2. **Empty arguments** (double comma `,,`) cause early termination:
