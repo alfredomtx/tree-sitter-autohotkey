@@ -22,13 +22,23 @@ impl zed::Extension for AutoHotkeyExtension {
         // Get Node.js binary from Zed
         let node_path = zed::node_binary_path()?;
 
+        // Get shell environment and add NODE_PATH for module resolution
+        let mut env = worktree.shell_env();
+
+        // Add lsp-server/node_modules to NODE_PATH so Node.js can find the LSP dependencies
+        // when running server.js from the project root
+        env.push((
+            "NODE_PATH".to_string(),
+            "lsp-server/node_modules".to_string()
+        ));
+
         Ok(zed::Command {
             command: node_path,
             args: vec![
                 server_path,
                 "--node-ipc".to_string(),
             ],
-            env: worktree.shell_env(),
+            env,
         })
     }
 }
