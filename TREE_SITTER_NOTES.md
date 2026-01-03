@@ -425,17 +425,55 @@ _if_win_title: $ => choice($.string, /[^,\r\n"' \t][^,\r\n]*/),  // Excludes lea
 
 ## External Scanner for Statement Termination
 
-### Use external scanner to prevent return from consuming labels
+### External scanner terminates both return statements and commands
 
-`extras: [/\s/]` makes newlines invisible, so `return` + `optional($._expression)` consumes labels from next line. External scanner (`src/scanner.c`) looks ahead for `identifier:` pattern and emits zero-width `_statement_end` token:
+The external scanner (`src/scanner.c`) emits `_statement_end` when it detects `identifier:` (label) or `identifier,` (command) patterns at the start of a line. This prevents:
+
+1. **return statements** from consuming the label's identifier as return value
+2. **commands** from consuming subsequent command names as arguments
+
+**Example of command termination:**
+```ahk
+Gui, MyGui:Add, Text    ; Line 1
+                        ; Line 2 (blank - newline in extras)
+GuiControl, MyGui:, Ctl ; Line 3
+```
+
+Without `_statement_end`, line 1's `command_arguments` would consume "GuiControl" from line 3 as an identifier (since `extras: [/\s/]` makes the newline invisible). The scanner detects "GuiControl," at the start of line 3 and emits `_statement_end`, which terminates line 1's command.
+
+Both grammar rules use the same pattern:
 
 ```javascript
 externals: $ => [$._statement_end],
+
 return_statement: $ => prec.right(choice(
-  seq(/return/i, $._statement_end),  // Bare return before label
-  seq(/return/i, $._expression),
-  /return/i,
+  seq('return', $._statement_end),  // Terminate before label/command
+  seq('return', $._expression),
+  'return',
 )),
+
+command: $ => prec.right(2, choice(
+  seq(
+    field('name', $.identifier),
+    ',',
+    optional($.command_arguments),
+    $._statement_end  // Terminate before next label/command
+  ),
+  seq(
+    field('name', $.identifier),
+    ',',
+    optional($.command_arguments)  // Natural termination
+  )
+)),
+```
+
+**Scanner logic** (scanner.c:98-102):
+```c
+// Check if followed by colon (label) or comma (command)
+if (lexer->lookahead == ':' || lexer->lookahead == ',') {
+    lexer->result_symbol = STATEMENT_END;
+    return true;
+}
 ```
 
 External scanners enable lookahead that regular grammar rules cannot, for context-sensitive statement boundaries.

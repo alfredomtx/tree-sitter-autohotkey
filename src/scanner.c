@@ -4,17 +4,18 @@
 /**
  * External scanner for AutoHotkey grammar.
  *
- * Purpose: Detect when a return statement should NOT consume an identifier
- * that is actually a label on the next line.
+ * Purpose: Detect statement boundaries to prevent return statements and commands
+ * from consuming identifiers that start labels or commands on subsequent lines.
  *
  * Problem: The grammar uses `extras: [/\s/]` which consumes all whitespace
  * including newlines. When `return_statement` has `optional($._expression)`,
  * it greedily consumes identifiers from subsequent lines before seeing the
- * colon that would indicate a label.
+ * colon that would indicate a label. Similarly, `command` with `optional(command_arguments)`
+ * would consume subsequent command names as identifiers in arguments.
  *
- * Solution: This scanner looks ahead after newlines for "identifier:" patterns.
- * When found, it emits a zero-width STATEMENT_END token that terminates the
- * return statement before the label.
+ * Solution: This scanner looks ahead after newlines for "identifier:" (label) or
+ * "identifier," (command) patterns. When found, it emits a zero-width STATEMENT_END
+ * token that terminates the return statement or command before the next statement.
  */
 
 enum TokenType {

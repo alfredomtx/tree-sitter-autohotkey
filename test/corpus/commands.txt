@@ -418,3 +418,65 @@ DriveGet, userSerial, Serial, C:
       (identifier)
       (identifier)
       (drive_letter))))
+
+================================================================================
+Multiple commands on separate lines
+================================================================================
+
+Gui, MyGui:Add, Text, vMyText
+GuiControl, MyGui:, MyText
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (command
+    name: (identifier)
+    (command_arguments
+      (gui_action
+        gui_name: (identifier)
+        action: (identifier))
+      (identifier)
+      (identifier)))
+  (command
+    name: (identifier)
+    (command_arguments
+      (gui_target
+        gui_name: (identifier))
+      (identifier))))
+
+================================================================================
+Commands separated by blank line
+================================================================================
+
+MsgBox, Hello
+
+Send, {Enter}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (command
+    name: (identifier)
+    (command_arguments
+      (identifier)))
+  (command
+    name: (identifier)
+    (command_arguments
+      (identifier))))
+
+================================================================================
+Command before label
+================================================================================
+
+MsgBox, Hello
+MyLabel:
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (command
+    name: (identifier)
+    (command_arguments
+      (identifier)))
+  (label
+    name: (identifier)))

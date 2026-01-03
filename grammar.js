@@ -414,10 +414,21 @@ module.exports = grammar({
     // The comma after the name distinguishes command from function call
     // Command names are highlighted via #match? in highlights.scm
     // prec.right prefers consuming tokens as command_arguments vs separate statement
-    command: $ => prec.right(2, seq(
-      field('name', $.identifier),
-      ',',
-      optional($.command_arguments)
+    // Uses _statement_end to terminate before next label/command on new line
+    command: $ => prec.right(2, choice(
+      // Command terminated by statement_end (before next label/command)
+      seq(
+        field('name', $.identifier),
+        ',',
+        optional($.command_arguments),
+        $._statement_end
+      ),
+      // Regular command (arguments consume to natural boundary)
+      seq(
+        field('name', $.identifier),
+        ',',
+        optional($.command_arguments)
+      )
     )),
 
     // Structured command arguments - parses %var%, GUI patterns, strings, etc. directly

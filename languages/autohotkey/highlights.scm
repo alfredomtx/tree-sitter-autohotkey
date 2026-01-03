@@ -190,6 +190,10 @@
 ((identifier) @keyword
  (#match? @keyword "^(?i)(Reload|Exit|ExitApp|Pause|Suspend|Critical|Thread)$"))
 
+; Goto and Gosub commands (highlighted as keywords for consistency with break/continue/return)
+((command name: (identifier) @keyword)
+ (#match? @keyword "^(?i)(Goto|Gosub)$"))
+
 ; Standalone debug commands (highlighted as function.builtin)
 ((identifier) @function.builtin
  (#match? @function.builtin "^(?i)(KeyHistory|ListHotkeys|ListLines|ListVars)$"))
