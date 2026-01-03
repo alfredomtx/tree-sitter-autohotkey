@@ -412,5 +412,5 @@
 (class_property name: (identifier) @property)
 
 ; this and base keywords
-(this_expression) @variable.builtin
-(base_expression) @variable.builtin
+(this_expression) @variable.special
+(base_expression) @variable.special

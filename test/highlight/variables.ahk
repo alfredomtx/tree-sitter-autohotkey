@@ -43,17 +43,17 @@ obj.nested.prop
 
 ; this and base keywords in context
 x := this
-;    ^^^^ variable.builtin
+;    ^^^^ variable.special
 
 x := base
-;    ^^^^ variable.builtin
+;    ^^^^ variable.special
 
 this.value := 1
-; <- variable.builtin
+; <- variable.special
 ;    ^^^^^ property
 
 base.__New()
-; <- variable.builtin
+; <- variable.special
 
 ; Exception parameter
 try {
