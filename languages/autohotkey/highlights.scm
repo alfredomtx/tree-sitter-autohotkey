@@ -269,6 +269,10 @@
 (variable_ref (identifier) @variable)
 (variable_ref "%" @punctuation.special)
 
+; Force expression (% <space> expression in commands)
+(force_expression "%" @operator)
+(force_expression) @string.special
+
 ; Built-in variables (via #match? - highlights identifiers matching A_* patterns)
 ; Script properties
 ((identifier) @variable.special
