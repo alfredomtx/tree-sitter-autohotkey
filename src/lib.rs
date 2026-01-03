@@ -41,26 +41,21 @@ impl AutoHotkeyExtension {
             return Ok(path.clone());
         }
 
-        // Check possible entry points
-        let possible_paths = vec![
-            "lsp-server/out/server.js",
-            "lsp-server/dist/server.js",
-        ];
+        // Check for bundled LSP server entry point
+        let server_path = "lsp-server/out/server.js";
+        let path = PathBuf::from(server_path);
 
-        for path_str in possible_paths {
-            let path = PathBuf::from(path_str);
-            if path.exists() {
-                let path_string = path
-                    .to_str()
-                    .ok_or("Invalid path encoding")?
-                    .to_string();
+        if path.exists() {
+            let path_string = path
+                .to_str()
+                .ok_or("Invalid path encoding")?
+                .to_string();
 
-                self.cached_server_path = Some(path_string.clone());
-                return Ok(path_string);
-            }
+            self.cached_server_path = Some(path_string.clone());
+            Ok(path_string)
+        } else {
+            Err("AutoHotkey LSP server not found. Expected at lsp-server/out/server.js".into())
         }
-
-        Err("AutoHotkey LSP server not found. Expected at lsp-server/out/server.js".into())
     }
 }
 
