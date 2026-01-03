@@ -24,7 +24,9 @@ obj := {outer: {inner: 1}}
 ; New expression
 instance := new MyClass()
 ;           ^^^ keyword
+;               ^^^^^^^ type
 
 ; New expression with arguments
 obj := new Namespace.ClassName(arg1, arg2)
 ;      ^^^ keyword
+;                    ^^^^^^^^^ type

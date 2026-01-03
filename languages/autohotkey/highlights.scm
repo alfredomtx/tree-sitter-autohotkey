@@ -166,6 +166,10 @@
 (member_expression object: (identifier) @type
  (#match? @type "^_?[A-Z]"))
 
+; New expression - highlight class names as types (after member_expression to override @property)
+(new_expression class: (identifier) @type)
+(new_expression class: (member_expression property: (identifier) @type))
+
 ; Command names (identifier in command position gets highlighted as function)
 (command name: (identifier) @function)
 
