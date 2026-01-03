@@ -494,6 +494,7 @@ MsgBox, % LANG = "EN" ? "Hi" : "Bye"
     name: (identifier)
     (command_arguments
       (force_expression
+        (force_expr_start)
         (ternary_expression
           condition: (binary_expression
             left: (identifier)
@@ -514,6 +515,7 @@ MsgBox, % x + 1
     name: (identifier)
     (command_arguments
       (force_expression
+        (force_expr_start)
         (binary_expression
           left: (identifier)
           right: (number))))))
@@ -546,6 +548,7 @@ Send, % GetValue()
     name: (identifier)
     (command_arguments
       (force_expression
+        (force_expr_start)
         (function_call
           name: (identifier))))))
 
@@ -565,4 +568,5 @@ Gui, Add, Text, vMyText, % "test"
       (identifier)
       (identifier)
       (force_expression
+        (force_expr_start)
         (string)))))

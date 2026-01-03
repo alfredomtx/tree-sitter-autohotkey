@@ -269,7 +269,8 @@
 (variable_ref (identifier) @variable)
 (variable_ref "%" @punctuation.special)
 
-; Force expression - sub-expressions highlighted via their own rules
+; Force expression - % symbol highlighted, sub-expressions via their own rules
+(force_expr_start) @operator
 ; (identifiers, strings, operators, etc. inherit from expression highlighting)
 
 ; Built-in variables (via #match? - highlights identifiers matching A_* patterns)

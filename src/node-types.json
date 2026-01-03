@@ -1922,7 +1922,7 @@
     "named": true,
     "fields": {},
     "children": {
-      "multiple": false,
+      "multiple": true,
       "required": true,
       "types": [
         {
@@ -1947,6 +1947,10 @@
         },
         {
           "type": "concatenation_expression",
+          "named": true
+        },
+        {
+          "type": "force_expr_start",
           "named": true
         },
         {
@@ -4798,6 +4802,10 @@
   {
     "type": "for",
     "named": false
+  },
+  {
+    "type": "force_expr_start",
+    "named": true
   },
   {
     "type": "global",

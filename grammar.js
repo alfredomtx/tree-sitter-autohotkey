@@ -23,7 +23,7 @@ module.exports = grammar({
   // External scanner for detecting statement boundaries and force expression delimiters
   externals: $ => [
     $._statement_end,
-    $._force_expr_start,     // % followed by space/tab
+    $.force_expr_start,      // % followed by space/tab (visible for highlighting)
     $._force_expr_boundary,  // , or newline terminating force expression
   ],
 
@@ -464,7 +464,7 @@ module.exports = grammar({
     // Scanner emits FORCE_EXPR_START at % <space>, FORCE_EXPR_BOUNDARY at comma/newline
     // This enables sub-expression highlighting by parsing structure instead of terminal token
     force_expression: $ => prec.right(15, seq(
-      $._force_expr_start,     // External scanner token
+      $.force_expr_start,      // External scanner token (visible for highlighting)
       $._expression,            // Regular grammar expression parsing with child nodes!
       $._force_expr_boundary,  // External scanner token
     )),

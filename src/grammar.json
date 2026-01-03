@@ -2090,7 +2090,7 @@
         "members": [
           {
             "type": "SYMBOL",
-            "name": "_force_expr_start"
+            "name": "force_expr_start"
           },
           {
             "type": "SYMBOL",
@@ -3811,7 +3811,7 @@
     },
     {
       "type": "SYMBOL",
-      "name": "_force_expr_start"
+      "name": "force_expr_start"
     },
     {
       "type": "SYMBOL",
