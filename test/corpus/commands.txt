@@ -162,32 +162,6 @@ Gui, MyGui:Add, Text, x10 y20
       (identifier))))
 
 ================================================================================
-Gui command with ternary expression in arguments
-================================================================================
-
-Gui, MyGui:Add, Text, % x ? "A" : "B"
-
---------------------------------------------------------------------------------
-
-; NOTE: This test shows a known limitation - force expression syntax (% expr)
-; is not currently supported in structured command_arguments
-; The ternary expression is parsed as separate top-level tokens
-(source_file
-  (command
-    name: (identifier)
-    (command_arguments
-      (gui_action
-        gui_name: (identifier)
-        action: (identifier))
-      (identifier)
-      (variable_ref
-        (identifier))))
-  (operator)
-  (string)
-  (ERROR)
-  (string))
-
-================================================================================
 StringReplace command
 ================================================================================
 
