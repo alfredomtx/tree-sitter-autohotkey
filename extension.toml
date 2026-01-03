@@ -8,7 +8,7 @@ repository = "https://github.com/alfredomtx/tree-sitter-autohotkey"
 
 [grammars.autohotkey]
 repository = "https://github.com/alfredomtx/tree-sitter-autohotkey"
-rev = "9aea1dd954f2fb9d3c4d4bd3433d7553ba7d9b2e"
+rev = "eafb57b258a647ce5394cdb1b6a4effe2e3dedbe"
 path = "."
 
 [language_servers.autohotkey-lsp]
