@@ -1,5 +1,4 @@
 use zed_extension_api::{self as zed, LanguageServerId, Result};
-use std::path::PathBuf;
 
 struct AutoHotkeyExtension {
     cached_server_path: Option<String>,
@@ -23,13 +22,29 @@ impl zed::Extension for AutoHotkeyExtension {
         // Get Node.js binary from Zed
         let node_path = zed::node_binary_path()?;
 
+        // Get shell environment
+        let env = worktree.shell_env();
+
+        // DEBUG: Log what we're actually passing to Node.js
+        eprintln!("=== AutoHotkey Extension Debug ===");
+        eprintln!("Node path: {:?}", node_path);
+        eprintln!("Server path: {:?}", server_path);
+        eprintln!("Current dir: {:?}", std::env::current_dir());
+        eprintln!("Env vars count: {}", env.len());
+        for (key, val) in &env {
+            if key.contains("PATH") || key.contains("NODE") {
+                eprintln!("  {}: {}", key, val);
+            }
+        }
+        eprintln!("=== End Debug ===");
+
         Ok(zed::Command {
             command: node_path,
             args: vec![
                 server_path,
                 "--node-ipc".to_string(),
             ],
-            env: worktree.shell_env(),
+            env,
         })
     }
 }
@@ -41,21 +56,10 @@ impl AutoHotkeyExtension {
             return Ok(path.clone());
         }
 
-        // Check for bundled LSP server entry point
-        let server_path = "lsp-server/out/server.js";
-        let path = PathBuf::from(server_path);
-
-        if path.exists() {
-            let path_string = path
-                .to_str()
-                .ok_or("Invalid path encoding")?
-                .to_string();
-
-            self.cached_server_path = Some(path_string.clone());
-            Ok(path_string)
-        } else {
-            Err("AutoHotkey LSP server not found. Expected at lsp-server/out/server.js".into())
-        }
+        // Path relative to extension directory (Zed resolves this when launching Node.js)
+        let server_path = "lsp-server/out/server.js".to_string();
+        self.cached_server_path = Some(server_path.clone());
+        Ok(server_path)
     }
 }
 
