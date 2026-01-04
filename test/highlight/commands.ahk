@@ -50,3 +50,18 @@ Goto, MyLabel
 Gosub, MyLabel
 ; <- keyword
 
+; Legacy if-command with block (if_command node)
+IfNotInString, varName, value
+; <- function.builtin
+{
+    MsgBox, test
+}
+
+; Legacy if-command with block and else
+IfInString, var, needle
+; <- function.builtin
+{
+    MsgBox, found
+} else {
+    MsgBox, not found
+}

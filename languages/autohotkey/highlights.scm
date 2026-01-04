@@ -176,6 +176,9 @@
 ; Command names (identifier in command position gets highlighted as function)
 (command name: (identifier) @function)
 
+; if_command names (identifier in if_command position gets highlighted as function)
+(if_command name: (identifier) @function)
+
 ; Built-in commands (known AHK commands highlighted as function.builtin via #match?)
 ; GUI/Dialog commands
 ((command name: (identifier) @function.builtin)
@@ -230,11 +233,18 @@
 ((command name: (identifier) @function.builtin)
  (#match? @function.builtin "^(?i)(StringCaseSense|StringGetPos|StringLeft|StringRight|StringMid|StringLower|StringUpper|StringLen|StringReplace|StringSplit|StringTrimLeft|StringTrimRight)$"))
 
-; Legacy conditional commands
+; Legacy conditional commands (in regular command context - no block)
 ((command name: (identifier) @function.builtin)
  (#match? @function.builtin "^(?i)(IfEqual|IfNotEqual|IfLess|IfLessOrEqual|IfGreater|IfGreaterOrEqual|IfExist|IfNotExist|IfInString|IfNotInString|IfMsgBox)$"))
 
 ((command name: (identifier) @function.builtin)
+ (#match? @function.builtin "^(?i)(IfWinExist|IfWinNotExist|IfWinActive|IfWinNotActive)$"))
+
+; Legacy conditional commands in if_command context (with block/else)
+((if_command name: (identifier) @function.builtin)
+ (#match? @function.builtin "^(?i)(IfEqual|IfNotEqual|IfLess|IfLessOrEqual|IfGreater|IfGreaterOrEqual|IfExist|IfNotExist|IfInString|IfNotInString|IfMsgBox)$"))
+
+((if_command name: (identifier) @function.builtin)
  (#match? @function.builtin "^(?i)(IfWinExist|IfWinNotExist|IfWinActive|IfWinNotActive)$"))
 
 ; Configuration commands
