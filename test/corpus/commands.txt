@@ -682,3 +682,23 @@ IfNotInString, varName, value
             (command_arguments
               (identifier)
               (identifier))))))))
+
+================================================================================
+Command followed by assignment on next line
+================================================================================
+
+Gui, Carregando:Destroy
+msg := LANGUAGE
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (command
+    name: (identifier)
+    (command_arguments
+      (gui_action
+        gui_name: (identifier)
+        action: (identifier))))
+  (assignment_expression
+    left: (identifier)
+    right: (identifier)))

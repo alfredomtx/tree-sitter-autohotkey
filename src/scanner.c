@@ -198,11 +198,31 @@ bool tree_sitter_autohotkey_external_scanner_scan(
   }
 
   // Check if followed by colon (label), comma (command), or dot (method call)
+  // These patterns require NO whitespace between identifier and delimiter
   if (lexer->lookahead == ':' || lexer->lookahead == ',' || lexer->lookahead == '.') {
-    // This looks like a label or command - emit STATEMENT_END at the marked position
-    // to terminate the previous statement
     lexer->result_symbol = STATEMENT_END;
     return true;
+  }
+
+  // Check for assignment operators after whitespace: := += -= *= /= .=
+  // Pattern: identifier <whitespace> <op>= value
+  if (lexer->lookahead == ' ' || lexer->lookahead == '\t') {
+    // Skip whitespace
+    while (lexer->lookahead == ' ' || lexer->lookahead == '\t') {
+      lexer->advance(lexer, true);
+    }
+
+    // Check for assignment operators
+    int32_t first = lexer->lookahead;
+    if (first == ':' || first == '+' || first == '-' ||
+        first == '*' || first == '/' || first == '.') {
+      lexer->advance(lexer, true);
+      if (lexer->lookahead == '=') {
+        // This is an assignment statement - terminate previous statement
+        lexer->result_symbol = STATEMENT_END;
+        return true;
+      }
+    }
   }
 
   return false;
