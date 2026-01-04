@@ -7,11 +7,22 @@ Tree-sitter grammar for AutoHotkey v1, packaged as a Zed editor extension.
 
 ## Features
 
+### Syntax & Editing
 - Syntax highlighting for `.ahk` files
 - Comment toggling (`Ctrl+/` or `gcc` in vim mode)
-- Document outline and go-to-symbol (`Ctrl+Shift+O`)
-- Auto-indentation
-- Bracket matching
+- Auto-indentation and bracket matching
+
+### Language Server (LSP)
+- **Go-to-definition** (`Ctrl+Click` or `gd` in vim mode) - Navigate to function/class definitions
+- **Hover documentation** - View function signatures and documentation
+- **Code completions** - IntelliSense for AutoHotkey keywords, functions, and variables
+- **Diagnostics** - Real-time error and warning detection
+
+### Navigation
+- Document outline (`Ctrl+Shift+O`) - Jump to functions, classes, and labels
+- Symbol search across project
+
+### Execution
 - Run scripts directly from the editor (requires task configuration)
 
 ### Running Scripts
