@@ -7,6 +7,23 @@ MyFunc(x, y) {
 ; <- function
 }
 
+; Function with ByRef parameter
+MyFunc(ByRef x) {
+; <- function
+;      ^^^^^ keyword
+}
+
+MyFunc(ByRef x, y, ByRef z) {
+; <- function
+;      ^^^^^ keyword
+;                  ^^^^^ keyword
+}
+
+MyFunc(ByRef x := 10) {
+; <- function
+;      ^^^^^ keyword
+}
+
 ; Function calls
 result := MyFunc()
 ;         ^^^^^^ function

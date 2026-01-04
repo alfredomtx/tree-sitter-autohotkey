@@ -46,6 +46,9 @@
 (catch_clause exception: (identifier) @variable.parameter)
 (finally_clause) @keyword
 
+; Function parameter modifiers
+(parameter_modifier) @keyword
+
 ; Switch statements
 ; Note: switch, case, default are case-insensitive regex patterns
 (switch_statement) @keyword

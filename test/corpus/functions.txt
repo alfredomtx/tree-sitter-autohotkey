@@ -25,7 +25,7 @@ MyFunc(x) {
     name: (identifier)
     (parameter_list
       (parameter
-        (identifier)))))
+        name: (identifier)))))
 
 ================================================================================
 Function with multiple parameters
@@ -41,11 +41,11 @@ MyFunc(x, y, z) {
     name: (identifier)
     (parameter_list
       (parameter
-        (identifier))
+        name: (identifier))
       (parameter
-        (identifier))
+        name: (identifier))
       (parameter
-        (identifier)))))
+        name: (identifier)))))
 
 ================================================================================
 Function with default parameter
@@ -61,8 +61,8 @@ MyFunc(x := 10) {
     name: (identifier)
     (parameter_list
       (parameter
-        (identifier)
-        (number)))))
+        name: (identifier)
+        default: (number)))))
 
 ================================================================================
 Function with body
@@ -158,3 +158,107 @@ MyFunc(x := 10)
       (assignment_expression
         left: (identifier)
         right: (number)))))
+
+================================================================================
+Function with ByRef parameter
+================================================================================
+
+MyFunc(ByRef x) {
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (function_definition
+    name: (identifier)
+    (parameter_list
+      (parameter
+        modifier: (parameter_modifier)
+        name: (identifier)))))
+
+================================================================================
+Function with multiple ByRef parameters
+================================================================================
+
+MyFunc(ByRef x, y, ByRef z) {
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (function_definition
+    name: (identifier)
+    (parameter_list
+      (parameter
+        modifier: (parameter_modifier)
+        name: (identifier))
+      (parameter
+        name: (identifier))
+      (parameter
+        modifier: (parameter_modifier)
+        name: (identifier)))))
+
+================================================================================
+Function with ByRef parameter and default value
+================================================================================
+
+MyFunc(ByRef x := 10) {
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (function_definition
+    name: (identifier)
+    (parameter_list
+      (parameter
+        modifier: (parameter_modifier)
+        name: (identifier)
+        default: (number)))))
+
+================================================================================
+Function with mixed parameters
+================================================================================
+
+MyFunc(ByRef x, y := "test", ByRef z := 0) {
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (function_definition
+    name: (identifier)
+    (parameter_list
+      (parameter
+        modifier: (parameter_modifier)
+        name: (identifier))
+      (parameter
+        name: (identifier)
+        default: (string))
+      (parameter
+        modifier: (parameter_modifier)
+        name: (identifier)
+        default: (number)))))
+
+================================================================================
+Function call vs ByRef parameter (disambiguation)
+================================================================================
+
+MyFunc(ByRef x) {
+}
+
+MyFunc(x)
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (function_definition
+    name: (identifier)
+    (parameter_list
+      (parameter
+        modifier: (parameter_modifier)
+        name: (identifier))))
+  (function_call
+    name: (identifier)
+    (argument_list
+      (identifier))))

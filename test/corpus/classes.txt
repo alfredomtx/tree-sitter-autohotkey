@@ -169,9 +169,9 @@ class MyClass {
         name: (identifier)
         (parameter_list
           (parameter
-            (identifier))
+            name: (identifier))
           (parameter
-            (identifier)))))))
+            name: (identifier)))))))
 
 ================================================================================
 Class with brace on separate line (Allman style)

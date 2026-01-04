@@ -475,8 +475,9 @@ module.exports = grammar({
     ),
 
     parameter: $ => seq(
-      $.identifier,
-      optional(prec.right(1, seq(':=', $._expression)))  // Same precedence as assignment_expression
+      optional(field('modifier', alias('ByRef', $.parameter_modifier))),
+      field('name', $.identifier),
+      optional(prec.right(1, seq(':=', field('default', $._expression))))
     ),
 
     // Arguments in function/method calls can contain string-identifier concatenation
