@@ -1,6 +1,5 @@
 use zed_extension_api::{self as zed, LanguageServerId, Result};
 use std::fs;
-use std::env;
 
 struct AutoHotkeyExtension {
     cached_server_path: Option<String>,
@@ -81,19 +80,11 @@ impl AutoHotkeyExtension {
             .map_err(|e| format!("Failed to download LSP server: {}", e))?;
         }
 
-        // Convert relative path to absolute path (without canonicalize)
-        // Zed resolves relative paths from workspace directory, not extension directory
-        // So we need to return an absolute path to the downloaded file
-        // Note: canonicalize() fails in WASM/WASI, so we just use join()
-        let absolute_path = env::current_dir()
-            .map_err(|e| format!("Failed to get current directory: {}", e))?
-            .join(&server_path)
-            .to_string_lossy()
-            .to_string();
-
-        // Cache the absolute path for future use
-        self.cached_server_path = Some(absolute_path.clone());
-        Ok(absolute_path)
+        // Return relative path - Zed resolves it from extension work directory
+        // The download_file() API downloads to the extension's work directory,
+        // and Zed automatically resolves relative paths from there when executing the LSP
+        self.cached_server_path = Some(server_path.clone());
+        Ok(server_path)
     }
 }
 
