@@ -34,6 +34,7 @@ enum TokenType {
   STATEMENT_END,
   FORCE_EXPR_START,     // % followed by space/tab
   FORCE_EXPR_BOUNDARY,  // , or newline terminating force expression
+  BLOCK_AFTER_NEWLINE,  // { that follows a newline (for if_command blocks)
 };
 
 typedef struct {
@@ -122,8 +123,13 @@ bool tree_sitter_autohotkey_external_scanner_scan(
     }
   }
 
-  // Existing STATEMENT_END logic
-  if (!valid_symbols[STATEMENT_END]) {
+  // Combined check for BLOCK_AFTER_NEWLINE and STATEMENT_END
+  // Both tokens need to look past newlines, so we unify the logic to avoid
+  // one check consuming the newline and breaking the other
+  bool block_valid = valid_symbols[BLOCK_AFTER_NEWLINE];
+  bool stmt_end_valid = valid_symbols[STATEMENT_END];
+
+  if (!block_valid && !stmt_end_valid) {
     return false;
   }
 
@@ -159,8 +165,24 @@ bool tree_sitter_autohotkey_external_scanner_scan(
     return false;
   }
 
-  // Check for block delimiters - these always terminate previous statement
-  if (lexer->lookahead == '{' || lexer->lookahead == '}') {
+  // Check for opening brace - BLOCK_AFTER_NEWLINE (for if_command blocks)
+  if (lexer->lookahead == '{') {
+    if (block_valid) {
+      lexer->result_symbol = BLOCK_AFTER_NEWLINE;
+      return true;
+    }
+    // Opening brace present but BLOCK_AFTER_NEWLINE not valid
+    // This means we're in command context - { should be consumed as argument
+    return false;
+  }
+
+  // From here, only STATEMENT_END can match
+  if (!stmt_end_valid) {
+    return false;
+  }
+
+  // Check for closing brace - terminates previous statement
+  if (lexer->lookahead == '}') {
     lexer->result_symbol = STATEMENT_END;
     return true;
   }

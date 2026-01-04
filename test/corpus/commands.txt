@@ -608,20 +608,55 @@ myFunc() {
 --------------------------------------------------------------------------------
 
 (source_file
-  (command
+  (if_command
     name: (identifier)
     (command_arguments
       (identifier)
-      (identifier)))
-  (ERROR)
-  (command
-    name: (identifier)
-    (command_arguments
-      (force_expression
-        (force_expr_start)
-        (string))))
-  (ERROR)
+      (identifier))
+    consequence: (statement_block
+      (block
+        (command
+          name: (identifier)
+          (command_arguments
+            (force_expression
+              (force_expr_start)
+              (string)))))))
   (function_definition
     name: (identifier)
     body: (block
       (return_statement))))
+
+================================================================================
+If-command with block and else clause
+================================================================================
+
+IfNotInString, varName, value
+{
+    msgbox, test a
+} else {
+    msgbox, test b
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (if_command
+    name: (identifier)
+    (command_arguments
+      (identifier)
+      (identifier))
+    consequence: (statement_block
+      (block
+        (command
+          name: (identifier)
+          (command_arguments
+            (identifier)
+            (identifier)))))
+    alternative: (else_clause
+      (statement_block
+        (block
+          (command
+            name: (identifier)
+            (command_arguments
+              (identifier)
+              (identifier))))))))

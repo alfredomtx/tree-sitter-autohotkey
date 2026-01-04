@@ -131,6 +131,10 @@
         },
         {
           "type": "SYMBOL",
+          "name": "if_command"
+        },
+        {
+          "type": "SYMBOL",
           "name": "command"
         },
         {
@@ -974,6 +978,67 @@
         ]
       }
     },
+    "if_command": {
+      "type": "PREC_RIGHT",
+      "value": 5,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "FIELD",
+            "name": "name",
+            "content": {
+              "type": "SYMBOL",
+              "name": "identifier"
+            }
+          },
+          {
+            "type": "STRING",
+            "value": ","
+          },
+          {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "command_arguments"
+              },
+              {
+                "type": "BLANK"
+              }
+            ]
+          },
+          {
+            "type": "SYMBOL",
+            "name": "_block_after_newline"
+          },
+          {
+            "type": "FIELD",
+            "name": "consequence",
+            "content": {
+              "type": "SYMBOL",
+              "name": "statement_block"
+            }
+          },
+          {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "FIELD",
+                "name": "alternative",
+                "content": {
+                  "type": "SYMBOL",
+                  "name": "else_clause"
+                }
+              },
+              {
+                "type": "BLANK"
+              }
+            ]
+          }
+        ]
+      }
+    },
     "else_clause": {
       "type": "SEQ",
       "members": [
@@ -987,6 +1052,10 @@
             {
               "type": "SYMBOL",
               "name": "if_statement"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "if_command"
             },
             {
               "type": "SYMBOL",
@@ -3845,6 +3914,10 @@
     {
       "type": "SYMBOL",
       "name": "_force_expr_boundary"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "_block_after_newline"
     }
   ],
   "inline": [],

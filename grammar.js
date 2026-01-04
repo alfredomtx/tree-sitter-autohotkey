@@ -25,6 +25,7 @@ module.exports = grammar({
     $._statement_end,
     $.force_expr_start,      // % followed by space/tab (visible for highlighting)
     $._force_expr_boundary,  // , or newline terminating force expression
+    $._block_after_newline,  // { that follows a newline (for if_command blocks)
   ],
 
   rules: {
@@ -62,6 +63,7 @@ module.exports = grammar({
       $.member_expression,
       $.index_expression,
       $.function_call,
+      $.if_command,  // Before command - matches identifier, args with block + else
       $.command,
       $.array_literal,
       $.string,
@@ -264,9 +266,22 @@ module.exports = grammar({
       optional(field('alternative', $.else_clause))
     )),
 
+    // Legacy if-commands (IfInString, IfExist, etc.) with block/else support
+    // Uses _block_after_newline to distinguish from regular commands with { in arguments:
+    //   - "Send, {Enter}" - same line { = command argument
+    //   - "IfNotInString, var, val\n{" - newline before { = if_command block
+    if_command: $ => prec.right(5, seq(
+      field('name', $.identifier),
+      ',',
+      optional($.command_arguments),
+      $._block_after_newline,  // Only matches when { follows a newline
+      field('consequence', $.statement_block),
+      optional(field('alternative', $.else_clause))
+    )),
+
     else_clause: $ => seq(
       'else',
-      choice($.if_statement, $.statement_block, $._statement)
+      choice($.if_statement, $.if_command, $.statement_block, $._statement)
     ),
 
     while_statement: $ => seq(
