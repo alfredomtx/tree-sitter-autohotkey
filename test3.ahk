@@ -1,7 +1,2 @@
-Loop {
-}
-
-
-if (A OR B) {
-    msgbox, test
-}
+Gui, CavebotGUI:Submit, NoHide
+OldBotSettings.disableGuisLoading()

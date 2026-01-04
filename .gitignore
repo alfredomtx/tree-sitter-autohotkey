@@ -8,7 +8,9 @@ dev-debug.log
 
 # Dependency directories
 node_modules/
-!lsp-server/node_modules/
+
+# LSP server generated files
+lsp-server/out/
 
 # Environment variables
 .env

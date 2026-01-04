@@ -75,6 +75,35 @@ After the Zed team merges the PR, the new version appears in Zed's extension pan
 - `config.toml` defines comment syntax → enables `gcc`/`Ctrl+/` comment toggling
 - `extension.toml` `rev` field → must match a pushed commit containing current grammar
 
+## LSP Integration
+
+This extension includes AutoHotkey LSP server for IDE features (go-to-definition, hover, completions, diagnostics).
+
+**How it works:**
+- LSP server downloaded from GitHub releases on first use
+- Cached in versioned directory: `autohotkey-lsp-v0.4.0/` (in extension work dir)
+- Downloaded file: `server.bundle.js` (bundled Node.js LSP server)
+- Transport: `--stdio` (stdin/stdout with LSP message framing)
+- Path resolution: Converts relative→absolute using `env::current_dir()` in Zed's WASM runtime
+
+**Updating LSP version:**
+1. Update `LSP_VERSION` in `src/lib.rs` (e.g., `"v0.5.0"`)
+2. Ensure matching GitHub release exists with tag: `lsp-v0.5.0`
+3. Release must include `server.bundle.js` asset (create with `npm run bundle` in lsp-server/)
+4. Rebuild extension: `cargo build --release --target wasm32-wasip1`
+5. Copy WASM: `cp target/wasm32-wasip1/release/autohotkey.wasm ./`
+6. Commit and push - users automatically download new version on next extension load
+
+**LSP server source:**
+- Based on helsmy/vscode-autohotkey language server
+- Bundled using esbuild into single file (`server.bundle.js`)
+- Original source in `lsp-server/` directory (for reference/modifications)
+
+**Troubleshooting:**
+- If LSP fails: Check Zed logs at `%LOCALAPPDATA%\Zed\logs\Zed.log` (Windows)
+- Common issues: Network down, invalid LSP_VERSION, GitHub release missing
+- Syntax highlighting works even if LSP download fails
+
 ## Highlight Query Notes
 
 - Put fallback patterns first (e.g., `(identifier) @variable`), specific patterns last to override

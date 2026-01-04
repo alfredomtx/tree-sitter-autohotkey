@@ -5,7 +5,14 @@ struct AutoHotkeyExtension {
     cached_server_path: Option<String>,
 }
 
+// AutoHotkey LSP server version. Must match a GitHub release tag: lsp-{VERSION}
+// Changing this downloads a new server version on next extension load.
+// Old versions remain cached in separate directories (autohotkey-lsp-v0.X.Y/)
 const LSP_VERSION: &str = "v0.4.0";
+
+// Repository where LSP server releases are published
+// Releases use tag format: lsp-v0.4.0
+// Asset name: server.bundle.js (bundled Node.js LSP server)
 const GITHUB_REPO: &str = "alfredomtx/tree-sitter-autohotkey";
 
 impl zed::Extension for AutoHotkeyExtension {
@@ -15,6 +22,9 @@ impl zed::Extension for AutoHotkeyExtension {
         }
     }
 
+    // Constructs Node.js command to launch AutoHotkey LSP server
+    // Uses --stdio transport (stdin/stdout with LSP framing)
+    // Converts relative path to absolute because Node.js resolves from its working directory
     fn language_server_command(
         &mut self,
         language_server_id: &LanguageServerId,
@@ -27,9 +37,9 @@ impl zed::Extension for AutoHotkeyExtension {
         let node_path = zed::node_binary_path()?;
 
         // Convert relative path to absolute for Node.js
-        // Pattern from PHP intelephense extension: env::current_dir() returns extension directory
+        // env::current_dir() returns extension work directory in Zed's WASM runtime
         let abs_server_path = env::current_dir()
-            .map_err(|e| format!("Failed to get extension directory: {}", e))?
+            .map_err(|e| format!("Failed to get current directory (extension work dir): {}", e))?
             .join(&server_path)
             .to_string_lossy()
             .to_string();
@@ -46,6 +56,9 @@ impl zed::Extension for AutoHotkeyExtension {
 }
 
 impl AutoHotkeyExtension {
+    // Downloads AutoHotkey LSP server from GitHub releases and returns path to server.bundle.js
+    // Caches in versioned directory (autohotkey-lsp-v0.4.0/) to avoid conflicts between versions
+    // Returns relative path - caller converts to absolute for Node.js execution
     fn get_server_path(&mut self, language_server_id: &LanguageServerId) -> Result<String> {
         // Return cached path if available and file still exists
         if let Some(path) = &self.cached_server_path {
@@ -63,7 +76,7 @@ impl AutoHotkeyExtension {
         // Create versioned directory for LSP server
         let server_dir = format!("autohotkey-lsp-{}", LSP_VERSION);
         fs::create_dir_all(&server_dir)
-            .map_err(|e| format!("Failed to create directory: {}", e))?;
+            .map_err(|e| format!("Failed to create LSP cache directory '{}': {}", server_dir, e))?;
 
         let server_path = format!("{}/server.bundle.js", server_dir);
 
@@ -85,7 +98,7 @@ impl AutoHotkeyExtension {
                 &server_path,
                 zed::DownloadedFileType::Uncompressed,
             )
-            .map_err(|e| format!("Failed to download LSP server: {}", e))?;
+            .map_err(|e| format!("Failed to download server.bundle.js from GitHub release lsp-{}: {}", LSP_VERSION, e))?;
         }
 
         // Return relative path - Zed resolves it from extension work directory
