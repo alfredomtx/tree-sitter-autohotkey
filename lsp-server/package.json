@@ -16,5 +16,10 @@
 		"vscode-languageserver-textdocument": "^1.0.1",
 		"vscode-uri": "^2.1.2"
 	},
-	"scripts": {}
+	"scripts": {
+		"bundle": "esbuild out/server.js --bundle --platform=node --target=node18 --outfile=server.bundle.js"
+	},
+	"devDependencies": {
+		"esbuild": "^0.27.2"
+	}
 }
