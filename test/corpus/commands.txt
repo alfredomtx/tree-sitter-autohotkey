@@ -570,3 +570,24 @@ Gui, Add, Text, vMyText, % "test"
       (force_expression
         (force_expr_start)
         (string)))))
+
+================================================================================
+Command followed by method call on next line
+================================================================================
+
+Gui, CavebotGUI:Submit, NoHide
+OldBotSettings.disableGuisLoading()
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (command
+    name: (identifier)
+    (command_arguments
+      (gui_action
+        gui_name: (identifier)
+        action: (identifier))
+      (identifier)))
+  (method_call
+    object: (identifier)
+    method: (identifier)))
