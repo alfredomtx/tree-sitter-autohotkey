@@ -81,14 +81,13 @@ impl AutoHotkeyExtension {
             .map_err(|e| format!("Failed to download LSP server: {}", e))?;
         }
 
-        // Convert relative path to absolute path
+        // Convert relative path to absolute path (without canonicalize)
         // Zed resolves relative paths from workspace directory, not extension directory
         // So we need to return an absolute path to the downloaded file
+        // Note: canonicalize() fails in WASM/WASI, so we just use join()
         let absolute_path = env::current_dir()
             .map_err(|e| format!("Failed to get current directory: {}", e))?
             .join(&server_path)
-            .canonicalize()
-            .map_err(|e| format!("Failed to canonicalize path: {}", e))?
             .to_string_lossy()
             .to_string();
 
