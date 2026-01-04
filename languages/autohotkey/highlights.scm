@@ -21,6 +21,9 @@
 ; Keywords
 (keyword) @keyword
 
+; Parameter modifier (ByRef)
+(parameter_modifier) @keyword
+
 ; New expression
 (new_expression "new" @keyword)
 
