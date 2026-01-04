@@ -38,7 +38,7 @@ impl zed::Extension for AutoHotkeyExtension {
             command: node_path,
             args: vec![
                 abs_server_path,
-                "--node-ipc".to_string(),
+                "--stdio".to_string(),
             ],
             env: worktree.shell_env(),
         })
