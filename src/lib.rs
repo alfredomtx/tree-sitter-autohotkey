@@ -11,9 +11,11 @@ struct AutoHotkeyExtension {
 const LSP_VERSION: &str = "v0.4.0";
 
 // Repository where LSP server releases are published
+// LSP source: https://github.com/alfredomtx/vscode-autohotkey (forked from helsmy/vscode-autohotkey)
 // Releases use tag format: lsp-v0.4.0
 // Asset name: server.bundle.js (bundled Node.js LSP server)
-const GITHUB_REPO: &str = "alfredomtx/tree-sitter-autohotkey";
+// Build: GitHub Action in vscode-autohotkey auto-builds on push to server/
+const GITHUB_REPO: &str = "alfredomtx/vscode-autohotkey";
 
 impl zed::Extension for AutoHotkeyExtension {
     fn new() -> Self {

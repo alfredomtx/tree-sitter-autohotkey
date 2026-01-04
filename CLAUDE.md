@@ -86,18 +86,29 @@ This extension includes AutoHotkey LSP server for IDE features (go-to-definition
 - Transport: `--stdio` (stdin/stdout with LSP message framing)
 - Path resolution: Converts relative→absolute using `env::current_dir()` in Zed's WASM runtime
 
-**Updating LSP version:**
-1. Update `LSP_VERSION` in `src/lib.rs` (e.g., `"v0.5.0"`)
-2. Ensure matching GitHub release exists with tag: `lsp-v0.5.0`
-3. Release must include `server.bundle.js` asset (create with `npm run bundle` in lsp-server/)
-4. Rebuild extension: `cargo build --release --target wasm32-wasip1`
-5. Copy WASM: `cp target/wasm32-wasip1/release/autohotkey.wasm ./`
-6. Commit and push - users automatically download new version on next extension load
+**LSP source repository:**
+- Source: https://github.com/alfredomtx/vscode-autohotkey (forked from helsmy/vscode-autohotkey)
+- GitHub Action auto-builds `server.bundle.js` on push to `server/`
+- Releases published with tag format: `lsp-v0.4.0`
 
-**LSP server source:**
-- Based on helsmy/vscode-autohotkey language server
-- Bundled using esbuild into single file (`server.bundle.js`)
-- Original source in `lsp-server/` directory (for reference/modifications)
+**Modifying the LSP server:**
+1. Clone/edit https://github.com/alfredomtx/vscode-autohotkey
+2. Make changes in `server/src/`
+3. Push to master → GitHub Action builds and releases `server.bundle.js` automatically
+4. No manual bundling needed!
+
+**Updating LSP version in this extension:**
+1. Update `LSP_VERSION` in `src/lib.rs` (e.g., `"v0.5.0"`)
+2. Update release tag in vscode-autohotkey's `.github/workflows/build-lsp.yml`
+3. Rebuild extension: `cargo build --release --target wasm32-wasip1`
+4. Copy WASM: `cp target/wasm32-wasip1/release/autohotkey.wasm ./`
+5. Commit and push - users automatically download new version on next extension load
+
+**Local LSP testing (without pushing):**
+1. Compile: `cd vscode-autohotkey && npm run compile`
+2. Bundle: `esbuild server/out/server.js --bundle --platform=node --target=node18 --outfile=server.bundle.js`
+3. Copy to Zed cache: `cp server.bundle.js $LOCALAPPDATA/Zed/extensions/work/autohotkey/autohotkey-lsp-v0.4.0/`
+4. Restart Zed
 
 **Troubleshooting:**
 - If LSP fails: Check Zed logs at `%LOCALAPPDATA%\Zed\logs\Zed.log` (Windows)
