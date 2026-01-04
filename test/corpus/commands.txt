@@ -117,7 +117,7 @@ SetTimer, MyLabel
 Gosub keyword form
 ================================================================================
 
-gosub, MyLabel
+gosub MyLabel
 
 --------------------------------------------------------------------------------
 
@@ -169,17 +169,14 @@ StringReplace, var_2, var, _2,, All
 
 --------------------------------------------------------------------------------
 
-; NOTE: This test shows a known limitation - empty arguments (double comma ,,)
-; cause command_arguments parsing to terminate early
-; The final argument " All" is parsed as a separate top-level identifier
 (source_file
   (command
     name: (identifier)
     (command_arguments
       (identifier)
       (identifier)
-      (identifier)))
-  (identifier))
+      (identifier)
+      (identifier))))
 
 ================================================================================
 IfInString command
@@ -570,6 +567,31 @@ Gui, Add, Text, vMyText, % "test"
       (force_expression
         (force_expr_start)
         (string)))))
+
+================================================================================
+Empty argument (double comma) with force expression
+================================================================================
+
+Gui, MyGui:Add, Text,, % LANG = "EN" ? "Hi" : "Bye"
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (command
+    name: (identifier)
+    (command_arguments
+      (gui_action
+        gui_name: (identifier)
+        action: (identifier))
+      (identifier)
+      (force_expression
+        (force_expr_start)
+        (ternary_expression
+          condition: (binary_expression
+            left: (identifier)
+            right: (string))
+          consequence: (string)
+          alternative: (string))))))
 
 ================================================================================
 Command followed by method call on next line

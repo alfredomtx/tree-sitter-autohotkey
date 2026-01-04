@@ -3842,7 +3842,7 @@
     },
     "_punctuation": {
       "type": "PATTERN",
-      "value": "[.,@$\\\\]+"
+      "value": "[.@$\\\\]+"
     },
     "continuation_section": {
       "type": "TOKEN",

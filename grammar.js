@@ -730,7 +730,7 @@ module.exports = grammar({
     identifier: $ => /[a-zA-Z_][a-zA-Z0-9_]*/,
 
     // Remaining punctuation - NOT parens/brackets/braces which have semantic meaning
-    _punctuation: $ => /[.,@$\\]+/,
+    _punctuation: $ => /[.@$\\]+/,
 
     // Continuation section: multiline content in parens
     // Pattern matches lines that are NOT just "whitespace + )" (the closing line)
