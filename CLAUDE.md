@@ -95,7 +95,7 @@ This extension includes AutoHotkey LSP server for IDE features (go-to-definition
 1. Clone/edit https://github.com/alfredomtx/vscode-autohotkey
 2. Make changes in `server/src/`
 3. Push to master → GitHub Action builds and releases `server.bundle.js` automatically
-4. No manual bundling needed!
+4. No manual bundling needed
 
 **Updating LSP version in this extension:**
 1. Update `LSP_VERSION` in `src/lib.rs` (e.g., `"v0.5.0"`)

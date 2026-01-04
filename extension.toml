@@ -1,6 +1,6 @@
 id = "autohotkey"
 name = "AutoHotkey"
-version = "0.1.0"
+version = "1.0.0"
 schema_version = 1
 authors = ["Alfredo Menezes"]
 description = "AutoHotkey v1 language support for Zed"
