@@ -1,5 +1,5 @@
 use zed_extension_api::{self as zed, LanguageServerId, Result};
-use std::fs;
+use std::{env, fs};
 
 struct AutoHotkeyExtension {
     cached_server_path: Option<String>,
@@ -20,16 +20,24 @@ impl zed::Extension for AutoHotkeyExtension {
         language_server_id: &LanguageServerId,
         worktree: &zed::Worktree,
     ) -> Result<zed::Command> {
-        // Download and get path to LSP server
+        // Download and get relative path to LSP server
         let server_path = self.get_server_path(language_server_id)?;
 
         // Get Node.js binary from Zed
         let node_path = zed::node_binary_path()?;
 
+        // Convert relative path to absolute for Node.js
+        // Pattern from PHP intelephense extension: env::current_dir() returns extension directory
+        let abs_server_path = env::current_dir()
+            .map_err(|e| format!("Failed to get extension directory: {}", e))?
+            .join(&server_path)
+            .to_string_lossy()
+            .to_string();
+
         Ok(zed::Command {
             command: node_path,
             args: vec![
-                server_path,
+                abs_server_path,
                 "--node-ipc".to_string(),
             ],
             env: worktree.shell_env(),
