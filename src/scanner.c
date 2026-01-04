@@ -159,6 +159,12 @@ bool tree_sitter_autohotkey_external_scanner_scan(
     return false;
   }
 
+  // Check for block delimiters - these always terminate previous statement
+  if (lexer->lookahead == '{' || lexer->lookahead == '}') {
+    lexer->result_symbol = STATEMENT_END;
+    return true;
+  }
+
   // Check if next content starts with an identifier character
   if (!is_identifier_start(lexer->lookahead)) {
     return false;

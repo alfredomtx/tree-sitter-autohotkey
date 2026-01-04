@@ -509,13 +509,42 @@ command: $ => prec.right(2, choice(
 )),
 ```
 
-**Scanner logic** (scanner.c:98-102):
+**Scanner logic** (scanner.c:172-178):
 ```c
-// Check if followed by colon (label) or comma (command)
-if (lexer->lookahead == ':' || lexer->lookahead == ',') {
+// Check if followed by colon (label), comma (command), or dot (method call)
+if (lexer->lookahead == ':' || lexer->lookahead == ',' || lexer->lookahead == '.') {
     lexer->result_symbol = STATEMENT_END;
     return true;
 }
 ```
+
+### Block delimiters also terminate statements
+
+The scanner also emits `_statement_end` when it encounters `{` or `}` at the start of a line. This prevents commands from consuming block content.
+
+**Example problem without block termination:**
+```ahk
+IfInString, var, _2
+{
+    msgbox, % "test"
+}
+
+myFunc() {
+    return
+}
+```
+
+Without block termination, `msgbox`'s `command_arguments` would consume `}` (as ERROR) and `myFunc` (as identifier), breaking the function definition.
+
+**Scanner logic** (scanner.c:162-166):
+```c
+// Check for block delimiters - these always terminate previous statement
+if (lexer->lookahead == '{' || lexer->lookahead == '}') {
+    lexer->result_symbol = STATEMENT_END;
+    return true;
+}
+```
+
+**Result:** Commands terminate properly at block boundaries. The `{` and `}` become orphan ERROR nodes (not ideal semantically), but function definitions after blocks parse correctly.
 
 External scanners enable lookahead that regular grammar rules cannot, for context-sensitive statement boundaries.

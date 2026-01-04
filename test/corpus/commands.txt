@@ -575,8 +575,8 @@ Gui, Add, Text, vMyText, % "test"
 Command followed by method call on next line
 ================================================================================
 
-Gui, CavebotGUI:Submit, NoHide
-OldBotSettings.disableGuisLoading()
+Gui, MyGUI:Submit, NoHide
+MyClass.method()
 
 --------------------------------------------------------------------------------
 
@@ -591,3 +591,37 @@ OldBotSettings.disableGuisLoading()
   (method_call
     object: (identifier)
     method: (identifier)))
+
+================================================================================
+IfInString command with block does not consume following function
+================================================================================
+
+IfInString, var, _2
+{
+    msgbox, % "test"
+}
+
+myFunc() {
+    return
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (command
+    name: (identifier)
+    (command_arguments
+      (identifier)
+      (identifier)))
+  (ERROR)
+  (command
+    name: (identifier)
+    (command_arguments
+      (force_expression
+        (force_expr_start)
+        (string))))
+  (ERROR)
+  (function_definition
+    name: (identifier)
+    body: (block
+      (return_statement))))
