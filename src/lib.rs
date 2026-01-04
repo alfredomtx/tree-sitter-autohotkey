@@ -1,8 +1,12 @@
 use zed_extension_api::{self as zed, LanguageServerId, Result};
+use std::fs;
 
 struct AutoHotkeyExtension {
     cached_server_path: Option<String>,
 }
+
+const LSP_VERSION: &str = "v0.4.0";
+const GITHUB_REPO: &str = "alfredomtx/tree-sitter-autohotkey";
 
 impl zed::Extension for AutoHotkeyExtension {
     fn new() -> Self {
@@ -13,30 +17,14 @@ impl zed::Extension for AutoHotkeyExtension {
 
     fn language_server_command(
         &mut self,
-        _language_server_id: &LanguageServerId,
+        language_server_id: &LanguageServerId,
         worktree: &zed::Worktree,
     ) -> Result<zed::Command> {
-        // Get path to bundled LSP server
-        let server_path = self.get_server_path()?;
+        // Download and get path to LSP server
+        let server_path = self.get_server_path(language_server_id)?;
 
         // Get Node.js binary from Zed
         let node_path = zed::node_binary_path()?;
-
-        // Get shell environment
-        let env = worktree.shell_env();
-
-        // DEBUG: Log what we're actually passing to Node.js
-        eprintln!("=== AutoHotkey Extension Debug ===");
-        eprintln!("Node path: {:?}", node_path);
-        eprintln!("Server path: {:?}", server_path);
-        eprintln!("Current dir: {:?}", std::env::current_dir());
-        eprintln!("Env vars count: {}", env.len());
-        for (key, val) in &env {
-            if key.contains("PATH") || key.contains("NODE") {
-                eprintln!("  {}: {}", key, val);
-            }
-        }
-        eprintln!("=== End Debug ===");
 
         Ok(zed::Command {
             command: node_path,
@@ -44,20 +32,55 @@ impl zed::Extension for AutoHotkeyExtension {
                 server_path,
                 "--node-ipc".to_string(),
             ],
-            env,
+            env: worktree.shell_env(),
         })
     }
 }
 
 impl AutoHotkeyExtension {
-    fn get_server_path(&mut self) -> Result<String> {
-        // Return cached path if available
+    fn get_server_path(&mut self, language_server_id: &LanguageServerId) -> Result<String> {
+        // Return cached path if available and file still exists
         if let Some(path) = &self.cached_server_path {
-            return Ok(path.clone());
+            if fs::metadata(path).map_or(false, |stat| stat.is_file()) {
+                return Ok(path.clone());
+            }
         }
 
-        // Path relative to extension directory (Zed resolves this when launching Node.js)
-        let server_path = "lsp-server/out/server.js".to_string();
+        // Set installation status to "checking for updates"
+        zed::set_language_server_installation_status(
+            language_server_id,
+            &zed::LanguageServerInstallationStatus::CheckingForUpdate,
+        );
+
+        // Create versioned directory for LSP server
+        let server_dir = format!("autohotkey-lsp-{}", LSP_VERSION);
+        fs::create_dir_all(&server_dir)
+            .map_err(|e| format!("Failed to create directory: {}", e))?;
+
+        let server_path = format!("{}/server.bundle.js", server_dir);
+
+        // Check if already downloaded
+        if !fs::metadata(&server_path).map_or(false, |stat| stat.is_file()) {
+            // Download from GitHub release
+            zed::set_language_server_installation_status(
+                language_server_id,
+                &zed::LanguageServerInstallationStatus::Downloading,
+            );
+
+            let download_url = format!(
+                "https://github.com/{}/releases/download/lsp-{}/server.bundle.js",
+                GITHUB_REPO, LSP_VERSION
+            );
+
+            zed::download_file(
+                &download_url,
+                &server_path,
+                zed::DownloadedFileType::Uncompressed,
+            )
+            .map_err(|e| format!("Failed to download LSP server: {}", e))?;
+        }
+
+        // Cache the path for future use
         self.cached_server_path = Some(server_path.clone());
         Ok(server_path)
     }
