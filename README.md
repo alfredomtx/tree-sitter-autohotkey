@@ -1,9 +1,9 @@
-# Tree-sitter AutoHotkey
+# AutoHotkey v1 for Zed
 
 [![CI](https://github.com/alfredomtx/tree-sitter-autohotkey/actions/workflows/ci.yml/badge.svg)](https://github.com/alfredomtx/tree-sitter-autohotkey/actions/workflows/ci.yml)
 [![Zed](https://img.shields.io/badge/Zed-Extension-blue)](https://zed.dev/extensions/autohotkey)
 
-Tree-sitter grammar for AutoHotkey v1, packaged as a Zed editor extension.
+Full AutoHotkey v1 support for Zed: syntax highlighting, LSP, and debugging.
 
 ## Features
 
