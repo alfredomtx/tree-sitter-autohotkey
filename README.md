@@ -47,6 +47,45 @@ To enable the "Run" button in the gutter, add a task to your Zed config:
 
 3. Click the run button in the gutter or use Command Palette → "task: spawn" (if you don't see the button, try reopening the IDE).
 
+### Debugging
+
+Debug AutoHotkey v1 scripts with breakpoints, stepping, and variable inspection.
+
+**Features:**
+- Set breakpoints (click gutter or `F9`)
+- Step over (`F10`), step into (`F11`), step out (`Shift+F11`)
+- Inspect local and global variables
+- View call stack
+- Watch expressions
+
+**Setup:**
+
+1. Create `.zed/debug.json` in your project root:
+   ```json
+   [
+     {
+       "label": "Debug Current Script",
+       "adapter": "autohotkey",
+       "request": "launch",
+       "program": "$ZED_FILE",
+       "stopOnEntry": true
+     }
+   ]
+   ```
+
+2. Open a `.ahk` file and press `F5` or use Command Palette → "debugger: start"
+
+**Configuration options:**
+
+| Option | Type | Default | Description |
+|--------|------|---------|-------------|
+| `program` | string | *required* | Path to the `.ahk` script (`$ZED_FILE` for current file) |
+| `stopOnEntry` | boolean | `true` | Break on the first line |
+| `args` | array | `[]` | Command-line arguments for the script |
+| `port` | integer | `9005` | DBGp debugger port |
+
+> **Note:** The debug adapter includes a bundled AutoHotkey runtime. No separate installation required for debugging.
+
 ### Supported Syntax
 
 | Category | Elements |
