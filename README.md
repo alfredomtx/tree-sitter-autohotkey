@@ -167,6 +167,10 @@ Contributions are welcome! Please:
 4. Add tests in `test/corpus/` for new syntax
 5. Submit a pull request
 
+## Credits
+
+The debug adapter is based on [helsmy/autohotkey-debug-adapter](https://github.com/helsmy/autohotkey-debug-adapter), with DAP protocol fixes for Zed compatibility.
+
 ## License
 
 MIT License - see [LICENSE](LICENSE) for details.
