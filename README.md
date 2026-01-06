@@ -5,31 +5,25 @@
 
 Full AutoHotkey v1 support for Zed: syntax highlighting, LSP, and debugging.
 
+> **Note:** Requires Windows (AutoHotkey is Windows-only).
+
 ## Features
 
-### Syntax & Editing
-- Syntax highlighting for `.ahk` files
-- Comment toggling (`Ctrl+/` or `gcc` in vim mode)
+### Syntax Highlighting
+- Full syntax highlighting for `.ahk` files
 - Auto-indentation and bracket matching
 
 ### Language Server (LSP)
-- **Go-to-definition** (`Ctrl+Click` or `gd` in vim mode) - Navigate to function/class definitions
+- **Go-to-definition** - Navigate to function/class definitions
 - **Hover documentation** - View function signatures and documentation
 - **Code completions** - IntelliSense for AutoHotkey keywords, functions, and variables
 - **Diagnostics** - Real-time error and warning detection
-
-### Navigation
-- Document outline (`Ctrl+Shift+O`) - Jump to functions, classes, and labels
-- Symbol search across project
-
-### Execution
-- Run scripts directly from the editor (requires task configuration)
+- **Document outline** - Jump to functions, classes, and labels
+- **Symbol search** - Find symbols across your project
 
 ### Running Scripts
 
 To enable the "Run" button in the gutter, add a task to your Zed config:
-
-**Tip**: Ask AI to do it for you.
 
 1. Open Command Palette → "zed: open tasks"
 2. Add a task with the `ahk-script` tag:
@@ -88,29 +82,13 @@ Debug AutoHotkey v1 scripts with breakpoints, stepping, and variable inspection.
 
 ### Supported Syntax
 
-| Category | Elements |
-|----------|----------|
-| Comments | Line (`;`), block (`/* */`), doc (`/** */`) |
-| Literals | Strings, numbers (int, hex, float), arrays |
-| Operators | Assignment, comparison, arithmetic, logical, bitwise |
-| Keywords | `if`, `else`, `while`, `loop`, `for`, `switch`, `case`, `try`, `catch`, `throw`, `return`, `class`, `new`, etc. |
-| Functions | Definitions, calls, parameters with defaults |
-| Commands | 38 built-in commands (`MsgBox`, `Send`, `Sleep`, `Run`, `Gui`, etc.) |
-| Variables | Regular, built-in (`A_ScriptDir`, `A_Now`, `A_TickCount`, `Clipboard`, `ErrorLevel`, etc.), `%var%` dereferencing |
-| Objects | Property access, method calls, array indexing |
-| Hotkeys | Modifier combinations (`^!+#`) |
-| Directives | `#Include`, `#NoEnv`, `#SingleInstance`, etc. |
-| Escape sequences | `` `n ``, `` `t ``, `` `r ``, etc. |
+Comprehensive AutoHotkey v1 syntax support including:
+- Comments, strings, numbers, arrays, and operators
+- Control flow (`if`, `while`, `loop`, `for`, `switch`, `try`/`catch`)
+- Functions, classes, objects, and hotkeys/hotstrings
+- Built-in commands, variables, and directives
 
-### Advanced Syntax
-
-- **Hotstrings:** `:options:trigger::replacement` syntax with option parsing
-- **Classes:** Full OOP with `extends`, static members, magic methods (`__New`, `__Delete`, `__Get`, `__Set`, `__Call`)
-- **Object literals:** `{key: value}` syntax with identifier, string, and numeric keys
-- **Exception handling:** `try`/`catch`/`finally` blocks with `throw`
-- **Switch statements:** `switch`/`case`/`default` control flow
-- **Ternary expressions:** `condition ? value1 : value2`
-- **Control flow:** `for...in` loops, `break`/`continue`, labeled statements
+For full AutoHotkey v1 syntax reference, see the [official documentation](https://www.autohotkey.com/docs/v1/).
 
 ## Installation
 
