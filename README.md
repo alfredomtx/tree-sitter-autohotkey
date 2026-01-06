@@ -147,7 +147,7 @@ Contributions are welcome! Please:
 
 ## Credits
 
-The debug adapter is based on [helsmy/autohotkey-debug-adapter](https://github.com/helsmy/autohotkey-debug-adapter), with DAP protocol fixes for Zed compatibility.
+The debug adapter is based on [alfredomtx/autohotkey-debug-adapter](https://github.com/alfredomtx/autohotkey-debug-adapter), a fork of [helsmy/autohotkey-debug-adapter](https://github.com/helsmy/autohotkey-debug-adapter) with DAP protocol fixes for Zed compatibility.
 
 ## License
 
