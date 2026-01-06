@@ -5,6 +5,8 @@
 
 Full AutoHotkey v1 support for Zed: syntax highlighting, LSP, and debugging.
 
+> **Note:** Requires Windows (AutoHotkey is Windows-only).
+
 ## Features
 
 ### Syntax Highlighting
