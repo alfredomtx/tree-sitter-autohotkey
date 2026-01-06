@@ -1,0 +1,33 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "required": ["program"],
+  "properties": {
+    "program": {
+      "type": "string",
+      "description": "Path to the .ahk script to debug",
+      "default": "${workspaceFolder}/script.ahk"
+    },
+    "runtime": {
+      "type": "string",
+      "description": "Path to AutoHotkey.exe",
+      "default": "C:\\Program Files\\AutoHotkey\\AutoHotkey.exe"
+    },
+    "port": {
+      "type": ["integer", "string"],
+      "description": "DBGp port (integer) or port range (e.g., '9000-9010')",
+      "default": 9005
+    },
+    "stopOnEntry": {
+      "type": "boolean",
+      "description": "Stop at the first line",
+      "default": true
+    },
+    "args": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Command-line arguments for the script",
+      "default": []
+    }
+  }
+}

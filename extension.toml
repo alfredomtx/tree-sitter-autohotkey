@@ -1,9 +1,9 @@
 id = "autohotkey"
 name = "AutoHotkey"
-version = "1.0.0"
+version = "2.0.0"
 schema_version = 1
 authors = ["Alfredo Menezes"]
-description = "AutoHotkey v1 language support for Zed"
+description = "AutoHotkey v1 language support for Zed with debugging"
 repository = "https://github.com/alfredomtx/tree-sitter-autohotkey"
 
 [grammars.autohotkey]
@@ -14,3 +14,6 @@ path = "."
 [language_servers.autohotkey-lsp]
 name = "AutoHotkey Language Server"
 languages = ["AutoHotkey"]
+
+[debug_adapters.autohotkey]
+schema_path = "debug_adapter_schemas/autohotkey.json"
