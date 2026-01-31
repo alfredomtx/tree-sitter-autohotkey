@@ -9,7 +9,7 @@ module.exports = grammar({
 
   conflicts: $ => [
     [$.parameter, $._expression],
-    [$.parameter, $.assignment_expression],  // func(x := 10) could be def or call
+    [$.parameter, $._argument_rhs, $.assignment_expression],  // func(x := val) could be def param, arg assignment, or regular assignment
     [$.variable_ref, $.operator],
     [$.variable_ref, $._expression],   // %var% in expressions
     [$.loop_statement, $._statement],  // loop identifier: count vs braceless body
@@ -498,10 +498,31 @@ module.exports = grammar({
     // Arguments in function/method calls can contain string-identifier concatenation
     // These patterns have higher precedence to match before bare expression
     _argument: $ => choice(
+      prec(12, alias($._argument_assignment_expression, $.assignment_expression)),
       prec(11, $._string_identifier_concat),
       prec(11, $._identifier_string_concat),
       $._expression
     ),
+
+    // RHS for argument assignments - allows concat patterns in addition to regular expressions
+    // Used only inside argument_list to enable implicit concatenation in assignment RHS
+    // Like _argument, these patterns are safe because arguments are delimited by ) or ,
+    _argument_rhs: $ => choice(
+      $.continuation_section,
+      prec(11, $._identifier_string_concat),
+      prec(11, $._string_identifier_concat),
+      $._expression
+    ),
+
+    // Assignment expression variant for argument context
+    // Allows identifier-string concatenation in RHS, which regular assignment_expression doesn't
+    // This is safe because arguments are delimited by closing paren or comma
+    // Aliased to assignment_expression so the AST node type remains consistent
+    _argument_assignment_expression: $ => prec.right(1, seq(
+      field('left', choice($.identifier, $.member_expression, $.index_expression)),
+      field('operator', choice(':=', '+=', '-=', '*=', '/=', '.=')),
+      field('right', $._argument_rhs)
+    )),
 
     argument_list: $ => seq(
       $._argument,

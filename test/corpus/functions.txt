@@ -160,6 +160,23 @@ MyFunc(x := 10)
         right: (number)))))
 
 ================================================================================
+Function call with assignment and implicit concat in RHS
+================================================================================
+
+myFunc(file := someVar "\someString.json")
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (function_call
+    name: (identifier)
+    (argument_list
+      (assignment_expression
+        left: (identifier)
+        right: (identifier)
+        right: (string)))))
+
+================================================================================
 Function with ByRef parameter
 ================================================================================
 
