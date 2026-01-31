@@ -32,6 +32,8 @@ emptyFunc()
 {
 }
 
+myFunc(file := someVar "\someString.json")
+
 result := MyFunc(1, 2)
 emptyFunc()
 
