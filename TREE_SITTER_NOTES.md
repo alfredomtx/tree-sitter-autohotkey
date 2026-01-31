@@ -146,6 +146,7 @@ _concatenatable: $ => choice(
 **Contained contexts:** Identifier concatenation works in limited contexts (function arguments, array indices) via `_argument` rule:
 - ✓ `test(" w" w)` - works in function calls
 - ✓ `arr[" w" w]` - works in array indices
+- ✓ `myFunc(file := someVar "\path.json")` - works in assignment RHS in function arguments (via `_argument_rhs`)
 - ✗ `w ? "a" value : ""` - doesn't work in ternary (use `.` operator: `"a" . value`)
 
 **Why the limitation:** `_ternary_branch` uses `_identifier_string_concat` (identifier first) but NOT `_string_identifier_concat` (string first) to prevent grabbing identifiers from subsequent lines.
