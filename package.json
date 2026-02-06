@@ -26,6 +26,6 @@
     "url": "https://github.com/alfredomtx/tree-sitter-autohotkey"
   },
   "devDependencies": {
-    "tree-sitter-cli": "0.26.3"
+    "tree-sitter-cli": "0.26.5"
   }
 }
